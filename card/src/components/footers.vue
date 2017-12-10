@@ -1,0 +1,74 @@
+<template>
+  <div id="footers">
+    <div v-for="(item,key) in footerMsg" :key="key">
+      <router-link  :to="item.path">
+        <img :src="item.ico" alt="">
+        <div>
+          {{item.name}}
+        </div>
+      </router-link>
+    </div>
+  </div>
+</template>
+
+<style>
+#footers{
+  z-index: 1;
+  position: fixed;
+  bottom:0;
+  left:0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 5px;
+  width:100%;
+  background: #fff;
+  box-shadow:    0px -3px 0px 0px rgba(0,0,0,0.01)  /*设置上阴影*/
+}
+#footers>div{
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 20%;
+  flex: 0 0 20%;
+}
+#footers a{
+  color:#707070;
+  font-size:14px;
+}
+#footers a img{
+  width:28px;
+  height:28px;
+}
+#footers div:nth-child(3) img{
+  width:38px !important;
+}
+</style>
+<script>
+  export default {
+    data() {
+      return {
+        footerMsg: [{
+          name: '商城首页',
+          ico: '/static/img/shopIndex.png',
+          path: '/shopIndex/'
+        }, {
+          name:'全部商品',
+          path: '/sort/',
+          ico: '/static/img/sort.png'
+        }, {
+          name: 'E聊',
+          ico: '/static/img/eChart.png',
+          path: '/eChart/'
+        }, {
+          name:'附近商家',
+          ico: '/static/img/fujin.png',
+          path: '/fujin/'
+        }, {
+          name: '会员中心',
+          ico: '/static/img/vip.png',
+          path: '/vip/'
+        }]
+      }
+    }
+  }
+</script>
