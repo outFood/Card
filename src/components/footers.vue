@@ -53,7 +53,7 @@
           path: '/shopIndex/'
         }, {
           name:'全部商品',
-          path: '/sort/',
+          path: '/sortIndex/',
           ico: '/static/img/sort.png'
         }, {
           name: 'E聊',

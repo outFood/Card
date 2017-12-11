@@ -217,8 +217,7 @@
     padding:10px;
     font-size: 16px;
     font-weight: bold;
-    color:#8c4931;
-    border-left: 5px solid #8c4931;
+
   }
   #exclusiveShop .Shopowner img{
     width:20px;
