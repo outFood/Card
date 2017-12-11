@@ -7,6 +7,7 @@
 </template>
 <style>
   #headers{
+    z-index: 2;
     position: fixed;
     top:0;
     left:0;
@@ -23,14 +24,5 @@
   #headers img{
     width:0.78rem;
     height:0.78rem;
-  }
-  .yd-search-input {
-    background-color: transparent;
-  }
-  #headers .yd-search-input:before{
-    border-top:none;
-  }
-  #headers .yd-search-input:after{
-    border-bottom:none;
   }
 </style>

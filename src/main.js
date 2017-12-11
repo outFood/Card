@@ -54,24 +54,10 @@ window.app = new Vue({
     }
   },
   data: {
-    urlMsg: [
-      {
-        'indexCarousel': 'http://xcx.szhuanya.cn/web/index.php?c=site&a=entry&do=web&m=we7_wmall&ctrl=Inte' +
-        'rface&ac=homepage&op=nav&xcx=xcx'
-      }, {
-        'indexSlider': 'http://xcx.szhuanya.cn/web/index.php?c=site&a=entry&do=web&m=we7_wmall&ctrl=Inte' +
-        'rface&ac=homepage&op=carousel&xcx=xcx'
-      }, {
-        'homepageNotice': 'http://xcx.szhuanya.cn/web/index.php?c=site&a=entry&do=web&m=we7_wmall&ctrl=Inte' +
-        'rface&ac=homepage&op=notice&xcx=xcx'
-      }, {
-        'homepageCube': 'http://xcx.szhuanya.cn/web/index.php?c=site&a=entry&do=web&m=we7_wmall&ctrl=Inte' +
-        'rface&ac=homepage&op=cube&xcx=xcx'
-      }, {
-        'homepagestore': 'http://xcx.szhuanya.cn/web/index.php?c=site&a=entry&do=web&m=we7_wmall&ctrl=Inte' +
-        'rface&ac=homepage&op=store&xcx=xcx'
-      }
-    ]
   },
-
+  created(){
+    this.$store.dispatch({
+      type:'resHomeData'
+    })
+  }
 })

@@ -36,7 +36,7 @@
   }
   #vipSort>div{
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 30%;
+    -ms-flex: 0 0 31.5%;
     flex:0 0 31.5%;
     background: #fff;
   }

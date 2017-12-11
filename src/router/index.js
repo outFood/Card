@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 //首页路由
-import shopIndex from '@/components/商城首页/index'
+    import shopHome from '@/components/商城首页/home'
+    //首页子路由
+    import shopIndex from '@/components/商城首页/index'
+    import exclusiveShop from '@/components/商城首页/exclusiveShop'
 //全部商品
 import sort from '@/components/全部商品/index'
 //E聊
@@ -18,8 +21,22 @@ export default new Router({
   exact:false,
   routes: [
     {
-      path: '/',
-      component: shopIndex
+      path:'',
+      component:shopIndex
+    },
+    {
+      path: '/shopIndex',
+      component: shopHome,
+      children:[
+        {
+          path:'',
+          component:shopIndex
+        },
+        {
+          path:'exclusiveShop',
+          component:exclusiveShop
+        }
+      ]
     },
     {
       path: '/shopIndex',

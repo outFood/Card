@@ -18,6 +18,7 @@ export default {
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     text-align: center;
+    font-size:0.4375rem;
   }
   body{
     background: #f5f5f5;
@@ -25,6 +26,15 @@ export default {
   a{
     text-decoration: none;
     color:#444
+  }
+  .yd-search-input{
+    background-color:transparent ;
+  }
+  .yd-search-input:before{
+    border-top:none;
+  }
+  .yd-search-input:after{
+    border-bottom:none;
   }
 </style>
 

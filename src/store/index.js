@@ -22,7 +22,12 @@ export default {
     }
   },
   actions:{
-
+    resHomeData({commit,state},data){
+      // var url='https://xcx.xcwll.cn/app/index.php?c=wxapp&a=module&do=main&id=1328&uniacid=1041'
+      // axios.get(url).then(function (res) {
+      //   console.log(res)
+      // }).catch(function (err) {console.log(err)})
+    }
   },
   mutations:{
     changeTitle(state, msg) {
