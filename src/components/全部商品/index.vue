@@ -7,7 +7,7 @@
       <yd-scrolltab-panel label="空调" icon="demo-icons-category1">
         <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
         <router-link to="/sortIndex/someSort" class="sortItem">
-          <img src="/static/img/allSort.png">普通会员
+          <img src="/static/img/allSort_h.png">普通会员
         </router-link>
         <router-link to="/sortIndex/someSort" class="sortItem">
           <img src="http://static.ydcss.com/uploads/ydui/1.jpg">普通会员

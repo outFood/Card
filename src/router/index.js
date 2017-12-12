@@ -14,7 +14,9 @@ import eChart from '@/components/E聊/index'
 //附近商家
 import fujin from '@/components/附近商家/index'
 //会员中心
-import vip from '@/components/会员中心/index'
+import vipHome from '@/components/会员中心/home'
+import vipIndex from '@/components/会员中心/index'
+import vipInfo from '@/components/会员中心/vipInfo'
 
 Vue.use(Router)
 
@@ -70,9 +72,18 @@ export default new Router({
       component: fujin
     },
     {
-      path: '/vip',
-      name: 'vip',
-      component: vip
+      path: '/vipIndex',
+      component: vipHome,
+      children:[
+        {
+          path:'',
+          component:vipIndex
+        },
+        {
+          path:'vipInfo',
+          component:vipInfo
+        }
+      ]
     }
   ]
 })

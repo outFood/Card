@@ -66,7 +66,7 @@
         }, {
           name: '会员中心',
           ico: '/static/img/vip.png',
-          path: '/vip/'
+          path: '/vipIndex/'
         }]
       }
     }
