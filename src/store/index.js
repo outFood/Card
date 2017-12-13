@@ -12,6 +12,7 @@ export default {
         '/fujin/': '附近',
         '/vip/': '会员中心',
       },
+      homeData:{}
     }
   },
   getters : {
@@ -22,10 +23,14 @@ export default {
     }
   },
   actions:{
+    //首页
     resHomeData({commit,state},data){
       var url='https://xcx.xcwll.cn/app/index.php?c=wxapp&a=module&do=main&id=1328&uniacid=1041'
       axios.get(url).then(function (res) {
-        console.log(res)
+        commit({
+          type:'saveHomeData',
+          data:res
+        })
       }).catch(function (err) {console.log(err)})
     }
   },
@@ -34,5 +39,10 @@ export default {
       //根据路由修改页面title console.log(msg.fullPath, msg);
       document.title = state.nowTitle[msg.fullPath]
     },
+    //首页
+    saveHomeData(state, data){
+      VueSet(state,'homeData',data.data.data.result)
+      console.log(state.homeData)
+    }
   }
 }

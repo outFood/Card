@@ -13,7 +13,7 @@
         <span>1</span>
       </p>
       <div class="personInfo">
-        <div class="headPic"><img src="http://static.ydcss.com/uploads/ydui/1.jpg"></div>
+        <router-link to="/vipIndex/nickname" class="headPic" tag="div"><img src="http://static.ydcss.com/uploads/ydui/1.jpg"></router-link>
         <div>
           <span>【普通会员】</span>
           <span>ID:6532</span>

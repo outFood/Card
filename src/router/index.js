@@ -17,6 +17,7 @@ import fujin from '@/components/附近商家/index'
 import vipHome from '@/components/会员中心/home'
 import vipIndex from '@/components/会员中心/index'
 import vipInfo from '@/components/会员中心/vipInfo'
+import nickname from '@/components/会员中心/nickname'
 
 Vue.use(Router)
 
@@ -82,6 +83,9 @@ export default new Router({
         {
           path:'vipInfo',
           component:vipInfo
+        },{
+          path:'nickname',
+          component:nickname
         }
       ]
     }

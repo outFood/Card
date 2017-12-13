@@ -37,6 +37,6 @@
       vipSort,
       nursing,
       brand
-    }
+    },
   }
 </script>

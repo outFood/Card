@@ -5,18 +5,27 @@
         <yd-navbar-back-icon></yd-navbar-back-icon>
       </router-link>
     </yd-navbar>
-    <div class="updatePic">
+    <router-link to="/vipIndex/nickname" class="updatePic">
       <img src="http://static.ydcss.com/uploads/ydui/1.jpg" alt="">
       <span>晴愔</span>
       <img src="/static/img/more.png" alt="" class="more">
-    </div>
+    </router-link>
     <div class="detailInfo">
       <div><span class="name">手机号</span><span class="star">*</span><input type="text" v-model="phone" disabled>更换绑定 <img src="/static/img/more.png" alt="" class="more"></div>
       <div><span class="name">姓名</span><span class="star">*</span><input type="text" placeholder="请输入您的姓名"></div>
       <div><span class="name">微信号</span><span class="star hidden">*</span><input type="text" placeholder="请输入您的微信号"></div>
-      <div><span class="name">出生日期</span><span class="star hidden">*</span><input type="text" placeholder="请选择出生日期"></div>
-      <div><span class="name">所在城市</span><span class="star hidden">*</span><input type="text" placeholder="请选择城市"></div>
     </div>
+    <yd-cell-group>
+      <yd-cell-item arrow>
+        <span slot="left">出生日期：</span>
+        <yd-datetime type="date" v-model="birthDay" slot="right"></yd-datetime>
+      </yd-cell-item>
+      <yd-cell-item arrow>
+        <span slot="left">所在地区：</span>
+        <input slot="right" type="text" @click.stop="show1 = true" v-model="address" readonly placeholder="请选择收货地址">
+      </yd-cell-item>
+    </yd-cell-group>
+    <yd-cityselect v-model="show1" :callback="result1" :items="district"></yd-cityselect>
     <yd-button size="large" type="primary" class="sureUpdate">确认修改</yd-button>
   </div>
 </template>
@@ -49,9 +58,6 @@
     width: 20px;
     height: 20px;
     vertical-align: middle;
-  }
-  #vipInfo .detailInfo{
-
   }
   #vipInfo .detailInfo>div{
     background: #fff;
@@ -89,12 +95,51 @@
     width:90%;
     margin:10px auto;
   }
+  #vipInfo .yd-cell-item:not(:last-child):after{
+    margin-left:0;
+  }
+  #vipInfo .yd-cell-box .yd-cell-left{
+    font-size:14px !important;
+  }
+  #vipInfo .yd-cell-right .yd-datetime-input{
+    font-size:14px;
+  }
+  #vipInfo .yd-cell-right input[type=text]{
+    font-size:14px;
+  }
+  /*修改所在地区的placeholder样式*/
+  #vipInfo .yd-cell-right input[type=text]::-webkit-input-placeholder{
+    color:#bababa
+  }
+  #vipInfo .yd-cell-right input[type=text]:-moz-placeholder{
+    color:#bababa
+  }
+  #vipInfo .yd-cell-right input[type=text]::-moz-placeholder{
+    color:#bababa
+  }
+  #vipInfo .yd-cell-right input[type=text]:-ms-input-placeholder{
+    color:#bababa
+  }
+  #vipInfo .yd-cell-item{
+    padding: 4px;
+  }
 </style>
 <script>
+  /* 前提是已经安装了 ydui-district */
+  import District from 'ydui-district/dist/jd_province_city_area_id';
   export default {
     data(){
       return {
-        phone:'13867104693'
+        phone:'13867104693',
+        birthDay: '2017-05-11',
+        show1: false,
+        address: '',
+        district: District
+      }
+    },
+    methods: {
+      result1(ret) {
+        this.address = ret.itemName1 + ' ' + ret.itemName2 + ' ' + ret.itemName3;
       }
     }
   }

@@ -1,7 +1,7 @@
 <template>
-  <div id="headers">
+  <div id="headers" :style="{background:homeData.style.background,opacity:homeData.style.opacity}">
     <img src="/static/img/sort-white.png" alt="">
-    <yd-search></yd-search>
+    <input type="text" :placeholder="homeData.params.placeholder" v-bind:class="[homeData.params.searchstyle]" :style="{background:homeData.style.searchbackground,color:homeData.style.searchtextcolor,opacity:homeData.style.opacityinput}">
     <img src="/static/img/cart.png" alt="">
   </div>
 </template>
@@ -17,7 +17,7 @@
     display: flex;
     align-items: center;
     justify-content:space-between;
-    padding: 0 0.3125rem;
+    padding:0.3125rem;
     width:100%;
     background: #efbe10;
   }
@@ -25,4 +25,37 @@
     width:0.78rem;
     height:0.78rem;
   }
+  #headers .round{
+    border-radius: 5px;
+  }
+  #headers .circle{
+    border-radius:50px;
+  }
+  #headers input{
+    background: rgb(255, 255, 255);
+    color: rgb(102, 102, 102);
+    opacity: 1;
+    flex: 0 0 70%;
+    height: 30px;
+    padding-left: 10px;
+    border:none
+  }
 </style>
+<script>
+  export default {
+    data(){
+      return {
+
+      }
+    },
+    computed:{
+      homeData(){
+        return this.$store.state.homeData['0']
+      }
+    },
+    created(){
+      console.log(this.homeData)
+
+    }
+  }
+</script>
