@@ -4,14 +4,20 @@
       <img src="/static/img/back_black.png" alt=""><yd-search></yd-search>
     </header>
     <yd-scrolltab>
-      <yd-scrolltab-panel v-for="(item,key) in sortData.parent" :label="item.name" icon="demo-icons-category1" :key="key">
-        <img :src="prefix+item.advimg">
-        <router-link to="/sortIndex/someSort" class="sortItem" v-for="(haha,key) in sortData.children['4316']" :key="key">
-         <img :src="prefix+haha.advimg">{{haha.name}}{{haha.description}}
-        </router-link>
+      <yd-scrolltab-panel v-for="(item,key) in parent" :label="item.name" icon="demo-icons-category1" :key="key">
+        <div v-if="item.isSort==true" v-for="haha in item.curSort">
+          {{item.isSort}}
+          分类
+          <!--<img :src="prefix+item.advimg">-->
+          <!--<router-link to="/sortIndex/someSort" class="sortItem" v-for="(haha,key) in sortData.children['4316']" :key="key">-->
+            <!--<img :src="prefix+haha.advimg">{{haha.name}}{{haha.description}}-->
+          <!--</router-link>-->
+        </div>
+        <div v-else>
+          {{item.isSort}}
+          商品信息
+        </div>
       </yd-scrolltab-panel>
-
-      <!-- ... -->
     </yd-scrolltab>
     <footers></footers>
   </div>
@@ -75,21 +81,41 @@
 </style>
 <script>
   export default {
-    data(){
-      return {
-
-      }
-    },
     computed:{
       sortData(){
         return this.$store.state.sortData
       },
       prefix(){//轮播图片附加前缀
         return this.$store.state.prefix
+      },
+      parent(){
+        return this.$store.state.sortData.parent
+      },
+      children(){
+        return this.$store.state.sortData.children
       }
     },
     mounted(){
-      console.log(this.sortData)
+      var keys=[]
+      for(var key in this.children){
+        keys.push(key)
+      }
+      for(var i=0;i<this.parent.length;i++){
+        var count=0;
+        for(var k in this.children[keys[i]][0]){
+          count++
+        }
+        if(count>20){
+          this.parent[i].curSort=this.children[keys[i]]
+          this.parent[i].isSort=false
+        }else{
+          this.parent[i].curSort=this.children[keys[i]]
+          this.parent[i].isSort=true
+        }
+      }
+      console.log(this.parent)
+      console.log(this.children)
+
     }
   }
 </script>

@@ -65,7 +65,6 @@ export default {
     //分类
     saveSortData(state, data){
       VueSet(state,'sortData',data.res.data)
-      console.log(state.sortData)
       if(state.sortData!={}){
         router.push({path:'/sortIndex/'})
       }
