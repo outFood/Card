@@ -1,8 +1,8 @@
 <template>
   <div id="footers">
     <div v-for="(item,key) in footerMsg" :key="key">
-      <router-link  :to="item.path">
-        <img :src="item.ico" alt="">
+      <router-link  to="#">
+        <img :src="item.ico" alt="" @click="resData(item.path)">
         <div>
           {{item.name}}
         </div>
@@ -68,6 +68,32 @@
           ico: '/static/img/vip.png',
           path: '/vipIndex/'
         }]
+      }
+    },
+    methods:{
+      resData(path){
+        var type='',
+        path=path.replace('/','')//去掉前面的
+        path=path.replace('/','')//去掉后面的
+        if(path=='shopIndex'){//请求首页
+          this.$store.dispatch({
+            type:'resHomeData'
+          })
+        }else if(path=='sortIndex'){//请求分类
+          type='resSortData'
+          this.$store.dispatch({
+            type:type
+          })
+        }else if(path=='eChart'){//请求E聊
+          console.log('eChart')
+
+        }else if(path=='fujin'){//请求附近
+          console.log('fujin')
+
+        }else{//请求个人中心
+          console.log('vipIndex')
+
+        }
       }
     }
   }

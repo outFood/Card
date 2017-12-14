@@ -12,7 +12,11 @@ export default {
         '/fujin/': '附近',
         '/vip/': '会员中心',
       },
-      homeData:{}
+      homeData:{},
+      prefix:'https://weixinxiaochengxun.oss-cn-beijing.aliyuncs.com/attachment/',//附加前缀
+      pageNum:0,
+      //分类
+      sortData:{}
     }
   },
   getters : {
@@ -32,6 +36,17 @@ export default {
           data:res
         })
       }).catch(function (err) {console.log(err)})
+    },
+    resSortData({commit,state},data){
+      var url="https://xcx.xcwll.cn/bale/api.php?mod=category&uniacid=1041"
+      axios.get(url).then(function (res) {
+        commit({
+          type:'saveSortData',
+          res:res,
+        })
+      }).catch(function (err) {
+        alert(err)
+      })
     }
   },
   mutations:{
@@ -43,6 +58,17 @@ export default {
     saveHomeData(state, data){
       VueSet(state,'homeData',data.data.data.result)
       console.log(state.homeData)
+      if(state.homeData!={}){
+        router.push({path:'/shopIndex/'})
+      }
+    },
+    //分类
+    saveSortData(state, data){
+      VueSet(state,'sortData',data.res.data)
+      console.log(state.sortData)
+      if(state.sortData!={}){
+        router.push({path:'/sortIndex/'})
+      }
     }
   }
 }

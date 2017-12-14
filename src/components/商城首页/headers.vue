@@ -1,7 +1,7 @@
 <template>
-  <div id="headers" :style="{background:homeData.style.background,opacity:homeData.style.opacity}">
+  <div v-if="headData" id="headers" :style="{background:headData.style.background,opacity:headData.style.opacity}">
     <img src="/static/img/sort-white.png" alt="">
-    <input type="text" :placeholder="homeData.params.placeholder" v-bind:class="[homeData.params.searchstyle]" :style="{background:homeData.style.searchbackground,color:homeData.style.searchtextcolor,opacity:homeData.style.opacityinput}">
+    <input type="text" :placeholder="headData.params.placeholder" v-bind:class="[headData.params.searchstyle]" :style="{background:headData.style.searchbackground,color:headData.style.searchtextcolor,opacity:headData.style.opacityinput}">
     <img src="/static/img/cart.png" alt="">
   </div>
 </template>
@@ -49,13 +49,9 @@
       }
     },
     computed:{
-      homeData(){
+      headData(){
         return this.$store.state.homeData['0']
       }
     },
-    created(){
-      console.log(this.homeData)
-
-    }
   }
 </script>

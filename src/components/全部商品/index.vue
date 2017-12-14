@@ -4,13 +4,10 @@
       <img src="/static/img/back_black.png" alt=""><yd-search></yd-search>
     </header>
     <yd-scrolltab>
-      <yd-scrolltab-panel label="空调" icon="demo-icons-category1">
-        <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
-        <router-link to="/sortIndex/someSort" class="sortItem">
-          <img src="/static/img/allSort_h.png">普通会员
-        </router-link>
-        <router-link to="/sortIndex/someSort" class="sortItem">
-          <img src="http://static.ydcss.com/uploads/ydui/1.jpg">普通会员
+      <yd-scrolltab-panel v-for="(item,key) in sortData.parent" :label="item.name" icon="demo-icons-category1" :key="key">
+        <img :src="prefix+item.advimg">
+        <router-link to="/sortIndex/someSort" class="sortItem" v-for="(haha,key) in sortData.children['4316']" :key="key">
+         <img :src="prefix+haha.advimg">{{haha.name}}{{haha.description}}
         </router-link>
       </yd-scrolltab-panel>
 
@@ -78,5 +75,21 @@
 </style>
 <script>
   export default {
+    data(){
+      return {
+
+      }
+    },
+    computed:{
+      sortData(){
+        return this.$store.state.sortData
+      },
+      prefix(){//轮播图片附加前缀
+        return this.$store.state.prefix
+      }
+    },
+    mounted(){
+      console.log(this.sortData)
+    }
   }
 </script>
