@@ -5,24 +5,71 @@
     </header>
     <yd-scrolltab>
       <yd-scrolltab-panel v-for="(item,key) in parent" :label="item.name" icon="demo-icons-category1" :key="key">
-        <div v-if="item.isSort==true" v-for="haha in item.curSort">
-          {{item.isSort}}
-          分类
-          <!--<img :src="prefix+item.advimg">-->
-          <!--<router-link to="/sortIndex/someSort" class="sortItem" v-for="(haha,key) in sortData.children['4316']" :key="key">-->
-            <!--<img :src="prefix+haha.advimg">{{haha.name}}{{haha.description}}-->
-          <!--</router-link>-->
-        </div>
-        <div v-else>
-          {{item.isSort}}
-          商品信息
-        </div>
+        <!---->
+        <span v-if="item.isSecondSort==true" class="secondSort">
+          <img :src="prefix+item.advimg" v-if="item.advimg">
+          <router-link to="#" class="sortItem"  v-for="(secondSort,key) in item.curSort" :key="key">
+            <img :src="prefix+secondSort.thumb"  @click="resCommodityListData(secondSort.name)">{{secondSort.name}}
+          </router-link>
+        </span>
+        <!---->
+        <span v-else class="infoItem">
+          <img :src="prefix+item.advimg" v-if="item.advimg">
+          <div class="infoCon">
+            <router-link to="/sortIndex/commodityDetail" v-for="(infoItem,key) in item.curSort" :key="key">
+            <img :src="prefix+infoItem.thumb">
+            <div>
+              <h6>{{infoItem.title}}</h6>
+              <i>￥{{infoItem.minprice}}</i>
+            </div>
+          </router-link>
+          </div>
+        </span>
+        <!---->
       </yd-scrolltab-panel>
     </yd-scrolltab>
     <footers></footers>
   </div>
 </template>
 <style>
+  #sort .yd-scrolltab .yd-scrolltab-content-item .infoItem .infoCon{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  #sort .yd-scrolltab .yd-scrolltab-content-item .infoItem .infoCon a{
+    flex: 0 0 48%;
+    text-align: left;
+    margin-bottom:0.3125rem;
+    border:1px solid #eee;
+  }
+  #sort .yd-scrolltab .yd-scrolltab-content-item .infoItem .infoCon a:nth-child(2n-1){
+    margin-right:4%;
+  }
+  #sort .yd-scrolltab .yd-scrolltab-content-item .infoItem .infoCon a div{
+    padding:0.15rem;
+  }
+  #sort .yd-scrolltab .yd-scrolltab-content-item .infoItem .infoCon a img{
+    width:100%;
+    height:2.5rem;
+  }
+  #sort .yd-scrolltab .yd-scrolltab-content-item .infoItem .infoCon a h6{
+    font-size:0.4rem;
+    margin:0.15rem 0 0.3125rem 0;
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  #sort .yd-scrolltab .yd-scrolltab-content-item .infoItem .infoCon a i{
+    color:#ed2822;
+    font-weight: bold;
+  }
+  <!---->
   #sort{
 
   }
@@ -42,45 +89,62 @@
     background: #eee;
   }
   #sort header img{
-    width:25px;
-    height:25px;
+    width:0.78125rem;
+    height:0.78125rem;
   }
   #sort .yd-scrolltab {
     position: absolute;
-    top: 51px;
+    top:1.59375rem;
+    margin-bottom:1.875rem;
+    word-break: break-all; word-wrap:break-word;
   }
-  #sort .yd-scrolltab strong{
-    display: none;
-  }
-  #sort .yd-scrolltab .yd-scrolltab-content-item{
+  /*#sort .yd-scrolltab strong{*/
+    /*display: none;*/
+  /*}*/
+  #sort .yd-scrolltab .yd-scrolltab-content-item .secondSort{
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
     flex-wrap: wrap;
   }
-  #sort .yd-scrolltab .yd-scrolltab-content-item>img{
+  #sort .yd-scrolltab .yd-scrolltab-content-item span>img{
     width:100%;
-    height:100px;
-    margin-top:5px
+    height:3.125rem;
+    margin-top:0.15rem
   }
-  #sort .yd-scrolltab .yd-scrolltab-content-item .sortItem{
+  #sort .yd-scrolltab .yd-scrolltab-content-item .secondSort .sortItem{
     flex: 0 0 33%;
-    padding: 10px 0;
+    padding: 0.3125rem 0;
   }
-  #sort .yd-scrolltab .yd-scrolltab-content-item .sortItem img{
+  #sort .yd-scrolltab .yd-scrolltab-content-item .secondSort .sortItem img{
     display: block;
-    width:40px;
-    height:40px;
+    width:1.25rem;
+    height:1.25rem;
     border-radius: 50%;
     margin: 0 auto;
+    margin-bottom:0.15rem;
   }
   .yd-scrolltab-active{
     border-left: 2px solid red;
   }
+  .yd-scrolltab-active .yd-scrolltab-title{
+    color:red;
+  }
 </style>
 <script>
   export default {
+    methods:{
+      resCommodityListData(name){
+        console.log(name)
+        this.$store.dispatch({
+          type:'resCommodityListData',
+//          params:{
+//            order:'all'
+//          }
+        })
+      }
+    },
     computed:{
       sortData(){
         return this.$store.state.sortData
@@ -95,7 +159,7 @@
         return this.$store.state.sortData.children
       }
     },
-    mounted(){
+    created(){
       var keys=[]
       for(var key in this.children){
         keys.push(key)
@@ -107,10 +171,10 @@
         }
         if(count>20){
           this.parent[i].curSort=this.children[keys[i]]
-          this.parent[i].isSort=false
+          this.parent[i].isSecondSort=false
         }else{
           this.parent[i].curSort=this.children[keys[i]]
-          this.parent[i].isSort=true
+          this.parent[i].isSecondSort=true
         }
       }
       console.log(this.parent)

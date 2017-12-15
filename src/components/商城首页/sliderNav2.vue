@@ -28,23 +28,21 @@
       }
     },
     created(){
-      setTimeout(()=>{
-        //算出页数
-        this.itemNum=Math.ceil(this.sliderNavItem.length/this.$store.state.homeData['4'].style.pagenum)
-//        console.log(this.itemNum)
-        for(var key in this.$store.state.homeData['4'].data){
-          this.sliderNavItem.push(this.$store.state.homeData['4'].data[key])
-        }
+      //算出页数
+      this.itemNum=Math.ceil(this.sliderNavItem.length/this.$store.state.homeData['4'].style.pagenum)
+//      console.log(this.$store.state.homeData['4'])
+      for(var key in this.$store.state.homeData['4'].data){
+        this.sliderNavItem.push(this.$store.state.homeData['4'].data[key])
+      }
 //        console.log(this.sliderNavItem.length)
-        var j=0
-        for(var i=0;i<Math.ceil(this.sliderNavItem.length/this.$store.state.homeData['4'].style.pagenum);i++){
+      var j=0
+      for(var i=0;i<Math.ceil(this.sliderNavItem.length/this.$store.state.homeData['4'].style.pagenum);i++){
 //          console.log(this.sliderNavItem.slice(j-this.$store.state.homeData['4'].style.pagenum,j))//删除的
-          j+=parseInt(this.$store.state.homeData['4'].style.pagenum)
+        j+=parseInt(this.$store.state.homeData['4'].style.pagenum)
 //          console.log(j)
-          this.haha.push(this.sliderNavItem.slice(j-this.$store.state.homeData['4'].style.pagenum,j))
-        }
+        this.haha.push(this.sliderNavItem.slice(j-this.$store.state.homeData['4'].style.pagenum,j))
+      }
 //        console.log(this.haha)
-      },2000)
     }
   }
 </script>

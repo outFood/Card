@@ -1,7 +1,7 @@
 <template>
   <div id="someSort">
     <header>
-      <div class="search"><img src="/static/img/back_black.png" alt=""><yd-search></yd-search><span @click="allSort_h=!allSort_h"><img src="/static/img/allSort_h.png" v-if="allSort_h"><img src="/static/img/allSort_v.png" v-else></span></div>
+      <div class="search"><img src="/static/img/back_black.png" alt=""><yd-search v-model="searchKey"></yd-search><i class="searchBtn" @click="screen('搜索')">搜索</i><span @click="allSort_h=!allSort_h"><img src="/static/img/allSort_h.png" v-if="allSort_h"><img src="/static/img/allSort_v.png" v-else></span></div>
       <!--tab-->
       <div class="tab">
         <div @click="screen('all')" v-bind:class="{cur:curTab==1}">综合</div>
@@ -13,34 +13,20 @@
     <div class="content">
       <!--商品列表-->
       <div class="con-h" v-if="allSort_h">
-        <div>
-          <img src="http://img1.3lian.com/2015/a1/95/d/105.jpg" alt="">
+        <div v-for="(item,key) in commodityListData.list" :key="key">
+          <img :src="item.thumb" alt="">
           <div>
-            <p>普通会员</p>
-            <span class="price">￥18</span><span class="goPay"  @click="show2 = true">购买</span>
-          </div>
-        </div>
-        <div>
-          <img src="http://img1.3lian.com/2015/a1/95/d/105.jpg" alt="">
-          <div>
-            <p>普通会员</p>
-            <span class="price">￥18</span><span class="goPay"  @click="show2 = true">购买</span>
+            <p>{{item.title}}</p>
+            <span class="price">￥{{item.minprice}}</span><span class="goPay"  @click="show2 = true">购买</span>
           </div>
         </div>
       </div>
       <div class="con-v"v-else>
-        <div>
-          <img src="http://img1.3lian.com/2015/a1/95/d/105.jpg" alt="">
-          <div>
-            <p>普通会员</p>
-            <span class="price">￥18</span><span class="goPay"  @click="show2 = true">购买</span>
-          </div>
-        </div>
-        <div>
-          <img src="http://img1.3lian.com/2015/a1/95/d/105.jpg" alt="">
-          <div>
-            <p>普通会员</p>
-            <span class="price">￥18</span><span class="goPay"  @click="show2 = true">购买</span>
+        <div v-for="(item,key) in commodityListData.list" :key="key">
+          <img :src="item.thumb" alt="">
+          <div class="right">
+            <p>{{item.title}}</p>
+            <span class="price">￥{{item.minprice}}</span><span class="goPay"  @click="show2 = true">购买</span>
           </div>
         </div>
       </div>
@@ -93,7 +79,6 @@
         </div>
       </yd-popup>
     </div>
-
     <footers></footers>
   </div>
 </template>
@@ -108,7 +93,13 @@
         show2: false,
         curTab:1,
         curGoodsNum:0,
-        allSort_h:true
+        allSort_h:true,
+        searchKey:'',//搜索关键字
+      }
+    },
+    computed:{
+      commodityListData(){
+        return this.$store.state.commodityListData
       }
     },
     methods:{
@@ -118,11 +109,25 @@
           this.curTab=1
           this.curbottom=false
           this.curtop=false
+          // ----------------------------综合
+          this.$store.dispatch({
+            type:'resCommodityListData',
+            params:{
+              order:'all'
+            }
+          })
         }else if(parameter=='sail'){
           console.log('sail')
           this.curTab=2
           this.curbottom=false
           this.curtop=false
+          // ----------------------------销量
+          this.$store.dispatch({
+            type:'resCommodityListData',
+            params:{
+              order:'sales'
+            }
+          })
         }else if(parameter=='price'){
           this.curTab=3
           this.clickNum++;
@@ -133,11 +138,27 @@
             this.curtop=true
             this.curbottom=false
           }
-        }else{
+          this.$store.dispatch({
+            type:'resCommodityListData',
+            params:{
+              order:'minprice'
+            }
+          })
+        }else if(parameter=='screen'){
           this.curTab=4
           this.curbottom=false
           this.curtop=false
           console.log('screen')
+          // ----------------------------筛选
+
+        }else{//点击的是搜索
+          this.$store.dispatch({
+            type:'resCommodityListData',
+            params:{
+              keywords:this.searchKey
+            }
+
+          })
         }
       },
     }
@@ -145,6 +166,9 @@
 </script>
 <style>
   <!---->
+  /*#someSort{*/
+    /*margin-bottom: 70px;*/
+  /*}*/
   #someSort header{
     width:100%;
     position: fixed;
@@ -160,7 +184,15 @@
     border-bottom:1px solid #eee;
   }
   #someSort header .search>div{
-    flex:0 0 82%
+    flex:0 0 65%
+  }
+  #someSort header .search .searchBtn{
+    display: block;
+    background: lightseagreen;
+    padding: 3px 5px;
+    border-radius: 3px;
+    margin-right:10px;
+    color:#fff;
   }
   #someSort header .search form{
     background: #eee;
@@ -239,6 +271,7 @@
   }
   #someSort .content .con-h>div img{
     width:100%;
+    height:100px;
   }
   #someSort .content .con-h>div div{
     text-align: left;
@@ -248,6 +281,12 @@
   }
   #someSort .content .con-h p{
     margin-bottom: 0.3125rem;
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
   #someSort .content .con-h span{
     color:#ff5552
@@ -260,6 +299,7 @@
   }
   #someSort .content .con-v{
     margin-top: 0.3125rem;
+    font-size:13px;
   }
   #someSort .content .con-v>div{
     padding:0.3125rem;
@@ -270,14 +310,20 @@
     width:35%;
     height:2.41rem;
   }
-  #someSort .content .con-v>div div{
+  #someSort .content .con-v>div .right{
     float: right;
     width:65%;
     text-align: left;
     padding-left: 0.3125rem;
   }
   #someSort .content .con-v>div div p{
-    margin-bottom: 0.625rem;
+    margin-bottom: 0.3125rem;
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
   #someSort .content .con-v>div div .price{
     color:#ff5076;

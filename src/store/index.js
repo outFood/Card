@@ -13,10 +13,12 @@ export default {
         '/vip/': '会员中心',
       },
       homeData:{},
-      prefix:'https://weixinxiaochengxun.oss-cn-beijing.aliyuncs.com/attachment/',//附加前缀
+      prefix:'https://xcx.xcwll.cn/attachment/',//附加前缀
       pageNum:0,
       //分类
-      sortData:{}
+      sortData:{},
+      keywords:'',//请求商品列表的分类关键字
+      commodityListData:{}
     }
   },
   getters : {
@@ -37,6 +39,7 @@ export default {
         })
       }).catch(function (err) {console.log(err)})
     },
+    //分类
     resSortData({commit,state},data){
       var url="https://xcx.xcwll.cn/bale/api.php?mod=category&uniacid=1041"
       axios.get(url).then(function (res) {
@@ -47,6 +50,18 @@ export default {
       }).catch(function (err) {
         alert(err)
       })
+    },
+    resCommodityListData({commit,state},data){
+      axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2' +
+        '&do=mobile&r=goods.index.get_list',{params:data.params})
+        .then(function (res) {
+          console.log(res)
+          commit({
+            type:'saveCommodityListData',
+            res:res
+          })
+        }).catch(function (err) {alert(err)})
+
     }
   },
   mutations:{
@@ -67,6 +82,13 @@ export default {
       VueSet(state,'sortData',data.res.data)
       if(state.sortData!={}){
         router.push({path:'/sortIndex/'})
+      }
+    },
+    saveCommodityListData(state, data){
+      VueSet(state,'commodityListData',data.res.data.result)
+      console.log(state.commodityListData)
+      if(state.commodityListData!={}){
+        router.push({path:'/sortIndex/someSort'})
       }
     }
   }
