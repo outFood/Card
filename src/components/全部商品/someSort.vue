@@ -1,13 +1,13 @@
 <template>
   <div id="someSort">
-    <header>
+    <header style="position: fixed;width:100%;top:0;">
       <div class="search"><img src="/static/img/back_black.png" alt=""><yd-search v-model="searchKey"></yd-search><i class="searchBtn" @click="screen('搜索')">搜索</i><span @click="allSort_h=!allSort_h"><img src="/static/img/allSort_h.png" v-if="allSort_h"><img src="/static/img/allSort_v.png" v-else></span></div>
       <!--tab-->
       <div class="tab">
         <div @click="screen('all')" v-bind:class="{cur:curTab==1}">综合</div>
         <div @click="screen('sail')" v-bind:class="{cur:curTab==2}">销量</div>
         <div @click="screen('price')" v-bind:class="{cur:curTab==3}">价格 <span class="top" v-bind:class="{curtop:curtop}"></span><span class="bottom" v-bind:class="{curbottom:curbottom}"></span></div>
-        <div @click="screen('screen')"><yd-button @click.native="show4 = true" v-bind:class="{cur:curTab==4}">筛选 <img src="/static/img/shaixuan.png" alt="" v-if="curTab!=4"><img src="/static/img/shaixuan_red.png" alt="" v-else></yd-button></div>
+        <div><yd-button @click.native="show4 = true" v-bind:class="{cur:curTab==4}">筛选 <img src="/static/img/shaixuan.png" alt="" v-if="curTab!=4"><img src="/static/img/shaixuan_red.png" alt="" v-else></yd-button></div>
       </div>
     </header>
     <div class="content">
@@ -34,12 +34,7 @@
       <yd-popup v-model="show4" position="right" width="60%" class="shaixuan_pop">
         <div class="head">筛选</div>
         <div class="tabNav">
-          <span>推荐商品</span>
-          <span>推荐商品</span>
-          <span>推荐商品</span>
-          <span>推荐商品</span>
-          <span>推荐商品</span>
-          <span>推荐商品</span>
+          <span v-for="(item,key) in tabNav" :key="key" @click="changeSearchKey(item)"  v-bind:class="{cur:searchKey==item}">{{item}}</span>
         </div>
         <p>选择分类</p>
         <yd-scrolltab>
@@ -59,7 +54,7 @@
         </yd-scrolltab>
         <div class="footer">
           <span @click="show4=false">取消筛选</span>
-          <span>确认</span>
+          <span  @click="screen('确认')">确认</span>
         </div>
       </yd-popup>
       <!--购买弹框-->
@@ -94,7 +89,8 @@
         curTab:1,
         curGoodsNum:0,
         allSort_h:true,
-        searchKey:'',//搜索关键字
+        searchKey:'',//搜索关键字，
+        tabNav:['推荐商品','新品上市','热卖商品','促销商品','卖家包邮','限时抢购']
       }
     },
     computed:{
@@ -103,6 +99,10 @@
       }
     },
     methods:{
+      changeSearchKey(item){
+        this.searchKey=item
+        console.log(this.searchKey)
+      },
       screen(parameter){
         if(parameter=='all'){
           console.log('all')
@@ -116,6 +116,7 @@
               order:'all'
             }
           })
+          console.log('综合筛选')
         }else if(parameter=='sail'){
           console.log('sail')
           this.curTab=2
@@ -128,6 +129,7 @@
               order:'sales'
             }
           })
+          console.log('销量筛选')
         }else if(parameter=='price'){
           this.curTab=3
           this.clickNum++;
@@ -144,14 +146,9 @@
               order:'minprice'
             }
           })
-        }else if(parameter=='screen'){
-          this.curTab=4
-          this.curbottom=false
-          this.curtop=false
-          console.log('screen')
-          // ----------------------------筛选
-
+          console.log('价格筛选')
         }else{//点击的是搜索
+          console.log('关键字搜索')
           this.$store.dispatch({
             type:'resCommodityListData',
             params:{
@@ -159,8 +156,12 @@
             }
 
           })
+          this.show4=false;
         }
       },
+      loadList(){
+        console.log('哈哈')
+      }
     }
   }
 </script>
@@ -171,7 +172,7 @@
   /*}*/
   #someSort header{
     width:100%;
-    position: fixed;
+    position: fixed !important;
     top:0
   }
   #someSort header .search{
@@ -191,7 +192,7 @@
     background: lightseagreen;
     padding: 3px 5px;
     border-radius: 3px;
-    margin-right:10px;
+    margin-right:0.3125rem;
     color:#fff;
   }
   #someSort header .search form{
@@ -258,7 +259,9 @@
     display: -ms-flexbox;
     display: flex;
     flex-wrap: wrap;
-    padding:0.3125rem
+    padding:0.3125rem;
+    margin-top:2.8rem;
+    margin-bottom:2.5rem;
   }
   #someSort .content .con-h>div{
     -webkit-box-flex: 0;
@@ -271,7 +274,7 @@
   }
   #someSort .content .con-h>div img{
     width:100%;
-    height:100px;
+    height:3.125rem;
   }
   #someSort .content .con-h>div div{
     text-align: left;
@@ -298,13 +301,15 @@
     float: right;
   }
   #someSort .content .con-v{
-    margin-top: 0.3125rem;
-    font-size:13px;
+    font-size:0.4rem;
+    margin-top:3.1rem;
+    margin-bottom:2.5rem;
   }
   #someSort .content .con-v>div{
     padding:0.3125rem;
     margin-bottom:0.3125rem;
     background: #fff;
+    height:3.125rem
   }
   #someSort .content .con-v>div img{
     width:35%;

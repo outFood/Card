@@ -88,7 +88,10 @@
           console.log('eChart')
 
         }else if(path=='fujin'){//请求附近
-          console.log('fujin')
+          type='resSortData'
+          this.$store.dispatch({
+            type:'resFujinData'
+          })
 
         }else{//请求个人中心
           console.log('vipIndex')
