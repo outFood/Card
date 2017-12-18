@@ -13,7 +13,7 @@
     <div class="content">
       <!--商品列表-->
       <div class="con-h" v-if="allSort_h">
-        <div v-for="(item,key) in commodityListData.list" :key="key">
+        <div v-for="(item,key) in commodityListData.list" :key="key" @click="resCommodityDetailData(item.id)">
           <img :src="item.thumb" alt="">
           <div>
             <p>{{item.title}}</p>
@@ -78,6 +78,7 @@
   </div>
 </template>
 <script>
+  import router from '@/router'
   export default {
     data(){
       return {
@@ -161,6 +162,13 @@
       },
       loadList(){
         console.log('哈哈')
+      },
+      resCommodityDetailData(id){
+        console.log('ppp')
+        this.$store.dispatch({
+          type:'resCommodityDetailData',
+          id:id
+        })
       }
     }
   }

@@ -15,7 +15,7 @@
           <!---->
           <div id="sort">
             <div class="part1">
-              <div class="sortItem" v-for="(item,key) in part1" @click="setCurSelSort(['分类',item.catename,item.id])"><img :src="item.thumb" alt="">{{item.catename}}</div>
+              <div class="sortItem" v-for="(item,key) in part1" @click="setCurSelSort([item.catename,item.id])"><img :src="item.thumb" alt="">{{item.catename}}</div>
             </div>
             <span class="lookMore" @click="lookMore" v-if="part2.length>0">查看更多</span>
             <div class="part2" v-if="part2Show">
@@ -27,7 +27,7 @@
             <yd-accordion>
               <yd-accordion-item :title="'当前选择:  '+curSelSort">
                 <div style="padding: .24rem;">
-                  <p v-for="(item,key) in Fujin_sortData2" @click="setCurSelSort(item.catename)">{{item.catename}}</p>
+                  <p v-for="(item,key) in Fujin_sortData2" @click="setCurSelSort([item.catename,item.id])">{{item.catename}}</p>
                 </div>
               </yd-accordion-item>
             </yd-accordion>
@@ -217,7 +217,11 @@
       },
       setCurSelSort(items){
         console.log(items)
-//        this.curSelSort=catename
+        this.curSelSort=items[0]
+        this.$store.dispatch({
+          type:'resFujinData',
+          id:items[1]
+        })
       },
       loadList() {
         console.log('上拉加载')

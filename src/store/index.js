@@ -19,6 +19,7 @@ export default {
       sortData:{},
       keywords:'',//请求商品列表的分类关键字
       commodityListData:{},
+      commodityDetailData:{},
       //附近商家
       Fujin_sortData:[],
       getFujin_slideData:[],
@@ -66,6 +67,7 @@ export default {
 
     },
     resFujinData({commit,state},data){
+      var id=data.id?data.id:'';//如果点击分类的时候请求就有id,否则就是页面加载的时候请求
       function getFujin_sortData(){//分类
         return axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.get_category&uniacid=1041');
       }
@@ -73,7 +75,7 @@ export default {
         return axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.get_category_swipe&uniacid=1041');
       }
       function getFujin_ListData(){//商户列表
-        return axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.ajaxmerchuser&uniacid=1041');
+        return axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.ajaxmerchuser&uniacid=1041&id='+id);
       }
       axios.all([getFujin_sortData(),getFujin_slideData(),getFujin_ListData()])//一次性并发多个请求
         .then(axios.spread(function(Fujin_sortData,getFujin_slideData,Fujin_ListData){
@@ -87,6 +89,19 @@ export default {
             }
           })
         }))
+    },
+    resCommodityDetailData({commit,state},data){
+      function commodityDetailData() {
+        return axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.detailapp.get_detailapp&id='+data.id)
+      }
+      axios.all([commodityDetailData()]).then(axios.spread(function (commodityDetailData) {
+        commit({
+          type:'saveCommodityDetailData',
+          data:{
+            commodityDetailData:commodityDetailData
+          }
+        })
+      }))
     }
   },
   mutations:{
@@ -119,9 +134,16 @@ export default {
       VueSet(state,'Fujin_sortData',data.data.Fujin_sortData.data)
       VueSet(state,'getFujin_slideData',data.data.getFujin_slideData.data)
       VueSet(state,'Fujin_ListData',data.data.Fujin_ListData.data)
-      console.log(state.Fujin_sortData)
+      console.log(state.Fujin_ListData)
       if(state.Fujin_sortData&&state.getFujin_slideData&&state.Fujin_ListData){
         router.push({path: '/fujin/'})
+      }
+    },
+    saveCommodityDetailData(state,data){
+      VueSet(state,'commodityDetailData',data.data.commodityDetailData.data)
+      console.log(state.commodityDetailData)
+      if(state.commodityDetailData!={}){
+        router.push({path: '/sortIndex/detail'})
       }
     }
   }
