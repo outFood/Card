@@ -20,10 +20,13 @@ export default {
       keywords:'',//请求商品列表的分类关键字
       commodityListData:{},
       commodityDetailData:{},
+      commodityColorSizeData:{},
+      payStaus:'购买',
       //附近商家
       Fujin_sortData:[],
       getFujin_slideData:[],
-      Fujin_ListData:{}
+      Fujin_ListData:{},
+
     }
   },
   getters : {
@@ -94,14 +97,38 @@ export default {
       function commodityDetailData() {
         return axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.detailapp.get_detailapp&id='+data.id)
       }
-      axios.all([commodityDetailData()]).then(axios.spread(function (commodityDetailData) {
+      function commodityPingjiaData() {
+        return axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.detail.get_comments&id='+data.id)
+      }
+      function commodityColorSizeData() {
+        return axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.detailapp.picker&id='+data.id)
+      }
+      function commodityPingjiaSortData() {
+        return axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.detail.get_comment_list&id='+data.id)
+      }
+      function addCart() {
+        return axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.add&id='+data.id)
+      }
+      function submitCart() {
+        return axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.submit&id='+data.id)
+      }
+      function like() {
+        return axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.favorite.toggle&id='+data.id)
+      }
+      axios.all([commodityDetailData(),commodityColorSizeData()]).then(axios.spread(function (commodityDetailData,commodityColorSizeData) {
+        // console.log('commodityColorSizeData-----------------')
+        // console.log(commodityColorSizeData)
         commit({
           type:'saveCommodityDetailData',
           data:{
-            commodityDetailData:commodityDetailData
+            commodityDetailData:commodityDetailData,
+            commodityColorSizeData:commodityColorSizeData
           }
         })
       }))
+    },
+    changePayStaus({commit,state},data){
+      console.log(data)
     }
   },
   mutations:{
@@ -141,7 +168,9 @@ export default {
     },
     saveCommodityDetailData(state,data){
       VueSet(state,'commodityDetailData',data.data.commodityDetailData.data)
-      console.log(state.commodityDetailData)
+      VueSet(state,'commodityColorSizeData',data.data.commodityColorSizeData.data.result)
+      console.log('commodityColorSizeData-----------------------------------')
+      console.log(state.commodityColorSizeData)
       if(state.commodityDetailData!={}){
         router.push({path: '/sortIndex/detail'})
       }
