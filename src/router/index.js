@@ -14,11 +14,14 @@ import detail from '@/components/全部商品/detail'
 import eChart from '@/components/E聊/index'
 //附近商家
 import fujin from '@/components/附近商家/index'
+//购物车
+import cart from '@/components/购物车/index'
 //会员中心
 import vipHome from '@/components/会员中心/home'
 import vipIndex from '@/components/会员中心/index'
 import vipInfo from '@/components/会员中心/vipInfo'
 import nickname from '@/components/会员中心/nickname'
+
 
 Vue.use(Router)
 
@@ -76,6 +79,10 @@ export default new Router({
       path: '/fujin',
       name: 'fujin',
       component: fujin
+    },
+    {
+      path:'/cart',
+      component:cart
     },
     {
       path: '/vipIndex',

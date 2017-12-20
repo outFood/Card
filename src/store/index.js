@@ -26,6 +26,7 @@ export default {
       Fujin_sortData:[],
       getFujin_slideData:[],
       Fujin_ListData:{},
+      payStatus:'购买'
 
     }
   },
@@ -106,9 +107,6 @@ export default {
       function commodityPingjiaSortData() {
         return axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.detail.get_comment_list&id='+data.id)
       }
-      function addCart() {
-        return axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.add&id='+data.id)
-      }
       function submitCart() {
         return axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.submit&id='+data.id)
       }
@@ -128,7 +126,23 @@ export default {
       }))
     },
     changePayStaus({commit,state},data){
+      commit({
+        type:'changePayStaus',
+        payStatus:data.payStatus
+      })
+    },
+    cartOrPay({commit,state},data){
       console.log(data)
+      if(state.payStatus=='加入购物车'){
+        axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.add',{params:data.params})
+          .then(function (res) {
+            console.log(res)
+          }).catch(function (err) {
+          alert(err)
+        })
+      }else{
+        console.log('购买')
+      }
     }
   },
   mutations:{
@@ -174,6 +188,9 @@ export default {
       if(state.commodityDetailData!={}){
         router.push({path: '/sortIndex/detail'})
       }
+    },
+    changePayStaus(state,data){
+        VueSet(state,'payStatus',data.payStatus)
     }
   }
 }
