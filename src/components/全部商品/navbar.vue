@@ -2,13 +2,13 @@
   <div id="navbar">
     <!--  /*navbar1------五个按钮全都有*/-->
     <div class="navbar1"  v-if="diynavbar.length==3&&navbar.params.hidecartbtn!=1">
-      <div class="icon" v-for="(item,key) in diynavbar" :key="key" :style="{background:navbar.style.background,color:navbar.style.textcolor}" @click="clickIcon(item.icontext)"><img src="/static/img/heart-kong.png" alt=""><span v-if="item.icontext=='购物车'" :style="{background:navbar.style.dotcolor}">2</span>{{item.icontext}}</div>
+      <div class="icon" v-for="(item,key) in diynavbar" :key="key" :style="{background:navbar.style.background,color:navbar.style.textcolor}"    @click="clickIcon(item.icontext)"><img src="/static/img/heart-kong.png" alt=""><span v-if="item.icontext=='购物车'" :style="{background:navbar.style.dotcolor}">2</span>{{item.icontext}}</div>
       <div class="addCart" :style="{background:navbar.style.cartcolor}"  @click="changePayStaus('加入购物车')">加入购物车</div>
       <div class="pay" :style="{background:navbar.style.buycolor}"  @click="changePayStaus('购买')">购买</div>
     </div>
     <!-- /*navbar2------没有加入购物车按钮*/-->
     <div class="navbar2" v-if="diynavbar.length==3&&navbar.params.hidecartbtn==1">
-      <div class="icon" v-for="(item,key) in diynavbar" :key="key" :style="{background:navbar.style.background,color:navbar.style.textcolor}"><img src="/static/img/heart-kong.png" alt=""><span v-if="item.icontext=='购物车'" :style="{background:navbar.style.dotcolor}">2</span>{{item.icontext}}</div>
+      <div class="icon" v-for="(item,key) in diynavbar" :key="key" :style="{background:navbar.style.background,color:navbar.style.textcolor}"  @click="clickIcon(item.icontext)"><img src="/static/img/heart-kong.png" alt=""><span v-if="item.icontext=='购物车'" :style="{background:navbar.style.dotcolor}">2</span>{{item.icontext}}</div>
       <div class="pay" :style="{background:navbar.style.buycolor}"  @click="changePayStaus('购买')">购买</div>
     </div>
     <!--  /*navbar3------只有购买按钮*/-->
@@ -22,19 +22,19 @@
     </div>
     <!-- /*navbar5------只有一个icon*/-->
     <div class="navbar5"  v-if="diynavbar.length==1&navbar.params.hidecartbtn!=1">
-      <div class="icon" v-for="(item,key) in diynavbar" :key="key" :style="{background:navbar.style.background,color:navbar.style.textcolor}"><img src="/static/img/heart-kong.png" alt=""><span v-if="item.icontext=='购物车'" :style="{background:navbar.style.dotcolor}">2</span>{{item.icontext}}</div>
+      <div class="icon" v-for="(item,key) in diynavbar" :key="key" :style="{background:navbar.style.background,color:navbar.style.textcolor}" @click="clickIcon(item.icontext)"><img src="/static/img/heart-kong.png" alt=""><span v-if="item.icontext=='购物车'" :style="{background:navbar.style.dotcolor}">2</span>{{item.icontext}}</div>
       <div class="addCart" :style="{background:navbar.style.cartcolor}"  @click="changePayStaus('加入购物车')">加入购物车</div>
       <div class="pay" :style="{background:navbar.style.buycolor}"  @click="changePayStaus('购买')">购买</div>
     </div>
     <!--/*navbar6-----有两个icon*/-->
     <div class="navbar6" v-if="diynavbar.length==2">
-      <div class="icon" v-for="(item,key) in diynavbar" :key="key" :style="{background:navbar.style.background,color:navbar.style.textcolor}"><img src="/static/img/heart-kong.png" alt=""><span v-if="item.icontext=='购物车'" :style="{background:navbar.style.dotcolor}">2</span>{{item.icontext}}</div>
+      <div class="icon" v-for="(item,key) in diynavbar" :key="key" :style="{background:navbar.style.background,color:navbar.style.textcolor}"   @click="clickIcon(item.icontext)"><img src="/static/img/heart-kong.png" alt=""><span v-if="item.icontext=='购物车'" :style="{background:navbar.style.dotcolor}">2</span>{{item.icontext}}</div>
       <div class="addCart" :style="{background:navbar.style.cartcolor}"  @click="changePayStaus('加入购物车')">加入购物车</div>
       <div class="pay" :style="{background:navbar.style.buycolor}"  @click="changePayStaus('购买')">购买</div>
     </div>
     <!--/*navbar7-----只有一个icon和购买按钮*/-->
     <div class="navbar7" v-if="diynavbar.length==1&&navbar.params.hidecartbtn==1">
-      <div class="icon" v-for="(item,key) in diynavbar" :key="key" :style="{background:navbar.style.background,color:navbar.style.textcolor}"><img src="/static/img/heart-kong.png" alt=""><span v-if="item.icontext=='购物车'" :style="{background:navbar.style.dotcolor}">2</span>{{item.icontext}}</div>
+      <div class="icon" v-for="(item,key) in diynavbar" :key="key" :style="{background:navbar.style.background,color:navbar.style.textcolor}" @click="clickIcon(item.icontext)"><img src="/static/img/heart-kong.png" alt=""><span v-if="item.icontext=='购物车'" :style="{background:navbar.style.dotcolor}">2</span>{{item.icontext}}</div>
       <div class="pay" :style="{background:navbar.style.buycolor}"  @click="changePayStaus('购买')">购买</div>
     </div>
     <yd-popup v-model="show2" position="bottom" height="80%" class="sizePop">
@@ -64,6 +64,7 @@
   </div>
 </template>
 <script>
+  import router from '@/router'
   export default {
     data(){
       return{
@@ -112,7 +113,9 @@
           params:{
             total:this.payNumber,
             optionid:this.optionid,
-            id:this.commodityid
+            id:this.commodityid,
+            state:'we7sid-989f479443e701453157a809d00e2e0f',
+            sign:'deed3cf80284327c2f52c9ac56b8d5d8'
           }
         })
         this.show2 = false
@@ -120,7 +123,9 @@
       clickIcon(icontext){
         console.log('ggg')
         if(icontext=='购物车'){
-          router.push({path:'/cart/'})
+          this.$store.dispatch({
+            type:'lookCart',
+          })
         }
       }
     }

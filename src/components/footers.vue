@@ -28,12 +28,12 @@
 }
 #footers>div{
   -webkit-box-flex: 0;
-  -ms-flex: 0 0 20%;
-  flex: 0 0 20%;
+  -ms-flex: 0 0 16.6%;
+  flex: 0 0 16.6%;
 }
 #footers a{
   color:#707070;
-  font-size:14px;
+  font-size:12px;
 }
 #footers a img{
   width:28px;
@@ -64,6 +64,10 @@
           ico: '/static/img/fujin.png',
           path: '/fujin/'
         }, {
+          name:'购物车',
+          ico: '/static/img/cart_black.png',
+          path: '/cart/'
+        }, {
           name: '会员中心',
           ico: '/static/img/vip.png',
           path: '/vipIndex/'
@@ -93,6 +97,10 @@
             type:'resFujinData'
           })
 
+        }else if(path=='cart'){
+          this.$store.dispatch({
+            type:'lookCart',
+          })
         }else{//请求个人中心
           console.log('vipIndex')
 

@@ -31,7 +31,11 @@
     },
     computed:{
       detail_info(){
-        return this.$store.state.commodityDetailData.diypage.items.M1512539750735
+        for(var key in this.$store.state.commodityDetailData.diypage.items){
+          if(this.$store.state.commodityDetailData.diypage.items[key].id=="detail_info"){
+            return this.$store.state.commodityDetailData.diypage.items[key]
+          }
+        }
       },
       result(){
         return this.$store.state.commodityDetailData.result

@@ -26,7 +26,9 @@ export default {
       Fujin_sortData:[],
       getFujin_slideData:[],
       Fujin_ListData:{},
-      payStatus:'购买'
+      payStatus:'购买',
+      //购物车
+      cartData:{}
 
     }
   },
@@ -143,6 +145,23 @@ export default {
       }else{
         console.log('购买')
       }
+    },
+    //查看购物车
+    lookCart({commit,state},data){
+      axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.get_list&state=we7sid-989f479443e701453157a809d00e2e0f&sign=4ef7ee8a48b806ac9c01ab9bbeb27e7e',{params:data.params})
+        .then(function (res) {
+          commit({
+            type:'saveCartData',
+            res:res
+          })
+        }).catch(function (err) {alert(err)})
+    },
+    cartDelete({commit,state},data){
+      console.log(data)
+      axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.remove&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=4ef7ee8a48b806ac9c01ab9bbeb27e7e&ids='+data.ids)
+        .then(function (res) {
+          console.log(res)
+        })
     }
   },
   mutations:{
@@ -183,14 +202,22 @@ export default {
     saveCommodityDetailData(state,data){
       VueSet(state,'commodityDetailData',data.data.commodityDetailData.data)
       VueSet(state,'commodityColorSizeData',data.data.commodityColorSizeData.data.result)
-      console.log('commodityColorSizeData-----------------------------------')
-      console.log(state.commodityColorSizeData)
+      console.log('commodityDetailData-----------------------------------')
+      console.log(state.commodityDetailData)
       if(state.commodityDetailData!={}){
         router.push({path: '/sortIndex/detail'})
       }
     },
     changePayStaus(state,data){
         VueSet(state,'payStatus',data.payStatus)
+    },
+  //  保存購物車數據
+    saveCartData(state,data){
+      VueSet(state,'cartData',data.res.data.result)
+      console.log(state.cartData)
+      if(state.cartData!={}){
+        router.push({path:'/cart/'})
+      }
     }
   }
 }
