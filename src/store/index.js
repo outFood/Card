@@ -28,7 +28,8 @@ export default {
       Fujin_ListData:{},
       payStatus:'购买',
       //购物车
-      cartData:{}
+      cartData:{},
+      cartcount:0
 
     }
   },
@@ -136,9 +137,13 @@ export default {
     cartOrPay({commit,state},data){
       console.log(data)
       if(state.payStatus=='加入购物车'){
-        axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.add',{params:data.params})
+        axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.add&state=we7sid-989f479443e701453157a809d00e2e0f&sign=4ef7ee8a48b806ac9c01ab9bbeb27e7e',{params:data.params})
           .then(function (res) {
             console.log(res)
+            commit({
+              type:'saveCartcount',
+              data:res
+            })
           }).catch(function (err) {
           alert(err)
         })
@@ -156,11 +161,21 @@ export default {
           })
         }).catch(function (err) {alert(err)})
     },
+    cartUpdate({commit,state},data){
+     axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.update&state=we7sid-989f479443e701453157a809d00e2e0f&sign=0cba9601498c1bf800a5c9a5c57996a0',{params:data.params})
+       .then(function (res) {
+         // window.location.reload();
+       }).catch(function (err) {alert(err)})
+    },
     cartDelete({commit,state},data){
       console.log(data)
       axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.remove&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=4ef7ee8a48b806ac9c01ab9bbeb27e7e&ids='+data.ids)
         .then(function (res) {
           console.log(res)
+          commit({
+            type:'saveCartcount',
+            data:0
+          })
         })
     }
   },
@@ -211,12 +226,19 @@ export default {
     changePayStaus(state,data){
         VueSet(state,'payStatus',data.payStatus)
     },
-  //  保存購物車數據
+  //  购物车
     saveCartData(state,data){
       VueSet(state,'cartData',data.res.data.result)
       console.log(state.cartData)
       if(state.cartData!={}){
         router.push({path:'/cart/'})
+      }
+    },
+    saveCartcount(state,data){
+      if(data.data==0){
+        VueSet(state,'cartcount',0)
+      }else{
+        VueSet(state,'cartcount',data.data.data.result.cartcount)
       }
     }
   }

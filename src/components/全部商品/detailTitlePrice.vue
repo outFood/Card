@@ -1,5 +1,5 @@
 <template>
-  <div id="titlePrice" :style="{marginTop:detail_info.style.margintop+'px',marginBottom:detail_info.style.marginbottom+'px',background:detail_info.style.background,color:detail_info.style.textcolor}">
+  <div id="titlePrice" v-if="detail_info" :style="{marginTop:detail_info.style.margintop+'px',marginBottom:detail_info.style.marginbottom+'px',background:detail_info.style.background,color:detail_info.style.textcolor}">
     <div class="titleShare">
       <h5 :style="{color:detail_info.style.titlecolor}">{{result.goods.title}}</h5>
       <div v-if="detail_info.params.hideshare==0"><img src="/static/img/share.png" alt="">{{detail_info.params.share}}</div>

@@ -16,11 +16,11 @@
             <h6>{{item.title}}</h6>
             <p>{{item.optiontitle}}</p>
             <div class="priceNum">
-              <span>￥19.9</span>
+              <span>￥{{item.ggprice}}</span>
               <span class="yd-spinner" style="height: 0.6rem; width: 2rem;">
-                <a href="#" @click="addOrReduce(['减',item.total,item.goodsid,item.optionid])"></a>
+                <a href="#" @click="addOrReduce(['减',item.total,item.id,item.optionid])"></a>
                 <input type="number" pattern="[0-9]*" v-model="item.total" class="yd-spinner-input">
-                <a href="#" @click="addOrReduce(['加',item.total,item.goodsid,item.optionid])"></a>
+                <a href="#" @click="addOrReduce(['加',item.total,item.id,item.optionid])"></a>
               </span>
             </div>
           </div>
@@ -30,9 +30,9 @@
       <div class="checkAll" v-if="delShow==false">
         <div class="left">
           <yd-checkbox v-model="isCheckAll" shape="circle" :change="checkAll">全选</yd-checkbox>
-          <div class="rit">合计：<span>￥{{cartData.totalprice}}</span> <p>不含运费</p></div>
+          <div class="rit">合计：<span>￥{{totalPrice}}</span> <p>不含运费</p></div>
         </div>
-        <div class="right">结算(3)</div>
+        <div class="right">结算({{cartData.list.length}})</div>
       </div>
       <!--编辑删除-->
       <div class="edit" v-else>
@@ -51,19 +51,21 @@
         cartList: [],
         isCheckAll: false,
         curNum:0,
-        delShow:false
+        delShow:false,
       }
     },
     computed:{
       cartData(){
          return this.$store.state.cartData
-      }
-    },
-    watch: {
-      cartList: {
-        handler: function (val, oldVal) { console.log(val)},
-        deep: true
       },
+      totalPrice:{
+        get(){
+          return this.$store.state.cartData.totalprice
+        },
+        set(newValue){
+          this.$store.state.cartData.totalprice=newValue
+        }
+      }
     },
     methods: {
       change(value, isCheckAll) {
@@ -74,36 +76,48 @@
         this.$refs.checklistDemo.$emit('ydui.checklist.checkall', this.isCheckAll);
       },
       addOrReduce(arr){//---------------------------------------
-        this.$store.dispatch({//用于改变当前是加入购物车还是购买的状态
-          type:'changePayStaus',
-          payStatus:'加入购物车'
-        })
         if(arr[0]=='加'){
+          var total=parseInt(arr[1])+1;
           this.$store.dispatch({
-            type:'cartOrPay',
+            type:'cartUpdate',
             params:{
-              total:parseInt(arr[1])+1,
+              total:total,
               optionid:arr[3],
-              id:arr[2],
-              state:'we7sid-989f479443e701453157a809d00e2e0f',
-              sign:'deed3cf80284327c2f52c9ac56b8d5d8'
+              id:arr[2]
             }
           })
+          for(var k=0;k<this.cartData.list.length;k++){
+            if(this.cartData.list[k].id==arr[2]){
+              this.cartData.list[k].total++;
+              console.log(this.cartData.list)
+              this.totalPrice+=this.cartData.list[k].ggprice;
+            }
+          }
         }else{
+          var total=parseInt(arr[1])-1;
           this.$store.dispatch({
-            type:'cartOrPay',
+            type:'cartUpdate',
             params:{
-              total:parseInt(arr[1])-1,
+              total:total,
               optionid:arr[3],
-              id:arr[2],
-              state:'we7sid-989f479443e701453157a809d00e2e0f',
-              sign:'deed3cf80284327c2f52c9ac56b8d5d8'
+              id:arr[2]
             }
           })
+          for(var k=0;k<this.cartData.list.length;k++){
+            if(this.cartData.list[k].id==arr[2]){
+              if(this.cartData.list[k].total>1){
+                this.cartData.list[k].total--;
+                this.totalPrice-=this.cartData.list[k].ggprice;
+              }else if(this.cartData.list[k].total==1){
+                this.totalPrice-=this.cartData.list[k].ggprice
+                this.cartData.list.splice(k,1)
+              }
+              console.log(this.cartData.list)
+            }
+          }
         }
       },
       cartDelete(){
-        console.log(this.cartList)
         if(this.cartList){
           this.$store.dispatch({
             type:'cartDelete',
@@ -111,7 +125,7 @@
           })
         }
       }
-    }
+    },
   }
 </script>
 <style>
