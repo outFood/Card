@@ -14,6 +14,13 @@ import detail from '@/components/全部商品/detail'
 import distributHome from '@/components/分销中心/home'
 import distributIndex from '@/components/分销中心/index'
 import price from '@/components/分销中心/price'
+import daili from '@/components/分销中心/daili'
+import tuiguang from '@/components/分销中心/tuiguang'
+import xiaodian from '@/components/分销中心/xiaodian'
+import zixuan from '@/components/分销中心/zixuan'
+import yongDetail from '@/components/分销中心/yongDetail'
+import xiaxian from '@/components/分销中心/xiaxian'
+import tixianDetail from '@/components/分销中心/tixianDetail'
 //E聊
 import eChart from '@/components/E聊/index'
 //附近商家
@@ -85,6 +92,27 @@ export default new Router({
         {
           path:'price',
           component:price
+        },{
+          path:'daili',
+          component:daili
+        },{
+          path:'tuiguang',
+          component:tuiguang
+        },{
+          path:'xiaodian',
+          component:xiaodian
+        },{
+          path:'zixuan',
+          component:zixuan
+        },{
+          path:'yongDetail',
+          component:yongDetail
+        },{
+          path:'xiaxian',
+          component:xiaxian
+        },{
+          path:'tixianDetail',
+          component:tixianDetail
         }
       ]
     },

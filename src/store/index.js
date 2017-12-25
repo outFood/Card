@@ -153,7 +153,7 @@ export default {
     },
     //查看购物车
     lookCart({commit,state},data){
-      axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.get_list&state=we7sid-989f479443e701453157a809d00e2e0f&sign=4ef7ee8a48b806ac9c01ab9bbeb27e7e',{params:data.params})
+      axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.get_list&state=we7sid-989f479443e701453157a809d00e2e0f&sign=5f0fad4b29c868ecfa611a9b18e2dfcb',{params:data.params})
         .then(function (res) {
           commit({
             type:'saveCartData',
@@ -194,6 +194,7 @@ export default {
     //分类
     saveSortData(state, data){
       VueSet(state,'sortData',data.res.data)
+      console.log(state.sortData)
       if(state.sortData!={}){
         router.push({path:'/sortIndex/'})
       }
@@ -217,8 +218,8 @@ export default {
     saveCommodityDetailData(state,data){
       VueSet(state,'commodityDetailData',data.data.commodityDetailData.data)
       VueSet(state,'commodityColorSizeData',data.data.commodityColorSizeData.data.result)
-      console.log('commodityDetailData-----------------------------------')
-      console.log(state.commodityDetailData)
+      console.log('commodityColorSizeData-----------------------------------')
+      console.log(state.commodityColorSizeData)
       if(state.commodityDetailData!={}){
         router.push({path: '/sortIndex/detail'})
       }

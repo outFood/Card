@@ -48,7 +48,7 @@
         <span @click="show2 = false">x</span>
       </div>
       <div class="colorSize">
-        <p>{{specs[0].title}}</p>
+        <p v-if="specs">{{specs[0].title}}</p>
         <span v-for="(item,key) in colorSizeData" :key="key" @click="selColorSize(item.id)" :class="{curBg:item.id==optionid}">{{item.title}}</span>
       </div>
 

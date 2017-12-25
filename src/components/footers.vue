@@ -1,7 +1,7 @@
 <template>
   <div id="footers">
     <div v-for="(item,key) in footerMsg" :key="key">
-      <router-link  :to="item.path">
+      <router-link  to="#">
         <img :src="item.ico" alt="" @click="resData(item.path)">
         <div>
           {{item.name}}

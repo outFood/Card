@@ -16,7 +16,7 @@
         <span v-else class="infoItem">
           <img :src="prefix+item.advimg" v-if="item.advimg">
           <div class="infoCon">
-            <router-link to="/sortIndex/commodityDetail" v-for="(infoItem,key) in item.curSort" :key="key">
+            <router-link to="#" v-for="(infoItem,key) in item.curSort" :key="key" @click.native="resCommodityDetailData(infoItem.id)">
             <img :src="prefix+infoItem.thumb">
             <div>
               <h6>{{infoItem.title}}</h6>
@@ -142,6 +142,13 @@
 //          params:{
 //            order:'all'
 //          }
+        })
+      },
+      resCommodityDetailData(id){
+        console.log('ppp')
+        this.$store.dispatch({
+          type:'resCommodityDetailData',
+          id:id
         })
       }
     },

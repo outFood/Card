@@ -35,12 +35,12 @@
 </template>
 <style>
   #price{
-    font-size: 12px;
+    font-size:0.375rem;
   }
   #price .head{
     background:#e4393c;
     color:#fff;
-    padding: 10px;
+    padding:0.3125rem;
   }
   #price .head>div:nth-child(1){
     text-align: left;
@@ -51,10 +51,10 @@
   #price .head>div:nth-child(2) span{
     padding: 2px 5px;
     border: 1px solid #fff;
-    border-radius: 10px;
+    border-radius: 0.3125rem;
   }
   #price .body{
-    padding: 0 10px;
+    padding: 0 0.3125rem;
     background: #fff;
   }
   #price .body .listItem{
@@ -64,7 +64,7 @@
     display: flex;
     justify-content:space-between;
     align-items: center;
-    padding: 10px 0;
+    padding: 0.3125rem 0;
   }
   #price .body .listItem:not(:last-child){
     border-bottom:1px solid #eee
@@ -73,13 +73,13 @@
 
   }
   #price .body .left img{
-    width:20px;
-    height:20px;
+    width:0.625rem;
+    height:0.625rem;
     vertical-align: middle;
-    margin-right:10px;
+    margin-right:0.3125rem;
   }
   #price .yd-accordion{
-    margin:10px 0;
+    margin:0.3125rem 0;
     text-align: left;
   }
   #price .yd-accordion i{
