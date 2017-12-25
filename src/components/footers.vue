@@ -1,7 +1,7 @@
 <template>
   <div id="footers">
     <div v-for="(item,key) in footerMsg" :key="key">
-      <router-link  to="#">
+      <router-link  :to="item.path">
         <img :src="item.ico" alt="" @click="resData(item.path)">
         <div>
           {{item.name}}
@@ -28,16 +28,16 @@
 }
 #footers>div{
   -webkit-box-flex: 0;
-  -ms-flex: 0 0 16.6%;
-  flex: 0 0 16.6%;
+  -ms-flex: 0 0 14.2%;
+  flex: 0 0 14.2%;
 }
 #footers a{
   color:#707070;
   font-size:12px;
 }
 #footers a img{
-  width:28px;
-  height:28px;
+  width:25px;
+  height:25px;
 }
 #footers div:nth-child(3) img{
   width:38px !important;
@@ -56,6 +56,10 @@
           path: '/sortIndex/',
           ico: '/static/img/sort.png'
         }, {
+          name:'分销中心',
+          path: '/distributIndex/',
+          ico: '/static/img/distribut.png'
+        },{
           name: 'E聊',
           ico: '/static/img/eChart.png',
           path: '/eChart/'

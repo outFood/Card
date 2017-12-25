@@ -10,6 +10,10 @@ import sortHome from '@/components/全部商品/home'
 import sortIndex from '@/components/全部商品/index'
 import someSort from '@/components/全部商品/someSort'
 import detail from '@/components/全部商品/detail'
+//分销中心
+import distributHome from '@/components/分销中心/home'
+import distributIndex from '@/components/分销中心/index'
+import price from '@/components/分销中心/price'
 //E聊
 import eChart from '@/components/E聊/index'
 //附近商家
@@ -67,6 +71,20 @@ export default new Router({
         {
           path:'detail',
           component:detail
+        }
+      ]
+    },
+    {
+      path: '/distributIndex',
+      component: distributHome,
+      children:[
+        {
+          path:'',
+          component:distributIndex
+        },
+        {
+          path:'price',
+          component:price
         }
       ]
     },
