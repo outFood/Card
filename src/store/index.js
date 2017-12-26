@@ -29,8 +29,10 @@ export default {
       payStatus:'购买',
       //购物车
       cartData:{},
-      cartcount:0
-
+      cartcount:0,
+      exclusiveShopData:{},
+      //分销
+      fenxiao:{}
     }
   },
   getters : {
@@ -153,7 +155,7 @@ export default {
     },
     //查看购物车
     lookCart({commit,state},data){
-      axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.get_list&state=we7sid-989f479443e701453157a809d00e2e0f&sign=5f0fad4b29c868ecfa611a9b18e2dfcb',{params:data.params})
+      axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.get_list&state=we7sid-989f479443e701453157a809d00e2e0f&sign=3c2800e3c9cee95f07e12df42ee65441')
         .then(function (res) {
           commit({
             type:'saveCartData',
@@ -164,19 +166,39 @@ export default {
     cartUpdate({commit,state},data){
      axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.update&state=we7sid-989f479443e701453157a809d00e2e0f&sign=0cba9601498c1bf800a5c9a5c57996a0',{params:data.params})
        .then(function (res) {
-         // window.location.reload();
        }).catch(function (err) {alert(err)})
     },
     cartDelete({commit,state},data){
       console.log(data)
       axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.remove&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=4ef7ee8a48b806ac9c01ab9bbeb27e7e&ids='+data.ids)
         .then(function (res) {
-          console.log(res)
           commit({
             type:'saveCartcount',
             data:0
           })
         })
+    },
+    //附近商家
+    resExclusiveShopData({commit,state},data){
+      // var url='https://xcx.xcwll.cn/app'+(data.url).replace(/^./, "")+'&state=we7sid-989f479443e701453157a809d00e2e0f&sign=907857da4524149aacd027f26975f731'
+      var url='https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.index.get_main&state=we7sid-989f479443e701453157a809d00e2e0f&sign=5fc39c4c2d8acbfb7c253e67cbecda05&mid=0&merchid='+data.id
+      axios.get(url).then(function (res) {
+        commit({
+          type:'saveExclusiveShopData',
+          res:res
+        })
+      }).catch(function (err) {alert(err)})
+    },
+    //分销中心
+    resFenxiao({commit,state},data){
+      axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.order.get_list&i=1041&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=323f02a5013c1628ba0bc09c1898a2b9&status=0')
+        .then(function (res) {
+          console.log(res)
+          commit({
+            type:'saveFenxiao',
+            res:res
+          })
+        }).catch(function (err) {alert(err)})
     }
   },
   mutations:{
@@ -212,7 +234,7 @@ export default {
       VueSet(state,'Fujin_ListData',data.data.Fujin_ListData.data)
       console.log(state.Fujin_ListData)
       if(state.Fujin_sortData&&state.getFujin_slideData&&state.Fujin_ListData){
-        router.push({path: '/fujin/'})
+        router.push({path: '/fujinIndex/'})
       }
     },
     saveCommodityDetailData(state,data){
@@ -241,6 +263,24 @@ export default {
       }else{
         VueSet(state,'cartcount',data.data.data.result.cartcount)
       }
+    },
+    //附近商家
+    saveExclusiveShopData(state,data){
+      VueSet(state,'exclusiveShopData',data.res.data.result)
+      if(state.exclusiveShopData!={}){
+        router.push({path:'/fujinIndex/exclusiveShop'})
+      }
+      console.log('**************exclusiveShopData****************')
+      console.log(state.exclusiveShopData)
+    },
+    //分销
+    saveFenxiao(state,data){
+      VueSet(state,'fenxiao',data.res.data)
+      if(state.fenxiao!={}){
+        router.push({path:'/distributIndex/'})
+      }
+      console.log('**************分销****************')
+      console.log(state.fenxiao)
     }
   }
 }

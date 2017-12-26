@@ -1,29 +1,17 @@
 <template>
   <div id="exclusiveShop">
     <yd-slider autoplay="3000">
-      <yd-slider-item>
-        <a href="http://www.ydcss.com">
-          <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
+      <yd-slider-item v-for="(item,key) in myBanner" :key="key">
+        <a :href="item.linkurl">
+          <img :src="prefix+item.imgurl">
         </a>
       </yd-slider-item>
     </yd-slider>
     <div class="search"><yd-search></yd-search>搜索</div>
     <div class="picSort">
-      <router-link to="#">
-        <div><img src="/static/img/hot-sale.png" alt=""></div>
-        新品
-      </router-link>
-      <router-link to="#">
-        <div><img src="/static/img/hot-sale.png" alt=""></div>
-        新品
-      </router-link>
-      <router-link to="#">
-        <div><img src="/static/img/hot-sale.png" alt=""></div>
-        新品
-      </router-link>
-      <router-link to="#">
-        <div><img src="/static/img/hot-sale.png" alt=""></div>
-        新品
+      <router-link :to="item.linkurl" v-for="(item,key) in myMenu" :key="key" :style="{color:item.color}">
+        <img :src="prefix+item.imgurl">
+        {{item.text}}
       </router-link>
     </div>
     <div class="textSort">
@@ -46,38 +34,20 @@
       </yd-slider>
     </div>
     <div class="discountItem">
-      <div><img src="http://static.ydcss.com/uploads/ydui/1.jpg">活动价 ￥25</div>
+      <div>
+        <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
+        活动价 ￥25
+      </div>
       <div><img src="http://static.ydcss.com/uploads/ydui/1.jpg">活动价 ￥25</div>
       <div><img src="http://static.ydcss.com/uploads/ydui/1.jpg">活动价 ￥25</div>
     </div>
     <h2>大牌推荐</h2>
     <div class="tuijian">
-      <div>
-        <img src="http://img1.3lian.com/2015/a1/95/d/105.jpg" alt="">
+      <div v-for="(item,key) in myGoods">
+        <img :src="prefix+item.thumb">
         <div>
-          <p>普通会员</p>
-          <span>￥18</span><span class="goPay">购买</span>
-        </div>
-      </div>
-      <div>
-        <img src="http://img1.3lian.com/2015/a1/95/d/105.jpg" alt="">
-        <div>
-          <p>普通会员</p>
-          <span>￥18</span><span class="goPay">购买</span>
-        </div>
-      </div>
-      <div>
-        <img src="http://img1.3lian.com/2015/a1/95/d/105.jpg" alt="">
-        <div>
-          <p>普通会员</p>
-          <span>￥18</span><span class="goPay">购买</span>
-        </div>
-      </div>
-      <div>
-        <img src="http://img1.3lian.com/2015/a1/95/d/105.jpg" alt="">
-        <div>
-          <p>普通会员</p>
-          <span>￥18</span><span class="goPay">购买</span>
+          <p>{{item.title}}</p>
+          <span>￥{{item.price}}</span><span class="goPay">购买</span>
         </div>
       </div>
     </div>
@@ -87,6 +57,76 @@
     </div>
   </div>
 </template>
+<script>
+  export default {
+    data(){
+      return {
+        myBanner:[],
+        myMenu:[],
+        myGoods:[]
+      }
+    },
+    computed:{
+      prefix(){//轮播图片附加前缀
+        return this.$store.state.prefix
+      },
+      banner(){
+        var exclusiveShopData=this.$store.state.exclusiveShopData;
+        for(var key in exclusiveShopData){
+          if(exclusiveShopData[key].id=='banner'){
+            return exclusiveShopData[key]
+          }
+        }
+      },
+      menu(){
+        var exclusiveShopData=this.$store.state.exclusiveShopData
+        for(var key in exclusiveShopData){
+          if(exclusiveShopData[key].id=='menu'){
+            return exclusiveShopData[key]
+          }
+        }
+      },
+      pictures(){
+        var exclusiveShopData=this.$store.state.exclusiveShopData
+        for(var key in exclusiveShopData){
+          if(exclusiveShopData[key].id=='pictures'){
+            return exclusiveShopData[key]
+          }
+        }
+      },
+      listmenu(){
+        var exclusiveShopData=this.$store.state.exclusiveShopData
+        for(var key in exclusiveShopData){
+          if(exclusiveShopData[key].id=='listmenu'){
+            return exclusiveShopData[key]
+          }
+        }
+      },
+      goods(){
+        var exclusiveShopData=this.$store.state.exclusiveShopData
+        for(var key in exclusiveShopData){
+          if(exclusiveShopData[key].id=='goods'){
+            return exclusiveShopData[key]
+          }
+        }
+      }
+    },
+    mounted(){
+      for(var key in this.banner.data){
+        this.myBanner.push(this.banner.data[key])
+      }
+      for(var key in this.menu.data){
+        this.myMenu.push(this.menu.data[key])
+      }
+      for(var key in this.goods.data){
+        this.myGoods.push(this.goods.data[key])
+      }
+      console.log(this.myBanner)
+      console.log(this.myMenu)
+      console.log(this.myGoods)
+    }
+  }
+</script>
 <style>
   #exclusiveShop .search{
     display: -webkit-box;
@@ -110,23 +150,12 @@
     flex: 0 0 25%;
     color:#606060
   }
-  #exclusiveShop .picSort a div{
-    width:50px;
-    height:50px;
-    border-radius: 50%;
-    margin:0 auto;
-    background: lightseagreen;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    align-items: center;
-    margin-bottom:5px;
-  }
   #exclusiveShop .picSort a img{
+    display: block;
     width:40px;
     height:40px;
     margin:0 auto;
+    margin-bottom:10px;
   }
   #exclusiveShop .textSort{
     background: #fff;

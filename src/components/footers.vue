@@ -92,6 +92,11 @@
           this.$store.dispatch({
             type:type
           })
+        }else if(path=='distributIndex'){//请求分类
+          type='resFenxiao'
+          this.$store.dispatch({
+            type:type
+          })
         }else if(path=='eChart'){//请求E聊
           console.log('eChart')
 

@@ -2,7 +2,7 @@
   <div id="slider">
     <yd-slider autoplay="3000">
       <yd-slider-item v-for="(item,key) in imgData" :key="key">
-        <router-link to="/shopIndex/exclusiveShop">
+        <router-link to="/fujinIndex/exclusiveShop">
           <img :src="prefix+item.imgurl">
         </router-link>
       </yd-slider-item>

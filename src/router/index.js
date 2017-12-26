@@ -4,7 +4,6 @@ import Router from 'vue-router'
     import shopHome from '@/components/商城首页/home'
     //首页子路由
     import shopIndex from '@/components/商城首页/index'
-    import exclusiveShop from '@/components/商城首页/exclusiveShop'
 //全部商品
 import sortHome from '@/components/全部商品/home'
 import sortIndex from '@/components/全部商品/index'
@@ -21,10 +20,13 @@ import zixuan from '@/components/分销中心/zixuan'
 import yongDetail from '@/components/分销中心/yongDetail'
 import xiaxian from '@/components/分销中心/xiaxian'
 import tixianDetail from '@/components/分销中心/tixianDetail'
+import apply from '@/components/分销中心/apply'
 //E聊
 import eChart from '@/components/E聊/index'
 //附近商家
-import fujin from '@/components/附近商家/index'
+import fujinHome from '@/components/附近商家/home'
+import fujinIndex from '@/components/附近商家/index'
+import exclusiveShop from '@/components/附近商家/exclusiveShop'
 //购物车
 import cart from '@/components/购物车/index'
 //会员中心
@@ -52,10 +54,6 @@ export default new Router({
           path:'',
           component:shopIndex
         },
-        {
-          path:'exclusiveShop',
-          component:exclusiveShop
-        }
       ]
     },
     {
@@ -113,6 +111,9 @@ export default new Router({
         },{
           path:'tixianDetail',
           component:tixianDetail
+        },{
+          path:'apply',
+          component:apply
         }
       ]
     },
@@ -122,9 +123,18 @@ export default new Router({
       component: eChart
     },
     {
-      path: '/fujin',
-      name: 'fujin',
-      component: fujin
+      path: '/fujinIndex',
+      component: fujinHome,
+      children:[
+        {
+          path:'',
+          component:fujinIndex
+        },
+        {
+          path:'exclusiveShop',
+          component:exclusiveShop
+        }
+      ]
     },
     {
       path:'/cart',

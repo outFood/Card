@@ -18,9 +18,9 @@
             <div class="priceNum">
               <span>￥{{item.ggprice}}</span>
               <span class="yd-spinner" style="height: 0.6rem; width: 2rem;">
-                <a href="#" @click="addOrReduce(['减',item.total,item.id,item.optionid])"></a>
+                <a href="#" @click="addOrReduceOrDel(['减',item.total,item.id,item.optionid])"></a>
                 <input type="number" pattern="[0-9]*" v-model="item.total" class="yd-spinner-input">
-                <a href="#" @click="addOrReduce(['加',item.total,item.id,item.optionid])"></a>
+                <a href="#" @click="addOrReduceOrDel(['加',item.total,item.id,item.optionid])"></a>
               </span>
             </div>
           </div>
@@ -37,7 +37,7 @@
       <!--编辑删除-->
       <div class="edit" v-else>
         <yd-checkbox v-model="isCheckAll" shape="circle" :change="checkAll">全选</yd-checkbox>
-        <div class="delete" :class="{redDelete:cartList.length}" @click='cartDelete'>删除</div>
+        <div class="delete" :class="{redDelete:cartList.length}" @click="addOrReduceOrDel(['删除'])">删除</div>
       </div>
     </div>
 
@@ -67,6 +67,14 @@
         }
       }
     },
+    watch:{
+      cartList:{
+        handler(newVal,oldVal){
+          console.log(newVal)
+        },
+        deep:true
+      }
+    },
     methods: {
       change(value, isCheckAll) {
         this.isCheckAll = isCheckAll;
@@ -75,7 +83,7 @@
         this.isCheckAll = !this.isCheckAll;
         this.$refs.checklistDemo.$emit('ydui.checklist.checkall', this.isCheckAll);
       },
-      addOrReduce(arr){//---------------------------------------
+      addOrReduceOrDel(arr){//---------------------------------------
         if(arr[0]=='加'){
           var total=parseInt(arr[1])+1;
           this.$store.dispatch({
@@ -89,11 +97,10 @@
           for(var k=0;k<this.cartData.list.length;k++){
             if(this.cartData.list[k].id==arr[2]){
               this.cartData.list[k].total++;
-              console.log(this.cartData.list)
               this.totalPrice+=this.cartData.list[k].ggprice;
             }
           }
-        }else{
+        }else if(arr[0]=='减'){
           var total=parseInt(arr[1])-1;
           this.$store.dispatch({
             type:'cartUpdate',
@@ -109,16 +116,43 @@
                 this.cartData.list[k].total--;
                 this.totalPrice-=this.cartData.list[k].ggprice;
               }else if(this.cartData.list[k].total==1){
+                //如果减少到数量为一的时候，做删除的操作
+                this.$store.dispatch({
+                  type:'cartDelete',
+                  ids:[arr[2]]
+                })
                 this.totalPrice-=this.cartData.list[k].ggprice
                 this.cartData.list.splice(k,1)
               }
               console.log(this.cartData.list)
             }
           }
+        }else{
+          console.log('ggggg')
+          if(this.cartList){
+            console.log(this.cartList)
+            this.$store.dispatch({
+              type:'cartDelete',
+              ids:this.cartList
+            })
+          }
+          if(this.isCheckAll==true){
+            console.log('全选')
+            this.totalPrice=0
+            this.cartData.list=[]
+          }else{
+            for(var k=0;k<this.cartData.list.length;k++){
+              if(this.cartData.list[k].id==this.cartList[0]){
+                this.totalPrice-=this.cartData.list[k].ggprice
+                this.cartData.list.splice(k,1)
+              }
+            }
+          }
         }
       },
       cartDelete(){
         if(this.cartList){
+                console.log(this.cartList)
           this.$store.dispatch({
             type:'cartDelete',
             ids:this.cartList
