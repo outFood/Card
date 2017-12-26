@@ -32,7 +32,7 @@
               </yd-accordion-item>
             </yd-accordion>
             <div class="list">
-              <div class="listItem" v-for="(item,key) in Fujin_ListData.result.list" :key="key">
+              <router-link to="#" class="listItem" v-for="(item,key) in Fujin_ListData.result.list" :key="key" @click.native="resExclusiveShopData(item.id)">
                 <img src="http://weixinxiaochengxun.oss-cn-beijing.aliyuncs.com/attachment/images/1041/2017/11/CFEu5vse16xVSgWgEXUnwe01PuZa0y.jpg" alt="">
                 <div class="middle">
                   <h6>{{item.merchname}}</h6>
@@ -45,7 +45,7 @@
                   <img src="/static/img/position.png" alt="">
                   <img src="/static/img/phone.png" alt="">
                 </div>
-              </div>
+              </router-link >
             </div>
           </div>
           <!----------------------------------------------------------->`
@@ -102,6 +102,7 @@
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
   }
   #fujin #sort .sortItem{
@@ -188,7 +189,7 @@
         part2Show:false,
         part1:[],
         part2:[],
-        curSelSort:''
+        curSelSort:'全部'
       }
     },
     computed:{
@@ -235,6 +236,12 @@
       },
       loadmap(){
         const map = new AMap.Map('allmap');
+      },
+      resExclusiveShopData(id){
+        this.$store.dispatch({
+          type:'resExclusiveShopData',
+          id:id
+        })
       }
     },
 

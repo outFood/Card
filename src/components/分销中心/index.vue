@@ -9,7 +9,7 @@
           <span>推荐人:E卡系统</span>
           <span>本人ID:639312</span>
         </yd-flexbox-item>
-        <div class="right"><img src="/static/img/set.png"></div>
+        <router-link to="/distributIndex/apply" class="right"><img src="/static/img/set.png"></router-link>
       </yd-flexbox>
       <yd-flexbox class="line2">
         <yd-flexbox-item>
