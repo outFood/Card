@@ -32,7 +32,8 @@ export default {
       cartcount:0,
       exclusiveShopData:{},
       //分销
-      fenxiao:{}
+      fenxiao_headData:{},
+      fenxiao_bodyData:{}
     }
   },
   getters : {
@@ -191,14 +192,30 @@ export default {
     },
     //分销中心
     resFenxiao({commit,state},data){
-      axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.order.get_list&i=1041&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=323f02a5013c1628ba0bc09c1898a2b9&status=0')
-        .then(function (res) {
-          console.log(res)
-          commit({
-            type:'saveFenxiao',
-            res:res
-          })
-        }).catch(function (err) {alert(err)})
+      // //https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.order.get_list&i=1041&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=323f02a5013c1628ba0bc09c1898a2b9&status=0
+      // //https://xcx.xcwll.cn/app/index.php?c=wxapp&a=module&do=nav&uniacid=1041&type=4
+      // axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.index.get_main&&state=we7sid-794d7db19adf5357dd4aa60d3d4dfef8&sign=c78207aafe04e19076ec63ad8d6d903d')
+      //   .then(function (res) {
+      //     commit({
+      //       type:'saveFenxiao',
+      //       res:res
+      //     })
+      //   }).catch(function (err) {alert(err)})
+      function resHeadData() {
+       return axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.index.get_main&&state=we7sid-794d7db19adf5357dd4aa60d3d4dfef8&sign=c78207aafe04e19076ec63ad8d6d903d')
+      }
+      function resBodyData() {
+       return axios.get('https://xcx.xcwll.cn/app/index.php?c=wxapp&a=module&do=nav&uniacid=1041&type=4')
+      }
+      axios.all([resHeadData(),resBodyData()]).then(axios.spread(function (HeadData,BodyData) {
+        console.log(HeadData)
+        console.log(BodyData)
+        commit({
+          type:'saveFenxiao',
+          HeadData:HeadData,
+          BodyData:BodyData
+        })
+      }))
     }
   },
   mutations:{
@@ -275,12 +292,22 @@ export default {
     },
     //分销
     saveFenxiao(state,data){
-      VueSet(state,'fenxiao',data.res.data)
-      if(state.fenxiao!={}){
+      VueSet(state,'fenxiao_headData',data.HeadData.data)
+      VueSet(state,'fenxiao_bodyData',data.BodyData.data)
+      console.log('**************分销****************')
+      console.log(state.fenxiao_headData)
+      console.log(state.fenxiao_bodyData)
+      // if (state.fenxiao_headData.status != 1 || state.fenxiao_headData.result.register != 1) {
+      //   //跳转到注册页
+      //   if(mark == 'mark') return
+      //
+      //   return
+      // }
+      console.log()
+      console.log()
+      if(state.fenxiao_headData!={}&&state.fenxiao_bodyData){
         router.push({path:'/distributIndex/'})
       }
-      console.log('**************分销****************')
-      console.log(state.fenxiao)
     }
   }
 }

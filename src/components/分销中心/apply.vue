@@ -7,8 +7,8 @@
         </a>
       </yd-slider-item>
     </yd-slider>
-    <img src="/static/img/clock.png" alt="" class="clock">
-    <h5>谢谢您的支持,请等待审核</h5>
+    <img src="/static/img/clock_sky.png" alt="" class="clock">
+    <h5>谢谢您的支持,请等待审核！</h5>
     <router-link to="#" class="toShop">去商城逛逛</router-link>
   </div>
 </template>
@@ -30,7 +30,7 @@
     display: block;
     width:30%;
     margin:0 auto;
-    background: red;
+    background: #ef4f4f;
     color:#fff;
     padding:6px;
     border-radius: 3px;
