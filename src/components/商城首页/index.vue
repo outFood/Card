@@ -3,12 +3,16 @@
     <headers></headers>
     <payment></payment>
     <slider></slider>
+    <titles></titles>
     <gonggao></gonggao>
+    <picwindow></picwindow>
+    <searchinput></searchinput>
     <sliderNav1 v-if="pagenum==0"></sliderNav1>
     <sliderNav2 v-else></sliderNav2>
     <vipSort></vipSort>
     <nursing></nursing>
     <brand></brand>
+    <pics></pics>
     <footers/>
   </div>
 </template>
@@ -22,6 +26,7 @@
 <script>
   import headers from '@/components/商城首页/headers'
   import payment from '@/components/商城首页/payment'
+  import searchinput from '@/components/商城首页/searchinput'
   import slider from '@/components/商城首页/slider'
   import gonggao from '@/components/商城首页/gonggao'
   import sliderNav1 from '@/components/商城首页/sliderNav1'
@@ -29,6 +34,9 @@
   import vipSort from '@/components/商城首页/vipSort'
   import nursing from '@/components/商城首页/nursing'
   import brand from '@/components/商城首页/brand'
+  import pics from '@/components/商城首页/pics'
+  import titles from '@/components/商城首页/titles'
+  import picwindow from '@/components/商城首页/picwindow'
   export default {
     data(){
       return{
@@ -42,9 +50,13 @@
       gonggao,
       sliderNav1,
       sliderNav2,
+      searchinput,
       vipSort,
       nursing,
-      brand
+      brand,
+      pics,
+      picwindow,
+      titles
     },
     created(){
       setTimeout(()=>{

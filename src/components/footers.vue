@@ -11,38 +11,7 @@
   </div>
 </template>
 
-<style>
-#footers{
-  z-index: 1;
-  position: fixed;
-  bottom:0;
-  left:0;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 5px;
-  width:100%;
-  background: #fff;
-  box-shadow:    0px -3px 0px 0px rgba(0,0,0,0.01)  /*设置上阴影*/
-}
-#footers>div{
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 14.2%;
-  flex: 0 0 14.2%;
-}
-#footers a{
-  color:#707070;
-  font-size:12px;
-}
-#footers a img{
-  width:25px;
-  height:25px;
-}
-#footers div:nth-child(3) img{
-  width:38px !important;
-}
-</style>
+
 <script>
   export default {
     data() {
@@ -118,3 +87,37 @@
     }
   }
 </script>
+
+<style>
+#footers{
+  z-index: 1;
+  position: fixed;
+  bottom:0;
+  left:0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 5px;
+  width:100%;
+  background: #fff;
+  box-shadow:    0px -3px 0px 0px rgba(0,0,0,0.01)  /*设置上阴影*/
+}
+#footers>div{
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 14.2%;
+  flex: 0 0 14.2%;
+}
+#footers a{
+  color:#707070;
+  font-size:12px;
+}
+#footers a img{
+  width:25px;
+  height:25px;
+}
+#footers div:nth-child(3) img{
+  width:38px !important;
+}
+</style>
+

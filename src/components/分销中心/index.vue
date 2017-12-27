@@ -9,7 +9,7 @@
           <!--<span>{{fenxiao_headData.thisset.texts.up}}: {{!fenxiao_headData.up ? '总店' : fenxiao_headData.up.nickname}}</span>-->
           <!--<span>本人ID:{{fenxiao_headData.member.id}}</span>-->
         <!--</yd-flexbox-item>-->
-        <!--<router-link to="/distributIndex/regist" class="right"><img src="/static/img/set.png"></router-link>-->
+        <!--<router-link to="/distributIndex/apply" class="right"><img src="/static/img/set.png"></router-link>-->
       <!--</yd-flexbox>-->
       <!--<yd-flexbox class="line2">-->
         <!--<yd-flexbox-item>-->
