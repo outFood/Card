@@ -103,7 +103,7 @@ export default{
 	}
 
 	#picwindow .picwrap .pic_four .full_l img{
-		width: 50%;
+		width: 100%;
 		height: 150px;
 		overflow: hidden;
 	}

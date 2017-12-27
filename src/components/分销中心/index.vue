@@ -1,6 +1,6 @@
 <template>
   <yd-layout title="分销中心" link="#" id="distribut">
-    <div class="head">
+    <!-- <div class="head">
       <yd-flexbox class="line1">
         <div class="left"><img src="http://static.ydcss.com/uploads/ydui/1.jpg"></div>
         <yd-flexbox-item>
@@ -84,10 +84,27 @@
           <p>自选商品</p>
         </router-link>
       </yd-flexbox-item>
-    </yd-flexbox>
+    </yd-flexbox> -->
+    <agentcenter></agentcenter>
     <footers></footers>
   </yd-layout>
 </template>
+
+<script>
+import agentcenter from '@/components/分销中心/agentcenter/agentcenter'
+export default{
+   data (){
+      return {
+      
+      }
+   },
+
+   components: {
+       agentcenter
+   }
+}
+</script>
+
 <style>
   #distribut .head{
     background: orange;
