@@ -1,113 +1,134 @@
 <template>
   <yd-layout title="分销中心" link="#" id="distribut">
-    <!-- <div class="head">
-      <yd-flexbox class="line1">
-        <div class="left"><img src="http://static.ydcss.com/uploads/ydui/1.jpg"></div>
-        <yd-flexbox-item>
-          <h6>晴撄</h6>
-          <i><免费等级></i>
-          <span>推荐人:E卡系统</span>
-          <span>本人ID:639312</span>
-        </yd-flexbox-item>
-        <router-link to="/distributIndex/apply" class="right"><img src="/static/img/set.png"></router-link>
-      </yd-flexbox>
-      <yd-flexbox class="line2">
-        <yd-flexbox-item>
-          <span>成功提现佣金(元)</span>
-          <h5>0.00</h5>
-        </yd-flexbox-item>
-        <yd-flexbox-item>
-          <span>代理佣金(元)</span>
-          <h5>0.00</h5>
-        </yd-flexbox-item>
-      </yd-flexbox>
-      <yd-flexbox class="line3">
-        <yd-flexbox-item>
-          <span>可提现佣金(元)</span>
-          <h5>0.00</h5>
-        </yd-flexbox-item>
-        <yd-flexbox-item>
-          <span class="btn">佣金提现</span>
-        </yd-flexbox-item>
-      </yd-flexbox>
-    </div>
+    <!--<div class="head">-->
+      <!--<yd-flexbox class="line1">-->
+        <!--<div class="left"><img src="http://static.ydcss.com/uploads/ydui/1.jpg"></div>-->
+        <!--<yd-flexbox-item>-->
+          <!--<h6>{{fenxiao_headData.member.nickname}}</h6>-->
+          <!--<i>[{{!fenxiao_headData.level ? (!fenxiao_headData.thisset.levelname ? '普通等级' : fenxiao_headData.thisset.levelname) : fenxiao_headData.level.levelname}}]</i>-->
+          <!--<span>{{fenxiao_headData.thisset.texts.up}}: {{!fenxiao_headData.up ? '总店' : fenxiao_headData.up.nickname}}</span>-->
+          <!--<span>本人ID:{{fenxiao_headData.member.id}}</span>-->
+        <!--</yd-flexbox-item>-->
+        <!--<router-link to="/distributIndex/apply" class="right"><img src="/static/img/set.png"></router-link>-->
+      <!--</yd-flexbox>-->
+      <!--<yd-flexbox class="line2">-->
+        <!--<yd-flexbox-item>-->
+          <!--<span>{{fenxiao_headData.thisset.texts.commission_pay}}({{fenxiao_headData.thisset.texts.yuan}})</span>-->
+          <!--<h5>{{fenxiao_headData.member.commission_pay}}</h5>-->
+        <!--</yd-flexbox-item>-->
+        <!--<yd-flexbox-item>-->
+          <!--<span>{{fenxiao_headData.thisset.texts.commission_total}}({{fenxiao_headData.thisset.texts.yuan}})</span>-->
+          <!--<h5>{{fenxiao_headData.member.commission_total}}</h5>-->
+        <!--</yd-flexbox-item>-->
+      <!--</yd-flexbox>-->
+      <!--<yd-flexbox class="line3">-->
+        <!--<yd-flexbox-item>-->
+          <!--<span>{{fenxiao_headData.thisset.texts.commission_ok}}({{fenxiao_headData.thisset.texts.yuan}})</span>-->
+          <!--<h5>{{fenxiao_headData.member.commission_ok}}</h5>-->
+        <!--</yd-flexbox-item>-->
+        <!--<yd-flexbox-item>-->
+          <!--<span class="btn">佣金提现</span>-->
+        <!--</yd-flexbox-item>-->
+      <!--</yd-flexbox>-->
+    <!--</div>-->
     <yd-flexbox class="body">
-      <yd-flexbox-item>
-        <router-link to="/distributIndex/price">
-          <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
-          <p>分销佣金</p>
-          <i>0.00</i> 元
-        </router-link>
-      </yd-flexbox-item>
-      <yd-flexbox-item>
-        <router-link to="/distributIndex/yongDetail">
-          <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
-          <p>佣金明细</p>
-          <i>0</i> 笔
-        </router-link>
-      </yd-flexbox-item>
-      <yd-flexbox-item>
-        <router-link to="/distributIndex/tixianDetail">
-          <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
-          <p>提现明细</p>
-          <i>0</i> 笔
-        </router-link>
-      </yd-flexbox-item>
-      <yd-flexbox-item>
-        <router-link to="/distributIndex/xiaxian">
-          <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
-          <p>我的下线</p>
-          <i>0</i> 人
+      <yd-flexbox-item v-for="(item,key) in fenxiao_bodyData" :key="key">
+        <router-link :to="item.path">
+          <img :src="item.imgSrc">
+          <p>{{item.text}}</p>
+          <i>{{item.tipnum}}</i> {{item.tiptext}}
         </router-link>
       </yd-flexbox-item>
       <yd-flexbox-item>
         <router-link to="/distributIndex/daili">
-          <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
+          <img src="/static/img/hebei.png">
           <p>区域代理中心</p>
         </router-link>
       </yd-flexbox-item>
-      <yd-flexbox-item>
-        <router-link to="/distributIndex/tuiguang">
-          <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
-          <p>推广二维码</p>
-        </router-link>
-      </yd-flexbox-item>
-      <yd-flexbox-item>
-        <router-link to="/distributIndex/xiaodian">
-          <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
-          <p>小店设置</p>
-        </router-link>
-      </yd-flexbox-item>
-      <yd-flexbox-item>
-        <router-link to="/distributIndex/zixuan">
-          <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
-          <p>自选商品</p>
-        </router-link>
-      </yd-flexbox-item>
-    </yd-flexbox> -->
-    <agentcenter></agentcenter>
+    </yd-flexbox>
     <footers></footers>
   </yd-layout>
 </template>
-
 <script>
-import agentcenter from '@/components/分销中心/agentcenter/agentcenter'
-export default{
-   data (){
-      return {
-      
+  export default {
+    data(){
+      return{
+        paths:[
+          {
+            path:'/distributIndex/price',
+            imgSrc:'/static/img/money.png'
+          },
+          {
+            path:'/distributIndex/yongDetail',
+            imgSrc:'/static/img/sort_blue.png'
+          },
+          {
+            path:'/distributIndex/tixianDetail',
+            imgSrc:'/static/img/mingxi.png'
+          },
+          {
+            path:'/distributIndex/xiaxian',
+            imgSrc:'/static/img/peples.png'
+          },
+          {
+            path:'/distributIndex/tuiguang',
+            imgSrc:'/static/img/ma.png'
+          },
+          {
+            path:'/distributIndex/xiaodian',
+            imgSrc:'/static/img/shop.png'
+          }
+//          '/distributIndex/price',
+//          '/distributIndex/yongDetail',
+//          '/distributIndex/tixianDetail',
+//          '/distributIndex/xiaxian',
+//          '/distributIndex/tuiguang',
+//          '/distributIndex/xiaodian',
+//          '/distributIndex/daili',
+//          '/distributIndex/zixuan'
+        ],
+        imgs:[
+          '/static/img/money.png'
+        ]
       }
-   },
+    },
+    computed:{
+      fenxiao_headData(){
+        return this.$store.state.fenxiao_headData.result
+      },
+      fenxiao_bodyData(){
+        var arr=[]
+        //得到数据并格式化为数组
+        for(var key in this.$store.state.fenxiao_bodyData.module){
+          if(this.$store.state.fenxiao_bodyData.module[key].id=='blockgroup'){
+            arr=Array.from(this.$store.state.fenxiao_bodyData.module[key].data)
+          }
+        }
+        //将每一项对应的路径添加到数组项里
+        for(var i=0;i<arr.length;i++){
+          for(var j=0;j<this.paths.length;j++){
+            if(i==j){
+              arr[i].path=this.paths[j].path
+              arr[i].imgSrc=this.paths[j].imgSrc
+            }
+          }
+        }
+        return arr
+      },
 
-   components: {
-       agentcenter
-   }
-}
+    },
+    mounted(){
+
+
+      console.log(this.fenxiao_headData)
+
+//      console.log(this.fenxiao_bodyData)
+    }
+  }
 </script>
-
 <style>
   #distribut .head{
-    background: orange;
+    background: #FE5455;
     color:#fff;
     padding: 0.3125rem;
     font-size:0.375rem;

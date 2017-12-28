@@ -36,13 +36,27 @@
           </yd-radio-group>
         </div>
       </div>
-      <div class="item">
-        <span>代理省份</span>
-        <div><input placeholder="请选择代理省份"></div>
+      <div class="item" v-if="sort.length>0">
+        <span><u v-if="sort=='省级'">代理省份</u><u v-else-if="sort=='市级'">代理城市</u><u v-else-if="sort=='区级'">代理地区</u><u v-else-if="sort=='乡镇'">代理地区</u></span>
+        <div><input slot="right" type="text" @click.stop="curShow = true" v-model="curSel" readonly :placeholder="curPlaceholder"></div>
+        <yd-cityselect v-model="curShow" :callback="result" :items="district"></yd-cityselect>
       </div>
-      <yd-checkbox-group v-model="readed" size="30" class="xieyi">
-        <yd-checkbox val="1"><span style="font-size: 24px;">我已经阅读并了解了</span><u>【区域代理申请协议】</u></yd-checkbox>
-      </yd-checkbox-group>
+      <div class="item" v-if="sort=='乡镇'">
+        <span>乡镇</span>
+        <div><input placeholder="请填写乡镇"></div>
+      </div>
+      <div class="item">
+        <yd-checkbox-group v-model="readed" size="30" class="xieyi">
+          <yd-checkbox val=""></yd-checkbox><span style="font-size: 24px;">我已经阅读并了解了</span><u @click="show1=true">【分销商申请协议】</u>
+        </yd-checkbox-group>
+      </div>
+
+      <yd-popup v-model="show1" position="center" width="90%">
+        <p class="xieyiCon">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam inventore iste labore optio perferendis sunt totam vitae! Accusamus consequuntur cum dolore minus neque, officia quaerat quibusdam sint totam ut. Voluptatibus.</p>
+        <p style="text-align: center;">
+          <yd-button @click.native="show1 = false">我已阅读</yd-button>
+        </p>
+      </yd-popup>
       <yd-button size="large" type="warning">申请成为</yd-button>
       <div class="item">
         <span class="img"><img src="/static/img/tequan.png" alt=""></span>
@@ -61,8 +75,15 @@
   padding: 10px;
   background: #fff;
 }
+#daili u{
+  text-decoration: none;
+}
 #daili form p{
   padding: 10px 0;
+}
+*::-webkit-input-placeholder {
+  color: #b0b0b0;
+  font-size:12px;
 }
 #daili form i{
   color:red;
@@ -100,10 +121,14 @@
   width:7px !important;
   height:9px !important;
 }
-#daili form .xieyi .yd-checkbox-text{
-  font-size:14px !important;
+#daili form .xieyi{
+  flex: 0 0 100% !important;
 }
-#daili form .xieyi .yd-checkbox-text span{
+#daili form .xieyi .yd-checkbox {
+  display: inline;
+  padding-right:5px;
+}
+#daili form .xieyi  span{
   font-size:14px !important;
 }
 #daili form .xieyi u{
@@ -111,22 +136,64 @@
   text-decoration: none;
   font-weight: bold;
 }
+#daili .xieyiCon{
+   padding:10px !important;
+   text-indent: 1rem
+ }
+#daili form .xieyi u{
+  color:#2e70a2;
+  text-decoration: none;
+  font-weight: bold;
+}
+#daili  .yd-radio {
+  margin-bottom:5px;
+}
 </style>
-<script>
+<script>/* 前提是已经安装了 ydui-district */
+import District from 'ydui-district/dist/jd_province_city_area_id';
   export default {
     data(){
       return{
-        sort:'省级',
-        readed: ['3']
+        sort:'',
+        readed: ['3'],
+        //选择省
+        curShow: false,
+        curSel: '',
+        district: District,
+        curPlaceholder:'',
+        show1: false,
       }
     },
     watch: {
       sort: {
         handler: function (val, oldVal) {
-          console.log(val)
+          this.curSel=''
+          if(val=='省级'){
+            this.curPlaceholder='请选择代理省份'
+          }else if(val=='市级'){
+            this.curPlaceholder='请选择代理城市'
+          }else if(val=='区级'){
+            this.curPlaceholder='请选择代理地区'
+          }else if(val=='乡镇'){
+            this.curPlaceholder='请选择代理地区'
+          }
         },
         deep: true
       },
+    },
+    methods: {
+      result(ret) {
+        console.log(ret)
+        if(this.sort=='省级'){
+          this.curSel = ret.itemName1 + ' ' + ret.itemName2 + ' ' + ret.itemName3;
+        }else if(this.sort=='市级'){
+          this.curSel =ret.itemName1+ret.itemName2 + ' ' + ret.itemName3;
+        }else if(this.sort=='区级'){
+          this.curSel =ret.itemName2 + ' ' + ret.itemName3
+        }else if(this.sort=='乡镇'){
+          this.curSel =ret.itemName2 + ' ' + ret.itemName3
+        }
+      }
     }
   }
 </script>
