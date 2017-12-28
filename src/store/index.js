@@ -215,9 +215,9 @@ export default {
     },
     //注册分销商
     resRegist({commit,state},data){
-      console.log(data)
       axios.get('https://xcx.xcwll.cn/app/index.php?t=1188&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.register.get_main&i=1188&&state=we7sid-4f2d9a8d5e70055b534269913f0ef403&sign=23b2327d9a7d8822eea66b734afb29de',{params:data.params})
         .then(function (res) {
+          console.log(res)
           router.push({path:'/distributIndex/apply'})
           commit({
             type:'setToWaitPage',
@@ -335,9 +335,9 @@ export default {
       VueSet(state,'register',data.HeadData.data.result.register)
     },
     setToWaitPage(state,data){
-      if(data.res.data.status==0&&data.res.data.result.register==1){
+      // if(data.res.data.status==0&&data.res.data.result.register==1){
         VueSet(state,'toWaitPage',true)
-      }
+      // }
       console.log(state.toWaitPage)
     },
     //个人中心
