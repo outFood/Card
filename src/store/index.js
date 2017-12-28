@@ -240,6 +240,19 @@ export default {
           wodeBodyData:wodeBodyData
         })
       }))
+    },
+    regist({commit,state},data){
+      console.log(data)
+      axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.user.register',{params:data.params})
+        .then(function (res) {
+          console.log(res)
+        }).catch(function (err) {alert(err)})
+    },
+    login({commit,state},data){
+      axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.user.pwdlogin',{params:data.params})
+        .then(function (res) {
+          console.log(res)
+        }).catch(function (err) {alert(err)})
     }
   },
   mutations:{
@@ -333,9 +346,8 @@ export default {
       // VueSet(state,'wodeHeadData',data.res.data.module)
       VueSet(state,'wodeBodyData',data.wodeBodyData.data.module)
       VueSet(state,'headDataMsg',data.wodeHeadData.data.message)
-      console.log(state.headDataMsg)
       if(state.headDataMsg=='请先登录'){
-        console.log('jjjjjjjjjjjjjjjjjjjjj')
+
       }else if(state.wodeBodyData!={}){
         router.push({path:'/vipIndex'})
       }

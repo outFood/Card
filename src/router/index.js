@@ -35,6 +35,9 @@ import vipHome from '@/components/会员中心/home'
 import vipIndex from '@/components/会员中心/index'
 import vipInfo from '@/components/会员中心/vipInfo'
 import nickname from '@/components/会员中心/nickname'
+import set from '@/components/会员中心/set'
+import wodeRegist from '@/components/会员中心/wodeRegist'
+import login from '@/components/会员中心/login'
 
 
 Vue.use(Router)
@@ -158,6 +161,15 @@ export default new Router({
         },{
           path:'nickname',
           component:nickname
+        },{
+          path:'set',
+          component:set
+        },{
+          path:'login',
+          component:login
+        },{
+          path:'wodeRegist',
+          component:wodeRegist
         }
       ]
     }

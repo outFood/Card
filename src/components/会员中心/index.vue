@@ -8,7 +8,7 @@
     <div id="head">
       <p>
         <router-link to="#"><img src="/static/img/msg.png" alt=""></router-link>
-        <router-link to="#"><img src="/static/img/set.png" alt=""></router-link>
+        <router-link to="/vipIndex/login"><img src="/static/img/set.png" alt=""></router-link>
         <router-link to="/vipIndex/vipInfo"><img src="/static/img/personInfo.png" alt=""></router-link>
         <span>1</span>
       </p>
@@ -270,9 +270,6 @@
       orderData(){
         return this.$store.state.wodeBodyData.menu.data
       }
-    },
-    mounted() {
-      console.log(this.menuData)
     },
   }
 </script>
