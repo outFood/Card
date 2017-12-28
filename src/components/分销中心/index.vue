@@ -1,36 +1,36 @@
 <template>
   <yd-layout title="分销中心" link="#" id="distribut">
-    <!--<div class="head">-->
-      <!--<yd-flexbox class="line1">-->
-        <!--<div class="left"><img src="http://static.ydcss.com/uploads/ydui/1.jpg"></div>-->
-        <!--<yd-flexbox-item>-->
-          <!--<h6>{{fenxiao_headData.member.nickname}}</h6>-->
-          <!--<i>[{{!fenxiao_headData.level ? (!fenxiao_headData.thisset.levelname ? '普通等级' : fenxiao_headData.thisset.levelname) : fenxiao_headData.level.levelname}}]</i>-->
-          <!--<span>{{fenxiao_headData.thisset.texts.up}}: {{!fenxiao_headData.up ? '总店' : fenxiao_headData.up.nickname}}</span>-->
-          <!--<span>本人ID:{{fenxiao_headData.member.id}}</span>-->
-        <!--</yd-flexbox-item>-->
-        <!--<router-link to="/distributIndex/apply" class="right"><img src="/static/img/set.png"></router-link>-->
-      <!--</yd-flexbox>-->
-      <!--<yd-flexbox class="line2">-->
-        <!--<yd-flexbox-item>-->
-          <!--<span>{{fenxiao_headData.thisset.texts.commission_pay}}({{fenxiao_headData.thisset.texts.yuan}})</span>-->
-          <!--<h5>{{fenxiao_headData.member.commission_pay}}</h5>-->
-        <!--</yd-flexbox-item>-->
-        <!--<yd-flexbox-item>-->
-          <!--<span>{{fenxiao_headData.thisset.texts.commission_total}}({{fenxiao_headData.thisset.texts.yuan}})</span>-->
-          <!--<h5>{{fenxiao_headData.member.commission_total}}</h5>-->
-        <!--</yd-flexbox-item>-->
-      <!--</yd-flexbox>-->
-      <!--<yd-flexbox class="line3">-->
-        <!--<yd-flexbox-item>-->
-          <!--<span>{{fenxiao_headData.thisset.texts.commission_ok}}({{fenxiao_headData.thisset.texts.yuan}})</span>-->
-          <!--<h5>{{fenxiao_headData.member.commission_ok}}</h5>-->
-        <!--</yd-flexbox-item>-->
-        <!--<yd-flexbox-item>-->
-          <!--<span class="btn">佣金提现</span>-->
-        <!--</yd-flexbox-item>-->
-      <!--</yd-flexbox>-->
-    <!--</div>-->
+    <div class="head">
+      <yd-flexbox class="line1">
+        <div class="left"><img src="http://static.ydcss.com/uploads/ydui/1.jpg"></div>
+        <yd-flexbox-item>
+          <h6>{{fenxiao_headData.member.nickname}}</h6>
+          <i>[{{!fenxiao_headData.level ? (!fenxiao_headData.thisset.levelname ? '普通等级' : fenxiao_headData.thisset.levelname) : fenxiao_headData.level.levelname}}]</i>
+          <span>{{fenxiao_headData.thisset.texts.up}}: {{!fenxiao_headData.up ? '总店' : fenxiao_headData.up.nickname}}</span>
+          <span>本人ID:{{fenxiao_headData.member.id}}</span>
+        </yd-flexbox-item>
+        <router-link to="#" class="right"><img src="/static/img/set.png"></router-link>
+      </yd-flexbox>
+      <yd-flexbox class="line2">
+        <yd-flexbox-item>
+          <span>{{fenxiao_headData.thisset.texts.commission_pay}}({{fenxiao_headData.thisset.texts.yuan}})</span>
+          <h5>{{fenxiao_headData.member.commission_pay}}</h5>
+        </yd-flexbox-item>
+        <yd-flexbox-item>
+          <span>{{fenxiao_headData.thisset.texts.commission_total}}({{fenxiao_headData.thisset.texts.yuan}})</span>
+          <h5>{{fenxiao_headData.member.commission_total}}</h5>
+        </yd-flexbox-item>
+      </yd-flexbox>
+      <yd-flexbox class="line3">
+        <yd-flexbox-item>
+          <span>{{fenxiao_headData.thisset.texts.commission_ok}}({{fenxiao_headData.thisset.texts.yuan}})</span>
+          <h5>{{fenxiao_headData.member.commission_ok}}</h5>
+        </yd-flexbox-item>
+        <yd-flexbox-item>
+          <span class="btn">佣金提现</span>
+        </yd-flexbox-item>
+      </yd-flexbox>
+    </div>
     <yd-flexbox class="body">
       <yd-flexbox-item v-for="(item,key) in fenxiao_bodyData" :key="key">
         <router-link :to="item.path">

@@ -13,6 +13,7 @@
 
 
 <script>
+  import router from '@/router'
   export default {
     data() {
       return {
@@ -44,10 +45,30 @@
           name: '会员中心',
           ico: '/static/img/vip.png',
           path: '/vipIndex/'
-        }]
+        }],
+      tipBoxShow:false
+      }
+    },
+    computed:{//status和regist用于点击“分销中心”时判断当前用户是不是分销商
+      status(){
+        return this.$store.state.status
+      },
+      register(){
+        return this.$store.state.register
+      },
+      toWaitPage(){
+        return this.$store.state.toWaitPage
       }
     },
     methods:{
+      openAlert() {
+        this.$dialog.alert({
+          mes: '请先绑定手机号！',
+          callback(){
+            router.push({path:'/distributIndex/regist'})
+          }
+        });
+      },
       resData(path){
         var type='',
         path=path.replace('/','')//去掉前面的
@@ -61,11 +82,14 @@
           this.$store.dispatch({
             type:type
           })
-        }else if(path=='distributIndex'){//请求分类
-          type='resFenxiao'
-          this.$store.dispatch({
-            type:type
-          })
+        }else if(path=='distributIndex'){//请求分销
+          if (this.status != 1 ||this.register != 1) {//判断用户是否是分销商
+            this.openAlert()
+          }else if(this.status==0 ||this.register== 1){
+            router.push({path:'/distributIndex/apply'})
+          }else{
+            router.push({path:'/distributIndex'})
+          }
         }else if(path=='eChart'){//请求E聊
           console.log('eChart')
 
@@ -80,11 +104,18 @@
             type:'lookCart',
           })
         }else{//请求个人中心
-          console.log('vipIndex')
-
+          console.log('个人中心')
+          this.$store.dispatch({
+            type: 'resWode'
+          })
         }
       }
-    }
+    },
+    beforeCreate(){
+      this.$store.dispatch({
+        type:'resFenxiao'
+      })
+    },
   }
 </script>
 

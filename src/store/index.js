@@ -33,7 +33,14 @@ export default {
       exclusiveShopData:{},
       //分销
       fenxiao_headData:{},
-      fenxiao_bodyData:{}
+      fenxiao_bodyData:{},
+      status:null,
+      register:null,
+      toWaitPage:false,
+      //个人中心
+      wodeHeadData:{},
+      wodeBodyData:{},
+      headDataMsg:''
     }
   },
   getters : {
@@ -192,15 +199,6 @@ export default {
     },
     //分销中心
     resFenxiao({commit,state},data){
-      // //https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.order.get_list&i=1041&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=323f02a5013c1628ba0bc09c1898a2b9&status=0
-      // //https://xcx.xcwll.cn/app/index.php?c=wxapp&a=module&do=nav&uniacid=1041&type=4
-      // axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.index.get_main&&state=we7sid-794d7db19adf5357dd4aa60d3d4dfef8&sign=c78207aafe04e19076ec63ad8d6d903d')
-      //   .then(function (res) {
-      //     commit({
-      //       type:'saveFenxiao',
-      //       res:res
-      //     })
-      //   }).catch(function (err) {alert(err)})
       function resHeadData() {
        return axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.index.get_main&&state=we7sid-794d7db19adf5357dd4aa60d3d4dfef8&sign=c78207aafe04e19076ec63ad8d6d903d')
       }
@@ -208,12 +206,38 @@ export default {
        return axios.get('https://xcx.xcwll.cn/app/index.php?c=wxapp&a=module&do=nav&uniacid=1041&type=4')
       }
       axios.all([resHeadData(),resBodyData()]).then(axios.spread(function (HeadData,BodyData) {
-        console.log(HeadData)
-        console.log(BodyData)
         commit({
           type:'saveFenxiao',
           HeadData:HeadData,
           BodyData:BodyData
+        })
+      }))
+    },
+    //注册分销商
+    resRegist({commit,state},data){
+      console.log(data)
+      axios.get('https://xcx.xcwll.cn/app/index.php?t=1188&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.register.get_main&i=1188&&state=we7sid-4f2d9a8d5e70055b534269913f0ef403&sign=23b2327d9a7d8822eea66b734afb29de',{params:data.params})
+        .then(function (res) {
+          router.push({path:'/distributIndex/apply'})
+          commit({
+            type:'setToWaitPage',
+            res:res
+          })
+        }).catch(function (err) {alert(err)})
+    },
+    //个人中心
+    resWode({commit,state},data){
+      function wodeHeadData() {
+        return axios.get('https://xcx.xcwll.cn/app/index.php?c=auth&a=session&do=userinfo&t=1044&key=undefined&secret=undefined&state=we7sid-989f479443e701453157a809d00e2e0f&sign=be9d1f67d8e71d25153fe04e33c251b4')
+      }
+      function wodeBodyData() {
+        return axios.get('https://xcx.xcwll.cn/app/index.php?c=wxapp&a=module&do=nav&uniacid=1041&type=3')
+      }
+      axios.all([wodeHeadData(),wodeBodyData()]).then(axios.spread(function (wodeHeadData,wodeBodyData) {
+        commit({
+          type:'saveWodeData',
+          wodeHeadData:wodeHeadData,
+          wodeBodyData:wodeBodyData
         })
       }))
     }
@@ -294,19 +318,26 @@ export default {
     saveFenxiao(state,data){
       VueSet(state,'fenxiao_headData',data.HeadData.data)
       VueSet(state,'fenxiao_bodyData',data.BodyData.data)
-      console.log('**************分销****************')
-      console.log(state.fenxiao_headData)
-      console.log(state.fenxiao_bodyData)
-      // if (state.fenxiao_headData.status != 1 || state.fenxiao_headData.result.register != 1) {
-      //   //跳转到注册页
-      //   if(mark == 'mark') return
-      //
-      //   return
-      // }
-      console.log()
-      console.log()
-      if(state.fenxiao_headData!={}&&state.fenxiao_bodyData){
-        router.push({path:'/distributIndex/'})
+      VueSet(state,'status',data.HeadData.data.status)
+      VueSet(state,'register',data.HeadData.data.result.register)
+    },
+    setToWaitPage(state,data){
+      if(data.res.data.status==0&&data.res.data.result.register==1){
+        VueSet(state,'toWaitPage',true)
+      }
+      console.log(state.toWaitPage)
+    },
+    //个人中心
+    saveWodeData(state,data){
+      console.log(data)
+      // VueSet(state,'wodeHeadData',data.res.data.module)
+      VueSet(state,'wodeBodyData',data.wodeBodyData.data.module)
+      VueSet(state,'headDataMsg',data.wodeHeadData.data.message)
+      console.log(state.headDataMsg)
+      if(state.headDataMsg=='请先登录'){
+        console.log('jjjjjjjjjjjjjjjjjjjjj')
+      }else if(state.wodeBodyData!={}){
+        router.push({path:'/vipIndex'})
       }
     }
   }

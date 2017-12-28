@@ -9,7 +9,7 @@
     </yd-slider>
     <img src="/static/img/clock_sky.png" alt="" class="clock">
     <h5>谢谢您的支持,请等待审核！</h5>
-    <router-link to="#" class="toShop">去商城逛逛</router-link>
+    <router-link to="/shopIndex" class="toShop">去商城逛逛</router-link>
   </div>
 </template>
 <style>

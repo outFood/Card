@@ -183,15 +183,14 @@ import District from 'ydui-district/dist/jd_province_city_area_id';
     },
     methods: {
       result(ret) {
-        console.log(ret)
         if(this.sort=='省级'){
-          this.curSel = ret.itemName1 + ' ' + ret.itemName2 + ' ' + ret.itemName3;
+          this.curSel = ret.itemName1;
         }else if(this.sort=='市级'){
-          this.curSel =ret.itemName1+ret.itemName2 + ' ' + ret.itemName3;
+          this.curSel =ret.itemName1+ret.itemName2;
         }else if(this.sort=='区级'){
-          this.curSel =ret.itemName2 + ' ' + ret.itemName3
+          this.curSel =ret.itemName1+ret.itemName2 + ' ' + ret.itemName3
         }else if(this.sort=='乡镇'){
-          this.curSel =ret.itemName2 + ' ' + ret.itemName3
+          this.curSel =ret.itemName1+ret.itemName2 + ' ' + ret.itemName3
         }
       }
     }
