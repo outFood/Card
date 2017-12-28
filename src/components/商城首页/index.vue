@@ -12,7 +12,10 @@
     <vipSort></vipSort>
     <nursing></nursing>
     <brand></brand>
-    <pics></pics>
+    <!-- <pics></pics> -->
+    <!-- <goods /> -->
+    <merchgroup />
+    <listnavigation />
     <footers/>
   </div>
 </template>
@@ -37,6 +40,9 @@
   import pics from '@/components/商城首页/pics'
   import titles from '@/components/商城首页/titles'
   import picwindow from '@/components/商城首页/picwindow'
+  import goods from '@/components/商城首页/goods'
+  import merchgroup from '@/components/商城首页/merchgroup'
+  import listnavigation from '@/components/商城首页/listnavigation'
   export default {
     data(){
       return{
@@ -56,7 +62,10 @@
       brand,
       pics,
       picwindow,
-      titles
+      merchgroup,
+      listnavigation,
+      titles,
+      goods
     },
     created(){
       setTimeout(()=>{
