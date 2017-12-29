@@ -63,7 +63,10 @@
     methods:{
       openAlert() {
         if(this.toWaitPage==true){
-          router.push({path:'/distributIndex/apply'})
+          this.$dialog.alert({
+            mes: '审核中！'
+          });
+//          router.push({path:'/distributIndex/apply'})
         }else{
           this.$dialog.alert({
             mes: '请先绑定手机号！',

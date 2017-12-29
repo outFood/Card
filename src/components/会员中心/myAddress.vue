@@ -1,0 +1,115 @@
+<template>
+  <div>
+    <div class="address-item" v-for="(item,key) in myAddressData" :key="key">
+      <yd-flexbox>
+        <yd-flexbox-item>{{item.realname}}</yd-flexbox-item>
+        <yd-flexbox-item>{{item.mobile}}</yd-flexbox-item>
+      </yd-flexbox>
+      <div class="address">{{item.province}}   {{item.address}}</div>
+      <div class="use">
+        <yd-radio-group v-model="radio1">
+          <yd-radio val="1">设为默认地址</yd-radio>
+        </yd-radio-group>
+        <div>
+          <div @click="delAddress(item.id)">
+            <yd-icon name="delete"></yd-icon>
+            删除
+          </div>
+          <router-link to="#" @click.native="saveWantEditAddress(item)">
+            <yd-icon name="feedback"></yd-icon>
+            <span>编辑</span></router-link>
+        </div>
+      </div>
+    </div>
+    <router-link to="/vipIndex/addAddress">
+      <yd-button size="large" type="primary">添加新地址</yd-button>
+    </router-link>
+
+
+    <router-view></router-view>
+  </div>
+</template>
+<script>
+  export default {
+    data() {
+      return {
+        radio1: ''
+      }
+    },
+    computed:{
+      myAddressData(){
+        return this.$store.state.myAddressData
+      }
+    },
+    methods:{
+      delAddress(id){
+        this.$dialog.confirm({
+          mes: '删除后无法恢复，确定要删除吗！',
+          opts: () => {
+            this.$store.dispatch({
+              type:'resDelAddress',
+              params:{
+                id:id
+              }
+            })
+          },
+        });
+      },
+      saveWantEditAddress(item){
+        this.$store.dispatch({
+          type:'saveWantEditAddress',
+          params:item
+        })
+      }
+    },
+    beforeCreate(){
+      this.$store.dispatch({
+        type:'resAddress'
+      })
+    }
+  }
+</script>
+<style scoped>
+  .address-item {
+    background: #fff;
+    font-size: 14px !important;
+    color: #3d4245;
+    margin-bottom: 10px;
+  }
+  .address-item .yd-flexbox {
+    padding: 15px;
+  }
+  .address-item .yd-flexbox .yd-flexbox-item:nth-child(1) {
+    text-align: left;
+  }
+  .address-item .yd-flexbox .yd-flexbox-item:nth-child(2) {
+    text-align: right;
+  }
+  .address-item .address {
+    padding: 0px 20px 20px 15px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+  }
+  .address-item .use {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  }
+  .address-item .use>div:nth-child(2) div {
+    display: inline-block;
+  }
+  .address-item .use>div:nth-child(2) div:first-child {
+    margin-right: 10px;
+  }
+  button {
+    position: fixed !important;
+    bottom: 0 !important;
+    border-radius: 0 !important;
+    height: 50px !important;
+    font-size: 16px !important;
+  }
+</style>

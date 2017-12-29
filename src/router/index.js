@@ -35,6 +35,10 @@ import vipHome from '@/components/会员中心/home'
 import vipIndex from '@/components/会员中心/index'
 import vipInfo from '@/components/会员中心/vipInfo'
 import nickname from '@/components/会员中心/nickname'
+import order from '@/components/会员中心/order'
+import myAddress from '@/components/会员中心/myAddress'
+import addAddress from '@/components/会员中心/addAddress'
+import editAddress from '@/components/会员中心/editAddress'
 import set from '@/components/会员中心/set'
 import wodeRegist from '@/components/会员中心/wodeRegist'
 import login from '@/components/会员中心/login'
@@ -161,6 +165,18 @@ export default new Router({
         },{
           path:'nickname',
           component:nickname
+        },{
+          path:'order',
+          component:order
+        },{
+          path:'myAddress',
+          component:myAddress
+        },{
+          path:'addAddress',
+          component:addAddress
+        },{
+          path:'editAddress',
+          component:editAddress
         },{
           path:'set',
           component:set
