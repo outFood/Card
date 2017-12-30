@@ -11,7 +11,8 @@
       </div>
       <div class="item">
         <span>所在地区</span>
-        <div><input placeholder="请选择所在地区" v-model="areas"></div>
+        <div><input placeholder="请选择所在地区" v-model="areas" @click.stop="show1 = true" readonly></div>
+        <yd-cityselect v-model="show1" :callback="result1" :items="district"></yd-cityselect>
       </div>
       <div class="item">
         <span>详细地址</span>
@@ -22,13 +23,17 @@
   </div>
 </template>
 <script>
+  /* 前提是已经安装了 ydui-district */
+  import District from 'ydui-district/dist/jd_province_city_area_id';
   export default {
     data(){
       return{
         realname:'夏沫',
         mobile:'13469936720',
-        areas:'上海闵行区',
         address:'浦江镇',
+        show1: false,
+        areas: '',
+        district: District
       }
     },
     methods:{
@@ -42,6 +47,9 @@
             address:this.address
           }
         })
+      },
+      result1(ret) {
+        this.areas = ret.itemName1 + ' ' + ret.itemName2 + ' ' + ret.itemName3;
       }
     }
   }

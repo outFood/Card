@@ -260,7 +260,7 @@ export default {
         }).catch(function (err) {alert(err)})
     },
     resAddress({commit,state},data){
-      axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.indexapp&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=5ec2bec56de4ed22e4149dbb3c82cc5c')
+      axios.get('https://xcx.xcwll.cn/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.indexapp&&state=we7sid-1fa768373e19fb6cacea1690c9cf9b04&sign=3a8b6ca7aa8b98d744486a972d9a7d37')
         .then(function (res) {
           commit({
             type:'saveAddress',
@@ -269,10 +269,10 @@ export default {
         }).catch(function (err) {alert(err)})
     },
     resDelAddress({commit,state},data){
-      axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.delete&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=6d5a7951bdb85454d7713c93194c8d80',{params:data.params})
+      axios.get('https://xcx.xcwll.cn/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.delete&&state=we7sid-1fa768373e19fb6cacea1690c9cf9b04&sign=9db0cde0fe0820182dd3bc7bea2fc956',{params:data.params})
         .then(function (res) {
           //删除地址成功重新请求地址列表
-          axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.indexapp&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=5ec2bec56de4ed22e4149dbb3c82cc5c')
+          axios.get('https://xcx.xcwll.cn/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.indexapp&&state=we7sid-1fa768373e19fb6cacea1690c9cf9b04&sign=3a8b6ca7aa8b98d744486a972d9a7d37')
             .then(function (res) {
               commit({
                 type:'saveAddress',
@@ -289,17 +289,20 @@ export default {
     },
     updateAddress({commit,state},data){
       console.log(data)
-      axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.submitapp&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=450e2402dfc06520cfa2dc4d156ce43f',{params:data.params})
+      axios.get('https://xcx.xcwll.cn/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.submitapp&&state=we7sid-1fa768373e19fb6cacea1690c9cf9b04&sign=646de50059c78128a6ff7d7c5668c2c7',{params:data.params})
         .then(function (res) {
           router.push({path:'/vipIndex/myAddress'})
         }).catch(function (err) {alert(err)})
     },
     saveAddress({commit,state},data){
-      axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.submitapp&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=fbefddc57069d00b5bacd913e799fac6',{params:data.params})
+      axios.get('https://xcx.xcwll.cn/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.submitapp&&state=we7sid-1fa768373e19fb6cacea1690c9cf9b04&sign=67551daa68d711e746160d459d91a178',{params:data.params})
         .then(function (res) {
           console.log('保存地址成功')
           router.push({path:'/vipIndex/myAddress'})
         }).catch(function (err) {alert(err)})
+    },
+    setDefault({commit,state},data){
+      console.log(data)
     }
   },
   mutations:{

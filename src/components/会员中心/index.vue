@@ -267,7 +267,7 @@
         menuData = this.$store.state.wodeBodyData.listmenu.data
         for (var i = 0; i < menuData.length; i++) {//请求回来的数据列表项里没有跳转地址，所有循环列表为每项添加link这一项，好用来
           if(menuData[i].text=='我的关注'){
-            menuData[i].link='#'
+            menuData[i].link='/vipIndex/myLike'
           }else if(menuData[i].text=='我的足迹'){
             menuData[i].link='#'
           }else if(menuData[i].text=='我的地址'){

@@ -7,8 +7,8 @@
       </yd-flexbox>
       <div class="address">{{item.province}}   {{item.address}}</div>
       <div class="use">
-        <yd-radio-group v-model="radio1">
-          <yd-radio val="1">设为默认地址</yd-radio>
+        <yd-radio-group v-model="deft" @click.native="setDefault(item.id)">
+          <yd-radio val="item.id">{{item.id}}设为默认地址{{deft}}</yd-radio>
         </yd-radio-group>
         <div>
           <div @click="delAddress(item.id)">
@@ -33,7 +33,7 @@
   export default {
     data() {
       return {
-        radio1: ''
+        deft:''
       }
     },
     computed:{
@@ -59,6 +59,15 @@
         this.$store.dispatch({
           type:'saveWantEditAddress',
           params:item
+        })
+      },
+      setDefault(id){
+        this.deft=id
+        this.$store.dispatch({
+          type:'setDefault',
+          params:{
+            id:id
+          }
         })
       }
     },

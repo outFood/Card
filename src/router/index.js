@@ -42,6 +42,7 @@ import editAddress from '@/components/会员中心/editAddress'
 import set from '@/components/会员中心/set'
 import wodeRegist from '@/components/会员中心/wodeRegist'
 import login from '@/components/会员中心/login'
+import myLike from '@/components/会员中心/myLike'
 
 
 Vue.use(Router)
@@ -186,6 +187,9 @@ export default new Router({
         },{
           path:'wodeRegist',
           component:wodeRegist
+        },{
+          path:'myLike',
+          component:myLike
         }
       ]
     }
