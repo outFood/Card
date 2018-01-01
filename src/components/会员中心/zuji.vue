@@ -1,5 +1,5 @@
 <template>
-  <div id="myLike">
+  <div id="zuji">
     <div class="item">
       <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
       <div class="right">
@@ -20,7 +20,7 @@
   #myLike{
 
   }
-  #myLike .item{
+  #zuji .item{
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -31,18 +31,18 @@
     margin-bottom:10px;
     text-align: left;
   }
-  #myLike .item>img{
+  #zuji .item>img{
     width:50px;
     height:50px;
     margin-right:10px;
   }
-  #myLike .item .right h6{
+  #zuji .item .right h6{
     font-weight: bold;
   }
-  #myLike .item .right span{
+  #zuji .item .right span{
     color:red;
   }
-  #myLike .item .right i{
+  #zuji .item .right i{
     color:#999;
     text-decoration:line-through
   }

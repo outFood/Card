@@ -149,7 +149,7 @@ export default {
     cartOrPay({commit,state},data){
       console.log(data)
       if(state.payStatus=='加入购物车'){
-        axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.add&state=we7sid-989f479443e701453157a809d00e2e0f&sign=4ef7ee8a48b806ac9c01ab9bbeb27e7e',{params:data.params})
+        axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.add&&state=we7sid-7f5e1067218e32fb9cd327acaabf9430&sign=917611cadf9681e6108cf5a8176f702e',{params:data.params})
           .then(function (res) {
             console.log(res)
             commit({
@@ -165,7 +165,7 @@ export default {
     },
     //查看购物车
     lookCart({commit,state},data){
-      axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.get_list&state=we7sid-989f479443e701453157a809d00e2e0f&sign=3c2800e3c9cee95f07e12df42ee65441')
+      axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.get_list&&state=we7sid-7f5e1067218e32fb9cd327acaabf9430&sign=769697d94b1f3465b87d8785ab118612')
         .then(function (res) {
           commit({
             type:'saveCartData',
@@ -303,6 +303,13 @@ export default {
     },
     setDefault({commit,state},data){
       console.log(data)
+    },
+    updatePersonInfo({commit,state},data){
+      console.log(data)
+      axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.info.submitapp&&state=we7sid-1fa768373e19fb6cacea1690c9cf9b04&sign=812f860da7c14dc7079e64b07b6242aa',{params:data.params})
+        .then(function (res) {
+          router.push({path:'/vipIndex/editAddress'})
+        }).catch(function (err) {alert(err)})
     }
   },
   mutations:{

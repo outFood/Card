@@ -8,7 +8,7 @@
     <div id="head">
       <p>
         <router-link to="#"><img src="/static/img/msg.png" alt=""></router-link>
-        <router-link to="#"><img src="/static/img/set.png" alt=""></router-link>
+        <router-link to="/vipIndex/recharge"><img src="/static/img/set.png" alt=""></router-link>
         <router-link to="/vipIndex/vipInfo"><img src="/static/img/personInfo.png" alt=""></router-link>
         <span>1</span>
       </p>
@@ -269,13 +269,13 @@
           if(menuData[i].text=='我的关注'){
             menuData[i].link='/vipIndex/myLike'
           }else if(menuData[i].text=='我的足迹'){
-            menuData[i].link='#'
+            menuData[i].link='/vipIndex/zuji'
           }else if(menuData[i].text=='我的地址'){
             menuData[i].link='/vipIndex/myAddress'
           }else if(menuData[i].text=='领取优惠券'){
             menuData[i].link='#'
           }else if(menuData[i].text=='我的优惠券'){
-            menuData[i].link='#'
+            menuData[i].link='/vipIndex/myQuan'
           }
         }
         return menuData

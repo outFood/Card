@@ -4,7 +4,7 @@
     <div class="navbar1"  v-if="diynavbar.length==3&&navbar.params.hidecartbtn!=1">
       <div class="icon" v-for="(item,key) in diynavbar" :key="key" :style="{background:navbar.style.background,color:navbar.style.textcolor}"    @click="clickIcon(item.icontext)"><img src="/static/img/heart-kong.png" alt=""><span v-if="item.icontext=='购物车'&&cartcount>0" :style="{background:navbar.style.dotcolor}">{{cartcount}}</span>{{item.icontext}}</div>
       <div class="addCart" :style="{background:navbar.style.cartcolor}"  @click="changePayStaus('加入购物车')">加入购物车</div>
-      <div class="pay" :style="{background:navbar.style.buycolor}"  @click="changePayStaus('购买')">购买</div>
+      <router-link to="/sortIndex/buyPage" class="pay" :style="{background:navbar.style.buycolor}"  @click="changePayStaus('购买')">购买</router-link>
     </div>
     <!-- /*navbar2------没有加入购物车按钮*/-->
     <div class="navbar2" v-if="diynavbar.length==3&&navbar.params.hidecartbtn==1">
