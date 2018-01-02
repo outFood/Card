@@ -11,22 +11,22 @@
       <img src="/static/img/more.png" alt="" class="more">
     </router-link>
     <div class="detailInfo">
-      <div><span class="name">手机号</span><span class="star">*</span><input type="text" v-model="phone" disabled>更换绑定 <img src="/static/img/more.png" alt="" class="more"></div>
-      <div><span class="name">姓名</span><span class="star">*</span><input type="text" placeholder="请输入您的姓名"></div>
-      <div><span class="name">微信号</span><span class="star hidden">*</span><input type="text" placeholder="请输入您的微信号"></div>
+      <div><span class="name">手机号</span><span class="star">*</span><input type="text" v-model="mobile" disabled>更换绑定 <img src="/static/img/more.png" alt="" class="more"></div>
+      <div><span class="name">姓名</span><span class="star">*</span><input type="text" placeholder="请输入您的姓名" v-model="realname"></div>
+      <div><span class="name">微信号</span><span class="star hidden">*</span><input type="text" placeholder="请输入您的微信号" v-model="weixin"></div>
     </div>
     <yd-cell-group>
       <yd-cell-item arrow>
         <span slot="left">出生日期：</span>
-        <yd-datetime type="date" v-model="birthDay" slot="right"></yd-datetime>
+        <yd-datetime type="date" v-model="birthday" slot="right"></yd-datetime>
       </yd-cell-item>
       <yd-cell-item arrow>
         <span slot="left">所在地区：</span>
-        <input slot="right" type="text" @click.stop="show1 = true" v-model="address" readonly placeholder="请选择收货地址">
+        <input slot="right" type="text" @click.stop="show1 = true" v-model="areas" readonly placeholder="请选择收货地址">
       </yd-cell-item>
     </yd-cell-group>
     <yd-cityselect v-model="show1" :callback="result1" :items="district"></yd-cityselect>
-    <yd-button size="large" type="primary" class="sureUpdate">确认修改</yd-button>
+    <yd-button size="large" type="primary" class="sureUpdate" @click.native="sureUpdate">确认修改</yd-button>
   </div>
 </template>
 <style>
@@ -130,16 +130,30 @@
   export default {
     data(){
       return {
-        phone:'13867104693',
-        birthDay: '2017-05-11',
+        mobile:'13867104693',
+        realname:'',
+        weixin:'',
+        birthday: '',
+        areas: '',
         show1: false,
-        address: '',
         district: District
       }
     },
     methods: {
       result1(ret) {
-        this.address = ret.itemName1 + ' ' + ret.itemName2 + ' ' + ret.itemName3;
+        this.areas = ret.itemName1 + ' ' + ret.itemName2 + ' ' + ret.itemName3;
+      },
+      sureUpdate(){
+        this.$store.dispatch({
+          type:'updatePersonInfo',
+          params:{
+            birthday:this.birthday,
+            areas:this.areas,
+            mobile:this.mobile,
+            realname:this.realname,
+            weixin:this.weixin
+          }
+        })
       }
     }
   }

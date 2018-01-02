@@ -34,6 +34,7 @@
 </template>
 
 <script>
+  import router from '@/router'
   export default {
     data() {
       return {
@@ -41,9 +42,29 @@
         pwd: '123456',
       }
     },
+    computed:{
+      loginStatus(){
+        return this.$store.state.loginStatus
+      }
+    },
+    watch:{
+      loginStatus:{
+        handler: function (val, oldVal) {
+          if(val=='登录成功'){
+            this.$dialog.toast({
+              mes: '登录成功！',
+              timeout: 1000,
+              callback(){
+                router.push({path:'/vipIndex'})
+              }
+            });
+          }
+        },
+        deep: true
+      },
+    },
     methods:{
       back:function () {
-        console.log('我是登录页面')
         this.$router.go(-1)
       },
       toLogin(){

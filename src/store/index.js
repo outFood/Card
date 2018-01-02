@@ -40,7 +40,9 @@ export default {
       //个人中心
       wodeHeadData:{},
       wodeBodyData:{},
-      headDataMsg:''
+      loginStatus:'',
+      myAddressData:{},
+      wantEditAddress:[]
     }
   },
   getters : {
@@ -147,7 +149,7 @@ export default {
     cartOrPay({commit,state},data){
       console.log(data)
       if(state.payStatus=='加入购物车'){
-        axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.add&state=we7sid-989f479443e701453157a809d00e2e0f&sign=4ef7ee8a48b806ac9c01ab9bbeb27e7e',{params:data.params})
+        axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.add&&state=we7sid-7f5e1067218e32fb9cd327acaabf9430&sign=917611cadf9681e6108cf5a8176f702e',{params:data.params})
           .then(function (res) {
             console.log(res)
             commit({
@@ -163,7 +165,7 @@ export default {
     },
     //查看购物车
     lookCart({commit,state},data){
-      axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.get_list&state=we7sid-989f479443e701453157a809d00e2e0f&sign=3c2800e3c9cee95f07e12df42ee65441')
+      axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.get_list&&state=we7sid-7f5e1067218e32fb9cd327acaabf9430&sign=769697d94b1f3465b87d8785ab118612')
         .then(function (res) {
           commit({
             type:'saveCartData',
@@ -215,9 +217,9 @@ export default {
     },
     //注册分销商
     resRegist({commit,state},data){
-      console.log(data)
       axios.get('https://xcx.xcwll.cn/app/index.php?t=1188&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.register.get_main&i=1188&&state=we7sid-4f2d9a8d5e70055b534269913f0ef403&sign=23b2327d9a7d8822eea66b734afb29de',{params:data.params})
         .then(function (res) {
+          console.log(res)
           router.push({path:'/distributIndex/apply'})
           commit({
             type:'setToWaitPage',
@@ -251,7 +253,62 @@ export default {
     login({commit,state},data){
       axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.user.pwdlogin',{params:data.params})
         .then(function (res) {
-          console.log(res)
+          commit({
+            type:'saveLoginInfo',
+            res:res
+          })
+        }).catch(function (err) {alert(err)})
+    },
+    resAddress({commit,state},data){
+      axios.get('https://xcx.xcwll.cn/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.indexapp&&state=we7sid-1fa768373e19fb6cacea1690c9cf9b04&sign=3a8b6ca7aa8b98d744486a972d9a7d37')
+        .then(function (res) {
+          commit({
+            type:'saveAddress',
+            res:res
+          })
+        }).catch(function (err) {alert(err)})
+    },
+    resDelAddress({commit,state},data){
+      axios.get('https://xcx.xcwll.cn/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.delete&&state=we7sid-1fa768373e19fb6cacea1690c9cf9b04&sign=9db0cde0fe0820182dd3bc7bea2fc956',{params:data.params})
+        .then(function (res) {
+          //删除地址成功重新请求地址列表
+          axios.get('https://xcx.xcwll.cn/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.indexapp&&state=we7sid-1fa768373e19fb6cacea1690c9cf9b04&sign=3a8b6ca7aa8b98d744486a972d9a7d37')
+            .then(function (res) {
+              commit({
+                type:'saveAddress',
+                res:res
+              })
+            }).catch(function (err) {alert(err)})
+        }).catch(function (err) {alert(err)})
+    },
+    saveWantEditAddress({commit,state},data){
+      commit({
+        type:'saveWantEditAddress',
+        params:data.params
+      })
+    },
+    updateAddress({commit,state},data){
+      console.log(data)
+      axios.get('https://xcx.xcwll.cn/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.submitapp&&state=we7sid-1fa768373e19fb6cacea1690c9cf9b04&sign=646de50059c78128a6ff7d7c5668c2c7',{params:data.params})
+        .then(function (res) {
+          router.push({path:'/vipIndex/myAddress'})
+        }).catch(function (err) {alert(err)})
+    },
+    saveAddress({commit,state},data){
+      axios.get('https://xcx.xcwll.cn/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.submitapp&&state=we7sid-1fa768373e19fb6cacea1690c9cf9b04&sign=67551daa68d711e746160d459d91a178',{params:data.params})
+        .then(function (res) {
+          console.log('保存地址成功')
+          router.push({path:'/vipIndex/myAddress'})
+        }).catch(function (err) {alert(err)})
+    },
+    setDefault({commit,state},data){
+      console.log(data)
+    },
+    updatePersonInfo({commit,state},data){
+      console.log(data)
+      axios.get('https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.info.submitapp&&state=we7sid-1fa768373e19fb6cacea1690c9cf9b04&sign=812f860da7c14dc7079e64b07b6242aa',{params:data.params})
+        .then(function (res) {
+          router.push({path:'/vipIndex/editAddress'})
         }).catch(function (err) {alert(err)})
     }
   },
@@ -335,9 +392,9 @@ export default {
       VueSet(state,'register',data.HeadData.data.result.register)
     },
     setToWaitPage(state,data){
-      if(data.res.data.status==0&&data.res.data.result.register==1){
+      // if(data.res.data.status==0&&data.res.data.result.register==1){
         VueSet(state,'toWaitPage',true)
-      }
+      // }
       console.log(state.toWaitPage)
     },
     //个人中心
@@ -345,11 +402,23 @@ export default {
       console.log(data)
       // VueSet(state,'wodeHeadData',data.res.data.module)
       VueSet(state,'wodeBodyData',data.wodeBodyData.data.module)
-      VueSet(state,'headDataMsg',data.wodeHeadData.data.message)
-      if(state.headDataMsg=='请先登录'){
-
-      }else if(state.wodeBodyData!={}){
+      if(state.wodeBodyData!={}){
         router.push({path:'/vipIndex'})
+      }
+    },
+    saveLoginInfo(state,data){
+      console.log(data)
+      VueSet(state,'loginStatus',data.res.data.msg)
+    },
+    saveAddress(state,data){
+      console.log(data.res.data.result)
+      VueSet(state,'myAddressData',data.res.data.result.list)
+    },
+    saveWantEditAddress(state,data){
+      VueSet(state,'wantEditAddress',data.params)
+      console.log(state.wantEditAddress)
+      if(state.wantEditAddress!={}){
+        router.push({path:'/vipIndex/editAddress'})
       }
     }
   }

@@ -62,12 +62,19 @@
     },
     methods:{
       openAlert() {
-        this.$dialog.alert({
-          mes: '请先绑定手机号！',
-          callback(){
-            router.push({path:'/distributIndex/regist'})
-          }
-        });
+        if(this.toWaitPage==true){
+          this.$dialog.alert({
+            mes: '审核中！'
+          });
+//          router.push({path:'/distributIndex/apply'})
+        }else{
+          this.$dialog.alert({
+            mes: '请先绑定手机号！',
+            callback(){
+              router.push({path:'/distributIndex/regist'})
+            }
+          });
+        }
       },
       resData(path){
         var type='',
@@ -85,10 +92,6 @@
         }else if(path=='distributIndex'){//请求分销
           if (this.status != 1 ||this.register != 1) {//判断用户是否是分销商
             this.openAlert()
-          }else if(this.status==0 ||this.register== 1){
-            router.push({path:'/distributIndex/apply'})
-          }else{
-            router.push({path:'/distributIndex'})
           }
         }else if(path=='eChart'){//请求E聊
           console.log('eChart')

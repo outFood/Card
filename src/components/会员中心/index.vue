@@ -8,23 +8,24 @@
     <div id="head">
       <p>
         <router-link to="#"><img src="/static/img/msg.png" alt=""></router-link>
-        <router-link to="/vipIndex/login"><img src="/static/img/set.png" alt=""></router-link>
+        <router-link to="/vipIndex/recharge"><img src="/static/img/set.png" alt=""></router-link>
         <router-link to="/vipIndex/vipInfo"><img src="/static/img/personInfo.png" alt=""></router-link>
         <span>1</span>
       </p>
       <div class="personInfo">
         <router-link to="/vipIndex/nickname" class="headPic" tag="div"><img
-          src="http://static.ydcss.com/uploads/ydui/1.jpg"></router-link>
-        <div>
+          src="#"></router-link>
+        <router-link to="/vipIndex/login"  v-if="loginStatus!='登录成功'" class="toLogin">请点击登录</router-link>
+        <div v-if="loginStatus=='登录成功'">
           <span>【普通会员】</span>
           <span>ID:6532</span>
         </div>
-        <div>
+        <div v-if="loginStatus=='登录成功'">
           <span>余额</span>
           <span>0.00000</span>
           <span class="btn">充值</span>
         </div>
-        <div>
+        <div v-if="loginStatus=='登录成功'">
           <span>积分</span>
           <span>0.00000</span>
           <span class="btn">获取</span>
@@ -38,21 +39,21 @@
       <div><span>返还记录</span></div>
     </div>
     <div class="dingdan">
-      <div class="top">
+      <router-link to="/vipIndex/order" class="top">
         <span>我的订单</span>
         <div>查看全部订单 <img src="/static/img/more.png" alt=""></div>
-      </div>
+      </router-link>
       <div class="bottom">
-        <div v-for="(item,key) in orderData" :key="key"><img src="http://static.ydcss.com/uploads/ydui/1.jpg">{{item.text}}</div>
+        <router-link to="#" v-for="(item,key) in orderData" :key="key"><img src="http://static.ydcss.com/uploads/ydui/1.jpg">{{item.text}}</router-link>
       </div>
     </div>
-    <div class="other">
+    <div class="other" v-if="menuData!=[]">
       <div class="other-head">
         其他
       </div>
       <div class="other-content">
-        <div v-for="(item,key) in menuData" :key="key"><img src="http://static.ydcss.com/uploads/ydui/1.jpg">{{item.text}}
-        </div>
+        <router-link :to="item.link" v-for="(item,key) in menuData" :key="key"><img src="http://static.ydcss.com/uploads/ydui/1.jpg">{{item.text}}
+        </router-link>
       </div>
     </div>
     <footers></footers>
@@ -71,6 +72,9 @@
   #vip #head {
     background: #00c2aa;
     padding: 0.3125rem;
+  }
+  #vip #head .toLogin{
+    color:#fff;
   }
 
   #vip #head p {
@@ -195,16 +199,16 @@
     font-size: 12px;
   }
 
-  #vip .dingdan .bottom > div {
+  #vip .dingdan .bottom > a {
     flex: 0 0 25%;
     padding: 10px 0;
   }
 
-  #vip .dingdan .bottom > div:not(:last-child) {
+  #vip .dingdan .bottom > a:not(:last-child) {
     border-right: 1px solid #eee
   }
 
-  #vip .dingdan .bottom > div img {
+  #vip .dingdan .bottom > a img {
     width: 40px;
     height: 40px;
     display: block;
@@ -232,21 +236,21 @@
     font-size: 12px;
   }
 
-  #vip .other .other-content > div {
+  #vip .other .other-content > a {
     flex: 0 0 25%;
     padding: 10px 0;
   }
 
-  #vip .other .other-content > div:not(:nth-child(4n)) {
+  #vip .other .other-content > a:not(:nth-child(4n)) {
     border-right: 1px solid #eee;
     border-bottom: 1px solid #eee;
   }
 
-  #vip .other .other-content > div:nth-child(4n) {
+  #vip .other .other-content > a:nth-child(4n) {
     border-bottom: 1px solid #eee;
   }
 
-  #vip .other .other-content > div img {
+  #vip .other .other-content > a img {
     width: 40px;
     height: 40px;
     display: block;
@@ -259,16 +263,28 @@
     methods: {},
     computed: {
       menuData() {
-        var menuData = this.$store.state.wodeBodyData.listmenu.data
-        for (var i = 0; i < menuData.length; i++) {
-          if (menuData[i].text == '全部订单') {
-            menuData.splice(i, 1)
+        var menuData=[]
+        menuData = this.$store.state.wodeBodyData.listmenu.data
+        for (var i = 0; i < menuData.length; i++) {//请求回来的数据列表项里没有跳转地址，所有循环列表为每项添加link这一项，好用来
+          if(menuData[i].text=='我的关注'){
+            menuData[i].link='/vipIndex/myLike'
+          }else if(menuData[i].text=='我的足迹'){
+            menuData[i].link='/vipIndex/zuji'
+          }else if(menuData[i].text=='我的地址'){
+            menuData[i].link='/vipIndex/myAddress'
+          }else if(menuData[i].text=='领取优惠券'){
+            menuData[i].link='#'
+          }else if(menuData[i].text=='我的优惠券'){
+            menuData[i].link='/vipIndex/myQuan'
           }
         }
         return menuData
       },
       orderData(){
         return this.$store.state.wodeBodyData.menu.data
+      },
+      loginStatus(){
+        return this.$store.state.loginStatus
       }
     },
   }

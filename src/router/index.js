@@ -9,6 +9,7 @@ import sortHome from '@/components/全部商品/home'
 import sortIndex from '@/components/全部商品/index'
 import someSort from '@/components/全部商品/someSort'
 import detail from '@/components/全部商品/detail'
+import buyPage from '@/components/全部商品/buyPage'
 //分销中心
 import distributHome from '@/components/分销中心/home'
 import distributIndex from '@/components/分销中心/index'
@@ -35,9 +36,17 @@ import vipHome from '@/components/会员中心/home'
 import vipIndex from '@/components/会员中心/index'
 import vipInfo from '@/components/会员中心/vipInfo'
 import nickname from '@/components/会员中心/nickname'
+import order from '@/components/会员中心/order'
+import myAddress from '@/components/会员中心/myAddress'
+import addAddress from '@/components/会员中心/addAddress'
+import editAddress from '@/components/会员中心/editAddress'
 import set from '@/components/会员中心/set'
 import wodeRegist from '@/components/会员中心/wodeRegist'
 import login from '@/components/会员中心/login'
+import myLike from '@/components/会员中心/myLike'
+import zuji from '@/components/会员中心/zuji'
+import myQuan from '@/components/会员中心/myQuan'
+import recharge from '@/components/会员中心/recharge'
 
 
 Vue.use(Router)
@@ -80,6 +89,10 @@ export default new Router({
         {
           path:'detail',
           component:detail
+        },
+        {
+          path:'buyPage',
+          component:buyPage
         }
       ]
     },
@@ -162,6 +175,18 @@ export default new Router({
           path:'nickname',
           component:nickname
         },{
+          path:'order',
+          component:order
+        },{
+          path:'myAddress',
+          component:myAddress
+        },{
+          path:'addAddress',
+          component:addAddress
+        },{
+          path:'editAddress',
+          component:editAddress
+        },{
           path:'set',
           component:set
         },{
@@ -170,6 +195,18 @@ export default new Router({
         },{
           path:'wodeRegist',
           component:wodeRegist
+        },{
+          path:'myLike',
+          component:myLike
+        },{
+          path:'zuji',
+          component:zuji
+        },{
+          path:'myQuan',
+          component:myQuan
+        },{
+          path:'recharge',
+          component:recharge
         }
       ]
     }
