@@ -1,6 +1,6 @@
 <template>
   <yd-layout title="分销中心" link="#" id="distribut">
-    <div class="head">
+    <div class="head" v-if="fenxiao_headData.register!=null">
       <yd-flexbox class="line1">
         <div class="left"><img src="http://static.ydcss.com/uploads/ydui/1.jpg"></div>
         <yd-flexbox-item>
@@ -50,6 +50,7 @@
   </yd-layout>
 </template>
 <script>
+  import router from '@/router'
   export default {
     data(){
       return{
@@ -115,14 +116,24 @@
         }
         return arr
       },
-
+      //status和regist用于点击“分销中心”时判断当前用户是不是分销商
+      status(){
+        return this.$store.state.status
+      },
+      register(){
+        return this.$store.state.register
+      },
+      toWaitPage(){
+        return this.$store.state.toWaitPage
+      }
+    },
+    beforeCreate(){
+      if (this.status != 1 ||this.register != 1) {//判断用户是否是分销商
+        router.push({path:'/distributIndex/regist'})
+      }
     },
     mounted(){
-
-
-      console.log(this.fenxiao_headData)
-
-//      console.log(this.fenxiao_bodyData)
+      console.log(this.fenxiao_bodyData)
     }
   }
 </script>

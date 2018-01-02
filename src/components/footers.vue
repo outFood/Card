@@ -25,10 +25,6 @@
           name:'全部商品',
           path: '/sortIndex/',
           ico: '/static/img/sort.png'
-        }, {
-          name:'分销中心',
-          path: '/distributIndex/',
-          ico: '/static/img/distribut.png'
         },{
           name: 'E聊',
           ico: '/static/img/eChart.png',
@@ -49,33 +45,7 @@
       tipBoxShow:false
       }
     },
-    computed:{//status和regist用于点击“分销中心”时判断当前用户是不是分销商
-      status(){
-        return this.$store.state.status
-      },
-      register(){
-        return this.$store.state.register
-      },
-      toWaitPage(){
-        return this.$store.state.toWaitPage
-      }
-    },
     methods:{
-      openAlert() {
-        if(this.toWaitPage==true){
-          this.$dialog.alert({
-            mes: '审核中！'
-          });
-//          router.push({path:'/distributIndex/apply'})
-        }else{
-          this.$dialog.alert({
-            mes: '请先绑定手机号！',
-            callback(){
-              router.push({path:'/distributIndex/regist'})
-            }
-          });
-        }
-      },
       resData(path){
         var type='',
         path=path.replace('/','')//去掉前面的
@@ -89,19 +59,12 @@
           this.$store.dispatch({
             type:type
           })
-        }else if(path=='distributIndex'){//请求分销
-          if (this.status != 1 ||this.register != 1) {//判断用户是否是分销商
-            this.openAlert()
-          }
         }else if(path=='eChart'){//请求E聊
           console.log('eChart')
-
         }else if(path=='fujin'){//请求附近
-          type='resSortData'
           this.$store.dispatch({
             type:'resFujinData'
           })
-
         }else if(path=='cart'){
           this.$store.dispatch({
             type:'lookCart',
@@ -113,11 +76,6 @@
           })
         }
       }
-    },
-    beforeCreate(){
-      this.$store.dispatch({
-        type:'resFenxiao'
-      })
     },
   }
 </script>
@@ -140,7 +98,7 @@
 #footers>div{
   -webkit-box-flex: 0;
   -ms-flex: 0 0 14.2%;
-  flex: 0 0 14.2%;
+  flex: 0 0 16.6%;
 }
 #footers a{
   color:#707070;

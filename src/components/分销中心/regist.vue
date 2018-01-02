@@ -70,7 +70,7 @@
         //注册信息
         isReaded:false,
         agentid:'639312',
-        realname:'陈世力',
+        realname:'陈市',
         mobile:'18268093701',
         weixin:'chen520-cl',
         tipMsg:''

@@ -1,15 +1,15 @@
 <template>
   <div>
     <div class="address-item" v-for="(item,key) in myAddressData" :key="key">
-      <yd-flexbox>
-        <yd-flexbox-item>{{item.realname}}</yd-flexbox-item>
-        <yd-flexbox-item>{{item.mobile}}</yd-flexbox-item>
-      </yd-flexbox>
-      <div class="address">{{item.province}}   {{item.address}}</div>
+      <div @click="selAddress(item)">
+        <yd-flexbox>
+          <yd-flexbox-item>{{item.realname}}</yd-flexbox-item>
+          <yd-flexbox-item>{{item.mobile}}</yd-flexbox-item>
+        </yd-flexbox>
+        <div class="address">{{item.province}}   {{item.address}}</div>
+      </div>
       <div class="use">
-        <yd-radio-group v-model="deft" @click.native="setDefault(item.id)">
-          <yd-radio val="item.id">{{item.id}}设为默认地址{{deft}}</yd-radio>
-        </yd-radio-group>
+        <div class="setDefault" @click="setDefaultAddress(item.id)"><img src="/static/img/selected.png" alt="" v-if="item.isdefault==1"><img src="/static/img/circle.png" alt="" v-else>设为默认地址</div>
         <div>
           <div @click="delAddress(item.id)">
             <yd-icon name="delete"></yd-icon>
@@ -33,7 +33,7 @@
   export default {
     data() {
       return {
-        deft:''
+        defaultAddress:''
       }
     },
     computed:{
@@ -61,13 +61,19 @@
           params:item
         })
       },
-      setDefault(id){
-        this.deft=id
+      setDefaultAddress(id){
+        this.defaultAddress=id
         this.$store.dispatch({
-          type:'setDefault',
+          type:'defaultAddress',
           params:{
             id:id
           }
+        })
+      },
+      selAddress(item){
+        this.$store.dispatch({
+          type:'saveSelAddress',
+          item:item
         })
       }
     },
@@ -107,6 +113,12 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px;
+  }
+  .address-item .use .setDefault img{
+    width:15px;
+    height:15px;
+    vertical-align: middle;
+    margin-right:5px;
   }
   .address-item .use>div:nth-child(2) div {
     display: inline-block;
