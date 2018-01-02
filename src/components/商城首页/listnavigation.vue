@@ -74,7 +74,7 @@ export default {
 
 	.listnavigation .list-item .texts{
 		padding-left: 5px;
-		width: 80%;
+		width: 75%;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;

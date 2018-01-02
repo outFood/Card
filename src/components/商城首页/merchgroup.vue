@@ -142,8 +142,8 @@ export default{
 	}
 
 	.merchwrap .merch .content .logo img{
-		width: 85px;
-		height: 85px;
+		width: 80px;
+		height: 80px;
 		border-radius: 10px;
 	}
 
@@ -161,7 +161,7 @@ export default{
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
-		font-size: 18px;
+		font-size: 16px;
 		font-weight: bold;
 	}
 
@@ -172,12 +172,12 @@ export default{
 		text-overflow: ellipsis;
 		white-space: nowrap;
 		color: #333;
-		font-size: 14px;
+		font-size: 12px;
 	}
 
 	.merchwrap .merch .content .detail .merchaddress{
 		margin-top: 5px;
-		font-size: 14px;
+		font-size: 12px;
 		color: #555;
 	}
 
@@ -193,11 +193,11 @@ export default{
 
 	.merchwrap .merch .content .detail .comein .btn{
 		width: auto;
-		height: 28px;
-		line-height: 28px;
-		font-size: 14px;
+		height: 26px;
+		line-height: 26px;
+		font-size: 13px;
 		color: #FF0000;
-		padding: 0 5px;
+		padding: 0 3px;
 		border: 1px solid #FF0000;
 		border-radius: 12px;
 	}
@@ -206,7 +206,7 @@ export default{
 		width: auto;
 		height: auto;
 		margin-top: 6px;
-		font-size: 14px;
+		font-size: 12px;
 		color: #FF0000;
 		font-weight: bold;
 	}
@@ -216,7 +216,7 @@ export default{
 		text-align: center;
 		height: 42px;
 		line-height: 42px;
-		font-size: 18px
+		font-size: 17px
 	}
 
 	.merchwrap .merch .otherinfo div{

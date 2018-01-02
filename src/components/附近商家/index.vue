@@ -1,8 +1,8 @@
 <template>
   <div id="fujin">
-    <yd-infinitescroll :callback="loadList" ref="infinitescrollDemo">
+    <!-- <yd-infinitescroll :callback="loadList" ref="infinitescrollDemo">
       <yd-list theme="1" slot="list">
-        <yd-pullrefresh :callback="pullrefresh" ref="pullrefreshDemo">
+        <yd-pullrefresh :callback="pullrefresh" ref="pullrefreshDemo"> -->
           <!----------------------------------------------------------->
           <yd-cell-group id="position">
             <yd-cell-item arrow>
@@ -13,7 +13,7 @@
           </yd-cell-group>
           <yd-cityselect v-model="show1" :callback="result1" :items="district"></yd-cityselect>
           <!---->
-          <div id="sort">
+          <!-- <div id="sort">
             <div class="part1">
               <div class="sortItem" v-for="(item,key) in part1" @click="setCurSelSort([item.catename,item.id])"><img :src="item.thumb" alt="">{{item.catename}}</div>
             </div>
@@ -21,9 +21,9 @@
             <div class="part2" v-if="part2Show">
               <div class="sortItem" v-for="(item,key) in part2" :key="key"><img :src="item.thumb" alt="">{{item.catename}}</div>
             </div>
-          </div>
+          </div> -->
           <!---->
-          <div id="Fujin_List">
+         <!--  <div id="Fujin_List">
             <yd-accordion>
               <yd-accordion-item :title="'当前选择:  '+curSelSort">
                 <div style="padding: .24rem;">
@@ -47,20 +47,58 @@
                 </div>
               </router-link >
             </div>
+          </div> -->
+
+          <div class="merchwrap">
+              <div class="merch" v-for="(item,key) in Fujin_ListData.result.list" :key="key">
+                  <div class="content">
+                      <div class="logo">
+                          <img :src="item.logo" alt="">
+                      </div>
+                      <div class="detail">
+                          <div class="merchname">
+                            {{item.merchname}}
+                          </div>
+                          <div class="merchdesc">
+                            {{item.desc}}
+                          </div>
+                          <div class="merchaddress">
+                            <div class="address">
+                              地址: <span>{{item.address}}</span>
+                            </div>
+                            <div class="phone">
+                              电话: <span>{{item.tel}}</span>
+                            </div>
+                          </div>
+                          <div class="comein">
+                            <div class="btn">进店 ></div>
+                            <div class="distance">{{item.distance}}km</div>
+                          </div>
+                      </div>
+                  </div>
+                      <div class="otherinfo">
+                        <div class="location">
+                          查看地图
+                        </div>
+                        <div class="callmerch">
+                          联系商家
+                        </div>
+                  </div>
+              </div>
           </div>
-          <!----------------------------------------------------------->`
-        </yd-pullrefresh>
-      </yd-list>
+          <merchgroup />
+<!--         </yd-pullrefresh>
+      </yd-list> -->
       <!-- 数据全部加载完毕显示 -->
-      <span slot="doneTip">啦啦啦，啦啦啦，没有数据啦~~</span>
+      <!-- <span slot="doneTip">啦啦啦，啦啦啦，没有数据啦~~</span> -->
       <!-- 加载中提示，不指定，将显示默认加载中图标 -->
-      <img slot="loadingTip" src="http://static.ydcss.com/uploads/ydui/loading/loading10.svg"/>
-    </yd-infinitescroll>
+      <!-- <img slot="loadingTip" src="http://static.ydcss.com/uploads/ydui/loading/loading10.svg"/> -->
+   <!--  </yd-infinitescroll> -->
     <footers></footers>
   </div>
 </template>
 <style>
-  #fujin>div:nth-child(1){
+ /* #fujin>div:nth-child(1){
     margin-bottom: 60px;
   }
   #fujin #position .yd-cell-item{
@@ -160,9 +198,9 @@
   }
   #fujin #Fujin_List .list .listItem .middle p{
     width:100%;
-    overflow: hidden;/*超出部分隐藏*/
-    white-space: nowrap;/*不换行*/
-    text-overflow:ellipsis;/*超出部分文字以...显示*/
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow:ellipsis;
   }
   #fujin #Fujin_List .list .listItem .right{
     width:20%;
@@ -175,11 +213,14 @@
     margin-top: 10px;
 
   }
+
+*/
+ 
 </style>
 <script type="text/babel">
   /* 前提是已经安装了 ydui-district */
   import District from 'ydui-district/dist/jd_province_city_area_id';
-
+  import merchgroup from '@/components/商城首页/merchgroup'
   export default {
     data() {
       return {
@@ -189,7 +230,30 @@
         part2Show:false,
         part1:[],
         part2:[],
-        curSelSort:'全部'
+        curSelSort:'全部',
+        datas: [
+        {
+          logo: "http://img5.imgtn.bdimg.com/it/u=2710667228,2655968137&fm=27&gp=0.jpg",
+          merchname: "新白鹿",desc: "哈哈哈哈嘻嘻嘻嘻看家胡师傅远看看卡",address: "美国纽约时代广场",
+          phone: "19022339302", dis: "80"
+        },{
+          logo: "http://img5.imgtn.bdimg.com/it/u=2710667228,2655968137&fm=27&gp=0.jpg",
+          merchname: "新白鹿",desc: "哈哈哈哈嘻嘻嘻嘻看看卡",address: "美国纽约时代广场",
+          phone: "19022339302", dis: "80"
+        },{
+          logo: "http://img5.imgtn.bdimg.com/it/u=2710667228,2655968137&fm=27&gp=0.jpg",
+          merchname: "新白鹿",desc: "哈哈哈哈嘻嘻嘻嘻看看卡位阿海爱护肤哈",address: "美国纽约时代广场",
+          phone: "19022339302", dis: "80"
+        },{
+          logo: "http://img5.imgtn.bdimg.com/it/u=2710667228,2655968137&fm=27&gp=0.jpg",
+          merchname: "新白鹿",desc: "哈哈哈哈嘻嘻嘻嘻看看卡",address: "美国纽约时代广场",
+          phone: "19022339302", dis: "80"
+        },{
+          logo: "http://img5.imgtn.bdimg.com/it/u=2710667228,2655968137&fm=27&gp=0.jpg",
+          merchname: "新白鹿",desc: "哈哈哈哈嘻嘻嘻嘻哈UI回复免看看卡",address: "美国纽约时代广场",
+          phone: "19022339302", dis: "80"
+        }
+      ]
       }
     },
     computed:{
@@ -276,6 +340,11 @@
           me.cityName='获取位置失败'
         });      //返回定位出错信息
       })
+    },
+
+
+    components: {
+      merchgroup
     }
   }
 </script>

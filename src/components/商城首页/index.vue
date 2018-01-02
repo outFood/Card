@@ -12,8 +12,8 @@
     <vipSort></vipSort>
     <nursing></nursing>
     <brand></brand>
-    <!-- <pics></pics> -->
-    <!-- <goods /> -->
+    <pics></pics> 
+    <goods />  
     <merchgroup />
     <listnavigation />
     <footers/>
