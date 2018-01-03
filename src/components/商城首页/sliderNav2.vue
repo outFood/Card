@@ -28,27 +28,13 @@
       },
     },
     methods:{
-//      openAlert() {
-//        if(this.toWaitPage==true){
-//          this.$dialog.alert({
-//            mes: '审核中！'
-//          });
-////          router.push({path:'/distributIndex/apply'})
-//        }else{
-//          this.$dialog.alert({
-//            mes: '请先绑定手机号！',
-//            callback(){
-//              router.push({path:'/distributIndex/regist'})
-//            }
-//          });
-//        }
-//      },
       clickMenu(text){
         if(text=='分销'){
           this.$store.dispatch({
             type:'resFenxiao'
           })
-
+        }else if(text=='社区'){
+          router.push({path:'/agentIndex'})
         }
       }
     },

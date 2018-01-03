@@ -10,11 +10,20 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/api/**': {
+        target: 'https://xcx.xcwll.cn/app/index.php?t=1041&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.user.pwdlogin', //表示你跨域请求的接口的域名
+        secure: false, //如果是https接口，需要配置这个参数
+        changeOrigin: true, //如果接口跨域，需要进行这个参数配置
+      },
+      '/users/*': {
+        target: 'http://127.0.0.1:8089'
+      }
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
-    port: 4747, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+    port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: true,
     errorOverlay: true,
     notifyOnErrors: true,

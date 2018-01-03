@@ -128,9 +128,9 @@
       }
     },
     beforeCreate(){
-      if (this.status != 1 ||this.register != 1) {//判断用户是否是分销商
-        router.push({path:'/distributIndex/regist'})
-      }
+//      if (this.status != 1 ||this.register != 1) {//判断用户是否是分销商
+//        router.push({path:'/distributIndex/regist'})
+//      }
     },
     mounted(){
       console.log(this.fenxiao_bodyData)

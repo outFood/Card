@@ -23,6 +23,12 @@ import xiaxian from '@/components/分销中心/xiaxian'
 import tixianDetail from '@/components/分销中心/tixianDetail'
 import apply from '@/components/分销中心/apply'
 import regist from '@/components/分销中心/regist'
+//代理中心
+import agentIndex from '@/components/代理中心/index'
+import agentHome from '@/components/代理中心/home'
+import agentDetail from '@/components/代理中心/detail'
+import photo from '@/components/代理中心/photo'
+
 //E聊
 import eChart from '@/components/E聊/index'
 //附近商家
@@ -134,6 +140,24 @@ export default new Router({
         },{
           path:'regist',
           component:regist
+        }
+      ]
+    },
+    {
+      path:'/agentIndex',
+      component:agentHome,
+      children:[
+        {
+          path:'',
+          component:agentIndex,
+        },
+        {
+          path:'agentDetail',
+          component:agentDetail,
+        },
+        {
+          path:'photo',
+          component:photo,
         }
       ]
     },
