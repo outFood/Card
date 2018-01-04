@@ -1,5 +1,5 @@
 <template>
-  <div id="sliderNav2" v-if="sliderNavData" :style="{background:sliderNavData.style.background}">
+  <div id="sliderNav2" :style="{background:sliderNavData.style.background}">
     <yd-slider autoplay="3000">
       <yd-slider-item v-for="(item,key) in haha" :key="key">
           <router-link v-for="(chen,key) in item" :key="key" to="#" :class="['rownum'+sliderNavData.style.rownum]"  @click.native="clickMenu(chen.text)">
@@ -21,7 +21,11 @@
     },
     computed:{
       sliderNavData(){
-        return this.$store.state.homeData['4']
+        for(var key in this.$store.state.homeData){
+          if(this.$store.state.homeData[key].id=='menu'){
+            return this.$store.state.homeData[key]
+          }
+        }
       },
       prefix(){//图标附加前缀
         return this.$store.state.prefix
@@ -29,24 +33,38 @@
     },
     methods:{
       clickMenu(text){
-        if(text=='分销'){
-          this.$store.dispatch({
-            type:'resFenxiao'
-          })
-        }else if(text=='社区'){
+        if(text=='分销中心'){
+          if(localStorage.getItem('isRegistAgent')==null&&localStorage.getItem('isAgent')==null){
+            router.push({path:'/distributIndex/regist'})
+          }else{
+            this.$store.dispatch({
+              type:'resFenxiao'
+            })
+          }
+//          if(localStorage.getItem('isRegistAgent')==false&&localStorage.getItem('isAgent')==0){
+//            router.push({path:'/distributIndex/regist'})
+//          }else if(localStorage.getItem('isRegistAgent')==false&&localStorage.getItem('isAgent')==0){
+//            router.push({path: '/distributIndex/apply'})
+//          }else{
+//            this.$store.dispatch({
+//              type:'resFenxiao'
+//            })
+//          }
+
+        }else if(text=='代理中心'){
           router.push({path:'/agentIndex'})
         }
       }
     },
     created(){
-      for(var key in this.$store.state.homeData['4'].data){//将对象列表转成数组
-        this.sliderNavItem.push(this.$store.state.homeData['4'].data[key])
+      for(var key in this.$store.state.homeData['1'].data){//将对象列表转成数组
+        this.sliderNavItem.push(this.$store.state.homeData['1'].data[key])
       }
       //计算页数:Math.ceil(this.sliderNavItem.length/this.$store.state.homeData['4'].style.pagenum)
-      for(var i=0,j=0;i<Math.ceil(this.sliderNavItem.length/this.$store.state.homeData['4'].style.pagenum);i++){
+      for(var i=0,j=0;i<Math.ceil(this.sliderNavItem.length/this.$store.state.homeData['1'].style.pagenum);i++){
         //计算一页显示的个数j，并根据j对数组删除指定个数，添加到haha数组中
-        j+=parseInt(this.$store.state.homeData['4'].style.pagenum)
-        this.haha.push(this.sliderNavItem.slice(j-this.$store.state.homeData['4'].style.pagenum,j))
+        j+=parseInt(this.$store.state.homeData['1'].style.pagenum)
+        this.haha.push(this.sliderNavItem.slice(j-this.$store.state.homeData['1'].style.pagenum,j))
       }
 //      console.log(this.haha)
     }

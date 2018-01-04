@@ -1,10 +1,10 @@
 <template>
   <div id="home">
-    <headers></headers>
+    <!--<headers></headers>-->
     <payment></payment>
     <slider></slider>
     <titles></titles>
-    <gonggao></gonggao>
+    <!--<gonggao></gonggao>-->
     <picwindow></picwindow>
     <searchinput></searchinput>
     <sliderNav1 v-if="pagenum==0"></sliderNav1>
@@ -12,8 +12,8 @@
     <vipSort></vipSort>
     <nursing></nursing>
     <brand></brand>
-    <pics></pics> 
-    <goods />  
+    <pics></pics>
+    <goods />
     <merchgroup />
     <listnavigation />
     <footers/>
@@ -69,7 +69,7 @@
     },
     created(){
       setTimeout(()=>{
-        this.pagenum=this.$store.state.homeData['7'].style.pagenum
+        this.pagenum=this.$store.state.homeData['1'].style.pagenum
       },1000)
 
     }

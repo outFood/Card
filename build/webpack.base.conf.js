@@ -38,15 +38,6 @@ module.exports = {
       '@': resolve('src'),
     }
   },
-  // 添加代码
-  plugins: [
-    new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery",
-      jquery: "jquery",
-      "window.jQuery": "jquery"
-    })
-  ],
   module: {
     rules: [
       {

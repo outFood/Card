@@ -116,25 +116,12 @@
         }
         return arr
       },
-      //status和regist用于点击“分销中心”时判断当前用户是不是分销商
-      status(){
-        return this.$store.state.status
-      },
-      register(){
-        return this.$store.state.register
-      },
-      toWaitPage(){
-        return this.$store.state.toWaitPage
-      }
     },
-    beforeCreate(){
+//    beforeCreate(){
 //      if (this.status != 1 ||this.register != 1) {//判断用户是否是分销商
 //        router.push({path:'/distributIndex/regist'})
 //      }
-    },
-    mounted(){
-      console.log(this.fenxiao_bodyData)
-    }
+//    },
   }
 </script>
 <style>

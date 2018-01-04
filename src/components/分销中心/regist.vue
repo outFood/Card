@@ -112,13 +112,15 @@
           this.tipMsg='请阅读分销商申请协议!'
           this.openAlert()
         }else{
+          console.log(localStorage.getItem('openid'))
           this.$store.dispatch({
             type:'resRegist',
             params:{
               agentid:this.agentid,
               realname:this.realname,
               mobile:this.mobile,
-              weixin:this.weixin
+              weixin:this.weixin,
+              openid:localStorage.getItem('openid')
             }
           })
         }

@@ -1,8 +1,8 @@
 <template>
   <div id="payment">
     <div>
-      <img src="/static/img/saoma.png" alt="">
-      扫一扫
+      <img src="/static/img/tuijianma.png" alt="">
+      推荐码
     </div>
     <div>
       <img src="/static/img/fukuan.png" alt="">

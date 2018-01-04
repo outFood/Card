@@ -15,17 +15,17 @@
       <div class="personInfo">
         <router-link to="/vipIndex/nickname" class="headPic" tag="div"><img
           src="#"></router-link>
-        <router-link to="/vipIndex/login"  v-if="loginStatus!='登录成功'" class="toLogin">请点击登录</router-link>
-        <div v-if="loginStatus=='登录成功'">
+        <router-link to="/vipIndex/login"  v-if="openid==null" class="toLogin">请点击登录</router-link>
+        <div v-if="openid!=null">
           <span>【普通会员】</span>
           <span>ID:6532</span>
         </div>
-        <div v-if="loginStatus=='登录成功'">
+        <div v-if="openid!=null">
           <span>余额</span>
           <span>0.00000</span>
           <span class="btn">充值</span>
         </div>
-        <div v-if="loginStatus=='登录成功'">
+        <div v-if="openid!=null">
           <span>积分</span>
           <span>0.00000</span>
           <span class="btn">获取</span>
@@ -61,6 +61,11 @@
 </template>
 <script>
   export default {
+    data(){
+      return {
+        openid:localStorage.getItem('openid')
+      }
+    },
     methods: {},
     computed: {
       menuData() {
@@ -88,6 +93,7 @@
         return this.$store.state.loginStatus
       }
     },
+
   }
 </script>
 <style>
