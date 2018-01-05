@@ -4,6 +4,10 @@ import Router from 'vue-router'
     import shopHome from '@/components/商城首页/home'
     //首页子路由
     import shopIndex from '@/components/商城首页/index'
+    import fukuan from '@/components/商城首页/fukuan'
+    import shoukuan from '@/components/商城首页/shoukuan'
+    import vip from '@/components/商城首页/vip'
+
 //全部商品
 import sortHome from '@/components/全部商品/home'
 import sortIndex from '@/components/全部商品/index'
@@ -14,20 +18,20 @@ import buyPage from '@/components/全部商品/buyPage'
 import distributHome from '@/components/分销中心/home'
 import distributIndex from '@/components/分销中心/index'
 import price from '@/components/分销中心/price'
-import daili from '@/components/分销中心/daili'
 import tuiguang from '@/components/分销中心/tuiguang'
 import xiaodian from '@/components/分销中心/xiaodian'
 import zixuan from '@/components/分销中心/zixuan'
 import yongDetail from '@/components/分销中心/yongDetail'
 import xiaxian from '@/components/分销中心/xiaxian'
 import tixianDetail from '@/components/分销中心/tixianDetail'
+import wait from '@/components/分销中心/wait'
 import apply from '@/components/分销中心/apply'
-import regist from '@/components/分销中心/regist'
 //代理中心
 import agentIndex from '@/components/代理中心/index'
 import agentHome from '@/components/代理中心/home'
 import agentDetail from '@/components/代理中心/detail'
 import photo from '@/components/代理中心/photo'
+import daili from '@/components/代理中心/daili'
 
 //E聊
 import eChart from '@/components/E聊/index'
@@ -62,16 +66,21 @@ export default new Router({
   exact:false,
   routes: [
     {
-      path:'',
-      component:shopIndex
-    },
-    {
       path: '/shopIndex',
       component: shopHome,
       children:[
         {
           path:'',
           component:shopIndex
+        },{
+          path:'fukuan',
+          component:fukuan
+        },{
+          path:'shoukuan',
+          component:shoukuan
+        },{
+          path:'vip',
+          component:vip
         },
       ]
     },
@@ -114,9 +123,6 @@ export default new Router({
           path:'price',
           component:price
         },{
-          path:'daili',
-          component:daili
-        },{
           path:'tuiguang',
           component:tuiguang
         },{
@@ -135,11 +141,11 @@ export default new Router({
           path:'tixianDetail',
           component:tixianDetail
         },{
+          path:'wait',
+          component:wait
+        },{
           path:'apply',
           component:apply
-        },{
-          path:'regist',
-          component:regist
         }
       ]
     },
@@ -158,7 +164,10 @@ export default new Router({
         {
           path:'photo',
           component:photo,
-        }
+        },{
+          path:'daili',
+          component:daili
+        },
       ]
     },
     {

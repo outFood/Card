@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-    <!--<headers></headers>-->
+    <headers></headers>
     <payment></payment>
     <slider></slider>
     <titles></titles>

@@ -33,6 +33,20 @@
     <yd-button size="large" type="primary" class="woyao">我要提现</yd-button>
   </yd-layout>
 </template>
+<script>
+  export default {
+    data(){
+      return {
+
+      }
+    },
+    beforeCreate(){
+      this.$store.dispatch({
+        type:'resPrice',
+      })
+    }
+  }
+</script>
 <style>
   #price{
     font-size:0.375rem;

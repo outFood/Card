@@ -226,16 +226,24 @@ export default {
       })
     },
     //分销中心
+    resApply({commit, state}, data) {
+      axios.get('https://xcx.xcwll.cn/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.register.get_main&t=1691&&state=we7sid-4f2d9a8d5e70055b534269913f0ef403&sign=23b2327d9a7d8822eea66b734afb29de', {params: data.params})
+        .then(function (res) {
+          localStorage.setItem('status',res.data.status)//用来标识是否是分销商
+          localStorage.setItem('isRegistAgent',true)//用来标识是否已经注册分销商
+          if(res.data.status=='1'){
+            router.push({path:'/distributIndex'})
+          }
+        }).catch(function (err) {alert(err)})
+    },
     resFenxiao({commit, state}, data) {
       function resHeadData() {
-        return axios.get('https://xcx.xcwll.cn/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.index.get_main&&state=we7sid-794d7db19adf5357dd4aa60d3d4dfef8&sign=c78207aafe04e19076ec63ad8d6d903d')
+        return axios.get('https://xcx.xcwll.cn/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.index.get_main&&state=we7sid-794d7db19adf5357dd4aa60d3d4dfef8&sign=c78207aafe04e19076ec63ad8d6d903d&openid='+localStorage.getItem('openid')+'&cc='+'ooo')
       }
       function resBodyData() {
         return axios.get('https://xcx.xcwll.cn/app/index.php?c=wxapp&a=module&do=nav&uniacid=1691&type=4')
       }
       axios.all([resHeadData(), resBodyData()]).then(axios.spread(function (HeadData, BodyData) {
-        console.log(HeadData)
-        console.log(BodyData)
         commit({
           type: 'saveFenxiao',
           HeadData: HeadData,
@@ -243,16 +251,11 @@ export default {
         })
       }))
     },
-    //注册分销商
-    resRegist({commit, state}, data) {
-      axios.get('https://xcx.xcwll.cn/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.register.get_main&t=1691&&state=we7sid-4f2d9a8d5e70055b534269913f0ef403&sign=23b2327d9a7d8822eea66b734afb29de', {params: data.params})
+    resPrice({commit, state}, data){
+      axios.get('https://xcx.xcwll.cn/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.withdraw.get_main&i=1691')
         .then(function (res) {
-          if(res.data.result.member){
-            localStorage.setItem('isAgent',res.data.result.member.isagent)//用来标识是否是分销商
-            localStorage.setItem('isRegistAgent',true)//用来标识是否已经注册分销商
-            router.push({path: '/distributIndex/apply'})
-          }
-        }).catch(function (err) {alert(err)})
+          console.log(res)
+        })
     },
     //个人中心
     resWode({commit, state}, data) {
@@ -412,7 +415,6 @@ export default {
     //首页
     saveHomeData(state, data) {
       VueSet(state, 'homeData', data.data.data.result)
-      console.log(state.homeData)
       if (state.homeData != {}) {
         router.push({path: '/shopIndex/'})
       }
@@ -489,9 +491,6 @@ export default {
     saveFenxiao(state, data) {
       VueSet(state, 'fenxiao_headData', data.HeadData.data)
       VueSet(state, 'fenxiao_bodyData', data.BodyData.data)
-      if (state.fenxiao_headData != {} && state.fenxiao_bodyData != {}) {
-        router.push({path: '/distributIndex'})
-      }
     },
     //个人中心
     saveWodeBodyData(state, data) {

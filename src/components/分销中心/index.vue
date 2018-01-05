@@ -1,6 +1,6 @@
 <template>
   <yd-layout title="分销中心" link="#" id="distribut">
-    <div class="head" v-if="fenxiao_headData.register!=null">
+    <div class="head">
       <yd-flexbox class="line1">
         <div class="left"><img src="http://static.ydcss.com/uploads/ydui/1.jpg"></div>
         <yd-flexbox-item>
@@ -37,12 +37,6 @@
           <img :src="item.imgSrc">
           <p>{{item.text}}</p>
           <i>{{item.tipnum}}</i> {{item.tiptext}}
-        </router-link>
-      </yd-flexbox-item>
-      <yd-flexbox-item>
-        <router-link to="/distributIndex/daili">
-          <img src="/static/img/hebei.png">
-          <p>区域代理中心</p>
         </router-link>
       </yd-flexbox-item>
     </yd-flexbox>
@@ -105,7 +99,7 @@
             arr=Array.from(this.$store.state.fenxiao_bodyData.module[key].data)
           }
         }
-        //将每一项对应的路径添加到数组项里
+        //将每一项对应的路径和图片添加到数组项里
         for(var i=0;i<arr.length;i++){
           for(var j=0;j<this.paths.length;j++){
             if(i==j){
@@ -117,11 +111,11 @@
         return arr
       },
     },
-//    beforeCreate(){
-//      if (this.status != 1 ||this.register != 1) {//判断用户是否是分销商
-//        router.push({path:'/distributIndex/regist'})
-//      }
-//    },
+    beforeCreate(){
+      this.$store.dispatch({
+        type:'resFenxiao'
+      })
+    },
   }
 </script>
 <style>

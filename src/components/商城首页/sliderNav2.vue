@@ -34,37 +34,29 @@
     methods:{
       clickMenu(text){
         if(text=='分销中心'){
-          if(localStorage.getItem('isRegistAgent')==null&&localStorage.getItem('isAgent')==null){
-            router.push({path:'/distributIndex/regist'})
+          var isRegistAgent=localStorage.getItem('isRegistAgent')
+          var status=localStorage.getItem('status')
+          if(isRegistAgent==null&&status==null){//点击分销中心的时候，判断用户有没有注册过和是不是代理商
+            router.push({path:'/distributIndex/apply'})
+          }else if(isRegistAgent==true&&status!=1){
+            router.push({path:'/distributIndex/wait'})
           }else{
-            this.$store.dispatch({
-              type:'resFenxiao'
-            })
+            router.push({path:'/distributIndex'})
           }
-//          if(localStorage.getItem('isRegistAgent')==false&&localStorage.getItem('isAgent')==0){
-//            router.push({path:'/distributIndex/regist'})
-//          }else if(localStorage.getItem('isRegistAgent')==false&&localStorage.getItem('isAgent')==0){
-//            router.push({path: '/distributIndex/apply'})
-//          }else{
-//            this.$store.dispatch({
-//              type:'resFenxiao'
-//            })
-//          }
-
         }else if(text=='代理中心'){
-          router.push({path:'/agentIndex'})
+          router.push({path:'/agentIndex/daili'})
         }
       }
     },
     created(){
-      for(var key in this.$store.state.homeData['1'].data){//将对象列表转成数组
-        this.sliderNavItem.push(this.$store.state.homeData['1'].data[key])
+      for(var key in this.sliderNavData.data){//将对象列表转成数组
+        this.sliderNavItem.push(this.sliderNavData.data[key])
       }
       //计算页数:Math.ceil(this.sliderNavItem.length/this.$store.state.homeData['4'].style.pagenum)
-      for(var i=0,j=0;i<Math.ceil(this.sliderNavItem.length/this.$store.state.homeData['1'].style.pagenum);i++){
+      for(var i=0,j=0;i<Math.ceil(this.sliderNavItem.length/this.sliderNavData.style.pagenum);i++){
         //计算一页显示的个数j，并根据j对数组删除指定个数，添加到haha数组中
-        j+=parseInt(this.$store.state.homeData['1'].style.pagenum)
-        this.haha.push(this.sliderNavItem.slice(j-this.$store.state.homeData['1'].style.pagenum,j))
+        j+=parseInt(this.sliderNavData.style.pagenum)
+        this.haha.push(this.sliderNavItem.slice(j-this.sliderNavData.style.pagenum,j))
       }
 //      console.log(this.haha)
     }

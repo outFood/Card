@@ -1,21 +1,21 @@
 <template>
   <div id="payment">
-    <div>
+    <router-link to="/distributIndex/tuiguang">
       <img src="/static/img/tuijianma.png" alt="">
       推荐码
-    </div>
-    <div>
+    </router-link>
+    <router-link to="/shopIndex/fukuan">
       <img src="/static/img/fukuan.png" alt="">
       我要付款
-    </div>
-    <div>
+    </router-link>
+    <router-link to="/shopIndex/shoukuan">
       <img src="/static/img/shoukuan.png" alt="">
       我要收款
-    </div>
-    <div>
+    </router-link>
+    <router-link to="/shopIndex/vip">
       <img src="/static/img/vip_card2.png" alt="">
       会员卡
-    </div>
+    </router-link>
   </div>
 </template>
 <style scoped>
@@ -34,7 +34,7 @@
     margin:0 auto;
     margin-bottom:5px;
   }
-  #payment>div{
+  #payment>a{
     flex: 0 0 25%;
     text-align: center;
     color:#fff;

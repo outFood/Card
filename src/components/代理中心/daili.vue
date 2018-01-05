@@ -47,7 +47,7 @@
       </div>
       <div class="item">
         <yd-checkbox-group v-model="readed" size="30" class="xieyi">
-          <yd-checkbox val=""></yd-checkbox><span style="font-size: 24px;">我已经阅读并了解了</span><u @click="show1=true">【分销商申请协议】</u>
+          <yd-checkbox val=""></yd-checkbox><span style="font-size: 24px;">我已经阅读并了解了</span><u @click="show1=true">【代理商申请协议】</u>
         </yd-checkbox-group>
       </div>
 
