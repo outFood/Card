@@ -29,6 +29,20 @@
     <div class="shuoming">说明: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea est eum expedita itaque labore nam necessitatibus nisi, numquam obcaecati pariatur repellat reprehenderit rerum sint tempora temporibus totam velit voluptatum! Dignissimos.</div>
   </div>
 </template>
+<script>
+  export default {
+    data(){
+      return {
+
+      }
+    },
+    // beforeCreate(){
+    //   this.$store.dispatch({
+    //     type:'resTuiGuang'
+    //   })
+    // }
+  }
+</script>
 <style>
   #tuiguang{
     text-align: left;

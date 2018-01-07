@@ -10,6 +10,20 @@
     <p class="errTip">如果付款失败，将尝试其他付款方式</p>
   </div>
 </template>
+<script>
+  export default {
+    data(){
+      return {
+
+      }
+    },
+    // beforeCreate(){
+    //   this.$store.dispatch({
+    //     type:'resShouKuan'
+    //   })
+    // }
+  }
+</script>
 <style>
   #shoukuan{
     background: #f1aa4e;

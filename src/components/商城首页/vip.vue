@@ -16,17 +16,30 @@
       <span class="use">立即使用</span>
     </div>
     <yd-cell-group class="foot">
-      <yd-cell-item arrow type="link" href="#">
-        <span slot="left">这里是一个Router-Link链接</span>
-        <span slot="right">href会解析为路由</span>
+      <yd-cell-item arrow type="link" href="/shopIndex/vipGrad">
+        <span slot="left">会员等级</span>
+        <span slot="right"></span>
       </yd-cell-item>
       <yd-cell-item arrow type="link" href="#">
-        <span slot="left">这里是一个Router-Link链接</span>
-        <span slot="right">href会解析为路由</span>
+        <span slot="left">使用说明</span>
+        <span slot="right"></span>
       </yd-cell-item>
     </yd-cell-group>
   </yd-layout>
 </template>
+<script>
+  export default {
+    data(){
+      return {
+
+      }
+    },
+    // beforeCreate(){
+    //   this.$store.dispatch({
+    //     type:'resVip'
+    //   })
+    // }
+  }</script>
 <style>
   #vip{
     background:#fff;
@@ -71,7 +84,25 @@
     border-radius: 5px;
     font-size:14px;
   }
-  #vip .foot{
-
+  #vip .foot .yd-cell:after {
+    border-bottom: 0px solid #b2b2b2;
+  }
+  #vip .foot .yd-cell-item:after {
+    margin-left: .24rem;
+    content: "";
+    position: absolute;
+    z-index: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-bottom: 1px solid #d9d9d9;
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    margin-left: 0rem;
+  }
+  #vip .foot .yd-cell-item:nth-child(1) {
+    border-top: 1px solid #d9d9d9;
   }
 </style>

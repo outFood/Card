@@ -64,6 +64,24 @@ export default {
         })
       }).catch(function (err) {alert(err)})
     },
+    // resFuKuan({commit, state}, data){
+    //   axios.get('https://xcx.xcwll.cn/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=member.branch.payment&mid=641728')
+    //     .then(function (res) {
+    //     console.log(res)
+    //   }).catch(function (err) {alert(err)})
+    // },
+    // resShouKuan({commit, state}, data){
+    //   axios.get('https://xcx.xcwll.cn/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=member.branch.receivables&mid=641728')
+    //     .then(function (res) {
+    //     console.log(res)
+    //   }).catch(function (err) {alert(err)})
+    // },
+    // resVip({commit, state}, data){
+    //   axios.get('https://xcx.xcwll.cn/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=member.branch&mid=641728')
+    //     .then(function (res) {
+    //     console.log(res)
+    //   }).catch(function (err) {alert(err)})
+    // },
     //分类
     resSortData({commit, state}, data) {
       var url = "https://xcx.xcwll.cn/bale/api.php?mod=category&uniacid=1691"
@@ -255,6 +273,12 @@ export default {
       axios.get('https://xcx.xcwll.cn/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.withdraw.get_main&i=1691')
         .then(function (res) {
           console.log(res)
+        })
+    },
+    resTuiGuang({commit, state}, data){
+      axios.get('https://xcx.xcwll.cn/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=commission.qrcode&mid=641728')
+        .then(function (res) {
+
         })
     },
     //个人中心
