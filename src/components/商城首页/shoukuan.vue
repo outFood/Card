@@ -17,11 +17,11 @@
 
       }
     },
-    // beforeCreate(){
-    //   this.$store.dispatch({
-    //     type:'resShouKuan'
-    //   })
-    // }
+//     beforeCreate(){
+//       this.$store.dispatch({
+//         type:'resShouKuan'
+//       })
+//     }
   }
 </script>
 <style>

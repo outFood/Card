@@ -37,6 +37,8 @@ export default {
       //分销
       fenxiao_headData: {},
       fenxiao_bodyData: {},
+      priceData:{},
+      tixianData:{},
       //个人中心
       wodeHeadData: {},
       wodeBodyData: {},
@@ -65,19 +67,19 @@ export default {
       }).catch(function (err) {alert(err)})
     },
     // resFuKuan({commit, state}, data){
-    //   axios.get('https://xcx.xcwll.cn/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=member.branch.payment&mid=641728')
+    //   axios.get('https://xcx.xcwll.cn/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=member.branch.payment&mid='+localStorage.getItem('userid'))
     //     .then(function (res) {
     //     console.log(res)
     //   }).catch(function (err) {alert(err)})
     // },
     // resShouKuan({commit, state}, data){
-    //   axios.get('https://xcx.xcwll.cn/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=member.branch.receivables&mid=641728')
+    //   axios.get('https://xcx.xcwll.cn/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=member.branch.receivables&mid='+localStorage.getItem('userid'))
     //     .then(function (res) {
     //     console.log(res)
     //   }).catch(function (err) {alert(err)})
     // },
     // resVip({commit, state}, data){
-    //   axios.get('https://xcx.xcwll.cn/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=member.branch&mid=641728')
+    //   axios.get('https://xcx.xcwll.cn/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=member.branch&mid='+localStorage.getItem('userid'))
     //     .then(function (res) {
     //     console.log(res)
     //   }).catch(function (err) {alert(err)})
@@ -272,15 +274,42 @@ export default {
     resPrice({commit, state}, data){
       axios.get('https://xcx.xcwll.cn/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.withdraw.get_main&i=1691')
         .then(function (res) {
+          commit({
+            type:'savePriceData',
+            res:res
+          })
+        }).catch(function (res) {alert(err)})
+    },
+    resTiXian({commit, state}, data){
+      $.ajax({
+        type:"get",
+        url:" http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.log.get_list&i=1691",
+        dataType:"jsonp",    //跨域json请求一定是jsonp
+        jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
+        success: function(res) {
           console.log(res)
-        })
+        },
+        error: function(err) {
+          //请求出错处理
+          alert(err)
+        },
+      });
     },
-    resTuiGuang({commit, state}, data){
-      axios.get('https://xcx.xcwll.cn/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=commission.qrcode&mid=641728')
-        .then(function (res) {
-
-        })
-    },
+    // resTuiGuang({commit, state}, data){
+    //   $.ajax({
+    //     type:"get",
+    //     url:'https://xcx.xcwll.cn/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=commission.qrcode&mid='+localStorage.getItem('userid'),
+    //     dataType:"jsonp",    //跨域json请求一定是jsonp
+    //     jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
+    //     success: function(res) {
+    //       console.log(res)
+    //     },
+    //     error: function(err) {
+    //       //请求出错处理
+    //       alert(err)
+    //     },
+    //   });
+    // },
     //个人中心
     resWode({commit, state}, data) {
       //请求wodeBodyData
@@ -334,6 +363,7 @@ export default {
         success: function(res) {
           if(res.data.openid){
             localStorage.setItem('openid',res.data.openid)
+            localStorage.setItem('userid',res.data.id)
           }
           commit({
             type:'saveLoginInfo',
@@ -515,6 +545,10 @@ export default {
     saveFenxiao(state, data) {
       VueSet(state, 'fenxiao_headData', data.HeadData.data)
       VueSet(state, 'fenxiao_bodyData', data.BodyData.data)
+    },
+    savePriceData(state, data){
+      VueSet(state,'priceData',data.res.data.result)
+      console.log(state.priceData)
     },
     //个人中心
     saveWodeBodyData(state, data) {

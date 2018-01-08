@@ -70,9 +70,9 @@
         //注册信息
         isReaded:false,
         agentid:'639312',
-        realname:'陈市',
-        mobile:'18268093701',
-        weixin:'chen520-cl',
+        realname:'吴巧红',
+        mobile:'13867104693',
+        weixin:'1741432444',
         tipMsg:''
       }
     },

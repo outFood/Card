@@ -8,6 +8,7 @@ import Router from 'vue-router'
     import shoukuan from '@/components/商城首页/shoukuan'
     import vip from '@/components/商城首页/vip'
     import vipGrad from '@/components/商城首页/vipGrad'
+    import useInstruct from '@/components/商城首页/useInstruct'
 
 //全部商品
 import sortHome from '@/components/全部商品/home'
@@ -85,6 +86,9 @@ export default new Router({
         },{
           path:'vipGrad',
           component:vipGrad
+        },{
+          path:'useInstruct',
+          component:useInstruct
         },
       ]
     },

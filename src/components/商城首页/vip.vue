@@ -20,7 +20,7 @@
         <span slot="left">会员等级</span>
         <span slot="right"></span>
       </yd-cell-item>
-      <yd-cell-item arrow type="link" href="#">
+      <yd-cell-item arrow type="link" href="/shopIndex/useInstruct">
         <span slot="left">使用说明</span>
         <span slot="right"></span>
       </yd-cell-item>
@@ -34,12 +34,13 @@
 
       }
     },
-    // beforeCreate(){
-    //   this.$store.dispatch({
-    //     type:'resVip'
-    //   })
-    // }
-  }</script>
+//     beforeCreate(){
+//       this.$store.dispatch({
+//         type:'resVip'
+//       })
+//     }
+  }
+</script>
 <style>
   #vip{
     background:#fff;

@@ -15,11 +15,11 @@
 
       }
     },
-    // beforeCreate(){
-    //   this.$store.dispatch({
-    //     type:'resFuKuan'
-    //   })
-    // }
+//     beforeCreate(){
+//       this.$store.dispatch({
+//         type:'resFuKuan'
+//       })
+//     }
   }
 </script>
 <style>

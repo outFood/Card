@@ -36,11 +36,11 @@
 
       }
     },
-    // beforeCreate(){
-    //   this.$store.dispatch({
-    //     type:'resTuiGuang'
-    //   })
-    // }
+//     beforeCreate(){
+//       this.$store.dispatch({
+//         type:'resTuiGuang'
+//       })
+//     }
   }
 </script>
 <style>

@@ -2,8 +2,8 @@
   <yd-layout title="分销佣金" link="/distributIndex" id="price">
     <yd-flexbox class="head">
       <yd-flexbox-item>
-        <p>累计佣金(元)</p>
-        0.00
+        <p>{{priceData.thisset.texts.commission_total}}({{priceData.thisset.texts.yuan}})</p>
+        {{priceData.member.commission_total}}
       </yd-flexbox-item>
       <yd-flexbox-item>
         <span>提现明细</span>
@@ -11,16 +11,36 @@
     </yd-flexbox>
     <div class="body">
       <div class="listItem">
-        <div class="left"><img src="http://static.ydcss.com/uploads/ydui/1.jpg">可提现佣金</div>
-        <div class="right">0.00元</div>
+        <div class="left"><img src="/static/img/price_block.png">{{priceData.thisset.texts.commission_ok}}</div>
+        <div class="right">{{priceData.member.commission_ok}} {{priceData.thisset.texts.yuan}}</div>
       </div>
       <div class="listItem">
-        <div class="left"><img src="http://static.ydcss.com/uploads/ydui/1.jpg">可提现佣金</div>
-        <div class="right">0.00元</div>
+        <div class="left"><img src="/static/img/clock_sky.png">{{priceData.thisset.texts.commission_apply}}</div>
+        <div class="right">{{priceData.member.commission_apply}} {{priceData.thisset.texts.yuan}}</div>
       </div>
       <div class="listItem">
-        <div class="left"><img src="http://static.ydcss.com/uploads/ydui/1.jpg">可提现佣金</div>
-        <div class="right">0.00元</div>
+        <div class="left"><img src="/static/img/coffe.png">{{priceData.thisset.texts.commission_check}}</div>
+        <div class="right">{{priceData.member.commission_check}} {{priceData.thisset.texts.yuan}}</div>
+      </div>
+      <div class="listItem">
+        <div class="left"><img src="/static/img/coffe.png">{{priceData.thisset.texts.commission_fail}}</div>
+        <div class="right">{{priceData.member.commission_fail}} {{priceData.thisset.texts.yuan}}</div>
+      </div>
+      <div class="listItem">
+        <div class="left"><img src="/static/img/tixian.png">{{priceData.thisset.texts.commission_pay}}</div>
+        <div class="right">{{priceData.member.commission_pay}} {{priceData.thisset.texts.yuan}}</div>
+      </div>
+      <div class="listItem" v-if="priceData.member.commission_charge > 0">
+        <div class="left"><img src="/static/img/shui.png">{{priceData.thisset.texts.commission_charge}}</div>
+        <div class="right">{{priceData.member.commission_charge}} {{priceData.thisset.texts.yuan}}</div>
+      </div>
+      <div class="listItem">
+        <div class="left"><img src="/static/img/daishouhuo.png">{{priceData.thisset.texts.commission_wait}}</div>
+        <div class="right">{{priceData.member.commission_wait}} {{priceData.thisset.texts.yuan}}</div>
+      </div>
+      <div class="listItem">
+        <div class="left"><img src="/static/img/suo.png">{{priceData.thisset.texts.commission_lock}}</div>
+        <div class="right">{{priceData.member.commission_lock}} {{priceData.thisset.texts.yuan}}</div>
       </div>
     </div>
     <yd-accordion>
@@ -38,6 +58,11 @@
     data(){
       return {
 
+      }
+    },
+    computed:{
+      priceData(){
+        return this.$store.state.priceData
       }
     },
     beforeCreate(){

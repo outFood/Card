@@ -31,6 +31,7 @@
       <h6>联盟商家/企业权益</h6>
       <p>刚刚灌灌灌灌灌</p>
       <p>嘎嘎嘎嘎嘎嘎嘎嘎嘎灌灌灌灌灌</p>
+      <div class="shengji">立即升级</div>
     </div>
   </yd-layout>
 </template>
@@ -55,6 +56,14 @@
   }
 </script>
 <style>
+  #vipGrad{
+    position: fixed;
+    top:0;left:0;right:0;bottom:0;
+    background: #fff;
+  }
+  #vipGrad .tab{
+    background: #f5f5f5;
+  }
   #vipGrad .tab,.triangle{
     display: -webkit-box;
     display: -webkit-flex;
@@ -77,7 +86,6 @@
     margin-bottom: 5px;
   }
   #vipGrad .triangle{
-    background: #fff;
     padding-bottom:0px;
   }
   #vipGrad .triangle>div{
@@ -91,7 +99,6 @@
     left: 40%;
   }
   #vipGrad .tabPage{
-    background: #fff;
     text-align: left;
     padding-left:30px;
     line-height: 25px;
@@ -119,8 +126,9 @@
     border-radius: 5px;
     background: orange;
     color:#fff;
-    margin:20px auto;
-    
+    margin:0 auto;
+    margin-top:30px;
+
     color:#fff;
     font-size:13px;
   }

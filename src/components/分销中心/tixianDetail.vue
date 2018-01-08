@@ -95,6 +95,20 @@
     <footers></footers>
   </yd-layout>
 </template>
+<script>
+  export default {
+    data(){
+      return{
+
+      }
+    },
+    beforeCreate(){
+      this.$store.dispatch({
+        type:'resTiXian'
+      })
+    }
+  }
+</script>
 <style>
   #tixianDetail{
 
