@@ -23,6 +23,11 @@
     },
     mounted () {
     },
+    beforeCreate(){
+      this.$store.dispatch({
+        type:'resXiaoDianData'
+      })
+    },
     methods: {
       upload (e) {
         let files = e.target.files || e.dataTransfer.files;

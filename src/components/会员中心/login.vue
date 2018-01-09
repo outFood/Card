@@ -83,7 +83,9 @@
 <style scoped>
 
   .login {
-    background-color: #fff !important;
+    position: fixed;
+    top:0;right:0;bottom: 0;left:0;
+    background: #fff;
   }
   .form-group{
     display:flex;

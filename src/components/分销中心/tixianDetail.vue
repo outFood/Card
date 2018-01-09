@@ -12,46 +12,10 @@
             <span>+0.00已完成</span> <img src="/static/img/more.png" alt="">
           </div>
         </div>
-        <div class="item">
-          <div class="left">
-            <p>FSEGFDHTGFTHJY(一级)</p>
-            <span>2017-12-25 10:45</span>
-          </div>
-          <div class="right">
-            <span>+0.00已完成</span> <img src="/static/img/more.png" alt="">
-          </div>
-        </div>
-        <div class="item">
-          <div class="left">
-            <p>FSEGFDHTGFTHJY(一级)</p>
-            <span>2017-12-25 10:45</span>
-          </div>
-          <div class="right">
-            <span>+0.00已完成</span> <img src="/static/img/more.png" alt="">
-          </div>
-        </div>
       </yd-tab-panel>
       <yd-tab-panel label="待审核">我需要三件东西：爱情友谊和图书。然而这三者之间何其相通！炽热的爱情可以充实图书的内容，图书又是人们最忠实的朋友。</yd-tab-panel>
       <yd-tab-panel label="待打款">时间是一切财富中最宝贵的财富。</yd-tab-panel>
       <yd-tab-panel label="已打款">
-        <div class="item">
-          <div class="left">
-            <p>FSEGFDHTGFTHJY(一级)</p>
-            <span>2017-12-25 10:45</span>
-          </div>
-          <div class="right">
-            <span>+0.00已完成</span> <img src="/static/img/more.png" alt="">
-          </div>
-        </div>
-        <div class="item">
-          <div class="left">
-            <p>FSEGFDHTGFTHJY(一级)</p>
-            <span>2017-12-25 10:45</span>
-          </div>
-          <div class="right">
-            <span>+0.00已完成</span> <img src="/static/img/more.png" alt="">
-          </div>
-        </div>
         <div class="item">
           <div class="left">
             <p>FSEGFDHTGFTHJY(一级)</p>
@@ -100,6 +64,11 @@
     data(){
       return{
 
+      }
+    },
+    computed:{
+      tixianData(){
+        return this.$store.state.tixianData
       }
     },
     beforeCreate(){

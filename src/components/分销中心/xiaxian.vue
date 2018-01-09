@@ -43,6 +43,20 @@
     <footers></footers>
   </yd-layout>
 </template>
+<script>
+  export default {
+    data(){
+      return{
+
+      }
+    },
+    beforeCreate(){
+      this.$store.dispatch({
+        type:'resXiaXian'
+      })
+    }
+  }
+</script>
 <style>
   #xiaxian{
 
