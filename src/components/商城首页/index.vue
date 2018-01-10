@@ -1,21 +1,21 @@
 <template>
   <div id="home">
-    <headers></headers>
-    <payment></payment>
-    <slider></slider>
-    <titles></titles>
+    <!--<headers></headers>-->
+    <!--<payment></payment>-->
+    <!--<slider></slider>-->
+    <!--<titles></titles>-->
     <!--<gonggao></gonggao>-->
-    <picwindow></picwindow>
-    <searchinput></searchinput>
-    <sliderNav1 v-if="pagenum==0"></sliderNav1>
-    <sliderNav2 v-else></sliderNav2>
-    <vipSort></vipSort>
-    <nursing></nursing>
-    <brand></brand>
-    <pics></pics>
-    <goods />
-    <merchgroup />
-    <listnavigation />
+    <!--<picwindow></picwindow>-->
+    <!--<searchinput></searchinput>-->
+    <!--<sliderNav1 v-if="pagenum==0"></sliderNav1>-->
+    <!--<sliderNav2 v-else></sliderNav2>-->
+    <!--<vipSort></vipSort>-->
+    <!--<nursing></nursing>-->
+    <!--<brand></brand>-->
+    <!--<pics></pics>-->
+    <!--<goods />-->
+    <!--<merchgroup />-->
+    <!--<listnavigation />-->
     <footers/>
   </div>
 </template>
@@ -67,11 +67,11 @@
       titles,
       goods
     },
-    created(){
-      setTimeout(()=>{
-        this.pagenum=this.$store.state.homeData['1'].style.pagenum
-      },1000)
-
-    }
+//    created(){
+//      setTimeout(()=>{
+//        this.pagenum=this.$store.state.homeData['1'].style.pagenum
+//      },1000)
+//
+//    }
   }
 </script>

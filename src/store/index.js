@@ -46,7 +46,9 @@ export default {
       loginStatus: '',
       myAddressData: {},
       wantEditAddress: [],
-      curSelAddress: {}
+      curSelAddress: {},
+      myOrder:{},
+      orderStatus:null
     }
   },
   getters: {
@@ -59,13 +61,19 @@ export default {
   actions: {
     //首页
     resHomeData({commit, state}, data) {
-      var url = 'http://cscs.ylhhyk.com/app/index.php?c=wxapp&a=module&do=main&id=1328&uniacid=1691'
-      axios.get(url).then(function (res) {
-        commit({
-          type: 'saveHomeData',
-          data: res
-        })
-      }).catch(function (err) {alert(err)})
+      $.ajax({
+        type:"get",
+        url:'http://cscs.ylhhyk.com/app/index.php?c=wxapp&a=module&do=main&id=1328&uniacid=1691',
+        dataType:"jsonp",    //跨域json请求一定是jsonp
+        jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
+        success: function(res) {
+          commit({
+            type: 'saveHomeData',
+            data: res
+          })
+        },
+        error: function(err) {console.log('请求失败!')},
+      });
     },
     // resFuKuan({commit, state}, data){
     //   axios.get('https://xcx.xcwll.cn/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=member.branch.payment&mid='+localStorage.getItem('userid'))
@@ -365,8 +373,7 @@ export default {
         },
         error: function(err) {
           //请求出错处理
-          alert(err)
-          console.log(err)
+          console.log('请求失败')
         },
       });
     },
@@ -380,8 +387,6 @@ export default {
         success: function(res) {
          if(res.msg=='注册成功'){
            router.push({path: '/vipIndex/login'})
-         }else{
-           alert(res.msg)
          }
         },
         error: function(err) {
@@ -398,20 +403,17 @@ export default {
         jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
         data:data.params,
         success: function(res) {
-          console.log(res['0'])
-          // if(res['0']){
-          //   localStorage.setItem('openid',res.data.openid)
-          //   localStorage.setItem('userid',res.data.id)
-          // }
-          // commit({
-          //   type:'saveLoginInfo',
-          //   res:res
-          // })
+          console.log(res)
+          if(res['0']){
+            localStorage.setItem('openid',res[0].openid)
+            localStorage.setItem('userid',res[0].id)
+          }
+          commit({
+            type:'saveLoginInfo',
+            res:res
+          })
         },
-        error: function(err) {
-          //请求出错处理
-          alert(err)
-        },
+        error: function(err) {alert(err)},
       });
     },
     resAddress({commit, state}, data) {
@@ -497,6 +499,34 @@ export default {
         }).catch(function (err) {
         alert(err)
       })
+    },
+    resMyOrder({commit, state}, data){
+      var status=6;
+      if(data.text=='全部'){
+        status=6
+      }else if(data.text=='待付款'){
+        status=0
+      }else if(data.text=='待发货'){
+        status=1
+      }else if(data.text=='待收货'){
+        status=2
+      }else if((data.text=='退换货')){
+        status=4
+      }
+      $.ajax({
+        type:"get",
+        url:"http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.index.get_list&sign=118b061a710a82fc1762d4af90412993&page=1&openid="+localStorage.getItem('openid')+"&status="+status,
+        dataType:"jsonp",    //跨域json请求一定是jsonp
+        jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
+        success: function(res) {
+          commit({
+            type:'saveMyOrder',
+            res:res,
+            orderStatus:status
+          })
+        },
+        error: function(err) {console.log('请求失败')},
+      });
     }
   },
   mutations: {
@@ -506,7 +536,8 @@ export default {
     },
     //首页
     saveHomeData(state, data) {
-      VueSet(state, 'homeData', data.data.data.result)
+      VueSet(state, 'homeData', data.data.result)
+      console.log(state.homeData)
       if (state.homeData != {}) {
         router.push({path: '/shopIndex/'})
       }
@@ -601,7 +632,6 @@ export default {
       }
     },
     saveLoginInfo(state, data) {
-      console.log(data)
       VueSet(state, 'loginStatus', data.res.msg)
     },
     saveAddress(state, data) {
@@ -620,6 +650,14 @@ export default {
       console.log(state.curSelAddress)
       if (state.curSelAddress != {}) {
         router.push({path: '/sortIndex/buyPage'})
+      }
+    },
+    saveMyOrder(state, data){
+      VueSet(state,'myOrder',data.res)
+      VueSet(state,'orderStatus',data.orderStatus)
+      console.log(state.myOrder)
+      if(state.myOrder!={}&&state.orderStatus!=null){
+        router.push({path: '/vipIndex/order'})
       }
     }
   }

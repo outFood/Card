@@ -50,7 +50,11 @@
     },
     computed:{
       headData(){
-        return this.$store.state.homeData['0']
+        for(var key in this.$store.state.homeData){
+          if(this.$store.state.homeData[key].id=="fixedsearch"){
+            return this.$store.state.homeData[key]
+          }
+        }
       }
     },
   }

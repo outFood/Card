@@ -39,12 +39,12 @@
       <div><span>返还记录</span></div>
     </div>
     <div class="dingdan">
-      <router-link to="/vipIndex/order" class="top">
+      <router-link to="#" class="top" @click.native="lookOrder('全部')">
         <span>我的订单</span>
         <div>查看全部订单 <img src="/static/img/more.png" alt=""></div>
       </router-link>
       <div class="bottom">
-        <router-link to="#" v-for="(item,key) in orderData" :key="key"><img src="http://static.ydcss.com/uploads/ydui/1.jpg">{{item.text}}</router-link>
+        <router-link to="#" v-for="(item,key) in orderData" :key="key"  @click.native="lookOrder(item.text)"><img src="http://static.ydcss.com/uploads/ydui/1.jpg">{{item.text}}</router-link>
       </div>
     </div>
     <div class="other" v-if="menuData!=[]">
@@ -52,7 +52,7 @@
         其他
       </div>
       <div class="other-content">
-        <router-link :to="item.link" v-for="(item,key) in menuData" :key="key"><img src="http://static.ydcss.com/uploads/ydui/1.jpg">{{item.text}}
+        <router-link v-for="(item,key) in menuData" :key="key" :to="item.link"><img src="http://static.ydcss.com/uploads/ydui/1.jpg">{{item.text}}
         </router-link>
       </div>
     </div>
@@ -66,7 +66,6 @@
         openid:localStorage.getItem('openid')
       }
     },
-    methods: {},
     computed: {
       menuData() {
         var menuData=[]
@@ -91,6 +90,14 @@
       },
       loginStatus(){
         return this.$store.state.loginStatus
+      }
+    },
+    methods: {
+      lookOrder(text){
+        this.$store.dispatch({
+          type:'resMyOrder',
+          text:text
+        })
       }
     },
 
