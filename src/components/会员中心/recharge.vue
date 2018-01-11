@@ -11,6 +11,8 @@
       </div>
     </form>
     <yd-button size="large" type="primary" @click.native="saveAddress">下一步</yd-button>
+    <yd-button size="large" type="primary" @click.native="">微信支付</yd-button>
+    <yd-button size="large" type="warning" @click.native="">支付宝支付</yd-button>
   </yd-layout>
 </template>
 <script>
@@ -25,7 +27,7 @@
 <style>
   #recharge form{
     text-align: left;
-    padding: 10px;
+    padding: 10px 10px 0 10px;
     background: #fff;
   }
   #recharge form i{
@@ -38,6 +40,8 @@
     display: -ms-flexbox;
     display: flex;
     align-items: center;
+  }
+  #recharge form .item:not(:last-child){
     border-bottom: 1px solid #eee;
   }
   #recharge form .item span{
@@ -56,8 +60,8 @@
     font-size:12px;
   }
   button {
-    position: fixed !important;
-    bottom: 0 !important;
+    width:90%;
+    margin:0 auto;
     border-radius: 0 !important;
     height: 50px !important;
     font-size: 16px !important;

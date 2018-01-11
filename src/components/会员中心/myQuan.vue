@@ -1,5 +1,5 @@
 <template>
-  <div id="myQuan">
+  <yd-layout title="我的优惠券" link="/vipIndex"  id="myQuan">
     <yd-flexbox>
       <div class="left">
         <div>1.8</div>
@@ -15,13 +15,7 @@
         <span></span>
       </div>
     </yd-flexbox>
-    <!--<div v-else>-->
-      <!--没有代金券-->
-    <!--</div>-->
-
-
-    <router-view></router-view>
-  </div>
+  </yd-layout>
 </template>
 <style scoped>
  #myQuan .yd-flexbox{
@@ -66,13 +60,11 @@
     background: #f5f5f5;
     border-radius: 50%;
   }
-
  #myQuan .right span {
     position: absolute;
     right: -0.3125rem;
     top: 45%;
   }
-
 #myQuan .left span{
     position: absolute;
     left:-0.3125rem;

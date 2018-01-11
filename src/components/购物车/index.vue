@@ -40,11 +40,12 @@
         <div class="delete" :class="{redDelete:cartList.length}" @click="addOrReduceOrDel(['删除'])">删除</div>
       </div>
     </div>
-
+    <no-data></no-data>
     <footers></footers>
   </div>
 </template>
 <script type="text/babel">
+  import noData from '@/components/购物车/noData'
   export default {
     data() {
       return {
@@ -54,6 +55,7 @@
         delShow:false,
       }
     },
+    components:{noData},
     computed:{
       cartData(){
          return this.$store.state.cartData

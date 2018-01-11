@@ -1,10 +1,5 @@
 <template>
-  <div id="vipInfo">
-    <yd-navbar title="会员资料">
-      <router-link to="#" slot="left">
-        <yd-navbar-back-icon></yd-navbar-back-icon>
-      </router-link>
-    </yd-navbar>
+  <yd-layout title="会员资料" link="/vipIndex" id="vipInfo">
     <router-link to="/vipIndex/nickname" class="updatePic">
       <img src="http://static.ydcss.com/uploads/ydui/1.jpg" alt="">
       <span>晴愔</span>
@@ -14,6 +9,7 @@
       <div><span class="name">手机号</span><span class="star">*</span><input type="text" v-model="mobile" disabled>更换绑定 <img src="/static/img/more.png" alt="" class="more"></div>
       <div><span class="name">姓名</span><span class="star">*</span><input type="text" placeholder="请输入您的姓名" v-model="realname"></div>
       <div><span class="name">微信号</span><span class="star hidden">*</span><input type="text" placeholder="请输入您的微信号" v-model="weixin"></div>
+      <div><span class="name">身份证</span><span class="star">*</span><input type="text" placeholder="请输入身份证" v-model="weixin"></div>
     </div>
     <yd-cell-group>
       <yd-cell-item arrow>
@@ -27,7 +23,7 @@
     </yd-cell-group>
     <yd-cityselect v-model="show1" :callback="result1" :items="district"></yd-cityselect>
     <yd-button size="large" type="primary" class="sureUpdate" @click.native="sureUpdate">确认修改</yd-button>
-  </div>
+  </yd-layout>
 </template>
 <style>
   #vipInfo header{
@@ -92,8 +88,7 @@
   #vipInfo .detailInfo input::-moz-placeholder{color: #bababa}                  /* Firefox版本19+ */
   #vipInfo .detailInfo input:-ms-input-placeholder{color: #bababa}           /* IE浏览器 */
   #vipInfo .sureUpdate{
-    width:90%;
-    margin:10px auto;
+    width:100%;
   }
   #vipInfo .yd-cell-item:not(:last-child):after{
     margin-left:0;

@@ -3,11 +3,12 @@
     <div class="orderNav">
       <span  :class="{curOrderNav:orderStatus==6}"  @click="lookOrder('全部')">全部</span>
       <span  :class="{curOrderNav:orderStatus==0}"  @click="lookOrder('待付款')">待付款</span>
-      <span  :class="{curOrderNav:orderStatus==1}"  @click="lookOrder('待发货')">待收货</span>
-      <span  :class="{curOrderNav:orderStatus==2}"  @click="lookOrder('待收货')">待发货</span>
+      <span  :class="{curOrderNav:orderStatus==1}"  @click="lookOrder('待发货')">待发货</span>
+      <span  :class="{curOrderNav:orderStatus==2}"  @click="lookOrder('待收货')">待收货</span>
       <span  :class="{curOrderNav:orderStatus==4}"  @click="lookOrder('退换货')">退换货</span>
     </div>
-    <div class="list">
+    <no-order v-if="list.length==0"></no-order>
+    <div class="list" v-else>
       <div class="item">
         <div class="top">
           <span>订单号：HGGGLLGHM09I934NJJNHF</span>

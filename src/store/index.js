@@ -48,7 +48,9 @@ export default {
       wantEditAddress: [],
       curSelAddress: {},
       myOrder:{},
-      orderStatus:null
+      orderStatus:null,
+      myLikeData:{},
+      zuJiData:{}
     }
   },
   getters: {
@@ -95,15 +97,20 @@ export default {
     // },
     //分类
     resSortData({commit, state}, data) {
-      var url = "http://cscs.ylhhyk.com/bale/api.php?mod=category&uniacid=1691"
-      axios.get(url).then(function (res) {
-        commit({
-          type: 'saveSortData',
-          res: res,
-        })
-      }).catch(function (err) {
-        alert(err)
-      })
+      $.ajax({
+        type:"get",
+        url:'http://cscs.ylhhyk.com/bale/api.php?mod=category&uniacid=1691',
+        dataType:"jsonp",    //跨域json请求一定是jsonp
+        jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
+        success: function(res) {
+          console.log(res)
+          // commit({
+          //   type: 'saveSortData',
+          //   res: res,
+          // })
+        },
+        error: function(err) {console.log('请求失败!')},
+      });
     },
     resCommodityListData({commit, state}, data) {
       axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.index.get_list', {params: data.params})
@@ -214,15 +221,22 @@ export default {
     },
     //查看购物车
     lookCart({commit, state}, data) {
-      axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.get_list&&state=we7sid-7f5e1067218e32fb9cd327acaabf9430&sign=769697d94b1f3465b87d8785ab118612')
-        .then(function (res) {
+      $.ajax({
+        type:"get",
+        url:'http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.get_list&&state=we7sid-7f5e1067218e32fb9cd327acaabf9430&sign=769697d94b1f3465b87d8785ab118612',
+        dataType:"jsonp",    //跨域json请求一定是jsonp
+        jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
+        success: function(res) {
           commit({
             type: 'saveCartData',
             res: res
           })
-        }).catch(function (err) {
-        alert(err)
-      })
+        },
+        error: function(err) {
+          //请求出错处理
+          console.log(err)
+        },
+      });
     },
     cartUpdate({commit, state}, data) {
       axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.update&state=we7sid-989f479443e701453157a809d00e2e0f&sign=0cba9601498c1bf800a5c9a5c57996a0', {params: data.params})
@@ -358,6 +372,27 @@ export default {
     },
     //个人中心
     resWode({commit, state}, data) {
+      //请求wodeHeadData
+      $.ajax({
+        type:"get",
+        url:"http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.xcxl",
+        dataType:"jsonp",    //跨域json请求一定是jsonp
+        jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
+        data:{
+          id:localStorage.getItem('userid'),
+          openid:localStorage.getItem('openid')
+        },
+        success: function(data) {
+          commit({
+            type:'saveWodeHeadData',
+            data:data
+          })
+        },
+        error: function(err) {
+          //请求出错处理
+          console.log('请求失败')
+        },
+      });
       //请求wodeBodyData
       $.ajax({
         type:"get",
@@ -502,17 +537,7 @@ export default {
     },
     resMyOrder({commit, state}, data){
       var status=6;
-      if(data.text=='全部'){
-        status=6
-      }else if(data.text=='待付款'){
-        status=0
-      }else if(data.text=='待发货'){
-        status=1
-      }else if(data.text=='待收货'){
-        status=2
-      }else if((data.text=='退换货')){
-        status=4
-      }
+      if(data.text=='全部'){status=6}else if(data.text=='待付款'){status=0}else if(data.text=='待发货'){status=1}else if(data.text=='待收货'){status=2}else if(data.text=='退换货'){status=4}
       $.ajax({
         type:"get",
         url:"http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.index.get_list&sign=118b061a710a82fc1762d4af90412993&page=1&openid="+localStorage.getItem('openid')+"&status="+status,
@@ -527,6 +552,24 @@ export default {
         },
         error: function(err) {console.log('请求失败')},
       });
+    },
+    resMyLike({commit, state}, data){
+      axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.favorite.get_list&state=we7sid-975167fc755bee24014a907c543d470a&sign=53dc9be5eeb273014547a514c8efd073&page=1')
+        .then(function (res) {
+          commit({
+            type:'saveMyLikeData',
+            res:res
+          })
+        }).catch(function (err) {console.log('请求失败')})
+    },
+    resZuji({commit, state}, data){
+      axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.history.get_list&state=we7sid-975167fc755bee24014a907c543d470a&sign=feed173bdcf9295b285677c86c060149&page=1')
+        .then(function (res) {
+          commit({
+            type:'saveZujiData',
+            res:res
+          })
+        }).catch(function (err) {console.log('请求失败')})
     }
   },
   mutations: {
@@ -588,7 +631,7 @@ export default {
     },
     //  购物车
     saveCartData(state, data) {
-      VueSet(state, 'cartData', data.res.data.result)
+      VueSet(state, 'cartData', data.res)
       console.log(state.cartData)
       if (state.cartData != {}) {
         router.push({path: '/cart/'})
@@ -624,9 +667,12 @@ export default {
       console.log(state.tixianData)
     },
     //个人中心
+    saveWodeHeadData(state, data){
+      VueSet(state,'wodeHeadData',data.data)
+      console.log(state.wodeHeadData)
+    },
     saveWodeBodyData(state, data) {
       VueSet(state, 'wodeBodyData', data.data.module)
-      console.log(state.wodeBodyData)
       if (state.wodeBodyData != {}) {
         router.push({path: '/vipIndex'})
       }
@@ -659,6 +705,14 @@ export default {
       if(state.myOrder!={}&&state.orderStatus!=null){
         router.push({path: '/vipIndex/order'})
       }
+    },
+    saveMyLikeData(state, data){
+      VueSet(state,'myLikeData',data.res.data.result)
+      console.log(state.myLikeData)
+    },
+    saveZujiData(state, data){
+      VueSet(state,'zuJiData',data.res.data.result)
+      console.log(state.zuJiData)
     }
   }
 }

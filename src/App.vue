@@ -21,7 +21,7 @@ export default {
     font-size:0.4375rem;
   }
   body{
-    background: #f5f5f5;
+    background: #fafafa;
   }
   a{
     text-decoration: none;

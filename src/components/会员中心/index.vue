@@ -8,27 +8,28 @@
     <div id="head">
       <p>
         <router-link to="#"><img src="/static/img/msg.png" alt=""></router-link>
-        <router-link to="/vipIndex/recharge"><img src="/static/img/set.png" alt=""></router-link>
+        <router-link to="/distributIndex/xiaodian"><img src="/static/img/set.png" alt=""></router-link>
         <router-link to="/vipIndex/vipInfo"><img src="/static/img/personInfo.png" alt=""></router-link>
         <span>1</span>
       </p>
       <div class="personInfo">
         <router-link to="/vipIndex/nickname" class="headPic" tag="div"><img
-          src="#"></router-link>
-        <router-link to="/vipIndex/login"  v-if="openid==null" class="toLogin">请点击登录</router-link>
-        <div v-if="openid!=null">
+          :src="wodeHeadData.avatar"></router-link>
+        <router-link to="/vipIndex/login"  v-if="openid==null||openid==''" class="toLogin">请点击登录</router-link>
+        <div v-if="openid!=null&&openid!=''">
+          <span>{{wodeHeadData.nickname==''?'未设置昵称':wodeHeadData.nickname}}</span>
           <span>【普通会员】</span>
-          <span>ID:6532</span>
+          <span>ID:{{id}}</span>
         </div>
-        <div v-if="openid!=null">
+        <div v-if="openid!=null&&openid!=''">
           <span>余额</span>
-          <span>0.00000</span>
-          <span class="btn">充值</span>
+          <span>{{wodeHeadData.credit2}}</span>
+          <router-link to="/vipIndex/recharge" class="btn">充值</router-link>
         </div>
-        <div v-if="openid!=null">
+        <div v-if="openid!=null&&openid!=''">
           <span>积分</span>
-          <span>0.00000</span>
-          <span class="btn">获取</span>
+          <span>{{wodeHeadData.credit1}}</span>
+          <router-link to="#" class="btn">获取</router-link>
         </div>
       </div>
     </div>
@@ -52,7 +53,7 @@
         其他
       </div>
       <div class="other-content">
-        <router-link v-for="(item,key) in menuData" :key="key" :to="item.link"><img src="http://static.ydcss.com/uploads/ydui/1.jpg">{{item.text}}
+        <router-link v-for="(item,key) in menuData" :key="key" to="#" @click.native="resOtherData(item.text)"><img src="http://static.ydcss.com/uploads/ydui/1.jpg">{{item.text}}
         </router-link>
       </div>
     </div>
@@ -60,30 +61,20 @@
   </div>
 </template>
 <script>
+  import router from '@/router'
   export default {
     data(){
       return {
-        openid:localStorage.getItem('openid')
+        openid:localStorage.getItem('openid'),
+        id:localStorage.getItem('userid')
       }
     },
     computed: {
+      wodeHeadData(){
+        return this.$store.state.wodeHeadData
+      },
       menuData() {
-        var menuData=[]
-        menuData = this.$store.state.wodeBodyData.listmenu.data
-        for (var i = 0; i < menuData.length; i++) {//请求回来的数据列表项里没有跳转地址，所有循环列表为每项添加link这一项，好用来
-          if(menuData[i].text=='我的关注'){
-            menuData[i].link='/vipIndex/myLike'
-          }else if(menuData[i].text=='我的足迹'){
-            menuData[i].link='/vipIndex/zuji'
-          }else if(menuData[i].text=='我的地址'){
-            menuData[i].link='/vipIndex/myAddress'
-          }else if(menuData[i].text=='领取优惠券'){
-            menuData[i].link='#'
-          }else if(menuData[i].text=='我的优惠券'){
-            menuData[i].link='/vipIndex/myQuan'
-          }
-        }
-        return menuData
+        return this.$store.state.wodeBodyData.listmenu.data
       },
       orderData(){
         return this.$store.state.wodeBodyData.menu.data
@@ -98,6 +89,19 @@
           type:'resMyOrder',
           text:text
         })
+      },
+      resOtherData(text){
+        if(text=='我的关注'){
+          router.push({path: '/vipIndex/myLike'})
+        }else if(text=='我的足迹'){
+          router.push({path: '/vipIndex/zuji'})
+        }else if(text=='我的地址'){
+          router.push({path: '/vipIndex/myAddress'})
+        }else if(text=='领取优惠券'){
+          router.push({path: '/vipIndex/getQuan'})
+        }else if(text=='我的优惠券'){
+          router.push({path: '/vipIndex/myQuan'})
+        }
       }
     },
 
@@ -149,6 +153,7 @@
     width: 1.5625rem;
     height: 1.5625rem;
     border-radius: 50%;
+    border:2px solid #fff;
   }
   #vip #head .personInfo > div {
     flex: 0 0 25%;
@@ -165,6 +170,8 @@
     display: block;
   }
   #vip #head .personInfo > div .btn {
+    display: block;
+    color:#fff;
     border-radius: 0.3125rem;
     border: 1px solid #fff;
     width: 1.5625rem;

@@ -1,24 +1,45 @@
 <template>
-  <div id="zuji">
-    <div class="item">
-      <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
-      <div class="right">
-        <h6>陈世力是个可爱的小猪猪就古古怪怪古古怪怪的反馈</h6>
-        <span>￥1244</span><i>￥563</i>
+  <yd-layout title="我的足迹" link="/vipIndex" id="zuji">
+    <div v-if="list.length==0" class="noData"><span></span> 没有数据 <span></span></div>
+    <div v-else>
+      <div class="item" v-for="(item,key) in list" :key="key">
+        <img :src="item.thumb">
+        <div class="right">
+          <h6>{{item.title}}</h6>
+          <span>￥{{item.marketprice}}</span><i>￥{{item.productprice}}</i>
+        </div>
       </div>
     </div>
-    <div class="item">
-      <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
-      <div class="right">
-        <h6>陈世力是个可爱的小猪猪就古古怪怪古古怪怪的反馈</h6>
-        <span>￥1244</span><i>￥563</i>
-      </div>
-    </div>
-  </div>
+  </yd-layout>
 </template>
-<style>
-  #myLike{
+<script>
+  export default {
+    data(){
+      return{
 
+      }
+    },
+    computed:{
+      list(){
+        return this.$store.state.zuJiData.list
+      }
+    },
+    beforeCreate(){
+      this.$store.dispatch({
+        type:'resZuji'
+      })
+    }
+  }
+</script>
+<style>
+  #zuji .noData{
+    margin-top:20px;
+  }
+  #zuji .noData span{
+    display: inline-block;
+    width:30%;
+    height:8px;
+    border-top:1px solid #eee;
   }
   #zuji .item{
     display: -webkit-box;
