@@ -47,6 +47,7 @@
 <script type="text/babel">
   import noData from '@/components/购物车/noData'
   export default {
+    components:{noData},
     data() {
       return {
         cartList: [],
@@ -55,7 +56,14 @@
         delShow:false,
       }
     },
-    components:{noData},
+    watch:{
+      cartList:{
+        handler(newVal,oldVal){
+          console.log(newVal)
+        },
+        deep:true
+      }
+    },
     computed:{
       cartData(){
          return this.$store.state.cartData
@@ -67,14 +75,6 @@
         set(newValue){
           this.$store.state.cartData.totalprice=newValue
         }
-      }
-    },
-    watch:{
-      cartList:{
-        handler(newVal,oldVal){
-          console.log(newVal)
-        },
-        deep:true
       }
     },
     methods: {
@@ -162,6 +162,11 @@
         }
       }
     },
+    beforeCreate(){
+      this.$store.dispatch({
+        type:'lookCart',
+      })
+    }
   }
 </script>
 <style>

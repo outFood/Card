@@ -1,11 +1,11 @@
 <template>
   <div>
     <div style="padding:20px;">
-      <div class="show">
+      <div class="pictureShow">
         <div class="picture" :style="'backgroundImage:url('+headerImage+')'"></div>
       </div>
       <div style="margin-top:20px;">
-        <input type="file" id="upload" accept="image" @change="upload">
+        <input type="file" id="upload" accept="image/*" @change="upload">
         <label for="upload"></label>
       </div>
     </div>
@@ -55,11 +55,13 @@
             let result = this.result;
             let img = new Image();
             img.src = result;
-            //判断图片是否大于100K,是就直接上传，反之压缩图片
+            //判断图片是否大于100K,是就压缩图片，反之直接上传
             if (this.result.length <= (100 * 1024)) {
+              console.log('直接上传')
               self.headerImage = this.result;
               self.postImg();
             }else {
+              console.log('压缩')
               img.onload = function () {
                 let data = self.compress(img,Orientation);
                 self.headerImage = data;
@@ -72,7 +74,7 @@
       postImg () {
         //这里写接口
       },
-      rotateImg (img, direction,canvas) {
+      rotateImg (img, direction,canvas) {//解决图片旋转问题
         //最小与最大旋转方向，图片旋转4次后回到原方向
         const min_step = 0;
         const max_step = 3;
@@ -121,7 +123,7 @@
             break;
         }
       },
-      compress(img,Orientation) {
+      compress(img,Orientation) {//压缩图片
         let canvas = document.createElement("canvas");
         let ctx = canvas.getContext('2d');
         //瓦片canvas
@@ -196,7 +198,7 @@
     margin: 0;
     padding: 0;
   }
-  .show {
+  .pictureShow {
     width:3.125rem;
     height:3.125rem;
     overflow: hidden;

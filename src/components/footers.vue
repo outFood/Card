@@ -1,7 +1,7 @@
 <template>
   <div id="footers">
     <div v-for="(item,key) in footerMsg" :key="key">
-      <router-link  to="#">
+      <router-link  :to="item.path">
         <img :src="item.ico" alt="" @click="resData(item.path)">
         <div>
           {{item.name}}
@@ -55,10 +55,10 @@
             type:'resHomeData'
           })
         }else if(path=='sortIndex'){//请求分类
-          type='resSortData'
-          this.$store.dispatch({
-            type:type
-          })
+//          type='resSortData'
+//          this.$store.dispatch({
+//            type:type
+//          })
         }else if(path=='eChart'){//请求E聊
           console.log('eChart')
         }else if(path=='fujin'){//请求附近
@@ -66,9 +66,9 @@
             type:'resFujinData'
           })
         }else if(path=='cart'){
-          this.$store.dispatch({
-            type:'lookCart',
-          })
+//          this.$store.dispatch({
+//            type:'lookCart',
+//          })
         }else{//请求个人中心
           console.log('个人中心')
           this.$store.dispatch({

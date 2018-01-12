@@ -53,7 +53,7 @@
         其他
       </div>
       <div class="other-content">
-        <router-link v-for="(item,key) in menuData" :key="key" to="#" @click.native="resOtherData(item.text)"><img src="http://static.ydcss.com/uploads/ydui/1.jpg">{{item.text}}
+        <router-link v-for="(item,key) in menuData" :key="key" to="#" @click.native="toOther(item.text)"><img src="http://static.ydcss.com/uploads/ydui/1.jpg">{{item.text}}
         </router-link>
       </div>
     </div>
@@ -90,7 +90,7 @@
           text:text
         })
       },
-      resOtherData(text){
+      toOther(text){
         if(text=='我的关注'){
           router.push({path: '/vipIndex/myLike'})
         }else if(text=='我的足迹'){
@@ -102,7 +102,7 @@
         }else if(text=='我的优惠券'){
           router.push({path: '/vipIndex/myQuan'})
         }
-      }
+      },
     },
 
   }

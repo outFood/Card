@@ -1,8 +1,8 @@
 <template>
   <div id="home">
-    <!--<headers></headers>-->
-    <!--<payment></payment>-->
-    <!--<slider></slider>-->
+    <headers></headers>
+    <payment></payment>
+    <slider></slider>
     <!--<titles></titles>-->
     <!--<gonggao></gonggao>-->
     <!--<picwindow></picwindow>-->

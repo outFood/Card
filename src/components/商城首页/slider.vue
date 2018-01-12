@@ -19,7 +19,11 @@
     },
     computed:{
       slideData(){
-        return this.$store.state.homeData['1']
+        for(var key in this.$store.state.homeData){
+          if(this.$store.state.homeData[key].id=="banner"){
+            return this.$store.state.homeData[key]
+          }
+        }
       },
       prefix(){//轮播图片附加前缀
         return this.$store.state.prefix
@@ -27,10 +31,11 @@
     },
     created(){
       setTimeout(()=>{
-        for(var key in this.$store.state.homeData['1'].data){
-          this.imgData.push(this.$store.state.homeData['1'].data[key])
+        for(var key in this.slideData.data){
+          this.imgData.push(this.slideData.data[key])
         }
-      },2000)
+        console.log(this.imgData)
+      },1000)
     }
   }
 </script>

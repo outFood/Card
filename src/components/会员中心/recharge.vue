@@ -10,7 +10,7 @@
         <div><input placeholder="请填写充值金额"></div>
       </div>
     </form>
-    <yd-button size="large" type="primary" @click.native="saveAddress">下一步</yd-button>
+    <!--<yd-button size="large" type="primary" @click.native="saveAddress">下一步</yd-button>-->
     <yd-button size="large" type="primary" @click.native="">微信支付</yd-button>
     <yd-button size="large" type="warning" @click.native="">支付宝支付</yd-button>
   </yd-layout>
@@ -59,10 +59,11 @@
     color: #b0b0b0;
     font-size:12px;
   }
-  button {
+  .yd-btn-block {
     width:90%;
     margin:0 auto;
-    border-radius: 0 !important;
+    margin-top:20px;
+    border-radius:5 !important;
     height: 50px !important;
     font-size: 16px !important;
   }

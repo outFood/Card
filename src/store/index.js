@@ -44,6 +44,7 @@ export default {
       wodeHeadData: {},
       wodeBodyData: {},
       loginStatus: '',
+      vipInfoData:{},
       myAddressData: {},
       wantEditAddress: [],
       curSelAddress: {},
@@ -65,7 +66,7 @@ export default {
     resHomeData({commit, state}, data) {
       $.ajax({
         type:"get",
-        url:'http://cscs.ylhhyk.com/app/index.php?c=wxapp&a=module&do=main&id=1328&uniacid=1691',
+        url:'http://cscs.ylhhyk.com/app/index.php?c=wxapp&a=module&do=main&id=12&uniacid=2',
         dataType:"jsonp",    //跨域json请求一定是jsonp
         jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
         success: function(res) {
@@ -451,6 +452,28 @@ export default {
         error: function(err) {alert(err)},
       });
     },
+    resVipInfo({commit, state}, data){
+      $.ajax({
+        type:"get",
+        url:"http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.xcxl",
+        dataType:"jsonp",    //跨域json请求一定是jsonp
+        jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
+        data:{
+          id:localStorage.getItem('userid'),
+          openid:localStorage.getItem('openid')
+        },
+        success: function(data) {
+          commit({
+            type:'saveVipInfoData',
+            data:data
+          })
+        },
+        error: function(err) {
+          //请求出错处理
+          console.log('请求失败')
+        },
+      });
+    },
     resAddress({commit, state}, data) {
       axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.indexapp&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=5ec2bec56de4ed22e4149dbb3c82cc5c')
         .then(function (res) {
@@ -527,10 +550,9 @@ export default {
       })
     },
     updatePersonInfo({commit, state}, data) {
-      console.log(data)
       axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.info.submitapp&&state=we7sid-1fa768373e19fb6cacea1690c9cf9b04&sign=812f860da7c14dc7079e64b07b6242aa', {params: data.params})
         .then(function (res) {
-          router.push({path: '/vipIndex/editAddress'})
+          router.push({path: '/vipIndex'})
         }).catch(function (err) {
         alert(err)
       })
@@ -669,7 +691,6 @@ export default {
     //个人中心
     saveWodeHeadData(state, data){
       VueSet(state,'wodeHeadData',data.data)
-      console.log(state.wodeHeadData)
     },
     saveWodeBodyData(state, data) {
       VueSet(state, 'wodeBodyData', data.data.module)
@@ -679,6 +700,10 @@ export default {
     },
     saveLoginInfo(state, data) {
       VueSet(state, 'loginStatus', data.res.msg)
+    },
+    saveVipInfoData(state, data){
+      VueSet(state,'vipInfoData',data.data)
+      console.log(state.vipInfoData)
     },
     saveAddress(state, data) {
       console.log(data.res.data.result)

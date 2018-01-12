@@ -15,19 +15,27 @@
     },
     computed:{
       gonggaoData(){
-        return this.$store.state.homeData['2']
+        for(var key in this.$store.state.homeData){
+          if(this.$store.state.homeData[key].id=="notice"){
+            return this.$store.state.homeData[key]
+          }
+        }
       },
       prefix(){//图标附加前缀
         return this.$store.state.prefix
       }
 
     },
+    mounted(){
+
+    },
     created(){
       setTimeout(()=>{
-        for(var key in this.$store.state.homeData['2'].data){
-          this.gonggaoItem.push(this.$store.state.homeData['2'].data[key])
+        for(var key in this.gonggaoData.data){
+          this.gonggaoItem.push(this.gonggaoData.data[key])
         }
-      },2000)
+        console.log(this.gonggaoItem)
+      },1000)
     },
   }
 </script>

@@ -187,6 +187,11 @@
       console.log(this.parent)
       console.log(this.children)
 
+    },
+    beforeCreate(){
+      this.$store.dispatch({
+        type:'resSortData'
+      })
     }
   }
 </script>
