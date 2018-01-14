@@ -19,7 +19,11 @@
     },
     computed:{
       sliderNavData(){
-        return this.$store.state.homeData['1']
+        for(var key in this.$store.state.homeData){
+          if(this.$store.state.homeData[key].id=="menu"){
+            return this.$store.state.homeData[key]
+          }
+        }
       },
       prefix(){//图标附加前缀
         return this.$store.state.prefix
@@ -27,10 +31,10 @@
     },
     created(){
       setTimeout(()=>{
-        for(var key in this.$store.state.homeData['1'].data){
-          this.sliderNavItem.push(this.$store.state.homeData['1'].data[key])
+        for(var key in this.sliderNavData.data){
+          this.sliderNavItem.push(this.sliderNavData.data[key])
         }
-      },2000)
+      },1000)
     }
   }
 </script>

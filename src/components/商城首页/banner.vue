@@ -34,7 +34,6 @@
         for(var key in this.slideData.data){
           this.imgData.push(this.slideData.data[key])
         }
-        console.log(this.imgData)
       },1000)
     }
   }

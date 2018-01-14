@@ -100,7 +100,7 @@ export default {
     resSortData({commit, state}, data) {
       $.ajax({
         type:"get",
-        url:'http://cscs.ylhhyk.com/bale/api.php?mod=category&uniacid=1691',
+        url:'http://cscs.ylhhyk.com/bale/api.php?mod=category&uniacid=2',
         dataType:"jsonp",    //跨域json请求一定是jsonp
         jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
         success: function(res) {

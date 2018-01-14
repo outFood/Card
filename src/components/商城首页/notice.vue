@@ -34,7 +34,6 @@
         for(var key in this.gonggaoData.data){
           this.gonggaoItem.push(this.gonggaoData.data[key])
         }
-        console.log(this.gonggaoItem)
       },1000)
     },
   }

@@ -1,21 +1,21 @@
 <template>
   <div id="home">
-    <headers></headers>
+    <fixedsearch></fixedsearch>
     <payment></payment>
-    <slider></slider>
+    <banner></banner>
     <!--<titles></titles>-->
-    <!--<gonggao></gonggao>-->
+    <notice></notice>
     <!--<picwindow></picwindow>-->
     <!--<searchinput></searchinput>-->
-    <!--<sliderNav1 v-if="pagenum==0"></sliderNav1>-->
-    <!--<sliderNav2 v-else></sliderNav2>-->
-    <!--<vipSort></vipSort>-->
-    <!--<nursing></nursing>-->
-    <!--<brand></brand>-->
-    <!--<pics></pics>-->
-    <!--<goods />-->
-    <!--<merchgroup />-->
-    <!--<listnavigation />-->
+    <menu1 v-if="pagenum==len"></menu1>
+    <menu2 v-else></menu2>
+    <goods></goods>
+    <nursing></nursing>
+    <brand></brand>
+    <pics></pics>
+    <qqqqqq />
+    <merchgroup />
+    <listnavigation />
     <footers/>
   </div>
 </template>
@@ -27,37 +27,38 @@
   }
 </style>
 <script>
-  import headers from '@/components/商城首页/headers'
+  import fixedsearch from '@/components/商城首页/fixedsearch'
   import payment from '@/components/商城首页/payment'
   import searchinput from '@/components/商城首页/searchinput'
-  import slider from '@/components/商城首页/slider'
-  import gonggao from '@/components/商城首页/gonggao'
-  import sliderNav1 from '@/components/商城首页/sliderNav1'
-  import sliderNav2 from '@/components/商城首页/sliderNav2'
-  import vipSort from '@/components/商城首页/vipSort'
+  import banner from '@/components/商城首页/banner'
+  import notice from '@/components/商城首页/notice'
+  import menu1 from '@/components/商城首页/menu1'
+  import menu2 from '@/components/商城首页/menu2'
+  import goods from '@/components/商城首页/goods'
   import nursing from '@/components/商城首页/nursing'
   import brand from '@/components/商城首页/brand'
   import pics from '@/components/商城首页/pics'
   import titles from '@/components/商城首页/titles'
   import picwindow from '@/components/商城首页/picwindow'
-  import goods from '@/components/商城首页/goods'
+  import qqqqqq from '@/components/商城首页/qqqqqq'
   import merchgroup from '@/components/商城首页/merchgroup'
   import listnavigation from '@/components/商城首页/listnavigation'
   export default {
     data(){
       return{
-        pagenum:0
+        pagenum:0,
+        len:0,
       }
     },
     components:{
-      headers,
+      fixedsearch,
       payment,
-      slider,
-      gonggao,
-      sliderNav1,
-      sliderNav2,
+      banner,
+      notice,
+      menu1,
+      menu2,
       searchinput,
-      vipSort,
+      goods,
       nursing,
       brand,
       pics,
@@ -65,13 +66,24 @@
       merchgroup,
       listnavigation,
       titles,
-      goods
+      qqqqqq
     },
-//    created(){
-//      setTimeout(()=>{
-//        this.pagenum=this.$store.state.homeData['1'].style.pagenum
-//      },1000)
-//
-//    }
+   computed:{
+     sliderNavData(){
+       for(var key in this.$store.state.homeData){
+         if(this.$store.state.homeData[key].id=="menu"){
+           return this.$store.state.homeData[key]
+         }
+       }
+     },
+   },
+    created(){
+      setTimeout(()=>{
+        this.pagenum=this.sliderNavData.style.pagenum
+        for(var key in this.sliderNavData.data){
+          this.len++
+        }
+      },1000)
+    },
   }
 </script>
