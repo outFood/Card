@@ -6,9 +6,9 @@
       <input type="file" id="upload" accept="image/*" @change="upload" onchange="var formdata = new FormData();formdata=this.files;console.log(formdata);">
     </div>
     <div class="setNickName">
-      修改昵称 <span>*</span><input type="text" placeholder="晴愔">
+      修改昵称 <span>*</span><input type="text" placeholder="晴愔" v-model="nickname">
     </div>
-    <yd-button size="large" type="primary">保存</yd-button>
+    <yd-button size="large" type="primary" @click.native="updateNickName">保存</yd-button>
   </yd-layout>
 
 </template>
@@ -19,6 +19,7 @@
     data() {
       return {
         headerImage: '', picValue: '',
+        nickname:''
       }
     },
     methods: {
@@ -179,6 +180,17 @@
         console.log('压缩率：' + ~~(100 * (initSize - ndata.length) / initSize) + "%");
         tCanvas.width = tCanvas.height = canvas.width = canvas.height = 0;
         return ndata;
+      },
+      updateNickName(){
+        this.$store.dispatch({
+          type:'updateNickName',
+          params:{
+            id:localStorage.getItem('userid'),
+            openid:localStorage.getItem('openid'),
+            nickname:this.nickname,
+            headStr:this.headerImage
+          }
+        })
       }
     },
   }

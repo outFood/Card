@@ -95,7 +95,6 @@ export default new Router({
     },
     {
       path: '/shopIndex',
-      name: 'shopIndex',
       component: shopIndex
     },
     {
@@ -181,7 +180,6 @@ export default new Router({
     },
     {
       path: '/eChart',
-      name: 'eChart',
       component: eChart
     },
     {

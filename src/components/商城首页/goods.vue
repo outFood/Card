@@ -1,9 +1,9 @@
 <template>
-  <div id="goods" v-if="goodsData">
-    <div class="showMethod1" :style="{background:goodsData.style.background}"  v-if="listStyle==1">
+  <div id="goods" v-if="goodsData" :style="{background:goodsData.style.background}">
+    <div class="showMethod1"  v-if="listStyle==1">
       <div v-for="(item,key) in goodsItem">
         <img :src="prefix+item.thumb" alt="">
-        <div><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}">{{item.title}}</span></p>
+        <div  class="lastdiv"><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}">{{item.title}}</span></p>
           <p><span class="price" :style="{color:goodsData.style.pricecolor}">￥{{item.price}}</span><span class="duihuan" :style="{background:goodsData.style.buybtncolor}">兑换</span></p>
           <p><i :class="{linethrough:goodsData.params.productpriceline==1}" :style="{color:goodsData.style.productpricecolor}">{{goodsData.params.productpricetext}}:￥{{goodsData.params.productprice}}</i><i :style="{color:goodsData.style.salescolor}">{{goodsData.params.salestext}}:</i></p></div>
       </div>
@@ -11,7 +11,7 @@
     <div class="showMethod2"  v-if="listStyle==2">
       <div v-for="(item,key) in goodsItem">
         <img :src="prefix+item.thumb" alt="">
-        <div><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}">{{item.title}}</span></p>
+        <div class="lastdiv"><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}">{{item.title}}</span></p>
           <p><span class="price" :style="{color:goodsData.style.pricecolor}">￥{{item.price}}</span><span class="duihuan" :style="{background:goodsData.style.buybtncolor}">兑换</span></p>
           <p><i :class="{linethrough:goodsData.params.productpriceline==1}" :style="{color:goodsData.style.productpricecolor}">{{goodsData.params.productpricetext}}:￥{{goodsData.params.productprice}}</i><i :style="{color:goodsData.style.salescolor}">{{goodsData.params.salestext}}:</i></p></div>
       </div>
@@ -19,7 +19,7 @@
     <div class="showMethod3" v-if="listStyle==3">
       <div v-for="(item,key) in goodsItem">
         <img :src="prefix+item.thumb" alt="">
-        <div><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}">{{item.title}}</span></p>
+        <div class="lastdiv"><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}">{{item.title}}</span></p>
           <p><span class="price" :style="{color:goodsData.style.pricecolor}">￥{{item.price}}</span><span class="duihuan" :style="{background:goodsData.style.buybtncolor}">兑换</span></p>
           <p><i :class="{linethrough:goodsData.params.productpriceline==1}" :style="{color:goodsData.style.productpricecolor}">{{goodsData.params.productpricetext}}:￥{{goodsData.params.productprice}}</i><i :style="{color:goodsData.style.salescolor}">{{goodsData.params.salestext}}:</i></p></div>
       </div>
@@ -27,7 +27,7 @@
     <div class="showMethod4" v-if="listStyle==0">
       <div v-for="(item,key) in goodsItem">
         <img :src="prefix+item.thumb" alt="">
-        <div class="rightdiv"><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}">{{item.title}}</span></p>
+        <div class="lastdiv rightdiv"><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}">{{item.title}}</span></p>
           <p><span class="price" :style="{color:goodsData.style.pricecolor}">￥{{item.price}}</span><span class="duihuan" :style="{background:goodsData.style.buybtncolor}">兑换</span></p>
           <p><i :class="{linethrough:goodsData.params.productpriceline==1}" :style="{color:goodsData.style.productpricecolor}">{{goodsData.params.productpricetext}}:￥{{goodsData.params.productprice}}</i><i :style="{color:goodsData.style.salescolor}">{{goodsData.params.salestext}}:</i></p></div>
       </div>
@@ -47,12 +47,13 @@
     display: -ms-flexbox;
     display: flex;
     flex-wrap: wrap;
-    padding:10px;
+    padding:10px 10px 0 10px;
     text-align: left;
   }
   #goods>div>div{
     width:100%;
     margin-bottom:10px;
+    background: #fff;
   }
   #goods img{
     width:100%;
@@ -103,7 +104,9 @@
   #goods .showMethod4 img{
     width:30%;
     height:80px;
-    margin-right: 10px;
+  }
+  #goods .lastdiv{
+    padding:10px;
   }
   #goods .showMethod4 .rightdiv{
     width:70%

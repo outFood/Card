@@ -10,9 +10,9 @@
     <menu1 v-if="pagenum==len"></menu1>
     <menu2 v-else></menu2>
     <goods></goods>
-    <nursing></nursing>
-    <brand></brand>
-    <pics></pics>
+    <!--<nursing></nursing>-->
+    <!--<brand></brand>-->
+    <!--<pics></pics>-->
     <qqqqqq />
     <merchgroup />
     <listnavigation />

@@ -8,7 +8,7 @@
     <div id="head">
       <p>
         <router-link to="#"><img src="/static/img/msg.png" alt=""></router-link>
-        <router-link to="/distributIndex/xiaodian"><img src="/static/img/set.png" alt=""></router-link>
+        <router-link to="/vipIndex/set"><img src="/static/img/set.png" alt=""></router-link>
         <router-link to="/vipIndex/vipInfo"><img src="/static/img/personInfo.png" alt=""></router-link>
         <span>1</span>
       </p>
@@ -104,7 +104,11 @@
         }
       },
     },
-
+    beforeCreate(){
+      this.$store.dispatch({
+        type: 'resWode'
+      })
+    }
   }
 </script>
 <style>

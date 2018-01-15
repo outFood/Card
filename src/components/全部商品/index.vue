@@ -156,7 +156,7 @@
       sortData(){
         return this.$store.state.sortData
       },
-      prefix(){//轮播图片附加前缀
+      prefix(){//轮播图片前缀
         return this.$store.state.prefix
       },
       parent(){
@@ -168,22 +168,25 @@
     },
     created(){
       var keys=[]
-      for(var key in this.children){
-        keys.push(key)
-      }
-      for(var i=0;i<this.parent.length;i++){
-        var count=0;
-        for(var k in this.children[keys[i]][0]){
-          count++
+      setTimeout(()=>{
+        for(var key in this.children){
+          keys.push(key)
+          console.log(key)
         }
-        if(count>20){
+        for(var i=0;i<this.parent.length;i++){
+          var count=0;
+          for(var k in this.children[keys[i]][0]){
+            count++
+            this.children[keys[i]][0]
+          }
           this.parent[i].curSort=this.children[keys[i]]
-          this.parent[i].isSecondSort=false
-        }else{
-          this.parent[i].curSort=this.children[keys[i]]
-          this.parent[i].isSecondSort=true
+          if(count>20){
+            this.parent[i].isSecondSort=false
+          }else{
+            this.parent[i].isSecondSort=true
+          }
         }
-      }
+      },1000)
       console.log(this.parent)
       console.log(this.children)
 

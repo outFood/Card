@@ -104,11 +104,10 @@ export default {
         dataType:"jsonp",    //跨域json请求一定是jsonp
         jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
         success: function(res) {
-          console.log(res)
-          // commit({
-          //   type: 'saveSortData',
-          //   res: res,
-          // })
+          commit({
+            type: 'saveSortData',
+            res: res,
+          })
         },
         error: function(err) {console.log('请求失败!')},
       });
@@ -281,19 +280,43 @@ export default {
         }).catch(function (err) {alert(err)})
     },
     resFenxiao({commit, state}, data) {
-      function resHeadData() {
-        return axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.index.get_main&&state=we7sid-794d7db19adf5357dd4aa60d3d4dfef8&sign=c78207aafe04e19076ec63ad8d6d903d&openid='+localStorage.getItem('openid')+'&cc='+'ooo')
-      }
-      function resBodyData() {
-        return axios.get('http://cscs.ylhhyk.com/app/index.php?c=wxapp&a=module&do=nav&uniacid=1691&type=4')
-      }
-      axios.all([resHeadData(), resBodyData()]).then(axios.spread(function (HeadData, BodyData) {
-        commit({
-          type: 'saveFenxiao',
-          HeadData: HeadData,
-          BodyData: BodyData
-        })
-      }))
+      //请求HeadData
+      $.ajax({
+        type:"get",
+        url:'http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.index.get_main&&state=we7sid-794d7db19adf5357dd4aa60d3d4dfef8&sign=c78207aafe04e19076ec63ad8d6d903d',
+        dataType:"jsonp",    //跨域json请求一定是jsonp
+        jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
+        data:{
+          openid:localStorage.getItem('openid'),
+        },
+        success: function(data) {
+          commit({
+            type:'saveFenxiaoHead',
+            data:data
+          })
+        },
+        error: function(err) {
+          //请求出错处理
+          console.log('请求失败')
+        },
+      });
+      //请求BodyData
+      $.ajax({
+        type:"get",
+        url:'http://cscs.ylhhyk.com/app/index.php?c=wxapp&a=module&do=nav&uniacid=1691&type=4',
+        dataType:"jsonp",    //跨域json请求一定是jsonp
+        jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
+        success: function(data) {
+          commit({
+            type:'saveFenxiaoBody',
+            data:data
+          })
+        },
+        error: function(err) {
+          //请求出错处理
+          console.log('请求失败')
+        },
+      });
     },
     resPrice({commit, state}, data){
       axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.withdraw.get_main&i=1691')
@@ -365,10 +388,7 @@ export default {
         success: function(res) {
           console.log(res)
         },
-        error: function(err) {
-          //请求出错处理
-          console.log(err)
-        },
+        error: function(err) {console.log('请求失败')},
       });
     },
     //个人中心
@@ -472,6 +492,19 @@ export default {
           //请求出错处理
           console.log('请求失败')
         },
+      });
+    },
+    updateNickName({commit, state}, data){
+      $.ajax({
+        type:"get",
+        url:"http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.xcxl.alteravatar",
+        dataType:"jsonp",    //跨域json请求一定是jsonp
+        jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
+        data:data.params,
+        success: function(data) {
+          console.log(data)
+        },
+        error: function(err) {console.log('请求失败')},
       });
     },
     resAddress({commit, state}, data) {
@@ -602,18 +635,13 @@ export default {
     //首页
     saveHomeData(state, data) {
       VueSet(state, 'homeData', data.data.result)
-      console.log(state.homeData)
       if (state.homeData != {}) {
         router.push({path: '/shopIndex/'})
       }
     },
     //分类
     saveSortData(state, data) {
-      VueSet(state, 'sortData', data.res.data)
-      console.log(state.sortData)
-      if (state.sortData != {}) {
-        router.push({path: '/sortIndex/'})
-      }
+      VueSet(state, 'sortData', data.res)
     },
     saveCommodityListData(state, data) {//商品列表
       VueSet(state, 'commodityListData', data.res.data.result)
@@ -654,7 +682,7 @@ export default {
     //  购物车
     saveCartData(state, data) {
       VueSet(state, 'cartData', data.res)
-      console.log(state.cartData)
+      // console.log(state.cartData)
       if (state.cartData != {}) {
         router.push({path: '/cart/'})
       }
@@ -676,9 +704,11 @@ export default {
       console.log(state.exclusiveShopData)
     },
     //分销
-    saveFenxiao(state, data) {
-      VueSet(state, 'fenxiao_headData', data.HeadData.data)
-      VueSet(state, 'fenxiao_bodyData', data.BodyData.data)
+    saveFenxiaoHead(state, data){
+      // VueSet(state, 'fenxiao_headData', data.HeadData.data)
+    },
+    saveFenxiaoBody(state, data){
+      // VueSet(state, 'fenxiao_bodyData', data.BodyData.data)
     },
     savePriceData(state, data){
       VueSet(state,'priceData',data.res.data.result)
@@ -691,6 +721,10 @@ export default {
     //个人中心
     saveWodeHeadData(state, data){
       VueSet(state,'wodeHeadData',data.data)
+      if (state.wodeBodyData != {}) {
+        router.push({path: '/vipIndex'})
+      }
+
     },
     saveWodeBodyData(state, data) {
       VueSet(state, 'wodeBodyData', data.data.module)
