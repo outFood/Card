@@ -260,25 +260,15 @@ export default {
     },
     //分销中心
     resApply({commit, state}, data) {
-      $.ajax({
-        type:"get",
-        url:baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.register.get_main&t=1691&&state=we7sid-4f2d9a8d5e70055b534269913f0ef403&sign=23b2327d9a7d8822eea66b734afb29de',
-        dataType:"jsonp",    //跨域json请求一定是jsonp
-        jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
-        data:data.params,
-        success: function(data) {
+      axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.register.get_main&t=1691&&state=we7sid-4f2d9a8d5e70055b534269913f0ef403&sign=23b2327d9a7d8822eea66b734afb29de',{params:data.params})
+        .then(function (res) {
           console.log(data)
           // localStorage.setItem('status',res.data.status)//用来标识是否是分销商
           // localStorage.setItem('isRegistAgent',true)//用来标识是否已经注册分销商
           // if(res.data.status=='1'){
           //   router.push({path:'/distributIndex'})
           // }
-        },
-        error: function(err) {
-          //请求出错处理
-          console.log('请求失败')
-        },
-      });
+        }).catch(function (err) {console.log('请求失败:'+err)})
     },
     resFenxiao({commit, state}, data) {
       //请求HeadData
