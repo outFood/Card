@@ -4,6 +4,8 @@ import Vue from 'Vue'
 import router from '@/router'
 
 const VueSet = Vue.set
+var baseUrl='/api'
+
 export default {
   state: function () {
     return {
@@ -64,19 +66,13 @@ export default {
   actions: {
     //首页
     resHomeData({commit, state}, data) {
-      $.ajax({
-        type:"get",
-        url:'http://cscs.ylhhyk.com/app/index.php?c=wxapp&a=module&do=main&id=12&uniacid=2',
-        dataType:"jsonp",    //跨域json请求一定是jsonp
-        jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
-        success: function(res) {
+      axios.get(baseUrl+'/app/index.php?c=wxapp&a=module&do=main&id=12&uniacid=2')
+        .then(function (res) {
           commit({
             type: 'saveHomeData',
             data: res
           })
-        },
-        error: function(err) {console.log('请求失败!')},
-      });
+        })
     },
     // resFuKuan({commit, state}, data){
     //   axios.get('https://xcx.xcwll.cn/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=member.branch.payment&mid='+localStorage.getItem('userid'))
@@ -98,22 +94,16 @@ export default {
     // },
     //分类
     resSortData({commit, state}, data) {
-      $.ajax({
-        type:"get",
-        url:'http://cscs.ylhhyk.com/bale/api.php?mod=category&uniacid=2',
-        dataType:"jsonp",    //跨域json请求一定是jsonp
-        jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
-        success: function(res) {
+      axios.get(baseUrl+'/bale/api.php?mod=category&uniacid=2')
+        .then(function (res) {
           commit({
             type: 'saveSortData',
             res: res,
           })
-        },
-        error: function(err) {console.log('请求失败!')},
-      });
+        }).catch(function (err) {console.log('请求失败:'+err)})
     },
     resCommodityListData({commit, state}, data) {
-      axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.index.get_list', {params: data.params})
+      axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.index.get_list', {params: data.params})
         .then(function (res) {
           commit({
             type: 'saveCommodityListData',
@@ -124,56 +114,29 @@ export default {
       })
 
     },
-    resFujinData({commit, state}, data) {
-      var id = data.id ? data.id : '';//如果点击分类的时候请求就有id,否则就是页面加载的时候请求
-      function getFujin_sortData() {//分类
-        return axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.get_category&uniacid=1691');
-      }
-
-      function getFujin_slideData() {//轮播
-        return axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.get_category_swipe&uniacid=1691');
-      }
-
-      function getFujin_ListData() {//商户列表
-        return axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.ajaxmerchuser&uniacid=1691&id=' + id);
-      }
-
-      axios.all([getFujin_sortData(), getFujin_slideData(), getFujin_ListData()])//一次性并发多个请求
-        .then(axios.spread(function (Fujin_sortData, getFujin_slideData, Fujin_ListData) {
-          //当这三个个请求都完成的时候会触发这个函数，两个参数分别代表返回的结果
-          commit({
-            type: 'saveFujinData',
-            data: {
-              Fujin_sortData: Fujin_sortData,
-              getFujin_slideData: getFujin_slideData,
-              Fujin_ListData: Fujin_ListData
-            }
-          })
-        }))
-    },
     resCommodityDetailData({commit, state}, data) {
       function commodityDetailData() {
-        return axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.detailapp.get_detailapp&id=' + data.id)
+        return axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.detailapp.get_detailapp&id=' + data.id)
       }
 
       function commodityPingjiaData() {
-        return axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.detail.get_comments&id=' + data.id)
+        return axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.detail.get_comments&id=' + data.id)
       }
 
       function commodityColorSizeData() {
-        return axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.detailapp.picker&id=' + data.id)
+        return axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.detailapp.picker&id=' + data.id)
       }
 
       function commodityPingjiaSortData() {
-        return axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.detail.get_comment_list&id=' + data.id)
+        return axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.detail.get_comment_list&id=' + data.id)
       }
 
       function submitCart() {
-        return axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.submit&id=' + data.id)
+        return axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.submit&id=' + data.id)
       }
 
       function like() {
-        return axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.favorite.toggle&id=' + data.id)
+        return axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.favorite.toggle&id=' + data.id)
       }
 
       axios.all([commodityDetailData(), commodityColorSizeData()]).then(axios.spread(function (commodityDetailData, commodityColorSizeData) {
@@ -197,7 +160,7 @@ export default {
     cartOrPay({commit, state}, data) {
       console.log(data)
       if (state.payStatus == '加入购物车') {
-        axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.add&&state=we7sid-7f5e1067218e32fb9cd327acaabf9430&sign=917611cadf9681e6108cf5a8176f702e', {params: data.params})
+        axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.add&&state=we7sid-7f5e1067218e32fb9cd327acaabf9430&sign=917611cadf9681e6108cf5a8176f702e', {params: data.params})
           .then(function (res) {
             console.log(res)
             commit({
@@ -208,7 +171,7 @@ export default {
           alert(err)
         })
       } else {
-        axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.create.get_main&id=4795&optionid=0&total=1&&state=we7sid-43d297d3dcac31741967a93cb40a96c6&sign=e5454538661e164fbca833d729d3d7fb', {params: data.params})
+        axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.create.get_main&id=4795&optionid=0&total=1&&state=we7sid-43d297d3dcac31741967a93cb40a96c6&sign=e5454538661e164fbca833d729d3d7fb', {params: data.params})
           .then(function (res) {
             commit({
               type: 'saveBuyPageData',
@@ -223,7 +186,7 @@ export default {
     lookCart({commit, state}, data) {
       $.ajax({
         type:"get",
-        url:'http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.get_list&&state=we7sid-7f5e1067218e32fb9cd327acaabf9430&sign=769697d94b1f3465b87d8785ab118612',
+        url:baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.get_list&&state=we7sid-7f5e1067218e32fb9cd327acaabf9430&sign=769697d94b1f3465b87d8785ab118612',
         dataType:"jsonp",    //跨域json请求一定是jsonp
         jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
         success: function(res) {
@@ -239,7 +202,7 @@ export default {
       });
     },
     cartUpdate({commit, state}, data) {
-      axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.update&state=we7sid-989f479443e701453157a809d00e2e0f&sign=0cba9601498c1bf800a5c9a5c57996a0', {params: data.params})
+      axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.update&state=we7sid-989f479443e701453157a809d00e2e0f&sign=0cba9601498c1bf800a5c9a5c57996a0', {params: data.params})
         .then(function (res) {
         }).catch(function (err) {
         alert(err)
@@ -247,7 +210,7 @@ export default {
     },
     cartDelete({commit, state}, data) {
       console.log(data)
-      axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.remove&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=4ef7ee8a48b806ac9c01ab9bbeb27e7e&ids=' + data.ids)
+      axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.remove&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=4ef7ee8a48b806ac9c01ab9bbeb27e7e&ids=' + data.ids)
         .then(function (res) {
           commit({
             type: 'saveCartcount',
@@ -256,9 +219,36 @@ export default {
         })
     },
     //附近商家
+    resFujinData({commit, state}, data) {
+      var id = data.id ? data.id : '';//如果点击分类的时候请求就有id,否则就是页面加载的时候请求
+      function getFujin_sortData() {//分类
+        return axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.get_category&uniacid=1691');
+      }
+
+      function getFujin_slideData() {//轮播
+        return axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.get_category_swipe&uniacid=1691');
+      }
+
+      function getFujin_ListData() {//商户列表
+        return axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.ajaxmerchuser&uniacid=1691&id=' + id);
+      }
+
+      axios.all([getFujin_sortData(), getFujin_slideData(), getFujin_ListData()])//一次性并发多个请求
+        .then(axios.spread(function (Fujin_sortData, getFujin_slideData, Fujin_ListData) {
+          //当这三个个请求都完成的时候会触发这个函数，两个参数分别代表返回的结果
+          commit({
+            type: 'saveFujinData',
+            data: {
+              Fujin_sortData: Fujin_sortData,
+              getFujin_slideData: getFujin_slideData,
+              Fujin_ListData: Fujin_ListData
+            }
+          })
+        }))
+    },
     resExclusiveShopData({commit, state}, data) {
       // var url='https://xcx.xcwll.cn/app'+(data.url).replace(/^./, "")+'&state=we7sid-989f479443e701453157a809d00e2e0f&sign=907857da4524149aacd027f26975f731'
-      var url = 'http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.index.get_main&state=we7sid-989f479443e701453157a809d00e2e0f&sign=5fc39c4c2d8acbfb7c253e67cbecda05&mid=0&merchid=' + data.id
+      var url = baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.index.get_main&state=we7sid-989f479443e701453157a809d00e2e0f&sign=5fc39c4c2d8acbfb7c253e67cbecda05&mid=0&merchid=' + data.id
       axios.get(url).then(function (res) {
         commit({
           type: 'saveExclusiveShopData',
@@ -270,20 +260,31 @@ export default {
     },
     //分销中心
     resApply({commit, state}, data) {
-      axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.register.get_main&t=1691&&state=we7sid-4f2d9a8d5e70055b534269913f0ef403&sign=23b2327d9a7d8822eea66b734afb29de', {params: data.params})
-        .then(function (res) {
-          localStorage.setItem('status',res.data.status)//用来标识是否是分销商
-          localStorage.setItem('isRegistAgent',true)//用来标识是否已经注册分销商
-          if(res.data.status=='1'){
-            router.push({path:'/distributIndex'})
-          }
-        }).catch(function (err) {alert(err)})
+      $.ajax({
+        type:"get",
+        url:baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.register.get_main&t=1691&&state=we7sid-4f2d9a8d5e70055b534269913f0ef403&sign=23b2327d9a7d8822eea66b734afb29de',
+        dataType:"jsonp",    //跨域json请求一定是jsonp
+        jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
+        data:data.params,
+        success: function(data) {
+          console.log(data)
+          // localStorage.setItem('status',res.data.status)//用来标识是否是分销商
+          // localStorage.setItem('isRegistAgent',true)//用来标识是否已经注册分销商
+          // if(res.data.status=='1'){
+          //   router.push({path:'/distributIndex'})
+          // }
+        },
+        error: function(err) {
+          //请求出错处理
+          console.log('请求失败')
+        },
+      });
     },
     resFenxiao({commit, state}, data) {
       //请求HeadData
       $.ajax({
         type:"get",
-        url:'http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.index.get_main&&state=we7sid-794d7db19adf5357dd4aa60d3d4dfef8&sign=c78207aafe04e19076ec63ad8d6d903d',
+        url:baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.index.get_main&&state=we7sid-794d7db19adf5357dd4aa60d3d4dfef8&sign=c78207aafe04e19076ec63ad8d6d903d',
         dataType:"jsonp",    //跨域json请求一定是jsonp
         jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
         data:{
@@ -303,7 +304,7 @@ export default {
       //请求BodyData
       $.ajax({
         type:"get",
-        url:'http://cscs.ylhhyk.com/app/index.php?c=wxapp&a=module&do=nav&uniacid=1691&type=4',
+        url:baseUrl+'/app/index.php?c=wxapp&a=module&do=nav&uniacid=1691&type=4',
         dataType:"jsonp",    //跨域json请求一定是jsonp
         jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
         success: function(data) {
@@ -319,7 +320,7 @@ export default {
       });
     },
     resPrice({commit, state}, data){
-      axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.withdraw.get_main&i=1691')
+      axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.withdraw.get_main&i=1691')
         .then(function (res) {
           commit({
             type:'savePriceData',
@@ -330,7 +331,7 @@ export default {
     resTiXian({commit, state}, data){
       $.ajax({
         type:"get",
-        url:"http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.log.get_list&i=1691",
+        url:baseUrl+"/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.log.get_list&i=1691",
         dataType:"jsonp",    //跨域json请求一定是jsonp
         jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
         success: function(res) {
@@ -348,7 +349,7 @@ export default {
     resXiaXian({commit, state}, data){
       $.ajax({
         type:"get",
-        url:"http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.down.get_list&page=1&level=1&openid="+localStorage.getItem('openid'),
+        url:baseUrl+"/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.down.get_list&page=1&level=1&openid="+localStorage.getItem('openid'),
         dataType:"jsonp",    //跨域json请求一定是jsonp
         jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
         success: function(res) {
@@ -363,7 +364,7 @@ export default {
     resTuiGuang({commit, state}, data){
       $.ajax({
         type:"get",
-        url:"http://cscs.ylhhyk.com/app/index.php?i=1691&c=entry&m=ewei_shopv2&do=mobile&r=commission.qrcode.get_main&mid="+localStorage.getItem("userid"),
+        url:baseUrl+"/app/index.php?i=1691&c=entry&m=ewei_shopv2&do=mobile&r=commission.qrcode.get_main&mid="+localStorage.getItem("userid"),
         dataType:"jsonp",    //跨域json请求一定是jsonp
         jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
         success: function(res) {
@@ -382,7 +383,7 @@ export default {
     resXiaoDianData({commit, state}, data){
       $.ajax({
         type:"get",
-        url:"http://cscs.ylhhyk.com/app/index.php?i=1691&c=entry&m=ewei_shopv2&do=mobile&r=commission.myshop.set.get_main&t=1691&openid="+localStorage.getItem('openid'),
+        url:baseUrl+"/app/index.php?i=1691&c=entry&m=ewei_shopv2&do=mobile&r=commission.myshop.set.get_main&t=1691&openid="+localStorage.getItem('openid'),
         dataType:"jsonp",    //跨域json请求一定是jsonp
         jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
         success: function(res) {
@@ -396,7 +397,7 @@ export default {
       //请求wodeHeadData
       $.ajax({
         type:"get",
-        url:"http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.xcxl",
+        url:baseUrl+"/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.xcxl",
         dataType:"jsonp",    //跨域json请求一定是jsonp
         jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
         data:{
@@ -417,7 +418,7 @@ export default {
       //请求wodeBodyData
       $.ajax({
         type:"get",
-        url:"http://cscs.ylhhyk.com/app/index.php?c=wxapp&a=module&do=nav&uniacid=1691&type=3",
+        url:baseUrl+"/app/index.php?c=wxapp&a=module&do=nav&uniacid=1691&type=3",
         dataType:"jsonp",    //跨域json请求一定是jsonp
         jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
         data:{tip:'我是jsonp方式请求'},
@@ -436,7 +437,7 @@ export default {
     regist({commit, state}, data) {
       $.ajax({
         type:"get",
-        url:'http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.user.register',
+        url:baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.user.register',
         dataType:"jsonp",    //跨域json请求一定是jsonp
         jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
         data:data.params,
@@ -454,7 +455,7 @@ export default {
     login({commit, state}, data) {
       $.ajax({
         type:"get",
-        url:"http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.user.passwordlogin",
+        url:baseUrl+"/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.user.passwordlogin",
         dataType:"jsonp",    //跨域json请求一定是jsonp
         jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
         data:data.params,
@@ -475,7 +476,7 @@ export default {
     resVipInfo({commit, state}, data){
       $.ajax({
         type:"get",
-        url:"http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.xcxl",
+        url:baseUrl+"/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.xcxl",
         dataType:"jsonp",    //跨域json请求一定是jsonp
         jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
         data:{
@@ -497,7 +498,7 @@ export default {
     updateNickName({commit, state}, data){
       $.ajax({
         type:"get",
-        url:"http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.xcxl.alteravatar",
+        url:baseUrl+"/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.xcxl.alteravatar",
         dataType:"jsonp",    //跨域json请求一定是jsonp
         jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
         data:data.params,
@@ -508,7 +509,7 @@ export default {
       });
     },
     resAddress({commit, state}, data) {
-      axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.indexapp&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=5ec2bec56de4ed22e4149dbb3c82cc5c')
+      axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.indexapp&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=5ec2bec56de4ed22e4149dbb3c82cc5c')
         .then(function (res) {
           commit({
             type: 'saveAddress',
@@ -519,10 +520,10 @@ export default {
       })
     },
     resDelAddress({commit, state}, data) {
-      axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.delete&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=6502bf75e1e422f28b1116a00b6e74c9', {params: data.params})
+      axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.delete&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=6502bf75e1e422f28b1116a00b6e74c9', {params: data.params})
         .then(function (res) {
           //删除地址成功重新请求地址列表
-          axios.get('http://cscs.ylhhyk.com/app/index.php?t=16911&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.indexapp&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=5ec2bec56de4ed22e4149dbb3c82cc5c')
+          axios.get(baseUrl+'/app/index.php?t=16911&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.indexapp&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=5ec2bec56de4ed22e4149dbb3c82cc5c')
             .then(function (res) {
               commit({
                 type: 'saveAddress',
@@ -543,7 +544,7 @@ export default {
     },
     updateAddress({commit, state}, data) {
       console.log(data)
-      axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.submitapp&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=65f61bce1d5fe1c97a40ddf0edb449d0', {params: data.params})
+      axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.submitapp&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=65f61bce1d5fe1c97a40ddf0edb449d0', {params: data.params})
         .then(function (res) {
           router.push({path: '/vipIndex/myAddress'})
         }).catch(function (err) {
@@ -551,7 +552,7 @@ export default {
       })
     },
     saveAddress({commit, state}, data) {
-      axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.submitapp&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=65f61bce1d5fe1c97a40ddf0edb449d0', {params: data.params})
+      axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.submitapp&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=65f61bce1d5fe1c97a40ddf0edb449d0', {params: data.params})
         .then(function (res) {
           console.log('保存地址成功')
           router.push({path: '/vipIndex/myAddress'})
@@ -560,10 +561,10 @@ export default {
       })
     },
     defaultAddress({commit, state}, data) {
-      axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.setdefault&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=56270194a41701253e0ca556eb6c9312', {params: data.params})
+      axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.setdefault&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=56270194a41701253e0ca556eb6c9312', {params: data.params})
         .then(function (res) {
           //设置默认地址成功重新请求地址列表
-          axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.indexapp&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=5ec2bec56de4ed22e4149dbb3c82cc5c')
+          axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.indexapp&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=5ec2bec56de4ed22e4149dbb3c82cc5c')
             .then(function (res) {
               commit({
                 type: 'saveAddress',
@@ -583,7 +584,7 @@ export default {
       })
     },
     updatePersonInfo({commit, state}, data) {
-      axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.info.submitapp&&state=we7sid-1fa768373e19fb6cacea1690c9cf9b04&sign=812f860da7c14dc7079e64b07b6242aa', {params: data.params})
+      axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.info.submitapp&&state=we7sid-1fa768373e19fb6cacea1690c9cf9b04&sign=812f860da7c14dc7079e64b07b6242aa', {params: data.params})
         .then(function (res) {
           router.push({path: '/vipIndex'})
         }).catch(function (err) {
@@ -595,7 +596,7 @@ export default {
       if(data.text=='全部'){status=6}else if(data.text=='待付款'){status=0}else if(data.text=='待发货'){status=1}else if(data.text=='待收货'){status=2}else if(data.text=='退换货'){status=4}
       $.ajax({
         type:"get",
-        url:"http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.index.get_list&sign=118b061a710a82fc1762d4af90412993&page=1&openid="+localStorage.getItem('openid')+"&status="+status,
+        url:baseUrl+"/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.index.get_list&sign=118b061a710a82fc1762d4af90412993&page=1&openid="+localStorage.getItem('openid')+"&status="+status,
         dataType:"jsonp",    //跨域json请求一定是jsonp
         jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
         success: function(res) {
@@ -609,7 +610,7 @@ export default {
       });
     },
     resMyLike({commit, state}, data){
-      axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.favorite.get_list&state=we7sid-975167fc755bee24014a907c543d470a&sign=53dc9be5eeb273014547a514c8efd073&page=1')
+      axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.favorite.get_list&state=we7sid-975167fc755bee24014a907c543d470a&sign=53dc9be5eeb273014547a514c8efd073&page=1')
         .then(function (res) {
           commit({
             type:'saveMyLikeData',
@@ -618,7 +619,7 @@ export default {
         }).catch(function (err) {console.log('请求失败')})
     },
     resZuji({commit, state}, data){
-      axios.get('http://cscs.ylhhyk.com/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.history.get_list&state=we7sid-975167fc755bee24014a907c543d470a&sign=feed173bdcf9295b285677c86c060149&page=1')
+      axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.history.get_list&state=we7sid-975167fc755bee24014a907c543d470a&sign=feed173bdcf9295b285677c86c060149&page=1')
         .then(function (res) {
           commit({
             type:'saveZujiData',
@@ -634,14 +635,15 @@ export default {
     },
     //首页
     saveHomeData(state, data) {
-      VueSet(state, 'homeData', data.data.result)
+      VueSet(state, 'homeData', data.data.data.result)
       if (state.homeData != {}) {
         router.push({path: '/shopIndex/'})
       }
     },
     //分类
     saveSortData(state, data) {
-      VueSet(state, 'sortData', data.res)
+      console.log(data)
+      VueSet(state, 'sortData', data.res.data)
     },
     saveCommodityListData(state, data) {//商品列表
       VueSet(state, 'commodityListData', data.res.data.result)

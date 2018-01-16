@@ -6,7 +6,7 @@
       <input type="file" id="upload" accept="image/*" @change="upload" onchange="var formdata = new FormData();formdata=this.files;console.log(formdata);">
     </div>
     <div class="setNickName">
-      修改昵称 <span>*</span><input type="text" placeholder="晴愔" v-model="nickname">
+      修改昵称 <span>*</span><input type="text" :placeholder="wodeHeadData.nickname" v-model="nickname">
     </div>
     <yd-button size="large" type="primary" @click.native="updateNickName">保存</yd-button>
   </yd-layout>
@@ -21,6 +21,11 @@
         headerImage: '', picValue: '',
         nickname:''
       }
+    },
+    computed:{
+      wodeHeadData(){
+        return this.$store.state.wodeHeadData
+      },
     },
     methods: {
       upload(e) {
@@ -49,8 +54,8 @@
             let result = this.result;
             let img = new Image();
             img.src = result;
-            //判断图片是否大于100K,是就直接上传，反之压缩图片
-            if (this.result.length <= (100 * 1024)) {
+            //判断图片是否大于50K,是就直接上传，反之压缩图片
+            if (this.result.length <= (10 * 1024)) {
               self.headerImage = this.result;
 //              self.postImg();点击保存按钮才调用接口保存图片和昵称
             } else {
@@ -193,6 +198,7 @@
         })
       }
     },
+
   }
 </script>
 <style scoped>
