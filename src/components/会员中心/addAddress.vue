@@ -28,7 +28,7 @@
   export default {
     data(){
       return{
-        realname:'夏沫',
+        realname:'哈哈',
         mobile:'13469936720',
         address:'浦江镇',
         show1: false,
@@ -44,7 +44,8 @@
             realname:this.realname,
             mobile:this.mobile,
             areas:this.areas,
-            address:this.address
+            address:this.address,
+            mid:localStorage.getItem('userid')
           }
         })
       },

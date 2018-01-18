@@ -5,6 +5,7 @@ import router from '@/router'
 
 const VueSet = Vue.set
 var baseUrl='/api'
+var t=1691
 
 export default {
   state: function () {
@@ -103,7 +104,7 @@ export default {
         }).catch(function (err) {console.log('请求失败:'+err)})
     },
     resCommodityListData({commit, state}, data) {
-      axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.index.get_list', {params: data.params})
+      axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.index.get_list')
         .then(function (res) {
           commit({
             type: 'saveCommodityListData',
@@ -385,121 +386,69 @@ export default {
     //个人中心
     resWode({commit, state}, data) {
       //请求wodeHeadData
-      $.ajax({
-        type:"get",
-        url:baseUrl+"/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.xcxl",
-        dataType:"jsonp",    //跨域json请求一定是jsonp
-        jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
-        data:{
-          id:localStorage.getItem('userid'),
-          openid:localStorage.getItem('openid')
-        },
-        success: function(data) {
+      axios.get(baseUrl+"/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.xcxl",{params:data.params})
+        .then(function (res) {
           commit({
             type:'saveWodeHeadData',
-            data:data
+            data:res
           })
-        },
-        error: function(err) {
-          //请求出错处理
-          console.log('请求失败')
-        },
-      });
+        }).catch(function (err) {console.log('请求失败:'+err)})
       //请求wodeBodyData
-      $.ajax({
-        type:"get",
-        url:baseUrl+"/app/index.php?c=wxapp&a=module&do=nav&uniacid=1691&type=3",
-        dataType:"jsonp",    //跨域json请求一定是jsonp
-        jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
-        data:{tip:'我是jsonp方式请求'},
-        success: function(data) {
+      axios.get(baseUrl+"/app/index.php?c=wxapp&a=module&do=nav&uniacid=1691&type=3")
+        .then(function (res) {
           commit({
             type:'saveWodeBodyData',
-            data:data
+            data:res
           })
-        },
-        error: function(err) {
-          //请求出错处理
-          console.log('请求失败')
-        },
-      });
+        }).catch(function (err) {console.log('请求失败:'+err)})
     },
     regist({commit, state}, data) {
-      $.ajax({
-        type:"get",
-        url:baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.user.register',
-        dataType:"jsonp",    //跨域json请求一定是jsonp
-        jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
-        data:data.params,
-        success: function(res) {
-         if(res.msg=='注册成功'){
-           router.push({path: '/vipIndex/login'})
-         }
-        },
-        error: function(err) {
-          //请求出错处理
-          console.log(err)
-        },
-      });
+      axios.get(baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.user.register&t='+t,{params:data.params})
+        .then(function (res) {
+          if(res.msg=='注册成功'){
+            router.push({path: '/vipIndex/login'})
+          }
+        }).catch(function (err) {console.log('请求失败:'+err)})
     },
     login({commit, state}, data) {
-      $.ajax({
-        type:"get",
-        url:baseUrl+"/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.user.passwordlogin",
-        dataType:"jsonp",    //跨域json请求一定是jsonp
-        jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
-        data:data.params,
-        success: function(res) {
+      axios.get(baseUrl+"/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.user.passwordlogin&t="+t,{params:data.params})
+        .then(function (res) {
           console.log(res)
-          if(res['0']){
-            localStorage.setItem('openid',res[0].openid)
-            localStorage.setItem('userid',res[0].id)
+          if(res.data.data!={}){
+            localStorage.setItem('openid',res.data.data.openid)
+            localStorage.setItem('userid',res.data.data.mid)
           }
           commit({
             type:'saveLoginInfo',
             res:res
           })
-        },
-        error: function(err) {alert(err)},
-      });
+        }).catch(function (err) {console.log('请求失败:'+err)})
     },
     resVipInfo({commit, state}, data){
-      $.ajax({
-        type:"get",
-        url:baseUrl+"/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.xcxl",
-        dataType:"jsonp",    //跨域json请求一定是jsonp
-        jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
-        data:{
-          id:localStorage.getItem('userid'),
-          openid:localStorage.getItem('openid')
-        },
-        success: function(data) {
+      axios.get(baseUrl+"/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.xcxl&t="+t,{params:data.params})
+        .then(function (res) {
           commit({
             type:'saveVipInfoData',
-            data:data
+            data:res
           })
-        },
-        error: function(err) {
-          //请求出错处理
-          console.log('请求失败')
-        },
-      });
+        }).catch(function (err) {console.log('请求失败:'+err)})
+    },
+    updatePersonInfo({commit, state}, data) {
+      axios.get(baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.info.submitapp&t='+t, {params: data.params})
+        .then(function (res) {
+          router.push({path: '/vipIndex'})
+        }).catch(function (err) {
+        alert(err)
+      })
     },
     updateNickName({commit, state}, data){
-      $.ajax({
-        type:"get",
-        url:baseUrl+"/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.xcxl.alteravatar",
-        dataType:"jsonp",    //跨域json请求一定是jsonp
-        jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
-        data:data.params,
-        success: function(data) {
-          console.log(data)
-        },
-        error: function(err) {console.log('请求失败')},
-      });
+      axios.get(baseUrl+"/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.xcxl.alteravatar",{params:data.params})
+        .then(function (res) {
+          console.log(res)
+        }).catch(function (err) {console.log('请求失败:'+err)})
     },
     resAddress({commit, state}, data) {
-      axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.indexapp&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=5ec2bec56de4ed22e4149dbb3c82cc5c')
+      axios.get(baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.indexapp&t='+t+'&mid='+localStorage.getItem('userid'))
         .then(function (res) {
           commit({
             type: 'saveAddress',
@@ -510,10 +459,10 @@ export default {
       })
     },
     resDelAddress({commit, state}, data) {
-      axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.delete&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=6502bf75e1e422f28b1116a00b6e74c9', {params: data.params})
+      axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.delete', {params: data.params})
         .then(function (res) {
           //删除地址成功重新请求地址列表
-          axios.get(baseUrl+'/app/index.php?t=16911&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.indexapp&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=5ec2bec56de4ed22e4149dbb3c82cc5c')
+          axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.indexapp&mid='+localStorage.getItem('userid'))
             .then(function (res) {
               commit({
                 type: 'saveAddress',
@@ -534,7 +483,7 @@ export default {
     },
     updateAddress({commit, state}, data) {
       console.log(data)
-      axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.submitapp&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=65f61bce1d5fe1c97a40ddf0edb449d0', {params: data.params})
+      axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.submitapp', {params: data.params})
         .then(function (res) {
           router.push({path: '/vipIndex/myAddress'})
         }).catch(function (err) {
@@ -542,7 +491,7 @@ export default {
       })
     },
     saveAddress({commit, state}, data) {
-      axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.submitapp&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=65f61bce1d5fe1c97a40ddf0edb449d0', {params: data.params})
+      axios.get(baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.submitapp&t='+t, {params: data.params})
         .then(function (res) {
           console.log('保存地址成功')
           router.push({path: '/vipIndex/myAddress'})
@@ -573,34 +522,29 @@ export default {
         data: data
       })
     },
-    updatePersonInfo({commit, state}, data) {
-      axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.info.submitapp&&state=we7sid-1fa768373e19fb6cacea1690c9cf9b04&sign=812f860da7c14dc7079e64b07b6242aa', {params: data.params})
-        .then(function (res) {
-          router.push({path: '/vipIndex'})
-        }).catch(function (err) {
-        alert(err)
-      })
-    },
     resMyOrder({commit, state}, data){
       var status=6;
       if(data.text=='全部'){status=6}else if(data.text=='待付款'){status=0}else if(data.text=='待发货'){status=1}else if(data.text=='待收货'){status=2}else if(data.text=='退换货'){status=4}
-      $.ajax({
-        type:"get",
-        url:baseUrl+"/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.index.get_list&sign=118b061a710a82fc1762d4af90412993&page=1&openid="+localStorage.getItem('openid')+"&status="+status,
-        dataType:"jsonp",    //跨域json请求一定是jsonp
-        jsonp: "jsonpcallback",    //跨域请求的参数名，默认是callback
-        success: function(res) {
+      var params={
+        status:status,
+        mid:localStorage.getItem('userid'),
+        page:1,
+        t:t
+      }
+      axios.get(baseUrl+"/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.index.get_list",{params:params})
+        .then(function (res) {
           commit({
             type:'saveMyOrder',
             res:res,
             orderStatus:status
           })
-        },
-        error: function(err) {console.log('请求失败')},
-      });
+        }).catch(function (err) {
+        alert(err)
+      })
     },
     resMyLike({commit, state}, data){
-      axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.favorite.get_list&state=we7sid-975167fc755bee24014a907c543d470a&sign=53dc9be5eeb273014547a514c8efd073&page=1')
+      console.log(data.params)
+      axios.get(baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.favorite.get_list&t='+t,{params:data.params})
         .then(function (res) {
           commit({
             type:'saveMyLikeData',
@@ -609,7 +553,7 @@ export default {
         }).catch(function (err) {console.log('请求失败')})
     },
     resZuji({commit, state}, data){
-      axios.get(baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.history.get_list&state=we7sid-975167fc755bee24014a907c543d470a&sign=feed173bdcf9295b285677c86c060149&page=1')
+      axios.get(baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.history.get_list&t='+t,{params:data.params})
         .then(function (res) {
           commit({
             type:'saveZujiData',
@@ -712,22 +656,23 @@ export default {
     },
     //个人中心
     saveWodeHeadData(state, data){
-      VueSet(state,'wodeHeadData',data.data)
+      VueSet(state,'wodeHeadData',data.data.data)
       if (state.wodeBodyData != {}) {
         router.push({path: '/vipIndex'})
       }
 
     },
     saveWodeBodyData(state, data) {
-      VueSet(state, 'wodeBodyData', data.data.module)
+      VueSet(state, 'wodeBodyData', data.data.data.module)
       if (state.wodeBodyData != {}) {
         router.push({path: '/vipIndex'})
       }
     },
     saveLoginInfo(state, data) {
-      VueSet(state, 'loginStatus', data.res.msg)
+      VueSet(state, 'loginStatus', data.res.data.msg)
     },
     saveVipInfoData(state, data){
+      console.log(data)
       VueSet(state,'vipInfoData',data.data)
       console.log(state.vipInfoData)
     },
@@ -750,9 +695,9 @@ export default {
       }
     },
     saveMyOrder(state, data){
-      VueSet(state,'myOrder',data.res)
+      console.log(data)
+      VueSet(state,'myOrder',data.res.data.result)
       VueSet(state,'orderStatus',data.orderStatus)
-      console.log(state.myOrder)
       if(state.myOrder!={}&&state.orderStatus!=null){
         router.push({path: '/vipIndex/order'})
       }

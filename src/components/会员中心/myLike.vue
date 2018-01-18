@@ -26,7 +26,11 @@
     },
     beforeCreate(){
       this.$store.dispatch({
-        type:'resMyLike'
+        type:'resMyLike',
+        params:{
+          page:1,
+          mid:localStorage.getItem('userid')
+        }
       })
     }
   }

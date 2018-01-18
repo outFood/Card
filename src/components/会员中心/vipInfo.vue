@@ -55,18 +55,22 @@
         this.$store.dispatch({
           type:'updatePersonInfo',
           params:{
-            birthday:'',
-            areas:this.areas,
-            mobile:this.mobile,
+            mid:localStorage.getItem('userid'),
             realname:this.realname,
-            weixin:this.weixin
+            mobile:this.mobile,
+            weixin:this.weixin,
+            areas:this.areas,
           }
         })
       },
     },
     beforeCreate(){
       this.$store.dispatch({
-        type:'resVipInfo'
+        type:'resVipInfo',
+        params:{
+          mid:localStorage.getItem('userid'),
+          openid:localStorage.getItem('openid')
+        },
       })
     }
   }

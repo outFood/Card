@@ -106,7 +106,11 @@
     },
     beforeCreate(){
       this.$store.dispatch({
-        type: 'resWode'
+        type: 'resWode',
+        params:{
+          mid:localStorage.getItem('userid'),
+          openid:localStorage.getItem('openid')
+        }
       })
     }
   }

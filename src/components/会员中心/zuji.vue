@@ -26,7 +26,11 @@
     },
     beforeCreate(){
       this.$store.dispatch({
-        type:'resZuji'
+        type:'resZuji',
+        params:{
+          page:1,
+          mid:localStorage.getItem('userid')
+        }
       })
     }
   }

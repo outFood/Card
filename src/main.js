@@ -57,7 +57,11 @@ window.app = new Vue({
   },
   created(){
     this.$store.dispatch({
-      type:'resHomeData'
+      type:'resHomeData',
+      params:{
+        id:12,
+        t:2
+      }
     })
   }
 })

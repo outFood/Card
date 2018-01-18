@@ -101,7 +101,7 @@
             params:{
               mobile:this.phone,
               password:this.pwd,
-              confirm_password:this.surePwd
+              confirm_password:this.surePwd,
             }
           })
         }

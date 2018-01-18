@@ -43,6 +43,7 @@
         this.$store.dispatch({
           type:'updateAddress',
           params:{
+            mid:localStorage.getItem('userid'),
             id:this.wantEditAddress.id,
             address:this.wantEditAddress.address,
             areas:this.wantEditAddress.province,

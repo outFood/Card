@@ -47,7 +47,7 @@
       lookOrder(text){
         this.$store.dispatch({
           type:'resMyOrder',
-          text:text
+          text:text,
         })
       }
     },

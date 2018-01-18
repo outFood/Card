@@ -71,9 +71,9 @@
 //          })
         }else{//请求个人中心
           console.log('个人中心')
-          this.$store.dispatch({
-            type: 'resWode'
-          })
+//          this.$store.dispatch({
+//            type: 'resWode'
+//          })
         }
       }
     },

@@ -49,7 +49,8 @@
             this.$store.dispatch({
               type:'resDelAddress',
               params:{
-                id:id
+                id:id,
+                mid:localStorage.getItem('userid')
               }
             })
           },

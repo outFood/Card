@@ -14,7 +14,6 @@
     <!--<brand></brand>-->
     <!--<pics></pics>-->
     <qqqqqq />
-    <merchgroup />
     <listnavigation />
     <footers/>
   </div>
@@ -41,7 +40,7 @@
   import titles from '@/components/商城首页/titles'
   import picwindow from '@/components/商城首页/picwindow'
   import qqqqqq from '@/components/商城首页/qqqqqq'
-  import merchgroup from '@/components/商城首页/merchgroup'
+  import shopList from '@/components/附近商家/shopList'
   import listnavigation from '@/components/商城首页/listnavigation'
   export default {
     data(){
@@ -63,7 +62,7 @@
       brand,
       pics,
       picwindow,
-      merchgroup,
+      shopList,
       listnavigation,
       titles,
       qqqqqq

@@ -34,15 +34,18 @@
     methods:{
       clickMenu(text){
         if(text=='分销中心'){
-          var isRegistAgent=localStorage.getItem('isRegistAgent')
-          var status=localStorage.getItem('status')
-          if(isRegistAgent==null&&status==null){//点击分销中心的时候，判断用户有没有注册过和是不是代理商
-            router.push({path:'/distributIndex/apply'})
-          }else if(isRegistAgent==true&&status!=1){
-            router.push({path:'/distributIndex/wait'})
-          }else{
-            router.push({path:'/distributIndex'})
-          }
+//          var isRegistAgent=localStorage.getItem('isRegistAgent')
+//          var status=localStorage.getItem('status')
+//          console.log(isRegistAgent)
+//          console.log(status)
+//          if(isRegistAgent==null&&status==null){//点击分销中心的时候，判断用户有没有注册过和是不是代理商
+//            router.push({path:'/distributIndex/apply'})
+//          }else if(isRegistAgent==true&&status!=1){
+//            router.push({path:'/distributIndex/wait'})
+//          }else{
+//            router.push({path:'/distributIndex'})
+//          }
+          router.push({path:'/distributIndex'})
         }else if(text=='代理中心'){
           router.push({path:'/agentIndex/daili'})
         }
