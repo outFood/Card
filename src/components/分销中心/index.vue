@@ -1,15 +1,15 @@
 <template>
-  <yd-layout title="分销中心" link="#" id="distribut">
+  <yd-layout title="分销中心" link="/shopIndex" id="distribut">
     <div class="head">
       <yd-flexbox class="line1">
-        <div class="left"><img src="http://static.ydcss.com/uploads/ydui/1.jpg"></div>
+        <div class="left"><img :src="fenxiao_headData.member.avatar"></div>
         <yd-flexbox-item>
           <h6>{{fenxiao_headData.member.nickname}}</h6>
           <i>[{{!fenxiao_headData.level ? (!fenxiao_headData.thisset.levelname ? '普通等级' : fenxiao_headData.thisset.levelname) : fenxiao_headData.level.levelname}}]</i>
           <span>{{fenxiao_headData.thisset.texts.up}}: {{!fenxiao_headData.up ? '总店' : fenxiao_headData.up.nickname}}</span>
           <span>本人ID:{{fenxiao_headData.member.id}}</span>
         </yd-flexbox-item>
-        <router-link to="#" class="right"><img src="/static/img/set.png"></router-link>
+        <router-link to="/distributIndex/xiaodian" class="right"><img src="/static/img/set.png"></router-link>
       </yd-flexbox>
       <yd-flexbox class="line2">
         <yd-flexbox-item>
@@ -112,9 +112,9 @@
       },
     },
     beforeCreate(){
-      this.$store.dispatch({
-        type:'resFenxiao'
-      })
+//      this.$store.dispatch({
+//        type:'resFenxiao'
+//      })
     },
   }
 </script>

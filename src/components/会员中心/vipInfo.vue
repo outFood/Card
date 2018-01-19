@@ -44,7 +44,7 @@
     },
     computed:{
       vipInfoData(){
-        return this.$store.state.vipInfoData
+        return this.$store.state.vipInfoData.data
       }
     },
     methods: {
@@ -94,8 +94,9 @@
   #vipInfo .updatePic img:nth-child(1){
     width:50px;
     height:50px;
+    vertical-align: middle;
   }
-  #vipInfo .updatePic span{
+  #vipInfo .updatePic div{
     flex: 0 0 70%;
     text-align: left;
     font-weight: bold;
