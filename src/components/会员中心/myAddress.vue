@@ -30,6 +30,7 @@
   </div>
 </template>
 <script>
+  import config from '../../../config'
   export default {
     data() {
       return {
@@ -50,7 +51,8 @@
               type:'resDelAddress',
               params:{
                 id:id,
-                mid:localStorage.getItem('userid')
+                mid:localStorage.getItem('userid'),
+                t:config.t
               }
             })
           },
@@ -67,7 +69,9 @@
         this.$store.dispatch({
           type:'defaultAddress',
           params:{
-            id:id
+            id:id,
+            t:config.t,
+            mid:config.mid
           }
         })
       },
@@ -80,7 +84,11 @@
     },
     beforeCreate(){
       this.$store.dispatch({
-        type:'resAddress'
+        type:'resAddress',
+        params:{
+          t:config.t,
+          mid:config.mid
+        }
       })
     }
   }

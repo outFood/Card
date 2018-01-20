@@ -1,5 +1,5 @@
 <template>
-  <div id="cart">
+  <div id="cart" v-if="cartData">
     <yd-navbar title="我的购物车">
       <router-link to="#" slot="left">
         <yd-navbar-back-icon></yd-navbar-back-icon>
@@ -45,6 +45,7 @@
   </div>
 </template>
 <script type="text/babel">
+  import config from '../../../config'
   import noData from '@/components/购物车/noData'
   export default {
     components:{noData},
@@ -93,7 +94,8 @@
             params:{
               total:total,
               optionid:arr[3],
-              id:arr[2]
+              id:arr[2],
+              t:config.t
             }
           })
           for(var k=0;k<this.cartData.list.length;k++){
@@ -109,7 +111,8 @@
             params:{
               total:total,
               optionid:arr[3],
-              id:arr[2]
+              id:arr[2],
+              t:config.t
             }
           })
           for(var k=0;k<this.cartData.list.length;k++){
@@ -135,7 +138,10 @@
             console.log(this.cartList)
             this.$store.dispatch({
               type:'cartDelete',
-              ids:this.cartList
+              params:{
+                ids:this.cartList,
+                t:config.t
+              }
             })
           }
           if(this.isCheckAll==true){
@@ -165,6 +171,11 @@
     beforeCreate(){
       this.$store.dispatch({
         type:'lookCart',
+        params:{
+          t:config.t,
+          mid:config.mid,
+          openid:config.openid
+        }
       })
     }
   }

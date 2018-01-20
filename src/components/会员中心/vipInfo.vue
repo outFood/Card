@@ -30,6 +30,7 @@
 <script>
   /* 前提是已经安装了 ydui-district */
   import District from 'ydui-district/dist/jd_province_city_area_id';
+  import config from '../../../config'
   export default {
     data(){
       return {
@@ -60,6 +61,7 @@
             mobile:this.mobile,
             weixin:this.weixin,
             areas:this.areas,
+            t:config.t
           }
         })
       },
@@ -68,8 +70,9 @@
       this.$store.dispatch({
         type:'resVipInfo',
         params:{
-          mid:localStorage.getItem('userid'),
-          openid:localStorage.getItem('openid')
+          mid:config.mid,
+          openid:config.openid,
+          t:config.t
         },
       })
     }

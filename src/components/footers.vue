@@ -62,9 +62,9 @@
         }else if(path=='eChart'){//请求E聊
           console.log('eChart')
         }else if(path=='fujin'){//请求附近
-          this.$store.dispatch({
-            type:'resFujinData'
-          })
+//          this.$store.dispatch({
+//            type:'resFujinData'
+//          })
         }else if(path=='cart'){
 //          this.$store.dispatch({
 //            type:'lookCart',

@@ -25,6 +25,7 @@
 <script>
   /* 前提是已经安装了 ydui-district */
   import District from 'ydui-district/dist/jd_province_city_area_id';
+  import config from '../../../config'
   export default {
     data(){
       return{
@@ -41,14 +42,15 @@
     methods:{
       updateAddress(){
         this.$store.dispatch({
-          type:'updateAddress',
+          type:'saveAddress',
           params:{
-            mid:localStorage.getItem('userid'),
-            id:this.wantEditAddress.id,
-            address:this.wantEditAddress.address,
-            areas:this.wantEditAddress.province,
+            realname:this.wantEditAddress.realname,
             mobile:this.wantEditAddress.mobile,
-            realname:this.wantEditAddress.realname
+            areas:this.wantEditAddress.province,
+            address:this.wantEditAddress.address,
+            id:this.wantEditAddress.id,
+            mid:localStorage.getItem('userid'),
+            t:config.t
           }
         })
       },

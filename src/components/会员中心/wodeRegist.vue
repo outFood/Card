@@ -50,6 +50,7 @@
 </template>
 
 <script>
+  import config from '../../../config'
   export default {
     data() {
       return {
@@ -102,6 +103,7 @@
               mobile:this.phone,
               password:this.pwd,
               confirm_password:this.surePwd,
+              t:config.t
             }
           })
         }

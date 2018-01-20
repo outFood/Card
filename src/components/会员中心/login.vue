@@ -34,6 +34,7 @@
 </template>
 
 <script>
+  import config from '../../../config'
   import router from '@/router'
   export default {
     data() {
@@ -73,6 +74,7 @@
           params:{
             mobile:this.phone,
             password:this.pwd,
+            t:config.t
           }
         })
       }

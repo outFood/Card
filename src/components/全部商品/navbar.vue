@@ -65,6 +65,7 @@
 </template>
 <script>
   import router from '@/router'
+  import config from '../../../config'
   export default {
     data(){
       return{
@@ -106,7 +107,6 @@
           payStatus:status
         })
         this.show2=true
-        console.log(this.show2)
       },
       selColorSize(id){
         this.optionid=id
@@ -117,7 +117,8 @@
           params:{
             total:this.payNumber,
             optionid:this.optionid,
-            id:this.commodityid
+            id:this.commodityid,
+            t:config.t
           }
         })
         this.show2 = false

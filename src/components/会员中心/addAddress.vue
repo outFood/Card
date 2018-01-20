@@ -23,6 +23,7 @@
   </div>
 </template>
 <script>
+  import config from '../../../config'
   /* 前提是已经安装了 ydui-district */
   import District from 'ydui-district/dist/jd_province_city_area_id';
   export default {
@@ -45,7 +46,8 @@
             mobile:this.mobile,
             areas:this.areas,
             address:this.address,
-            mid:localStorage.getItem('userid')
+            mid:localStorage.getItem('userid'),
+            t:config.t
           }
         })
       },

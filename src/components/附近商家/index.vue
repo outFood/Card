@@ -26,6 +26,7 @@
   }
 </style>
 <script type="text/babel">
+  import config from '../../../config'
   import position from '@/components/附近商家/position'
   import banner from '@/components/附近商家/banner'
   import menu2 from '@/components/商城首页/menu2'
@@ -49,10 +50,18 @@
       resExclusiveShopData(id) {
         this.$store.dispatch({
           type: 'resExclusiveShopData',
-          id: id
+          params:{
+            merchid: id,
+            t:config.t
+          }
         })
       }
     },
-    components: {position,banner,menu2,youxuan,shopList}
+    components: {position,banner,menu2,youxuan,shopList},
+    beforeCreate(){
+      this.$store.dispatch({
+        type:'resFujinData'
+      })
+    }
   }
 </script>

@@ -133,6 +133,7 @@
   }
 </style>
 <script>
+  import config from '../../../config'
   export default {
     methods:{
       resCommodityListData(name){
@@ -148,7 +149,10 @@
         console.log('ppp')
         this.$store.dispatch({
           type:'resCommodityDetailData',
-          id:id
+          params:{
+            id:id,
+            t:config.t
+          }
         })
       }
     },
@@ -193,7 +197,7 @@
     },
     beforeCreate(){
       this.$store.dispatch({
-        type:'resSortData'
+        type:'resSortData',
       })
     }
   }

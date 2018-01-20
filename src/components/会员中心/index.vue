@@ -1,5 +1,5 @@
 <template>
-  <div id="vip">
+  <div id="vip" v-if="wodeHeadData&&wodeBodyData">
     <yd-navbar title="会员中心">
       <router-link to="#" slot="left">
         <yd-navbar-back-icon></yd-navbar-back-icon>
@@ -45,15 +45,15 @@
         <div>查看全部订单 <img src="/static/img/more.png" alt=""></div>
       </router-link>
       <div class="bottom">
-        <router-link to="#" v-for="(item,key) in orderData" :key="key"  @click.native="lookOrder(item.text)"><img src="http://static.ydcss.com/uploads/ydui/1.jpg">{{item.text}}</router-link>
+        <router-link to="#" v-for="(item,key) in wodeBodyData.menu.data" :key="key"  @click.native="lookOrder(item.text)"><img src="http://static.ydcss.com/uploads/ydui/1.jpg">{{item.text}}</router-link>
       </div>
     </div>
-    <div class="other" v-if="menuData!=[]">
+    <div class="other">
       <div class="other-head">
         其他
       </div>
       <div class="other-content">
-        <router-link v-for="(item,key) in menuData" :key="key" to="#" @click.native="toOther(item.text)"><img src="http://static.ydcss.com/uploads/ydui/1.jpg">{{item.text}}
+        <router-link v-for="(item,key) in wodeBodyData.listmenu.data" :key="key" to="#" @click.native="toOther(item.text)"><img src="http://static.ydcss.com/uploads/ydui/1.jpg">{{item.text}}
         </router-link>
       </div>
     </div>
@@ -73,12 +73,15 @@
       wodeHeadData(){
         return this.$store.state.wodeHeadData
       },
-      menuData() {
-        return this.$store.state.wodeBodyData.listmenu.data
+      wodeBodyData(){
+        return this.$store.state.wodeBodyData
       },
-      orderData(){
-        return this.$store.state.wodeBodyData.menu.data
-      },
+//      menuData() {
+//        return this.$store.state.wodeBodyData.listmenu.data
+//      },
+//      orderData(){
+//        return this.$store.state.wodeBodyData.menu.data
+//      },
       loginStatus(){
         return this.$store.state.loginStatus
       }
@@ -107,10 +110,6 @@
     beforeCreate(){
       this.$store.dispatch({
         type: 'resWode',
-        params:{
-          mid:localStorage.getItem('userid'),
-          openid:localStorage.getItem('openid')
-        }
       })
     }
   }

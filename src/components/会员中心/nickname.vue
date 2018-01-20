@@ -13,6 +13,7 @@
 
 </template>
 <script>
+  import config from '../../../config'
   import Exif from 'exif-js'
 
   export default {
@@ -193,7 +194,8 @@
             mid:localStorage.getItem('userid'),
             openid:localStorage.getItem('openid'),
             nickname:this.nickname,
-            headStr:this.headerImage
+            headStr:this.headerImage,
+            t:config.t
           }
         })
       }

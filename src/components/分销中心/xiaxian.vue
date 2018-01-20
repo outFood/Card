@@ -44,6 +44,7 @@
   </yd-layout>
 </template>
 <script>
+  import config from '../../../config'
   export default {
     data(){
       return{
@@ -52,7 +53,12 @@
     },
     beforeCreate(){
       this.$store.dispatch({
-        type:'resXiaXian'
+        type:'resXiaXian',
+        params:{
+          openid:config.openid,
+          mid:config.mid,
+          t:config.t
+        }
       })
     }
   }

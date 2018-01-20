@@ -61,6 +61,7 @@
   </div>
 </template>
 <script>
+  import config from '../../../config'
   export default {
     data(){
       return{
@@ -121,7 +122,8 @@
               mobile:this.mobile,
               weixin:this.weixin,
               openid:localStorage.getItem('openid'),
-              cl:'1'
+              cl:'1',
+              t:config.t
             }
           })
         }
