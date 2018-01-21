@@ -25,7 +25,7 @@
 <script>
   /* 前提是已经安装了 ydui-district */
   import District from 'ydui-district/dist/jd_province_city_area_id';
-  import config from '../../../config'
+  import config from '../../myConfig'
   export default {
     data(){
       return{

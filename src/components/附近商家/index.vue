@@ -26,7 +26,7 @@
   }
 </style>
 <script type="text/babel">
-  import config from '../../../config'
+  import config from '../../myConfig'
   import position from '@/components/附近商家/position'
   import banner from '@/components/附近商家/banner'
   import menu2 from '@/components/商城首页/menu2'
@@ -59,6 +59,7 @@
     },
     components: {position,banner,menu2,youxuan,shopList},
     beforeCreate(){
+      console.log('哈哈哈')
       this.$store.dispatch({
         type:'resFujinData'
       })

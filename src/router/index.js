@@ -183,7 +183,7 @@ export default new Router({
       component: eChart
     },
     {
-      path: '/fujinIndex',
+      path: '/fujin',
       component: fujinHome,
       children:[
         {

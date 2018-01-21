@@ -44,7 +44,7 @@
   </yd-layout>
 </template>
 <script>
-  import config from '../../../config'
+  import config from '../../myConfig'
   export default {
     data(){
       return{
@@ -55,7 +55,7 @@
       this.$store.dispatch({
         type:'resXiaXian',
         params:{
-          openid:config.openid,
+          openid:localStorage.getItem('openid'),
           mid:config.mid,
           t:config.t
         }

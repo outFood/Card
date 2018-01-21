@@ -61,7 +61,7 @@
   </div>
 </template>
 <script>
-  import config from '../../../config'
+  import config from '../../myConfig'
   export default {
     data(){
       return{

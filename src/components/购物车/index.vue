@@ -45,7 +45,7 @@
   </div>
 </template>
 <script type="text/babel">
-  import config from '../../../config'
+  import config from '../../myConfig'
   import noData from '@/components/购物车/noData'
   export default {
     components:{noData},
@@ -173,8 +173,8 @@
         type:'lookCart',
         params:{
           t:config.t,
-          mid:config.mid,
-          openid:config.openid
+          mid:localStorage.getItem('userid'),
+          openid:localStorage.getItem('openid')
         }
       })
     }

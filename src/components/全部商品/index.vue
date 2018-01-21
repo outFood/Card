@@ -133,7 +133,7 @@
   }
 </style>
 <script>
-  import config from '../../../config'
+  import config from '../../myConfig'
   export default {
     methods:{
       resCommodityListData(name){

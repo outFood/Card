@@ -23,7 +23,7 @@
   </div>
 </template>
 <script>
-  import config from '../../../config'
+  import config from '../../myConfig'
   /* 前提是已经安装了 ydui-district */
   import District from 'ydui-district/dist/jd_province_city_area_id';
   export default {

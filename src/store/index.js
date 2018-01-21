@@ -2,7 +2,7 @@ import axios from 'axios'
 import $ from 'jquery';
 import Vue from 'Vue'
 import router from '@/router'
-import config from '../../config'
+import config from '../myConfig'
 const VueSet = Vue.set
 
 export default {
@@ -285,7 +285,7 @@ export default {
     resPrice({commit, state}, data){
       var params={
         mid:config.mid,
-        openid:config.openid,
+        openid:localStorage.getItem('openid'),
         t:config.t
       }
       axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.withdraw.get_main&i=1691',params)
@@ -299,7 +299,7 @@ export default {
     resTiXian({commit, state}, data){
       var params={
         mid:config.mid,
-        openid:config.openid,
+        openid:localStorage.getItem('openid'),
         t:config.t
       }
       axios.get(config.baseUrl+"/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.log.get_list&i=1691",params)
@@ -319,7 +319,7 @@ export default {
         }).catch(function (err) {console.log('请求失败:'+err)})
     },
     resTuiGuang({commit, state}, data){
-      axios.get(config.baseUrl+"/app/index.php?i=1691&c=entry&m=ewei_shopv2&do=mobile&r=commission.qrcode.get_main&mid="+config.mid)
+      axios.get(config.baseUrl+"/app/index.php?i=1691&c=entry&m=ewei_shopv2&do=mobile&r=commission.qrcode.get_main&mid="+localStorage.getItem('userid'))
         .then(function (res) {
           console.log(res)
           // commit({
@@ -332,7 +332,7 @@ export default {
       var params={
         t:config.t,
         mid:config.mid,
-        openid:config.openid
+        openid:localStorage.getItem('openid')
       }
       axios.get(config.baseUrl+"/app/index.php?i=1691&c=entry&m=ewei_shopv2&do=mobile&r=commission.myshop.set.get_main",params)
         .then(function (res) {
@@ -423,7 +423,7 @@ export default {
       axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.delete', {params: data.params})
         .then(function (res) {
           //删除地址成功重新请求地址列表
-          axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.indexapp&mid='+config.mid+'&t='+config.t)
+          axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.indexapp&mid='+localStorage.getItem('userid')+'&t='+config.t)
             .then(function (res) {
               commit({
                 type: 'saveAddress',
@@ -455,7 +455,7 @@ export default {
       axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.setdefault&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=56270194a41701253e0ca556eb6c9312', {params: data.params})
         .then(function (res) {
           //设置默认地址成功重新请求地址列表
-          axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.indexapp&mid='+config.mid+'&t='+config.t)
+          axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.indexapp&mid='+localStorage.getItem('userid')+'&t='+config.t)
             .then(function (res) {
               commit({
                 type: 'saveAddress',

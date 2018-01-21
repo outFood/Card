@@ -13,7 +13,7 @@
   </yd-layout>
 </template>
 <script>
-  import config from '../../../config'
+  import config from '../../myConfig'
   export default {
     data(){
       return{
@@ -30,7 +30,7 @@
         type:'resMyLike',
         params:{
           page:1,
-          mid:config.mid,
+          mid:localStorage.getItem('userid'),
           t:config.t
         }
       })

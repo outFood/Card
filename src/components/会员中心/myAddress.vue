@@ -30,7 +30,7 @@
   </div>
 </template>
 <script>
-  import config from '../../../config'
+  import config from '../../myConfig'
   export default {
     data() {
       return {
@@ -87,7 +87,7 @@
         type:'resAddress',
         params:{
           t:config.t,
-          mid:config.mid
+          mid:localStorage.getItem('userid')
         }
       })
     }

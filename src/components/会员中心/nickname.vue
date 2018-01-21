@@ -13,7 +13,7 @@
 
 </template>
 <script>
-  import config from '../../../config'
+  import config from '../../myConfig'
   import Exif from 'exif-js'
 
   export default {

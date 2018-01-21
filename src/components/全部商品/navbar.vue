@@ -65,7 +65,7 @@
 </template>
 <script>
   import router from '@/router'
-  import config from '../../../config'
+  import config from '../../myConfig'
   export default {
     data(){
       return{

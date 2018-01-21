@@ -34,7 +34,7 @@
 </template>
 
 <script>
-  import config from '../../../config'
+  import config from '../../myConfig'
   import router from '@/router'
   export default {
     data() {
