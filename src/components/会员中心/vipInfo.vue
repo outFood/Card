@@ -10,7 +10,7 @@
     </router-link>
     <div class="detailInfo">
       <div>姓名 <span>*</span><input :placeholder="vipInfoData.realname==''?'请输入姓名':vipInfoData.realname" v-model="realname"></div>
-      <div>手机号 <span>*</span><input :placeholder="vipInfoData.mobile==''?'请输入手机号':vipInfoData.mobile" v-model="mobile"></div>
+      <div>手机号 <span>*</span><input placeholder="请输入手机号" v-model="mobile"></div>
       <div>微信号 <span>*</span><input :placeholder="vipInfoData.weixin==''?'请输入微信号':vipInfoData.weixin" v-model="weixin"></div>
     </div>
     <yd-cell-group>
@@ -45,7 +45,7 @@
     },
     computed:{
       vipInfoData(){
-        return this.$store.state.vipInfoData.data
+        return this.$store.state.vipInfoData
       }
     },
     methods: {

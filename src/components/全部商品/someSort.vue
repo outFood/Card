@@ -78,6 +78,7 @@
   </div>
 </template>
 <script>
+  import config from '../../myConfig'
   import router from '@/router'
   export default {
     data(){
@@ -167,7 +168,10 @@
         console.log('ppp')
         this.$store.dispatch({
           type:'resCommodityDetailData',
-          id:id
+          params:{
+            id:id,
+            t:config.t
+          }
         })
       }
     }

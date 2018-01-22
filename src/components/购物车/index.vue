@@ -8,7 +8,7 @@
         <span v-if="delShow==false">编辑</span><span v-else>完成</span>
       </router-link>
     </yd-navbar>
-    <div class="shop">
+    <div class="shop" v-if="cartData.list.length>0">
       <yd-checklist v-model="cartList" ref="checklistDemo" :callback="change"  :label="false">
         <yd-checklist-item v-for="(item,key) in cartData.list" :key="key" :val="item.id">
           <img :src="item.thumb">
@@ -40,7 +40,7 @@
         <div class="delete" :class="{redDelete:cartList.length}" @click="addOrReduceOrDel(['删除'])">删除</div>
       </div>
     </div>
-    <no-data></no-data>
+    <no-data v-else></no-data>
     <footers></footers>
   </div>
 </template>
@@ -95,7 +95,9 @@
               total:total,
               optionid:arr[3],
               id:arr[2],
-              t:config.t
+              t:config.t,
+              mid:localStorage.getItem('userid'),
+              openid:localStorage.getItem('openid')
             }
           })
           for(var k=0;k<this.cartData.list.length;k++){
@@ -112,7 +114,9 @@
               total:total,
               optionid:arr[3],
               id:arr[2],
-              t:config.t
+              t:config.t,
+              mid:localStorage.getItem('userid'),
+              openid:localStorage.getItem('openid')
             }
           })
           for(var k=0;k<this.cartData.list.length;k++){
@@ -121,10 +125,16 @@
                 this.cartData.list[k].total--;
                 this.totalPrice-=this.cartData.list[k].ggprice;
               }else if(this.cartData.list[k].total==1){
+                console.log([arr[2]])
                 //如果减少到数量为一的时候，做删除的操作
                 this.$store.dispatch({
                   type:'cartDelete',
-                  ids:[arr[2]]
+                  params:{
+                    ids:[arr[2]],
+                    t:config.t,
+                    mid:localStorage.getItem('userid'),
+                    openid:localStorage.getItem('openid')
+                  }
                 })
                 this.totalPrice-=this.cartData.list[k].ggprice
                 this.cartData.list.splice(k,1)
@@ -173,6 +183,7 @@
         type:'lookCart',
         params:{
           t:config.t,
+          uniacid:config.uniacid,
           mid:localStorage.getItem('userid'),
           openid:localStorage.getItem('openid')
         }

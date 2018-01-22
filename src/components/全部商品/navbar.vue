@@ -118,7 +118,10 @@
             total:this.payNumber,
             optionid:this.optionid,
             id:this.commodityid,
-            t:config.t
+            t:config.t,
+            mid:localStorage.getItem('userid'),
+            openid:localStorage.getItem('openid'),
+            uniacid:config.uniacid
           }
         })
         this.show2 = false
@@ -127,6 +130,12 @@
         if(icontext=='购物车'){
           this.$store.dispatch({
             type:'lookCart',
+            params:{
+              t:config.t,
+              uniacid:config.uniacid,
+              mid:localStorage.getItem('userid'),
+              openid:localStorage.getItem('openid')
+            }
           })
         }
       }

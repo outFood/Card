@@ -16,7 +16,7 @@ export default {
         '/vip/': '会员中心',
       },
       homeData: {},
-      prefix: 'https://xcx.xcwll.cn/attachment/',//附加前缀
+      prefix: 'http://cscs.ylhhyk.com/attachment/',//附加前缀
       pageNum: 0,
       //分类
       sortData: {},
@@ -65,7 +65,7 @@ export default {
   actions: {
     //首页
     resHomeData({commit, state}, data) {
-      axios.get(config.baseUrl+'/app/index.php?c=wxapp&a=module&do=main&id=12&uniacid=2')
+      axios.get(config.baseUrl+'/app/index.php?c=wxapp&a=module&do=main&id=12&uniacid='+config.uniacid)
         .then(function (res) {
           commit({
             type: 'saveHomeData',
@@ -93,8 +93,7 @@ export default {
     // },
     //分类
     resSortData({commit, state}, data) {
-      console.log(data)
-      axios.get(config.baseUrl+'/bale/api.php?mod=category&uniacid=2')
+      axios.get(config.baseUrl+'/bale/api.php?mod=category&uniacid='+config.uniacid)
         .then(function (res) {
           commit({
             type: 'saveSortData',
@@ -115,6 +114,7 @@ export default {
 
     },
     resCommodityDetailData({commit, state}, data) {
+      console.log(data)
       function commodityDetailData() {
         return axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.detailapp.get_detailapp',{params:data.params})
       }
@@ -152,11 +152,9 @@ export default {
       })
     },
     cartOrPay({commit, state}, data) {
-      console.log(data)
       if (state.payStatus == '加入购物车') {
         axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.add', {params: data.params})
           .then(function (res) {
-            console.log(res)
             commit({
               type: 'saveCartcount',
               data: res
@@ -178,7 +176,7 @@ export default {
     },
     //查看购物车
     lookCart({commit, state}, data) {
-      axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.get_list')
+      axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.get_list',{params:data.params})
         .then(function (res) {
           commit({
             type: 'saveCartData',
@@ -197,7 +195,7 @@ export default {
     },
     cartDelete({commit, state}, data) {
       console.log(data)
-      axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.remove&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=4ef7ee8a48b806ac9c01ab9bbeb27e7e',{params:data.params})
+      axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.remove',{params:data.params})
         .then(function (res) {
           commit({
             type: 'saveCartcount',
@@ -259,7 +257,8 @@ export default {
     },
     resFenxiao({commit, state}, data) {
       var headPrams={
-          t:t,
+          t:config.t,
+          uniacid:config.uniacid,
           openid:localStorage.getItem('openid'),
           mid:localStorage.getItem('userid')
         }
@@ -272,7 +271,7 @@ export default {
           })
         }).catch(function (err) {console.log('请求失败:'+err)})
       //请求BodyData
-      axios.get(config.baseUrl+'/app/index.php?c=wxapp&a=module&do=nav&uniacid=1691&type=4')
+      axios.get(config.baseUrl+'/app/index.php?c=wxapp&a=module&do=nav&type=4&uniacid='+config.uniacid)
         .then(function (res) {
           commit({
             type:'saveFenxiaoBody',
@@ -355,7 +354,7 @@ export default {
           })
         }).catch(function (err) {console.log('请求失败:'+err)})
       //请求wodeBodyData
-      axios.get(config.baseUrl+"/app/index.php?c=wxapp&a=module&do=nav&uniacid=1691&type=3")
+      axios.get(config.baseUrl+"/app/index.php?c=wxapp&a=module&do=nav&type=3&uniacid="+config.uniacid)
         .then(function (res) {
           commit({
             type:'saveWodeBodyData',
@@ -386,7 +385,7 @@ export default {
         }).catch(function (err) {console.log('请求失败:'+err)})
     },
     resVipInfo({commit, state}, data){
-      axios.get(config.baseUrl+"/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.info.get_main",data.params)
+      axios.get(config.baseUrl+"/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.info.get_main",{params:data.params})
         .then(function (res) {
           commit({
             type:'saveVipInfoData',
@@ -528,12 +527,11 @@ export default {
     },
     //分类
     saveSortData(state, data) {
-      console.log(data)
       VueSet(state, 'sortData', data.res.data)
+      console.log(state.sortData)
     },
     saveCommodityListData(state, data) {//商品列表
       VueSet(state, 'commodityListData', data.res.data.result)
-      console.log(state.commodityListData)
       if (state.commodityListData != {}) {
         router.push({path: '/sortIndex/someSort'})
       }
@@ -633,7 +631,8 @@ export default {
       VueSet(state, 'loginStatus', data.res.data.msg)
     },
     saveVipInfoData(state, data){
-      VueSet(state,'vipInfoData',data.data)
+      console.log(data)
+      VueSet(state,'vipInfoData',data.data.data.result.member)
       console.log(state.vipInfoData)
     },
     saveAddress(state, data) {

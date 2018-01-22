@@ -146,7 +146,6 @@
         })
       },
       resCommodityDetailData(id){
-        console.log('ppp')
         this.$store.dispatch({
           type:'resCommodityDetailData',
           params:{
@@ -164,33 +163,47 @@
         return this.$store.state.prefix
       },
       parent(){
+        var keys=[]
+        for(var key in this.$store.state.sortData.children){
+          keys.push(key)
+        }
+        for(var i=0;i<this.$store.state.sortData.parent.length;i++){
+          var count=0;
+          for(var k in this.$store.state.sortData.children[keys[i]][0]){
+            count++
+            this.$store.state.sortData.children[keys[i]][0]
+          }
+          this.$store.state.sortData.parent[i].curSort=this.$store.state.sortData.children[keys[i]]
+          if(count>20){
+            this.$store.state.sortData.parent[i].isSecondSort=false
+          }else{
+            this.$store.state.sortData.parent[i].isSecondSort=true
+          }
+        }
         return this.$store.state.sortData.parent
       },
       children(){
+        var keys=[]
+        for(var key in this.$store.state.sortData.children){
+          keys.push(key)
+        }
+        for(var i=0;i<this.$store.state.sortData.parent.length;i++){
+          var count=0;
+          for(var k in this.$store.state.sortData.children[keys[i]][0]){
+            count++
+            this.$store.state.sortData.children[keys[i]][0]
+          }
+          this.$store.state.sortData.parent[i].curSort=this.$store.state.sortData.children[keys[i]]
+          if(count>20){
+            this.$store.state.sortData.parent[i].isSecondSort=false
+          }else{
+            this.$store.state.sortData.parent[i].isSecondSort=true
+          }
+        }
         return this.$store.state.sortData.children
       }
     },
     created(){
-      var keys=[]
-      setTimeout(()=>{
-        for(var key in this.children){
-          keys.push(key)
-          console.log(key)
-        }
-        for(var i=0;i<this.parent.length;i++){
-          var count=0;
-          for(var k in this.children[keys[i]][0]){
-            count++
-            this.children[keys[i]][0]
-          }
-          this.parent[i].curSort=this.children[keys[i]]
-          if(count>20){
-            this.parent[i].isSecondSort=false
-          }else{
-            this.parent[i].isSecondSort=true
-          }
-        }
-      },1000)
       console.log(this.parent)
       console.log(this.children)
 
