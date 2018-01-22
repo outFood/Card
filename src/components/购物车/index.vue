@@ -130,10 +130,10 @@
                 this.$store.dispatch({
                   type:'cartDelete',
                   params:{
+                    mid:localStorage.getItem('userid'),
+                    openid:localStorage.getItem('openid'),
                     ids:[arr[2]],
                     t:config.t,
-                    mid:localStorage.getItem('userid'),
-                    openid:localStorage.getItem('openid')
                   }
                 })
                 this.totalPrice-=this.cartData.list[k].ggprice
@@ -149,8 +149,10 @@
             this.$store.dispatch({
               type:'cartDelete',
               params:{
+                mid:localStorage.getItem('userid'),
+                openid:localStorage.getItem('openid'),
                 ids:this.cartList,
-                t:config.t
+                t:config.t,
               }
             })
           }
@@ -173,7 +175,12 @@
                 console.log(this.cartList)
           this.$store.dispatch({
             type:'cartDelete',
-            ids:this.cartList
+            params:{
+              mid:localStorage.getItem('userid'),
+              openid:localStorage.getItem('openid'),
+              ids:this.cartList,
+              t:config.t,
+            }
           })
         }
       }

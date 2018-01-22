@@ -195,6 +195,7 @@ export default {
     },
     cartDelete({commit, state}, data) {
       console.log(data)
+      console.log('哈哈哈')
       axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.remove',{params:data.params})
         .then(function (res) {
           commit({
