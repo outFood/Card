@@ -58,6 +58,8 @@
   #gonggao .yd-rollnotice{
     border-left:1px solid #eee;
     background: transparent;
+    text-align: left;
+    padding-left:10px;
   }
   #gonggao .yd-rollnotice a{
     width:100%;

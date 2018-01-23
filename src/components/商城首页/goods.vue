@@ -4,32 +4,48 @@
       <div v-for="(item,key) in goodsItem">
         <img :src="prefix+item.thumb" alt="">
         <div  class="lastdiv"><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}">{{item.title}}</span></p>
-          <p><span class="price" :style="{color:goodsData.style.pricecolor}">￥{{item.price}}</span><span class="duihuan" :style="{background:goodsData.style.buybtncolor}">兑换</span></p>
-          <p><i :class="{linethrough:goodsData.params.productpriceline==1}" :style="{color:goodsData.style.productpricecolor}">{{goodsData.params.productpricetext}}:￥{{goodsData.params.productprice}}</i><i :style="{color:goodsData.style.salescolor}">{{goodsData.params.salestext}}:</i></p></div>
+          <p>
+            <span class="price" :style="{color:goodsData.style.pricecolor}">￥{{item.price}}</span>
+            <span class="buyBtn1" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-1'"><img src="/static/img/cart.png" alt=""></span>
+            <span class="buyBtn2" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-2'">+</span>
+            <span class="buyBtn3" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-3'">兑换</span></p>
+          <p><i :class="{linethrough:goodsData.params.productpriceline==1}" :style="{color:goodsData.style.productpricecolor}">{{goodsData.params.productpricetext}}:￥{{item.productprice}}</i><i :style="{color:goodsData.style.salescolor}">{{goodsData.params.salestext}}:{{item.sales}}</i></p></div>
       </div>
     </div>
     <div class="showMethod2"  v-if="listStyle==2">
       <div v-for="(item,key) in goodsItem">
         <img :src="prefix+item.thumb" alt="">
         <div class="lastdiv"><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}">{{item.title}}</span></p>
-          <p><span class="price" :style="{color:goodsData.style.pricecolor}">￥{{item.price}}</span><span class="duihuan" :style="{background:goodsData.style.buybtncolor}">兑换</span></p>
-          <p><i :class="{linethrough:goodsData.params.productpriceline==1}" :style="{color:goodsData.style.productpricecolor}">{{goodsData.params.productpricetext}}:￥{{goodsData.params.productprice}}</i><i :style="{color:goodsData.style.salescolor}">{{goodsData.params.salestext}}:</i></p></div>
+          <p>
+            <span class="price" :style="{color:goodsData.style.pricecolor}">￥{{item.price}}</span>
+            <span class="buyBtn1" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-1'"><img src="/static/img/cart.png" alt=""></span>
+            <span class="buyBtn2" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-2'">+</span>
+            <span class="buyBtn3" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-3'">兑换</span></p>
+          <p><i :class="{linethrough:goodsData.params.productpriceline==1}" :style="{color:goodsData.style.productpricecolor}">{{goodsData.params.productpricetext}}:￥{{item.productprice}}</i><i :style="{color:goodsData.style.salescolor}">{{goodsData.params.salestext}}:{{item.sales}}</i></p></div>
       </div>
     </div>
     <div class="showMethod3" v-if="listStyle==3">
       <div v-for="(item,key) in goodsItem">
         <img :src="prefix+item.thumb" alt="">
         <div class="lastdiv"><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}">{{item.title}}</span></p>
-          <p><span class="price" :style="{color:goodsData.style.pricecolor}">￥{{item.price}}</span><span class="duihuan" :style="{background:goodsData.style.buybtncolor}">兑换</span></p>
-          <p><i :class="{linethrough:goodsData.params.productpriceline==1}" :style="{color:goodsData.style.productpricecolor}">{{goodsData.params.productpricetext}}:￥{{goodsData.params.productprice}}</i><i :style="{color:goodsData.style.salescolor}">{{goodsData.params.salestext}}:</i></p></div>
+          <p>
+            <span class="price" :style="{color:goodsData.style.pricecolor}">￥{{item.price}}</span>
+            <span class="buyBtn1" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-1'"><img src="/static/img/cart.png" alt=""></span>
+            <span class="buyBtn2" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-2'">+</span>
+            <span class="buyBtn3" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-3'">兑换</span></p>
+          <p><i :class="{linethrough:goodsData.params.productpriceline==1}" :style="{color:goodsData.style.productpricecolor}">{{goodsData.params.productpricetext}}:￥{{item.productprice}}</i><i :style="{color:goodsData.style.salescolor}">{{goodsData.params.salestext}}:{{item.sales}}</i></p></div>
       </div>
     </div>
     <div class="showMethod4" v-if="listStyle==0">
       <div v-for="(item,key) in goodsItem">
         <img :src="prefix+item.thumb" alt="">
         <div class="lastdiv rightdiv"><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}">{{item.title}}</span></p>
-          <p><span class="price" :style="{color:goodsData.style.pricecolor}">￥{{item.price}}</span><span class="duihuan" :style="{background:goodsData.style.buybtncolor}">兑换</span></p>
-          <p><i :class="{linethrough:goodsData.params.productpriceline==1}" :style="{color:goodsData.style.productpricecolor}">{{goodsData.params.productpricetext}}:￥{{goodsData.params.productprice}}</i><i :style="{color:goodsData.style.salescolor}">{{goodsData.params.salestext}}:</i></p></div>
+          <p>
+            <span class="price" :style="{color:goodsData.style.pricecolor}">￥{{item.price}}</span>
+            <span class="buyBtn1" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-1'"><img src="/static/img/cart.png" alt=""></span>
+            <span class="buyBtn2" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-2'">+</span>
+            <span class="buyBtn3" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-3'">兑换</span></p>
+          <p><i :class="{linethrough:goodsData.params.productpriceline==1}" :style="{color:goodsData.style.productpricecolor}">{{goodsData.params.productpricetext}}:￥{{item.productprice}}</i><i :style="{color:goodsData.style.salescolor}">{{goodsData.params.salestext}}:{{item.sales}}</i></p></div>
       </div>
     </div>
   </div>
@@ -73,7 +89,32 @@
   #goods p .price{
     margin-right:10px;
   }
-  #goods p .duihuan{
+  #goods p .buyBtn1{
+    display: inline-block;
+    width:25px;
+    height:25px;
+    border-radius: 50%;
+    line-height: 36px;
+    text-align: center;
+    float: right;
+  }
+  #goods p .buyBtn1 img{
+    width:20px;
+    height:20px;
+    margin:0 auto;
+  }
+  #goods p .buyBtn2{
+    display: inline-block;
+    width:25px;
+    height:25px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 25px;
+    font-size:20px;
+    color:#fff;
+    float: right;
+  }
+  #goods p .buyBtn3{
     padding:2px 5px;
     border-radius: 3px;
     color:#fff;
@@ -107,6 +148,9 @@
   }
   #goods .lastdiv{
     padding:10px;
+  }
+  #goods .lastdiv p:nth-child(3) i:nth-child(2){
+    margin-left:10px;
   }
   #goods .showMethod4 .rightdiv{
     width:70%

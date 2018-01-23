@@ -3,18 +3,13 @@
     <fixedsearch></fixedsearch>
     <payment></payment>
     <banner></banner>
-    <!--<titles></titles>-->
     <notice></notice>
-    <!--<picwindow></picwindow>-->
-    <!--<searchinput></searchinput>-->
+    <searchinput></searchinput>
     <menu1 v-if="pagenum==len"></menu1>
     <menu2 v-else></menu2>
     <goods></goods>
-    <!--<nursing></nursing>-->
-    <!--<brand></brand>-->
-    <!--<pics></pics>-->
-    <qqqqqq />
-    <listnavigation />
+    <picturew></picturew>
+    <listmenu></listmenu>
     <footers/>
   </div>
 </template>
@@ -28,20 +23,15 @@
 <script>
   import fixedsearch from '@/components/商城首页/fixedsearch'
   import payment from '@/components/商城首页/payment'
-  import searchinput from '@/components/商城首页/searchinput'
   import banner from '@/components/商城首页/banner'
   import notice from '@/components/商城首页/notice'
+  import searchinput from '@/components/商城首页/searchinput'
   import menu1 from '@/components/商城首页/menu1'
   import menu2 from '@/components/商城首页/menu2'
   import goods from '@/components/商城首页/goods'
-  import nursing from '@/components/商城首页/nursing'
-  import brand from '@/components/商城首页/brand'
-  import pics from '@/components/商城首页/pics'
-  import titles from '@/components/商城首页/titles'
-  import picwindow from '@/components/商城首页/picwindow'
-  import qqqqqq from '@/components/商城首页/qqqqqq'
+  import picturew from '@/components/商城首页/picturew'
   import shopList from '@/components/附近商家/shopList'
-  import listnavigation from '@/components/商城首页/listnavigation'
+  import listmenu from '@/components/商城首页/listmenu'
   export default {
     data(){
       return{
@@ -54,18 +44,13 @@
       payment,
       banner,
       notice,
+      searchinput,
       menu1,
       menu2,
-      searchinput,
       goods,
-      nursing,
-      brand,
-      pics,
-      picwindow,
+      picturew,
       shopList,
-      listnavigation,
-      titles,
-      qqqqqq
+      listmenu
     },
    computed:{
      sliderNavData(){
