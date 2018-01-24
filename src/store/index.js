@@ -26,6 +26,7 @@ export default {
       commodityColorSizeData: {},
       payStaus: '购买',
       buyPageData: {},
+      sortid:'',
       //附近商家
       Fujin_sortData: [],
       getFujin_slideData: [],
@@ -102,11 +103,12 @@ export default {
         }).catch(function (err) {console.log('请求失败:'+err)})
     },
     resCommodityListData({commit, state}, data) {
-      axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.index.get_list&t='+config.t)
+      axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.index.get_list',{params:data.params})
         .then(function (res) {
           commit({
             type: 'saveCommodityListData',
-            res: res
+            res: res,
+            sortid:data.params.cate
           })
         }).catch(function (err) {
         alert(err)
@@ -208,15 +210,15 @@ export default {
     resFujinData({commit, state}, data) {
       // var id = data.id ? data.id : '';//如果点击分类的时候请求就有id,否则就是页面加载的时候请求
       // function getFujin_sortData() {//分类
-      //   return axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.get_category&uniacid=1691&t='+config.t);
+      //   return axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.get_category&uniacid=2&t='+config.t);
       // }
       //
       // function getFujin_slideData() {//轮播
-      //   return axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.get_category_swipe&uniacid=1691&t='+config.t);
+      //   return axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.get_category_swipe&uniacid=2&t='+config.t);
       // }
       //
       // function getFujin_ListData() {//商户列表
-      //   return axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.ajaxmerchuser&uniacid=1691&id=' + id+'&t='+config.t);
+      //   return axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.ajaxmerchuser&uniacid=2&id=' + id+'&t='+config.t);
       // }
       //
       // axios.all([getFujin_sortData(), getFujin_slideData(), getFujin_ListData()])//一次性并发多个请求
@@ -246,14 +248,9 @@ export default {
     },
     //分销中心
     resApply({commit, state}, data) {
-      axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.register.get_main',{params:data.params})
+      axios.post(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.register.get_main',{params:data.params})
         .then(function (res) {
-          console.log(data)
-          // localStorage.setItem('status',res.data.status)//用来标识是否是分销商
-          // localStorage.setItem('isRegistAgent',true)//用来标识是否已经注册分销商
-          // if(res.data.status=='1'){
-          //   router.push({path:'/distributIndex'})
-          // }
+            router.push({path:'/distributIndex/wait'})
         }).catch(function (err) {console.log('请求失败:'+err)})
     },
     resFenxiao({commit, state}, data) {
@@ -261,7 +258,8 @@ export default {
           t:config.t,
           uniacid:config.uniacid,
           openid:localStorage.getItem('openid'),
-          mid:localStorage.getItem('userid')
+          mid:localStorage.getItem('userid'),
+          i:2
         }
       //请求HeadData
       axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.index.get_main',{params:headPrams})
@@ -272,7 +270,7 @@ export default {
           })
         }).catch(function (err) {console.log('请求失败:'+err)})
       //请求BodyData
-      axios.get(config.baseUrl+'/app/index.php?c=wxapp&a=module&do=nav&type=4&uniacid='+config.uniacid)
+      axios.get(config.baseUrl+'/app/index.php?c=wxapp&a=module&do=nav&type=4&uniacid='+config.uniacid+'&t='+config.t)
         .then(function (res) {
           commit({
             type:'saveFenxiaoBody',
@@ -288,7 +286,7 @@ export default {
         openid:localStorage.getItem('openid'),
         t:config.t
       }
-      axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.withdraw.get_main&i=1691',params)
+      axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.withdraw.get_main&i=2',params)
         .then(function (res) {
           commit({
             type:'savePriceData',
@@ -302,7 +300,7 @@ export default {
         openid:localStorage.getItem('openid'),
         t:config.t
       }
-      axios.get(config.baseUrl+"/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.log.get_list&i=1691",params)
+      axios.get(config.baseUrl+"/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.log.get_list&i=2",params)
         .then(function (res) {
           console.log(res)
           // commit({
@@ -319,7 +317,7 @@ export default {
         }).catch(function (err) {console.log('请求失败:'+err)})
     },
     resTuiGuang({commit, state}, data){
-      axios.get(config.baseUrl+"/app/index.php?i=1691&c=entry&m=ewei_shopv2&do=mobile&r=commission.qrcode.get_main&mid="+localStorage.getItem('userid'))
+      axios.get(config.baseUrl+"/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=commission.qrcode.get_main&mid="+localStorage.getItem('userid'))
         .then(function (res) {
           console.log(res)
           // commit({
@@ -334,7 +332,7 @@ export default {
         mid:config.mid,
         openid:localStorage.getItem('openid')
       }
-      axios.get(config.baseUrl+"/app/index.php?i=1691&c=entry&m=ewei_shopv2&do=mobile&r=commission.myshop.set.get_main",params)
+      axios.get(config.baseUrl+"/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=commission.myshop.set.get_main",params)
         .then(function (res) {
           console.log(res)
         }).catch(function (err) {console.log('请求失败：'+err)})
@@ -403,7 +401,10 @@ export default {
       })
     },
     updateNickName({commit, state}, data){
-      axios.get(config.baseUrl+"/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.xcxl.alteravatar",{params:data.params})
+      axios.post(config.baseUrl+"/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.xcxl.alteravatar",data.params,{
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }})
         .then(function (res) {
           console.log(res)
         }).catch(function (err) {console.log('请求失败:'+err)})
@@ -529,10 +530,12 @@ export default {
     //分类
     saveSortData(state, data) {
       VueSet(state, 'sortData', data.res.data)
-      console.log(state.sortData)
+      // console.log(state.sortData)
     },
     saveCommodityListData(state, data) {//商品列表
+      console.log(data)
       VueSet(state, 'commodityListData', data.res.data.result)
+      VueSet(state, 'sortid', data.sortid)
       if (state.commodityListData != {}) {
         router.push({path: '/sortIndex/someSort'})
       }
@@ -595,8 +598,8 @@ export default {
       VueSet(state, 'fenxiao_headData', data.data.data)
       console.log(state.fenxiao_headData)
       //在分销中心里,status为0表示未审核，1代表审核通过；register为0代表没注册过，1注册过
-      if(state.fenxiao_headData.result.register==0){//没注册过
-          router.push({path:'/distributIndex/applay'})
+      if(state.fenxiao_headData.result.register==null){//没注册过
+          router.push({path:'/distributIndex/apply'})
       }else if(state.fenxiao_headData.result.register==1&&state.fenxiao_headData.status==0){//注册过待审核
         router.push({path:'/distributIndex/wait'})
       }else{

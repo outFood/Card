@@ -38,7 +38,7 @@
             type:'resFenxiao'
           })
         }else if(text=='代理中心'){
-          router.push({path:'/agentIndex/daili'})
+          router.push({path:'/agentIndex'})
         }
       }
     },

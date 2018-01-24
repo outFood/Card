@@ -55,8 +55,8 @@
             let result = this.result;
             let img = new Image();
             img.src = result;
-            //判断图片是否大于50K,是就直接上传，反之压缩图片
-            if (this.result.length <= (5 * 1024)) {
+            //判断图片是否大于5K,是就直接上传，反之压缩图片
+            if (this.result.length <= (1 * 1024)) {
               self.headerImage = this.result;
 //              self.postImg();点击保存按钮才调用接口保存图片和昵称
             } else {
@@ -191,11 +191,11 @@
         this.$store.dispatch({
           type:'updateNickName',
           params:{
+            t:config.t,
             mid:localStorage.getItem('userid'),
             openid:localStorage.getItem('openid'),
             nickname:this.nickname,
             headStr:this.headerImage,
-            t:config.t
           }
         })
       }

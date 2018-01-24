@@ -4,10 +4,10 @@
       <div class="search"><img src="/static/img/back_black.png" alt=""><yd-search v-model="searchKey"></yd-search><i class="searchBtn" @click="screen('搜索')">搜索</i><span @click="allSort_h=!allSort_h"><img src="/static/img/allSort_h.png" v-if="allSort_h"><img src="/static/img/allSort_v.png" v-else></span></div>
       <!--tab-->
       <div class="tab">
-        <div @click="screen('all')" v-bind:class="{cur:curTab==1}">综合</div>
-        <div @click="screen('sail')" v-bind:class="{cur:curTab==2}">销量</div>
-        <div @click="screen('price')" v-bind:class="{cur:curTab==3}">价格 <span class="top" v-bind:class="{curtop:curtop}"></span><span class="bottom" v-bind:class="{curbottom:curbottom}"></span></div>
-        <div><yd-button @click.native="show4 = true" v-bind:class="{cur:curTab==4}">筛选 <img src="/static/img/shaixuan.png" alt="" v-if="curTab!=4"><img src="/static/img/shaixuan_red.png" alt="" v-else></yd-button></div>
+        <div @click="screen('all')" :class="{cur:curTab==1}">综合</div>
+        <div @click="screen('sail')" :class="{cur:curTab==2}">销量</div>
+        <div @click="screen('price')" :class="{cur:curTab==3}">价格 <span class="top" :class="{curtop:curtop}"></span><span class="bottom" :class="{curbottom:curbottom}"></span></div>
+        <div><yd-button @click.native="show4 = true" :class="{cur:curTab==4}">筛选 <img src="/static/img/shaixuan.png" alt="" v-if="curTab!=4"><img src="/static/img/shaixuan_red.png" alt="" v-else></yd-button></div>
       </div>
     </header>
     <div class="content">
@@ -17,7 +17,7 @@
           <img :src="item.thumb" alt="">
           <div>
             <p>{{item.title}}</p>
-            <span class="price">￥{{item.minprice}}</span><span class="goPay"  @click="show2 = true">购买</span>
+            <span class="price">￥{{item.marketprice}}</span><span class="goPay"  @click="show2 = true">购买</span>
           </div>
         </div>
       </div>
@@ -26,7 +26,7 @@
           <img :src="item.thumb" alt="">
           <div class="right">
             <p>{{item.title}}</p>
-            <span class="price">￥{{item.minprice}}</span><span class="goPay"  @click="show2 = true">购买</span>
+            <span class="price">￥{{item.marketprice}}</span><span class="goPay"  @click="show2 = true">购买</span>
           </div>
         </div>
       </div>
@@ -34,7 +34,7 @@
       <yd-popup v-model="show4" position="right" width="60%" class="shaixuan_pop">
         <div class="head">筛选</div>
         <div class="tabNav">
-          <span v-for="(item,key) in tabNav" :key="key" @click="changeSearchKey(item)"  v-bind:class="{cur:searchKey==item}">{{item}}</span>
+          <span v-for="(item,key) in tabNav" :key="key" @click="changeSearchKey(item)"  :class="{cur:searchKey==item}">{{item}}</span>
         </div>
         <p>选择分类</p>
         <yd-scrolltab>
@@ -98,6 +98,9 @@
     computed:{
       commodityListData(){
         return this.$store.state.commodityListData
+      },
+      sortid(){
+        return this.$store.state.sortid
       }
     },
     methods:{
@@ -106,55 +109,76 @@
         console.log(this.searchKey)
       },
       screen(parameter){
+        var params={
+          order:'',
+          t:config.t,
+          openid:localStorage.getItem('openid'),
+          keywords:'',
+          ishot:0,
+          isnew:0,
+          isdiscount:0,
+          istime:0,
+          isrecommand:0,
+          issendfree:0,
+          pagesize:10,
+          page:1,
+          cate:this.sortid,
+          by:'',
+          mid:0,
+          frommyshop:0,
+        }
         if(parameter=='all'){
-          console.log('all')
           this.curTab=1
           this.curbottom=false
           this.curtop=false
+          params.order=''
           // ----------------------------综合
           this.$store.dispatch({
             type:'resCommodityListData',
-            params:{
-              order:'all'
-            }
+            params:params
           })
-          console.log('综合筛选')
         }else if(parameter=='sail'){
-          console.log('sail')
           this.curTab=2
           this.curbottom=false
           this.curtop=false
+          params.order='sales'
           // ----------------------------销量
           this.$store.dispatch({
             type:'resCommodityListData',
-            params:{
-              order:'sales'
-            }
+            params:params
           })
           console.log('销量筛选')
         }else if(parameter=='price'){
           this.curTab=3
           this.clickNum++;
+          params.order='minprice'
           if(this.clickNum%2==0){
+            console.log('第偶数次点击,降序')
             this.curbottom=true
             this.curtop=false
+            params.by='desc'
+            this.$store.dispatch({
+              type:'resCommodityListData',
+              params:params
+            })
           }else{
-            this.curtop=true
+            console.log('第奇数次点击,升序')
             this.curbottom=false
+            this.curtop=true
+            params.by='asc'
+            this.$store.dispatch({
+              type:'resCommodityListData',
+              params:params
+            })
           }
-          this.$store.dispatch({
-            type:'resCommodityListData',
-            params:{
-              order:'minprice'
-            }
-          })
           console.log('价格筛选')
         }else{//点击的是搜索
           console.log('关键字搜索')
           this.$store.dispatch({
             type:'resCommodityListData',
             params:{
-              keywords:this.searchKey
+              t:config.t,
+              keywords:this.searchKey,
             }
 
           })

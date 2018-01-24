@@ -1,6 +1,7 @@
  var siteInfo = {
   uniacid: '2',
   t:2,
+  i:2,
   mid:localStorage.getItem('userid'),
   openid:localStorage.getItem('openid'),
   baseUrl:'/api',

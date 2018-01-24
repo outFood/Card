@@ -177,14 +177,14 @@
   #distribut .body .yd-flexbox-item{
     height:2.6875rem;
   }
-  #distribut .body .yd-flexbox-item:not(:nth-child(3n)){
-    flex:0 0 33%;
+  #distribut .body .yd-flexbox-item:not(:nth-child(2n)){
+    flex:0 0 50%;
     padding:0.3125rem;
     border-right:1px solid #eee;
     border-bottom:1px solid #eee
   }
-  #distribut .body .yd-flexbox-item:nth-child(3n){
-    flex:0 0 33%;
+  #distribut .body .yd-flexbox-item:nth-child(2n){
+    flex:0 0 50%;
     padding:0.3125rem;
     border-bottom: 1px solid #eee;
   }

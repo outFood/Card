@@ -113,7 +113,6 @@
           this.tipMsg='请阅读分销商申请协议!'
           this.openAlert()
         }else{
-          console.log(localStorage.getItem('openid'))
           this.$store.dispatch({
             type:'resApply',
             params:{
@@ -123,7 +122,8 @@
               weixin:this.weixin,
               openid:localStorage.getItem('openid'),
               cl:'1',
-              t:config.t
+              t:config.t,
+              i:config.i
             }
           })
         }

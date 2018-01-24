@@ -9,7 +9,7 @@
         <span v-if="item.isSecondSort==true" class="secondSort">
           <img :src="prefix+item.advimg" v-if="item.advimg">
           <router-link to="#" class="sortItem"  v-for="(secondSort,key) in item.curSort" :key="key">
-            <img :src="prefix+secondSort.thumb"  @click="resCommodityListData(secondSort.name)">{{secondSort.name}}
+            <img :src="prefix+secondSort.thumb"  @click="resCommodityListData(secondSort.id)">{{secondSort.name}}
           </router-link>
         </span>
         <!---->
@@ -136,13 +136,27 @@
   import config from '../../myConfig'
   export default {
     methods:{
-      resCommodityListData(name){
-        console.log(name)
+      resCommodityListData(sortid){
         this.$store.dispatch({
           type:'resCommodityListData',
-//          params:{
-//            order:'all'
-//          }
+          params:{
+            order:'',
+            t:config.t,
+            openid:localStorage.getItem('openid'),
+            keywords:'',
+            ishot:0,
+            isnew:0,
+            isdiscount:0,
+            istime:0,
+            isrecommand:0,
+            issendfree:0,
+            pagesize:10,
+            page:1,
+            cate:sortid,
+            by:'',
+            mid:0,
+            frommyshop:0,
+          }
         })
       },
       resCommodityDetailData(id){
