@@ -36,6 +36,7 @@ export default {
       cartData: {},
       cartcount: 0,
       exclusiveShopData: {},
+      addCartStatus:'',
       //分销
       fenxiao_headData: {},
       fenxiao_bodyData: {},
@@ -120,11 +121,11 @@ export default {
       function commodityDetailData() {
         return axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.detailapp.get_detailapp',{params:data.params})
       }
-      function commodityPingjiaData() {
-        return axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.detail.get_comments',{params:data.params})
-      }
       function commodityColorSizeData() {
         return axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.detailapp.picker',{params:data.params})
+      }
+      function commodityPingjiaData() {
+        return axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.detail.get_comments',{params:data.params})
       }
       function commodityPingjiaSortData() {
         return axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.detail.get_comment_list',{params:data.params})
@@ -157,10 +158,17 @@ export default {
       if (state.payStatus == '加入购物车') {
         axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.add', {params: data.params})
           .then(function (res) {
-            commit({
-              type: 'saveCartcount',
-              data: res
-            })
+            if(res.data.result.message!=undefined){
+              commit({
+                type:'saveAddCartStatus',
+                data:res.data.result.message
+              })
+            }else{
+              commit({
+                type: 'saveCartcount',
+                data: res
+              })
+            }
           }).catch(function (err) {
           alert(err)
         })
@@ -576,6 +584,9 @@ export default {
       if (state.cartData != {}) {
         router.push({path: '/cart/'})
       }
+    },
+    saveAddCartStatus(state,data){
+      VueSet(state,'addCartStatus',data.data)
     },
     saveCartcount(state, data) {
       if (data.data == 0) {

@@ -1,5 +1,5 @@
 <template>
-  <div id="detailPic" v-html="paramsList.content+paramsList.content_text">
+  <div id="detailPic" v-html="paramsList.content">
   </div>
 </template>
 <script>
@@ -11,3 +11,8 @@
     }
   }
 </script>
+<style>
+  #detailPic img{
+    width:100%;
+  }
+</style>

@@ -1,7 +1,7 @@
 <template>
   <div id="goods" v-if="goodsData" :style="{background:goodsData.style.background}">
     <div class="showMethod1"  v-if="listStyle==1">
-      <div v-for="(item,key) in goodsItem">
+      <div v-for="(item,key) in goodsItem"  @click="resCommodityDetailData(item.gid)">
         <img :src="prefix+item.thumb" alt="">
         <div  class="lastdiv"><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}">{{item.title}}</span></p>
           <p>
@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="showMethod2"  v-if="listStyle==2">
-      <div v-for="(item,key) in goodsItem">
+      <div v-for="(item,key) in goodsItem"  @click="resCommodityDetailData(item.gid)">
         <img :src="prefix+item.thumb" alt="">
         <div class="lastdiv"><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}">{{item.title}}</span></p>
           <p>
@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="showMethod3" v-if="listStyle==3">
-      <div v-for="(item,key) in goodsItem">
+      <div v-for="(item,key) in goodsItem"  @click="resCommodityDetailData(item.gid)">
         <img :src="prefix+item.thumb" alt="">
         <div class="lastdiv"><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}">{{item.title}}</span></p>
           <p>
@@ -37,7 +37,7 @@
       </div>
     </div>
     <div class="showMethod4" v-if="listStyle==0">
-      <div v-for="(item,key) in goodsItem">
+      <div v-for="(item,key) in goodsItem" @click="resCommodityDetailData(item.gid)">
         <img :src="prefix+item.thumb" alt="">
         <div class="lastdiv rightdiv"><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}">{{item.title}}</span></p>
           <p>
@@ -63,22 +63,23 @@
     display: -ms-flexbox;
     display: flex;
     flex-wrap: wrap;
-    padding:10px 10px 0 10px;
+    padding:0.3125rem 0.3125rem 0 0.3125rem;
     text-align: left;
   }
   #goods>div>div{
     width:100%;
-    margin-bottom:10px;
+    margin-bottom:0.3125rem;
     background: #fff;
   }
   #goods img{
     width:100%;
+    height:2.8125rem;
   }
   #goods .top{
-    margin-bottom:10px;
+    margin-bottom:0.3125rem;
   }
   #goods p{
-    font-size: 12px;
+    font-size:0.375rem;
   }
   #goods p .biaoqian{
     color:#fff;
@@ -87,30 +88,30 @@
     margin-right: 5px;
   }
   #goods p .price{
-    margin-right:10px;
+    margin-right:0.3125rem;
   }
   #goods p .buyBtn1{
     display: inline-block;
-    width:25px;
-    height:25px;
+    width:0.78125rem;
+    height:0.78125rem;
     border-radius: 50%;
-    line-height: 36px;
+    line-height:1.125rem;
     text-align: center;
     float: right;
   }
   #goods p .buyBtn1 img{
-    width:20px;
-    height:20px;
+    width:0.625rem;
+    height:0.625rem;
     margin:0 auto;
   }
   #goods p .buyBtn2{
     display: inline-block;
-    width:25px;
-    height:25px;
+    width:0.7rem;
+    height:0.7rem;
     border-radius: 50%;
     text-align: center;
-    line-height: 25px;
-    font-size:20px;
+    line-height:0.78125rem;
+    font-size:0.625rem;
     color:#fff;
     float: right;
   }
@@ -122,14 +123,14 @@
   }
   #goods .showMethod2>div{
     width:48.5%;
-    margin-bottom:10px;
+    margin-bottom:0.3125rem;
   }
   #goods .showMethod2>div:nth-child(2n-1){
     margin-right:3%
   }
   #goods .showMethod3>div{
     width:32%;
-    margin-bottom:10px;
+    margin-bottom:0.3125rem;
   }
   #goods .showMethod3>div:nth-child(3n-1){
     margin-right:2%;
@@ -144,19 +145,20 @@
   }
   #goods .showMethod4 img{
     width:30%;
-    height:80px;
+    height:2.5rem;
   }
   #goods .lastdiv{
-    padding:10px;
+    padding:0.3125rem;
   }
   #goods .lastdiv p:nth-child(3) i:nth-child(2){
-    margin-left:10px;
+    margin-left:0.3125rem;
   }
   #goods .showMethod4 .rightdiv{
     width:70%
   }
 </style>
 <script>
+  import config from '../../myConfig'
   export default {
     data(){
       return {
@@ -191,6 +193,18 @@
           this.listStyle=3
         }
       },1000)
+    },
+    methods:{
+      resCommodityDetailData(id){
+        console.log(id)
+        this.$store.dispatch({
+          type:'resCommodityDetailData',
+          params:{
+            id:id,
+            t:config.t
+          }
+        })
+      }
     }
   }
 </script>

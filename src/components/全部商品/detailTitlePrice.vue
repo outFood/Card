@@ -5,7 +5,7 @@
       <div v-if="detail_info.params.hideshare==0"><img src="/static/img/share.png" alt="">{{detail_info.params.share}}</div>
     </div>
     <h6 :style="{color:detail_info.style.subtitlecolor}">{{result.goods.isdiscount_title}}</h6>
-    <p class="price" :style="{color:detail_info.style.pricecolor}">￥{{result.goods.minprice}} <span :style="{color:detail_info.style.textcolor}">￥{{result.goods.marketprice}}</span></p>
+    <p class="price" :style="{color:detail_info.style.pricecolor}">￥{{result.goods.marketprice}} <span :style="{color:detail_info.style.textcolor}">￥{{result.goods.productprice}}</span></p>
     <div class="countDown" :style="{borderColor:detail_info.style.timecolor}" v-if="result.goods.istime==1">
      <span :style="{background:detail_info.style.timecolor}"> 距离限时购结束</span>
       <yd-countdown time="2018/08/08 08:08:08">
@@ -16,8 +16,8 @@
       </yd-countdown>
     </div>
     <div class="other">
-      <span>快递:10.00</span>
-      <span>销量:36542</span>
+      <span>快递:{{result.goods.dispatchprice}}</span>
+      <span>销量:{{result.goods.sales}}</span>
       <span>{{result.goods.province}} {{result.goods.city}}</span>
     </div>
   </div>

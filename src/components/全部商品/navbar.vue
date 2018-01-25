@@ -41,21 +41,41 @@
       <div class="pic">
         <img src="http://img4.imgtn.bdimg.com/it/u=2747541684,870511306&fm=27&gp=0.jpg" alt="">
         <div>
-          <span>￥339</span>
-          <span>库存43件</span>
+          <span>￥{{commodity_goods.marketprice}}</span>
+          <span>库存{{commodity_goods.total}}件</span>
           <span>请选择尺码</span>
         </div>
         <span @click="show2 = false">x</span>
       </div>
-      <div class="colorSize">
-        <p v-if="specs">{{specs[0].title}}</p>
-        <span v-for="(item,key) in colorSizeData" :key="key" @click="selColorSize(item.id)" :class="{curBg:item.id==optionid}">{{item.title}}</span>
-      </div>
+      <span v-if="specs">
+        <span v-if="specs[0].title=='尺寸'">
+          <div class="colorSize">
+          <p v-if="specs">{{specs[0].title}}</p>
+          <span v-for="(item,key) in specs[0].items" :key="key" @click="selColorSize([specs[0].title,item.id])" :class="{curBg:item.id==size}">{{item.title}}</span>
+        </div>
+        <div class="colorSize" v-if="specs">
+          <p v-if="specs">{{specs[1].title}}</p>
+          <span v-for="(item,key) in specs[1].items" :key="key" @click="selColorSize([specs[1].title,item.id])"  :class="{curBg:item.id==color}">{{item.title}}</span>
+        </div>
+        </span>
+      </span>
+      <span v-if="specs">
+        <span v-if="specs[0].title=='颜色'">
+          <div class="colorSize">
+          <p v-if="specs">{{specs[0].title}}</p>
+          <span v-for="(item,key) in specs[0].items" :key="key" @click="selColorSize([specs[0].title,item.id])" :class="{curBg:item.id==color}">{{item.title}}</span>
+        </div>
+        <div class="colorSize" v-if="specs">
+          <p v-if="specs">{{specs[1].title}}</p>
+          <span v-for="(item,key) in specs[1].items" :key="key" @click="selColorSize([specs[1].title,item.id])"  :class="{curBg:item.id==size}">{{item.title}}</span>
+        </div>
+        </span>
+      </span>
 
       <div class="payNumber">
-          <span>颜色分类(限购5件)</span>
+          <span>购买数量(限购{{commodity_goods.maxbuy}}件)</span>
           <div>
-            <yd-spinner max="75" min="1" width="100px" height="30px" v-model="payNumber"></yd-spinner>
+            <yd-spinner max="75" :min="commodity_goods.minbuy" width="100px" height="30px" v-model="payNumber"></yd-spinner>
           </div>
       </div>
       <yd-button size="large" type="danger" position="bottom" @click.native="sure">确定</yd-button>
@@ -71,7 +91,8 @@
       return{
         show2:false,
         payNumber:1,//购买数量
-        optionid:0,//规格id
+        color:undefined,
+        size:undefined,
       }
     },
     computed:{
@@ -81,10 +102,10 @@
       navbar(){
         return this.$store.state.commodityDetailData.diypage.navbar
       },
-      commodityid(){//商品id
-        return this.$store.state.commodityColorSizeData.goods.id
+      commodity_goods(){
+        return this.$store.state.commodityColorSizeData.goods
       },
-      colorSizeData(){
+      options(){
         return this.$store.state.commodityColorSizeData.options
       },
       specs(){
@@ -108,23 +129,63 @@
         })
         this.show2=true
       },
-      selColorSize(id){
-        this.optionid=id
+      selColorSize(arr){
+        console.log(arr)
+        if(arr[0]=='颜色'){
+          this.color=arr[1]
+        }else if(arr[0]=='尺寸'){
+          this.size=arr[1]
+        }
+        console.log('颜色：'+this.color)
+        console.log('尺寸：'+this.size)
       },
       sure(){
-        this.$store.dispatch({
-          type:'cartOrPay',
-          params:{
-            total:this.payNumber,
-            optionid:this.optionid,
-            id:this.commodityid,
-            t:config.t,
-            mid:localStorage.getItem('userid'),
-            openid:localStorage.getItem('openid'),
-            uniacid:config.uniacid
+        if(this.options!=false){//商品有规格,要传optionid
+          if(this.color==undefined){
+            alert('请选择颜色')
+          }else if(this.size==undefined){
+            alert('请选择尺寸')
+          }else{
+            var curSel='';
+            if(this.specs[0].title=='颜色'){
+              curSel=this.color+'_'+this.size
+            }else{
+              curSel=this.size+'_'+this.color
+            }
+            for( var i=0;i<this.options.length;i++){
+              if(this.options[i].specs==curSel){
+                this.$store.dispatch({
+                  type:'cartOrPay',
+                  params:{
+                    total:this.payNumber,
+                    optionid:this.options[i].id,//规格id
+                    id:this.commodity_goods.id,
+                    t:config.t,
+                    mid:localStorage.getItem('userid'),
+                    openid:localStorage.getItem('openid'),
+                    uniacid:config.uniacid
+                  }
+                })
+                this.show2 = false
+              }
+            }
           }
-        })
-        this.show2 = false
+        }else{//商品无规格，不需要传optionid
+          this.$store.dispatch({
+            type:'cartOrPay',
+            params:{
+              total:this.payNumber,
+              optionid:'',//规格id
+              id:this.commodity_goods.id,
+              t:config.t,
+              mid:localStorage.getItem('userid'),
+              openid:localStorage.getItem('openid'),
+              uniacid:config.uniacid
+            }
+          })
+          this.show2 = false
+        }
+
       },
       clickIcon(icontext){
         if(icontext=='购物车'){

@@ -7,7 +7,7 @@
         <detail-slider></detail-slider>
         <detailTitlePrice></detailTitlePrice>
       </yd-tab-panel>
-      <yd-tab-panel label="详情"></yd-tab-panel>
+      <yd-tab-panel label="详情"><detail-pic></detail-pic></yd-tab-panel>
       <yd-tab-panel label="参数"><detailParams></detailParams></yd-tab-panel>
       <yd-tab-panel label="评价">真理惟一可靠的标准就是永远自相符合。</yd-tab-panel>
     </yd-tab>

@@ -18,7 +18,7 @@
             <div class="priceNum">
               <span>￥{{item.ggprice}}</span>
               <span class="yd-spinner" style="height: 0.6rem; width: 2rem;">
-                <a href="#" @click="addOrReduceOrDel(['减',item.total,item.id,item.optionid])"></a>
+                <a href="#" @click="addOrReduceOrDel(['减',item.total,item.id,item.optionid,item.minbuy])"></a>
                 <input type="number" pattern="[0-9]*" v-model="item.total" class="yd-spinner-input">
                 <a href="#" @click="addOrReduceOrDel(['加',item.total,item.id,item.optionid])"></a>
               </span>
@@ -106,7 +106,7 @@
               this.totalPrice+=this.cartData.list[k].ggprice;
             }
           }
-        }else if(arr[0]=='减'){
+        }else if(arr[0]=='减'&&arr[1]>arr[4]){
           var total=parseInt(arr[1])-1;
           this.$store.dispatch({
             type:'cartUpdate',
