@@ -11,7 +11,7 @@
       </div>
       <div class="item">
         <span>所在地区</span>
-        <div><input placeholder="请选择所在地区" v-model="wantEditAddress.province" @click.stop="show1 = true" readonly></div>
+        <div><input placeholder="请选择所在地区" v-model="wantEditAddress.province+wantEditAddress.city+wantEditAddress.area" @click.stop="show1 = true" readonly></div>
         <yd-cityselect v-model="show1" :callback="result1" :items="district"></yd-cityselect>
       </div>
       <div class="item">
@@ -42,7 +42,7 @@
     methods:{
       updateAddress(){
         this.$store.dispatch({
-          type:'saveAddress',
+          type:'addOrUpdateAddress',
           params:{
             realname:this.wantEditAddress.realname,
             mobile:this.wantEditAddress.mobile,
@@ -50,6 +50,8 @@
             address:this.wantEditAddress.address,
             id:this.wantEditAddress.id,
             mid:localStorage.getItem('userid'),
+            openid:localStorage.getItem('openid'),
+            uniacid:config.uniacid,
             t:config.t
           }
         })

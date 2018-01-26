@@ -1,5 +1,5 @@
 <template>
-    <yd-cell-group title="" id="listmenu"  :style="{background:listMenuData.style.background,marginTop:listMenuData.style.margintop}">
+    <yd-cell-group title="" v-if="listMenuData" id="listmenu"  :style="{background:listMenuData.style.background,marginTop:listMenuData.style.margintop}">
       <yd-cell-item arrow href="#" type="link" v-for="(item,key) in listMenuArr" :key="key">
         <yd-icon slot="icon" name="order" size=".42rem"></yd-icon>
         <span slot="left" :style="{color:listMenuData.style.textcolor}">{{item.text}}</span>

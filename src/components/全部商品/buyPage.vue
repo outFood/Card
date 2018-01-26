@@ -70,12 +70,12 @@
       <!--</yd-cell-item>-->
       <yd-cell-item>
         <span slot="left">运费</span>
-        <span slot="right">￥{{buyPageData.result.weight}}</span>
+        <span slot="right">￥{{buyPageData.result.dispatchprice}}</span>
       </yd-cell-item>
     </yd-cell-group>
     <div class="toPay">
-      <div class="left">需付：<span>￥{{buyPageData.result.marketprice*total+parseInt(buyPageData.result.weight)}}</span></div>
-      <div class="right">立即支付</div>
+      <div class="left">需付：<span>￥{{buyPageData.result.marketprice*total+parseInt(buyPageData.result.dispatchprice)}}</span></div>
+      <router-link to="/sortIndex/selPay" class="right">立即支付</router-link>
     </div>
   </yd-layout>
 </template>

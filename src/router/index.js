@@ -16,6 +16,7 @@ import sortIndex from '@/components/全部商品/index'
 import someSort from '@/components/全部商品/someSort'
 import detail from '@/components/全部商品/detail'
 import buyPage from '@/components/全部商品/buyPage'
+import selPay from '@/components/全部商品/selPay'
 //分销中心
 import distributHome from '@/components/分销中心/home'
 import distributIndex from '@/components/分销中心/index'
@@ -30,6 +31,7 @@ import wait from '@/components/分销中心/wait'
 import apply from '@/components/分销中心/apply'
 //代理中心
 import agentIndex from '@/components/代理中心/index'
+import agentPrice from '@/components/代理中心/agentPrice'
 import agentHome from '@/components/代理中心/home'
 import agentDetail from '@/components/代理中心/detail'
 import photo from '@/components/代理中心/photo'
@@ -116,6 +118,10 @@ export default new Router({
         {
           path:'buyPage',
           component:buyPage
+        },
+        {
+          path:'selPay',
+          component:selPay
         }
       ]
     },
@@ -175,6 +181,9 @@ export default new Router({
         },{
           path:'daili',
           component:daili
+        },{
+          path:'agentPrice',
+          component:agentPrice
         },
       ]
     },

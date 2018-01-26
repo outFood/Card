@@ -108,9 +108,7 @@
       },
     },
     beforeCreate(){
-      this.$store.dispatch({
-        type: 'resWode',
-      })
+
     }
   }
 </script>

@@ -59,10 +59,6 @@
     },
     components: {position,banner,menu2,youxuan,shopList},
     beforeCreate(){
-      console.log('哈哈哈')
-      this.$store.dispatch({
-        type:'resFujinData'
-      })
     }
   }
 </script>

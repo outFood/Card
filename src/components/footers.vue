@@ -1,7 +1,7 @@
 <template>
   <div id="footers">
     <div v-for="(item,key) in footerMsg" :key="key">
-      <router-link  :to="item.path">
+      <router-link  to="#">
         <img :src="item.ico" alt="" @click="resData(item.path)">
         <div>
           {{item.name}}
@@ -14,6 +14,7 @@
 
 <script>
   import router from '@/router'
+  import config from '../myConfig'
   export default {
     data() {
       return {
@@ -55,31 +56,40 @@
             type:'resHomeData'
           })
         }else if(path=='sortIndex'){//请求分类
-//          type='resSortData'
-//          this.$store.dispatch({
-//            type:type
-//          })
+          this.$store.dispatch({
+            type:'resSortData'
+          })
         }else if(path=='eChart'){//请求E聊
           console.log('eChart')
         }else if(path=='fujin'){//请求附近
-//          this.$store.dispatch({
-//            type:'resFujinData'
-//          })
+          this.$store.dispatch({
+            type:'resFujinData'
+          })
         }else if(path=='cart'){
-//          this.$store.dispatch({
-//            type:'lookCart',
-//          })
+          this.$store.dispatch({
+            type:'lookCart',
+            params:{
+              t:config.t,
+              uniacid:config.uniacid,
+              mid:localStorage.getItem('userid'),
+              openid:localStorage.getItem('openid')
+            }
+          })
         }else{//请求个人中心
           console.log('个人中心')
-//          this.$store.dispatch({
-//            type: 'resWode'
-//          })
+          this.$store.dispatch({
+            type: 'resWode',
+            params:{
+              openid:localStorage.getItem('openid'),
+              mid:localStorage.getItem('userid'),
+              t:config.t
+            }
+          })
         }
       }
     },
   }
 </script>
-
 <style>
 #footers{
   z-index: 1;

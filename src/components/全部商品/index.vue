@@ -1,5 +1,5 @@
 <template>
-  <div id="sort">
+  <div id="sort" v-if="sortData">
     <header>
       <img src="/static/img/back_black.png" alt=""><yd-search></yd-search>
     </header>

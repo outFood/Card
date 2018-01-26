@@ -23,7 +23,7 @@
         <img src="/static/img/Commission.png" alt="">
         <p>我的下线</p>
         0人
-        <p class="withdrawals">佣金提现</p>
+        <router-link to="/agentIndex/agentPrice" class="withdrawals">佣金提现</router-link>
       </div>
     </div>
     <div class="bot">
@@ -96,23 +96,23 @@
     display: -ms-flexbox;
     display: flex;
     align-items: center;
-    padding:15px 10px;
+    padding:0.46875rem 0.3125rem;
     background: #fff;
   }
   #agent .header img{
-    width:40px;
-    height:40px;
+    width:1.25rem;
+    height:1.25rem;
     border-radius: 50%;
   }
   #agent .header .headInfo{
     flex:0 0 55%;
     text-align: left;
-    margin-left:10px;
-    font-size:12px;
+    margin-left:0.3125rem;
+    font-size:0.375rem;
   }
   #agent .header .headInfo h6{
     font-weight: bold;
-    font-size: 14px;
+    font-size:0.4375rem;
   }
   #agent .header .grade{
   color:#ff5552;
@@ -122,23 +122,25 @@
     background: #ff9a00;
     color:#fff;
     justify-content: space-between;
-    font-size:12px;
+    font-size:0.375rem;
   }
   #agent .mid img{
-    width:25px;
-    height:25px;
+    width:0.78125rem;
+    height:0.78125rem;
   }
   #agent .mid .middle h5{
-    font-size: 30px;
+    font-size:0.9375rem;
   }
   #agent .mid .withdrawals{
     padding:0 5px;
     border:1px solid #eee;
-    border-radius: 10px;
+    border-radius:0.3125rem;
+    display: block;
+    color:#fff;
   }
   #agent .bot{
     background: #fff;
-    margin:10px 0;
+    margin:0.3125rem 0;
   }
   #agent .bot .head{
     display: -webkit-box;
@@ -147,13 +149,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding:10px;
+    padding:0.3125rem;
     text-align: left;
     border-bottom: 1px solid #eee;
   }
   #agent .bot .head img{
-    width:20px;
-    height:20px;
+    width:0.625rem;
+    height:0.625rem;
     vertical-align: middle;
   }
   #agent .bot .main{
@@ -165,8 +167,8 @@
     flex-wrap: wrap;
   }
   #agent .bot .main img{
-    width:30px;
-    height:30px;
+    width:0.9375rem;
+    height:0.9375rem;
     vertical-align: middle;
   }
   #agent .bot .main p{
@@ -177,7 +179,7 @@
   }
   #agent .bot .main1>div{
     flex:0 0 50%;
-    padding:10px;
+    padding:0.3125rem;
   }
   #agent .bot .main1>div:nth-child(2n-1){
     border-right:1px solid #eee;
@@ -188,7 +190,7 @@
   }
   #agent .bot .main2>div{
     flex:0 0 33%;
-    padding:10px;
+    padding:0.3125rem;
   }
   #agent .bot .main2>div:not(:nth-child(3n)){
     border-right:1px solid #eee;
@@ -199,6 +201,6 @@
   }
   #agent .bot .main3>div{
     flex:0 0 100%;
-    padding:10px 0;
+    padding:0.3125rem 0;
   }
 </style>

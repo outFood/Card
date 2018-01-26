@@ -1,6 +1,6 @@
 <template>
   <div id="sliderNav2" :style="{background:sliderNavData.style.background}">
-    <yd-slider autoplay="3000">
+    <yd-slider autoplay="5000">
       <yd-slider-item v-for="(item,key) in haha" :key="key">
           <router-link v-for="(chen,key) in item" :key="key" to="#" :class="['rownum'+sliderNavData.style.rownum]"  @click.native="clickMenu(chen.text)">
             <img :src="prefix+chen.imgurl" alt="" :class="[sliderNavData.style.navstyle]">

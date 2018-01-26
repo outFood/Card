@@ -1,5 +1,5 @@
 <template>
-	<div id="picturew">
+	<div id="picturew" v-if="picturewData">
 			<div class="sort1">
         <div class="pic_two" v-if="picturewData.params.row==1&&picturewData.params.length==2">
           <img :src="prefix+picturewData.params['1'].imgurl" alt="">

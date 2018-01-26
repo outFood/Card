@@ -12,18 +12,16 @@
       <yd-checklist v-model="cartList" ref="checklistDemo" :callback="change"  :label="false">
         <yd-checklist-item v-for="(item,key) in cartData.list" :key="key" :val="item.id">
           <img :src="item.thumb">
-          <div class="right">
+          <div class="right" @click="resCommodityDetailData(item.goodsid)">
             <h6>{{item.title}}</h6>
             <p>{{item.optiontitle}}</p>
-            <div class="priceNum">
-              <span>￥{{item.ggprice}}</span>
-              <span class="yd-spinner" style="height: 0.6rem; width: 2rem;">
+            <span class="price">￥{{item.ggprice}}</span>
+          </div>
+          <span class="yd-spinner" style="height: 0.6rem; width: 2rem;">
                 <a href="#" @click="addOrReduceOrDel(['减',item.total,item.id,item.optionid,item.minbuy])"></a>
                 <input type="number" pattern="[0-9]*" v-model="item.total" class="yd-spinner-input">
                 <a href="#" @click="addOrReduceOrDel(['加',item.total,item.id,item.optionid])"></a>
               </span>
-            </div>
-          </div>
         </yd-checklist-item>
       </yd-checklist>
       <!--选择购买-->
@@ -183,18 +181,19 @@
             }
           })
         }
+      },
+      resCommodityDetailData(id){
+        this.$store.dispatch({
+          type:'resCommodityDetailData',
+          params:{
+            id:id,
+            t:config.t
+          }
+        })
       }
     },
     beforeCreate(){
-      this.$store.dispatch({
-        type:'lookCart',
-        params:{
-          t:config.t,
-          uniacid:config.uniacid,
-          mid:localStorage.getItem('userid'),
-          openid:localStorage.getItem('openid')
-        }
-      })
+
     }
   }
 </script>
@@ -224,7 +223,7 @@
   #cart .shop  .yd-checklist-content .right{
     margin-left:10px;
     text-align: left;
-    flex: 0 0 65%;
+    flex: 0 0 50%;
   }
   #cart .shop  .yd-checklist-content .right h6{
     text-overflow: -o-ellipsis-lastline;
@@ -239,14 +238,7 @@
   #cart .shop  .yd-checklist-content .right p{
     margin:10px 0;
   }
-  #cart .shop  .yd-checklist-content .right .priceNum{
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    justify-content: space-between;
-  }
-  #cart .shop  .yd-checklist-content .right .priceNum span{
+  #cart .shop  .yd-checklist-content .right .price{
     color:red;
   }
   #cart .shop .checkAll{

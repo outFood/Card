@@ -95,7 +95,7 @@ export default {
     // },
     //分类
     resSortData({commit, state}, data) {
-      axios.get(config.baseUrl+'/bale/api.php?mod=category&uniacid='+config.uniacid)
+      axios.get(config.baseUrl+'/bale/api.php?mod=category&uniacid='+config.uniacid+'&t='+config.t)
         .then(function (res) {
           commit({
             type: 'saveSortData',
@@ -192,9 +192,7 @@ export default {
             type: 'saveCartData',
             res: res
           })
-        }).catch(function (err) {
-        alert(err)
-      })
+        }).catch(function (err) {console.log('请求失败：'+err)})
     },
     cartUpdate({commit, state}, data) {
       axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.update', {params: data.params})
@@ -216,31 +214,29 @@ export default {
     },
     //附近商家
     resFujinData({commit, state}, data) {
-      // var id = data.id ? data.id : '';//如果点击分类的时候请求就有id,否则就是页面加载的时候请求
-      // function getFujin_sortData() {//分类
-      //   return axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.get_category&uniacid=2&t='+config.t);
-      // }
-      //
-      // function getFujin_slideData() {//轮播
-      //   return axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.get_category_swipe&uniacid=2&t='+config.t);
-      // }
-      //
-      // function getFujin_ListData() {//商户列表
-      //   return axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.ajaxmerchuser&uniacid=2&id=' + id+'&t='+config.t);
-      // }
-      //
-      // axios.all([getFujin_sortData(), getFujin_slideData(), getFujin_ListData()])//一次性并发多个请求
-      //   .then(axios.spread(function (Fujin_sortData, getFujin_slideData, Fujin_ListData) {
-      //     //当这三个个请求都完成的时候会触发这个函数，两个参数分别代表返回的结果
-      //     commit({
-      //       type: 'saveFujinData',
-      //       data: {
-      //         Fujin_sortData: Fujin_sortData,
-      //         getFujin_slideData: getFujin_slideData,
-      //         Fujin_ListData: Fujin_ListData
-      //       }
-      //     })
-      //   }))
+      var id = data.id ? data.id : '';//如果点击分类的时候请求就有id,否则就是页面加载的时候请求
+      function getFujin_sortData() {//分类
+        return axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.get_category&uniacid=2&t='+config.t);
+      }
+
+      function getFujin_slideData() {//轮播
+        return axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.get_category_swipe&uniacid=2&t='+config.t);
+      }
+
+      function getFujin_ListData() {//商户列表
+        return axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.ajaxmerchuser&uniacid=2&id=2'+'&t='+config.t);
+      }
+      axios.all([getFujin_sortData(), getFujin_slideData(), getFujin_ListData()])//一次性并发多个请求
+        .then(axios.spread(function (Fujin_sortData, getFujin_slideData, Fujin_ListData) {
+          commit({
+            type: 'saveFujinData',
+            data: {
+              Fujin_sortData: Fujin_sortData,
+              getFujin_slideData: getFujin_slideData,
+              Fujin_ListData: Fujin_ListData
+            }
+          })
+        }))
     },
     resExclusiveShopData({commit, state}, data) {
       // var url='https://xcx.xcwll.cn/app'+(data.url).replace(/^./, "")+'&state=we7sid-989f479443e701453157a809d00e2e0f&sign=907857da4524149aacd027f26975f731'
@@ -348,26 +344,23 @@ export default {
     //个人中心
     resWode({commit, state}, data) {
       //请求wodeHeadData
-      var params={
-        openid:localStorage.getItem('openid'),
-        mid:localStorage.getItem('userid'),
-        t:config.t
+      function resWodeHeadData() {
+        return axios.get(config.baseUrl+"/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.xcxl",{params:data.params})
       }
-      axios.get(config.baseUrl+"/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.xcxl",{params:params})
-        .then(function (res) {
+      function resWodeBodyData() {
+        return axios.get(config.baseUrl+"/app/index.php?c=wxapp&a=module&do=nav&type=3&uniacid="+config.uniacid)
+      }
+      axios.all([resWodeHeadData(), resWodeBodyData()])//一次性并发多个请求
+        .then(axios.spread(function (wodeHeadData,wodeBodyData) {
+          //当这三个个请求都完成的时候会触发这个函数，两个参数分别代表返回的结果
           commit({
-            type:'saveWodeHeadData',
-            data:res
+            type: 'saveWodeData',
+            data: {
+              wodeHeadData: wodeHeadData,
+              wodeBodyData: wodeBodyData
+            }
           })
-        }).catch(function (err) {console.log('请求失败:'+err)})
-      //请求wodeBodyData
-      axios.get(config.baseUrl+"/app/index.php?c=wxapp&a=module&do=nav&type=3&uniacid="+config.uniacid)
-        .then(function (res) {
-          commit({
-            type:'saveWodeBodyData',
-            data:res
-          })
-        }).catch(function (err) {console.log('请求失败:'+err)})
+        }))
     },
     regist({commit, state}, data) {
       axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.user.register',{params:data.params})
@@ -421,7 +414,7 @@ export default {
       axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.indexapp',{params:data.params})
         .then(function (res) {
           commit({
-            type: 'saveAddress',
+            type: 'saveAddressList',
             res: res
           })
         }).catch(function (err) {
@@ -435,7 +428,7 @@ export default {
           axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.indexapp&mid='+localStorage.getItem('userid')+'&t='+config.t)
             .then(function (res) {
               commit({
-                type: 'saveAddress',
+                type: 'saveAddressList',
                 res: res
               })
             }).catch(function (err) {
@@ -451,10 +444,10 @@ export default {
         params: data.params
       })
     },
-    saveAddress({commit, state}, data) {
+    addOrUpdateAddress({commit, state}, data) {
       axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.submitapp', {params: data.params})
         .then(function (res) {
-          console.log('保存地址成功')
+          console.log(res)
           router.push({path: '/vipIndex/myAddress'})
         }).catch(function (err) {
         alert(err)
@@ -467,7 +460,7 @@ export default {
           axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.indexapp&mid='+localStorage.getItem('userid')+'&t='+config.t)
             .then(function (res) {
               commit({
-                type: 'saveAddress',
+                type: 'saveAddressList',
                 res: res
               })
             }).catch(function (err) {
@@ -538,7 +531,9 @@ export default {
     //分类
     saveSortData(state, data) {
       VueSet(state, 'sortData', data.res.data)
-      // console.log(state.sortData)
+      if(state.sortData!={}){
+        router.push({path: '/sortIndex/'})
+      }
     },
     saveCommodityListData(state, data) {//商品列表
       console.log(data)
@@ -552,9 +547,11 @@ export default {
       VueSet(state, 'Fujin_sortData', data.data.Fujin_sortData.data)
       VueSet(state, 'getFujin_slideData', data.data.getFujin_slideData.data)
       VueSet(state, 'Fujin_ListData', data.data.Fujin_ListData.data)
+      console.log(state.getFujin_slideData)
+      console.log(state.Fujin_sortData)
       console.log(state.Fujin_ListData)
       if (state.Fujin_sortData && state.getFujin_slideData && state.Fujin_ListData) {
-        router.push({path: '/fujinIndex/'})
+        router.push({path: '/fujin/'})
       }
     },
     saveCommodityDetailData(state, data) {
@@ -580,7 +577,6 @@ export default {
     //  购物车
     saveCartData(state, data) {
       VueSet(state, 'cartData', data.res.data.result)
-      console.log(state.cartData)
       if (state.cartData != {}) {
         router.push({path: '/cart/'})
       }
@@ -629,16 +625,10 @@ export default {
       console.log(state.tixianData)
     },
     //个人中心
-    saveWodeHeadData(state, data){
-      VueSet(state,'wodeHeadData',data.data.data)
-      if (state.wodeBodyData != {}) {
-        router.push({path: '/vipIndex'})
-      }
-
-    },
-    saveWodeBodyData(state, data) {
-      VueSet(state, 'wodeBodyData', data.data.data.module)
-      if (state.wodeBodyData != {}) {
+    saveWodeData(state,data){
+      VueSet(state,'wodeHeadData',data.data.wodeHeadData.data)
+      VueSet(state, 'wodeBodyData',data.data.wodeBodyData.data.module)
+      if(state.wodeHeadData!={}&&state.wodeBodyData!={}){
         router.push({path: '/vipIndex'})
       }
     },
@@ -650,13 +640,12 @@ export default {
       VueSet(state,'vipInfoData',data.data.data.result.member)
       console.log(state.vipInfoData)
     },
-    saveAddress(state, data) {
+    saveAddressList(state, data) {
       console.log(data.res.data.result)
       VueSet(state, 'myAddressData', data.res.data.result.list)
     },
     saveWantEditAddress(state, data) {
       VueSet(state, 'wantEditAddress', data.params)
-      console.log(state.wantEditAddress)
       if (state.wantEditAddress != {}) {
         router.push({path: '/vipIndex/editAddress'})
       }

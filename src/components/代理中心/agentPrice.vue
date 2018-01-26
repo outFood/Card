@@ -1,0 +1,100 @@
+<template>
+  <yd-layout title="代理佣金" link="/distributIndex" id="price">
+    <yd-flexbox class="head">
+      <yd-flexbox-item>
+        <p>{{priceData.thisset.texts.commission_total}}({{priceData.thisset.texts.yuan}})</p>
+        {{priceData.member.commission_total}}
+      </yd-flexbox-item>
+    </yd-flexbox>
+    <div class="body">
+      <div class="listItem">
+        <div class="left"><img src="/static/img/price_block.png">{{priceData.thisset.texts.commission_ok}}</div>
+        <div class="right">{{priceData.member.commission_ok}} {{priceData.thisset.texts.yuan}}</div>
+      </div>
+    </div>
+    <yd-accordion>
+      <yd-accordion-item title="用户须知">
+        <div style="padding: .24rem;">
+          <p>卖家确认收货后，立即获得分销佣金,注意：可用佣金满 <i>100元</i>后才能申请提现</p>
+        </div>
+      </yd-accordion-item>
+    </yd-accordion>
+    <yd-button size="large" type="primary" class="woyao">我要提现</yd-button>
+  </yd-layout>
+</template>
+<script>
+  export default {
+    data(){
+      return {
+
+      }
+    },
+    computed:{
+      priceData(){
+        return this.$store.state.priceData
+      }
+    },
+    beforeCreate(){
+      this.$store.dispatch({
+        type:'resPrice',
+      })
+    }
+  }
+</script>
+<style>
+  #price{
+    font-size:0.375rem;
+  }
+  #price .head{
+    background:#e4393c;
+    color:#fff;
+    padding:0.3125rem;
+  }
+  #price .head>div:nth-child(1){
+    text-align: left;
+  }
+  #price .head>div:nth-child(2){
+    text-align: right;
+  }
+  #price .head>div:nth-child(2) span{
+    padding: 2px 5px;
+    border: 1px solid #fff;
+    border-radius: 0.3125rem;
+  }
+  #price .body{
+    padding: 0 0.3125rem;
+    background: #fff;
+  }
+  #price .body .listItem{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    padding: 0.3125rem 0;
+  }
+  #price .body .listItem:not(:last-child){
+    border-bottom:1px solid #eee
+  }
+  #price .body .left{
+
+  }
+  #price .body .left img{
+    width:0.625rem;
+    height:0.625rem;
+    vertical-align: middle;
+    margin-right:0.3125rem;
+  }
+  #price .yd-accordion{
+    margin:0.3125rem 0;
+    text-align: left;
+  }
+  #price .yd-accordion i{
+    color:red;
+  }
+  #price .woyao{
+    width:90%;
+    margin:0 auto;
+  }
+</style>

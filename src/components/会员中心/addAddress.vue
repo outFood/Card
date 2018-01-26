@@ -19,7 +19,7 @@
         <div><input placeholder="街道、楼牌号等" v-model="address"></div>
       </div>
     </form>
-    <yd-button size="large" type="primary" @click.native="saveAddress">保存地址</yd-button>
+    <yd-button size="large" type="primary" @click.native="addAddress">保存地址</yd-button>
   </div>
 </template>
 <script>
@@ -38,15 +38,17 @@
       }
     },
     methods:{
-      saveAddress(){
+      addAddress(){
         this.$store.dispatch({
-          type:'saveAddress',
+          type:'addOrUpdateAddress',
           params:{
             realname:this.realname,
             mobile:this.mobile,
             areas:this.areas,
             address:this.address,
             mid:localStorage.getItem('userid'),
+            openid:localStorage.getItem('openid'),
+            uniacid:config.uniacid,
             t:config.t
           }
         })

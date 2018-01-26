@@ -4,7 +4,7 @@
       <yd-accordion>
         <yd-accordion-item title="商家分类">
           <div>
-            <p>得得得多</p>
+            <p v-for="(item,key) in Fujin_sortData" :key="key">{{item.catename}}</p>
           </div>
         </yd-accordion-item>
         <yd-accordion-item title="智能排序">
@@ -20,13 +20,13 @@
       </yd-accordion>
     </nav>
     <section>
-      <div class="listItem">
+      <div class="listItem" v-for="(item,key) in Fujin_ListData.list" :key="key">
         <div class="top">
-          <img src="http://static.ydcss.com/uploads/ydui/3.jpg">
+          <img :src="item.logo">
           <div class="center">
-            <h6>橘子姐</h6>
-            <p>地址:浙江省杭州市滨江区长河街道江南豪园</p>
-            <p>电话:13867104693</p>
+            <h6>{{item.merchname}}</h6>
+            <p>地址:{{item.address}}</p>
+            <p>电话:{{item.tel}}</p>
           </div>
           <div class="right">
             <span>进店</span>
@@ -41,10 +41,23 @@
     </section>
   </div>
 </template>
+<script>
+  export default {
+    computed:{
+      Fujin_sortData(){
+        return this.$store.state.Fujin_sortData
+      },
+      Fujin_ListData(){
+        return this.$store.state.Fujin_ListData.result
+      }
+    }
+  }
+</script>
 <style>
   #shopList{
     font-size:0.4375rem;
     position: relative;
+    margin-bottom: 80px;
   }
   #shopList nav .yd-accordion .yd-accordion-head{
     width:33%;
@@ -114,7 +127,7 @@
     margin-bottom:10px
   }
   #shopList section .listItem .bottom{
-    border-top:1px solid #000;
+    border-top:1px solid #d9d9d9;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -126,6 +139,6 @@
     padding:10px 0;
   }
   #shopList section .listItem .bottom>div:nth-child(1){
-    border-right:1px solid #000;
+    border-right:1px solid #d9d9d9;
   }
 </style>

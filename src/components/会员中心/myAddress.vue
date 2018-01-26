@@ -6,7 +6,7 @@
           <yd-flexbox-item>{{item.realname}}</yd-flexbox-item>
           <yd-flexbox-item>{{item.mobile}}</yd-flexbox-item>
         </yd-flexbox>
-        <div class="address">{{item.province}}   {{item.address}}</div>
+        <div class="address">{{item.province}} {{item.city}} {{item.area}} {{item.address}}</div>
       </div>
       <div class="use">
         <div class="setDefault" @click="setDefaultAddress(item.id)"><img src="/static/img/selected.png" alt="" v-if="item.isdefault==1"><img src="/static/img/circle.png" alt="" v-else>设为默认地址</div>
@@ -52,7 +52,9 @@
               params:{
                 id:id,
                 mid:localStorage.getItem('userid'),
-                t:config.t
+                t:config.t,
+                openid:localStorage.getItem('openid'),
+                uniacid:config.uniacid,
               }
             })
           },
@@ -71,7 +73,9 @@
           params:{
             id:id,
             t:config.t,
-            mid:config.mid
+            mid:config.mid,
+            openid:localStorage.getItem('openid'),
+            uniacid:config.uniacid
           }
         })
       },
