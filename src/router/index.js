@@ -35,7 +35,8 @@ import agentPrice from '@/components/代理中心/agentPrice'
 import agentHome from '@/components/代理中心/home'
 import agentDetail from '@/components/代理中心/detail'
 import photo from '@/components/代理中心/photo'
-import daili from '@/components/代理中心/daili'
+import agentRegist from '@/components/代理中心/agentRegist'
+import agentWait from '@/components/代理中心/agentWait'
 
 //E聊
 import eChart from '@/components/E聊/index'
@@ -179,8 +180,11 @@ export default new Router({
           path:'photo',
           component:photo,
         },{
-          path:'daili',
-          component:daili
+          path:'agentRegist',
+          component:agentRegist
+        },{
+          path:'agentWait',
+          component:agentWait
         },{
           path:'agentPrice',
           component:agentPrice

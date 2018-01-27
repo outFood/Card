@@ -94,7 +94,7 @@
 #footers{
   z-index: 1;
   position: fixed;
-  bottom:0;
+  bottom:-1px;
   left:0;
   display: -webkit-box;
   display: -webkit-flex;

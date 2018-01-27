@@ -2,7 +2,7 @@
   <div id="sliderNav1" v-if="sliderNavData" :style="{background:sliderNavData.style.background}">
     <yd-slider autoplay="3000">
       <yd-slider-item>
-          <router-link  v-for="(item,key) in sliderNavItem" :key="key" :to="item.linkurl" :class="['rownum'+sliderNavData.style.rownum]">
+          <router-link  v-for="(item,key) in sliderNavItem" :key="key" :to="item.linkurl" :class="['rownum'+sliderNavData.style.rownum]"  @click.native="clickMenu(item.text)">
             <img :src="prefix+item.imgurl" alt="" :class="[sliderNavData.style.navstyle]">
             {{item.text}}
           </router-link>
@@ -35,7 +35,18 @@
           this.sliderNavItem.push(this.sliderNavData.data[key])
         }
       },1000)
-    }
+    },
+    methods:{
+      clickMenu(text){
+        if(text=='分销中心'){
+          this.$store.dispatch({
+            type:'resFenxiao'
+          })
+        }else if(text=='代理中心'){
+          router.push({path:'/agentIndex'})
+        }
+      }
+    },
   }
 </script>
 <style>

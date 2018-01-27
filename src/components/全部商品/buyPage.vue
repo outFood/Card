@@ -27,7 +27,7 @@
             <div><h6>￥{{buyPageData.result.marketprice}}</h6><yd-spinner v-model="total"></yd-spinner></div>
           </div>
         </div>
-        <div class="bottom">共 <span>{{total}}</span> 件商品，实付：<span>{{buyPageData.result.marketprice*total}}元</span></div>
+        <div class="bottom">共 <span>{{total}}</span> 件商品，共计：<span>{{buyPageData.result.marketprice*total}}元</span></div>
       </div>
     </div>
     <yd-cell-group title="买家留言" class="leaveWord">

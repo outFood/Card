@@ -123,7 +123,8 @@
               openid:localStorage.getItem('openid'),
               cl:'1',
               t:config.t,
-              i:config.i
+              i:config.i,
+              ispost:1
             }
           })
         }

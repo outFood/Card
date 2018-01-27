@@ -252,7 +252,7 @@ export default {
     },
     //分销中心
     resApply({commit, state}, data) {
-      axios.post(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.register.get_main',{params:data.params})
+      axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.register.get_main',{params:data.params})
         .then(function (res) {
             router.push({path:'/distributIndex/wait'})
         }).catch(function (err) {console.log('请求失败:'+err)})
@@ -281,8 +281,6 @@ export default {
             data:res
           })
         }).catch(function (err) {console.log('请求失败:'+err)})
-
-
     },
     resPrice({commit, state}, data){
       var params={
@@ -340,6 +338,43 @@ export default {
         .then(function (res) {
           console.log(res)
         }).catch(function (err) {console.log('请求失败：'+err)})
+    },
+    //代理中心
+    resAgent({commit, state}, data){
+      var agentParams={
+        t:config.t,
+        openid:localStorage.getItem('openid'),
+        mid:localStorage.getItem('userid'),
+        uniacid:config.uniacid
+      }
+      axios.get('http://cscs.ylhhyk.com/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=abonus.index.get_main',{params:agentParams})
+        .then(function (res) {
+          if(res.data.member.isagent==0){//没有申请分销商
+            console.log('没有申请分销商')
+            router.push({path:'/distributIndex/apply'})
+          }else if(res.data.member.isagent==1&&res.data.member.status==0){//分销商申请了，审核中
+            console.log('分销商申请了，审核中')
+            router.push({path:'/distributIndex/wait'})
+          }else if(res.data.member.isagent==1&&res.data.member.status==1){//已经是分销商了
+            console.log('已经是分销商了')
+            if(res.data.member.isaagent==0){//没注册代理
+              console.log('没注册代理')
+              router.push({path:'/agentIndex/agentRegist'})
+            }else if(res.data.member.isaagent==1&&res.data.member.aagentstatus==0){//注册了代理，审核中
+              console.log('注册了代理，审核中')
+              router.push({path:'/agentIndex/agentWait'})
+            }else{//已经是代理商了
+              console.log('已经是代理商了')
+              router.push({path:'/agentIndex/'})
+            }
+          }
+        }).catch(function (err) {console.log('请求失败:'+err)})
+    },
+    registAgent({commit, state}, data){
+      axios.post(' http://cscs.ylhhyk.com/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=abonus.register.get_main',data.params,{
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).then(function (res) {
+        console.log(res)
+      }).catch(function (err) {console.log('请求失败：'+err)})
     },
     //个人中心
     resWode({commit, state}, data) {
@@ -605,7 +640,7 @@ export default {
       VueSet(state, 'fenxiao_headData', data.data.data)
       console.log(state.fenxiao_headData)
       //在分销中心里,status为0表示未审核，1代表审核通过；register为0代表没注册过，1注册过
-      if(state.fenxiao_headData.result.register==null){//没注册过
+      if(state.fenxiao_headData.result.register==0){//没注册过
           router.push({path:'/distributIndex/apply'})
       }else if(state.fenxiao_headData.result.register==1&&state.fenxiao_headData.status==0){//注册过待审核
         router.push({path:'/distributIndex/wait'})

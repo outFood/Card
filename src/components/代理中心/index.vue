@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="bot">
-      <router-link to="/agentIndex/photo" class="head">
+      <router-link to="/agentIndex/agentDetail" class="head">
         <div>累计分红：<span>0.00</span></div>
         <img src="/static/img/more.png" alt="">
       </router-link>
@@ -133,7 +133,7 @@
   }
   #agent .mid .withdrawals{
     padding:0 5px;
-    border:1px solid #eee;
+    border:1px solid #fff;
     border-radius:0.3125rem;
     display: block;
     color:#fff;

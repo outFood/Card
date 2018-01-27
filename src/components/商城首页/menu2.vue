@@ -38,7 +38,9 @@
             type:'resFenxiao'
           })
         }else if(text=='代理中心'){
-          router.push({path:'/agentIndex'})
+          this.$store.dispatch({
+            type:'resAgent'
+          })
         }
       }
     },
