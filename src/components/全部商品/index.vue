@@ -1,7 +1,7 @@
 <template>
   <div id="sort" v-if="sortData">
     <header>
-      <img src="/static/img/back_black.png" alt=""><yd-search></yd-search>
+      <img src="/static/img/back_black.png" alt="" @click="back()"><yd-search></yd-search>
     </header>
     <yd-scrolltab>
       <yd-scrolltab-panel v-for="(item,key) in parent" :label="item.name" icon="demo-icons-category1" :key="key">
@@ -167,6 +167,9 @@
             t:config.t
           }
         })
+      },
+      back:function () {
+        this.$router.go(-1)
       }
     },
     computed:{

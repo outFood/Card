@@ -1,7 +1,7 @@
 <template>
   <div id="someSort">
     <header style="position: fixed;width:100%;top:0;">
-      <div class="search"><img src="/static/img/back_black.png" alt=""><yd-search v-model="searchKey"></yd-search><i class="searchBtn" @click="screen('搜索')">搜索</i><span @click="allSort_h=!allSort_h"><img src="/static/img/allSort_h.png" v-if="allSort_h"><img src="/static/img/allSort_v.png" v-else></span></div>
+      <div class="search"><img src="/static/img/back_black.png" alt="" @click="back()"><yd-search v-model="searchKey"></yd-search><i class="searchBtn" @click="screen('搜索')">搜索</i><span @click="allSort_h=!allSort_h"><img src="/static/img/allSort_h.png" v-if="allSort_h"><img src="/static/img/allSort_v.png" v-else></span></div>
       <!--tab-->
       <div class="tab">
         <div @click="screen('all')" :class="{cur:curTab==1}">综合</div>
@@ -197,7 +197,10 @@
             t:config.t
           }
         })
-      }
+      },
+      back:function () {
+        this.$router.go(-1)
+      },
     }
   }
 </script>
