@@ -1,5 +1,10 @@
 <template>
-  <div>
+  <div id="myAddress">
+    <yd-navbar title="收货地址">
+      <router-link to="#" slot="left">
+        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
+      </router-link>
+    </yd-navbar>
     <div class="address-item" v-for="(item,key) in myAddressData" :key="key">
       <div @click="selAddress(item)">
         <yd-flexbox>
@@ -24,9 +29,6 @@
     <router-link to="/vipIndex/addAddress">
       <yd-button size="large" type="primary">添加新地址</yd-button>
     </router-link>
-
-
-    <router-view></router-view>
   </div>
 </template>
 <script>
@@ -84,6 +86,9 @@
           type:'saveSelAddress',
           item:item
         })
+      },
+      back:function () {
+        this.$router.go(-1)
       }
     },
     beforeCreate(){
@@ -98,27 +103,27 @@
   }
 </script>
 <style scoped>
-  .address-item {
+  #myAddress .address-item {
     background: #fff;
     font-size: 14px !important;
     color: #3d4245;
     margin-bottom: 10px;
   }
-  .address-item .yd-flexbox {
+  #myAddress .address-item .yd-flexbox {
     padding: 15px;
   }
-  .address-item .yd-flexbox .yd-flexbox-item:nth-child(1) {
+  #myAddress .address-item .yd-flexbox .yd-flexbox-item:nth-child(1) {
     text-align: left;
   }
-  .address-item .yd-flexbox .yd-flexbox-item:nth-child(2) {
+  #myAddress .address-item .yd-flexbox .yd-flexbox-item:nth-child(2) {
     text-align: right;
   }
-  .address-item .address {
+  #myAddress .address-item .address {
     padding: 0px 20px 20px 15px;
     border-bottom: 1px solid #eee;
     text-align: left;
   }
-  .address-item .use {
+  #myAddress .address-item .use {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -127,19 +132,19 @@
     align-items: center;
     padding: 10px;
   }
-  .address-item .use .setDefault img{
+  #myAddress .address-item .use .setDefault img{
     width:15px;
     height:15px;
     vertical-align: middle;
     margin-right:5px;
   }
-  .address-item .use>div:nth-child(2) div {
+  #myAddress .address-item .use>div:nth-child(2) div {
     display: inline-block;
   }
-  .address-item .use>div:nth-child(2) div:first-child {
+  #myAddress .address-item .use>div:nth-child(2) div:first-child {
     margin-right: 10px;
   }
-  button {
+  #myAddress button {
     position: fixed !important;
     bottom: 0 !important;
     border-radius: 0 !important;

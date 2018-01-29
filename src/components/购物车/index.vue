@@ -2,7 +2,7 @@
   <div id="cart" v-if="cartData">
     <yd-navbar title="我的购物车">
       <router-link to="#" slot="left">
-        <yd-navbar-back-icon></yd-navbar-back-icon>
+        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
       </router-link>
       <router-link to="#" slot="right" @click.native="delShow=!delShow">
         <span v-if="delShow==false">编辑</span><span v-else>完成</span>
@@ -190,6 +190,9 @@
             t:config.t
           }
         })
+      },
+      back:function () {
+        this.$router.go(-1)
       }
     },
     beforeCreate(){

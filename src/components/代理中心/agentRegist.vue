@@ -28,8 +28,9 @@
       <div class="upload">
         上传代理资质
 
-        <img class="picture" :src="headerImage"></img>
-        <input type="file" id="upload" accept="image/*" @change="upload" onchange="var formdata = new FormData();formdata=this.files;console.log(formdata);">
+        <img class="picture" v-for="item in headerImage" :src="item"></img>
+        <input type="file" id="upload" accept="image/*" @change="upload" onchange="var formdata = new FormData();formdata=this.files;">
+        <span class="addMore">+</span>
       </div>
       <div class="item">
         <span>代理类型</span>
@@ -157,7 +158,6 @@
 #daili form .upload{
   text-align: left;background: #fff;padding:10px 10px 10px 0;
   position: relative;width:100%;height:80px;
-  line-height: 60px;
   border-bottom: 1px solid #eee;
 }
 #daili form .upload img{
@@ -165,6 +165,17 @@
 }
 #daili form .upload input{
   opacity: 0;position: absolute;top: 0;right: 0px;height:100%;width:100%;z-index: 100
+}
+#daili form .upload .addMore{
+  display: inline-block;
+  width:40px;
+  height:40px;
+  border:1px solid #eee;
+  margin: 0 auto;
+  line-height: 40px;
+  text-align: center;
+  color:#eee;
+  font-size:40px;
 }
 </style>
 <script>
@@ -177,7 +188,7 @@ import District from 'ydui-district/dist/jd_province_city_area_id';
       return{
         sort:'',
         readed: ['3'],
-        headerImage: '', picValue: '',
+        headerImage:[], picValue: '',
         nickname:'',
         //选择省
         curShow: false,
@@ -187,8 +198,9 @@ import District from 'ydui-district/dist/jd_province_city_area_id';
         show1: false,
         realname:'吴巧红',
         mobile:'13867104693',
-        code:'432432',
+        code:'6',
         weixin:'1741432444',
+        aagenttype:1,
         province:'',
         city:'',
         area:'',
@@ -208,7 +220,6 @@ import District from 'ydui-district/dist/jd_province_city_area_id';
           }else if(val=='乡镇'){
             this.curPlaceholder='请选择代理地区'
           }
-          console.log(this.curSel)
         },
         deep: true
       },
@@ -216,28 +227,28 @@ import District from 'ydui-district/dist/jd_province_city_area_id';
     methods: {
       result(ret) {
         if(this.sort=='省级'){
+          this.aagenttype=1;
           this.curSel = ret.itemName1;
           this.province=ret.itemName1
         }else if(this.sort=='市级'){
+          this.aagenttype=2;
           this.curSel =ret.itemName1+ret.itemName2;
           this.province=ret.itemName1;
           this.city=ret.itemName2;
         }else if(this.sort=='区级'){
+          this.aagenttype=3;
           this.curSel =ret.itemName1+ret.itemName2 + ' ' + ret.itemName3
           this.province=ret.itemName1;
           this.city=ret.itemName2;
           this.area=ret.itemName3;
         }else if(this.sort=='乡镇'){
+          this.aagenttype=4;
           this.curSel =ret.itemName1+ret.itemName2 + ' ' + ret.itemName3
           this.province=ret.itemName1;
           this.city=ret.itemName2;
           this.area=ret.itemName3;
         }
-        console.log(this.province)
-        console.log(this.city)
-        console.log(this.area)
       },
-
       upload(e) {
         let files = e.target.files || e.dataTransfer.files;
         if (!files.length) return;
@@ -266,20 +277,17 @@ import District from 'ydui-district/dist/jd_province_city_area_id';
             img.src = result;
             //判断图片是否大于5K,是就直接上传，反之压缩图片
             if (this.result.length <= (1 * 1024)) {
-              self.headerImage = this.result;
+              self.headerImage.push(this.result);
 //              self.postImg();点击保存按钮才调用接口保存图片和昵称
             } else {
               img.onload = function () {
                 let data = self.compress(img, Orientation);
-                self.headerImage = data;
+                self.headerImage.push(data);
 //                self.postImg();点击保存按钮才调用接口保存图片和昵称
               }
             }
           }
         }
-      },
-      postImg() {
-        console.log('调用接口')
       },
       rotateImg(img, direction, canvas) {
         //最小与最大旋转方向，图片旋转4次后回到原方向
@@ -404,7 +412,7 @@ import District from 'ydui-district/dist/jd_province_city_area_id';
             mobile:this.mobile,
             code:this.code,
             weixin:this.weixin,
-            aagenttype:this.sort,
+            aagenttype:this.aagenttype,
             province:this.province,
             city:this.city,
             area:this.area,

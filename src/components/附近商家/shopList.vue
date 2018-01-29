@@ -34,7 +34,7 @@
           </div>
         </div>
         <div class="bottom">
-          <div>打开地图</div>
+          <div @click="openMap(item)">打开地图</div>
           <div>联系商家</div>
         </div>
       </div>
@@ -50,6 +50,14 @@
       Fujin_ListData(){
         return this.$store.state.Fujin_ListData.result
       }
+    },
+    methods:{
+      openMap(item){
+        this.$store.dispatch({
+          type:'saveCurSelShop',
+          params:item
+        })
+      }
     }
   }
 </script>
@@ -57,7 +65,7 @@
   #shopList{
     font-size:0.4375rem;
     position: relative;
-    margin-bottom: 80px;
+    margin-bottom:2.5rem;
   }
   #shopList nav .yd-accordion .yd-accordion-head{
     width:33%;
@@ -70,7 +78,7 @@
     z-index: 1000;
     width:100%;
     position: absolute;
-    top:52px;
+    top:1.625rem;
   }
   #shopList nav .yd-accordion-head-content .yd-accordion-title{
     font-size:0.43rem;
@@ -78,14 +86,14 @@
   #shopList nav .yd-accordion .yd-accordion-content p{
     padding: 0.3125rem 0;
     padding-right:8px;
-    height:50px;
+    height:1.5625rem;
   }
   #shopList nav .yd-accordion .yd-accordion-content p:not(:last-child){
     border-bottom: 1px solid #eee;
   }
   #shopList section{
     position: absolute;
-    top:52px;
+    top:1.625rem;
     bottom:0;
     left:0;
     right:0;
@@ -103,21 +111,21 @@
     align-items: center;
   }
   #shopList section .listItem .top img{
-    width:90px;
-    height:60px;
+    width:2.8rem;
+    height:1.875rem;
   }
   #shopList section .listItem .top .center{
     text-align: left;
-    flex: 0 0 60%;
+    flex: 0 0 50%;
     padding-left:5px;
   }
   #shopList section .listItem .top .center p{
-    font-size:12px;
+    font-size:0.375rem;
   }
   #shopList section .listItem .top .right{
     flex: 0 0 10%;
     color:red;
-    font-size:12px;
+    font-size:0.375rem;
   }
   #shopList section .listItem .top .right span{
     display: block;
@@ -140,5 +148,8 @@
   }
   #shopList section .listItem .bottom>div:nth-child(1){
     border-right:1px solid #d9d9d9;
+  }
+  #shopList section .listItem:last-child{
+    margin-bottom:2.5rem;
   }
 </style>

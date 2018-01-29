@@ -32,6 +32,7 @@ export default {
       getFujin_slideData: [],
       Fujin_ListData: {},
       payStatus: '购买',
+      curSelShop:{},
       //购物车
       cartData: {},
       cartcount: 0,
@@ -184,6 +185,9 @@ export default {
         })
       }
     },
+    createOrder({commit, state}, data){
+      console.log(data)
+    },
     //查看购物车
     lookCart({commit, state}, data) {
       axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.get_list',{params:data.params})
@@ -248,6 +252,12 @@ export default {
         })
       }).catch(function (err) {
         alert(err)
+      })
+    },
+    saveCurSelShop({commit, state}, data){
+      commit({
+        type:'saveCurSelShop',
+        data:data
       })
     },
     //分销中心
@@ -371,9 +381,8 @@ export default {
         }).catch(function (err) {console.log('请求失败:'+err)})
     },
     registAgent({commit, state}, data){
-      axios.post(' http://cscs.ylhhyk.com/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=abonus.register.get_main',data.params,{
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).then(function (res) {
-        console.log(res)
+      axios.get(' http://cscs.ylhhyk.com/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=abonus.register.get_main',{params:data.params}).then(function (res) {
+        router.push({path:'/agentIndex/agentWait'})
       }).catch(function (err) {console.log('请求失败：'+err)})
     },
     //个人中心
@@ -634,6 +643,13 @@ export default {
       }
       console.log('**************exclusiveShopData****************')
       console.log(state.exclusiveShopData)
+    },
+    saveCurSelShop(state, data){
+      VueSet(state,'curSelShop',data.data.params)
+      console.log(state.curSelShop)
+      if(state.curSelShop!={}){
+        router.push({path: '/fujin/map'})
+      }
     },
     //分销
     saveFenxiaoHead(state, data){

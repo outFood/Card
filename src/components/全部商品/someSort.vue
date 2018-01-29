@@ -172,7 +172,7 @@
             })
           }
           console.log('价格筛选')
-        }else{//点击的是搜索
+        }else if(parameter=='搜索'){//点击的是搜索
           console.log('关键字搜索')
           this.$store.dispatch({
             type:'resCommodityListData',
@@ -183,6 +183,8 @@
 
           })
           this.show4=false;
+        }else{
+          
         }
       },
       loadList(){

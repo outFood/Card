@@ -2,7 +2,7 @@
   <div id="selPay">
     <yd-navbar title="收银台">
       <router-link to="#" slot="left">
-        <yd-navbar-back-icon></yd-navbar-back-icon>
+        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
       </router-link>
       <router-link to="#" slot="right">
         订单
@@ -49,6 +49,20 @@
     </div>
   </div>
 </template>
+<script>
+  export default {
+    data(){
+      return{
+
+      }
+    },
+    methods:{
+      back:function () {
+        this.$router.go(-1)
+      }
+    }
+  }
+</script>
 <style>
   #selPay{
 

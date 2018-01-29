@@ -44,6 +44,7 @@ import eChart from '@/components/E聊/index'
 import fujinHome from '@/components/附近商家/home'
 import fujinIndex from '@/components/附近商家/index'
 import exclusiveShop from '@/components/附近商家/exclusiveShop'
+import map from '@/components/附近商家/map'
 //购物车
 import cart from '@/components/购物车/index'
 //会员中心
@@ -206,6 +207,10 @@ export default new Router({
         {
           path:'exclusiveShop',
           component:exclusiveShop
+        },
+        {
+          path:'map',
+          component:map
         }
       ]
     },

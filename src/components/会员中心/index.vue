@@ -2,7 +2,7 @@
   <div id="vip" v-if="wodeHeadData&&wodeBodyData">
     <yd-navbar title="会员中心">
       <router-link to="#" slot="left">
-        <yd-navbar-back-icon></yd-navbar-back-icon>
+        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
       </router-link>
     </yd-navbar>
     <div id="head">
@@ -106,6 +106,9 @@
           router.push({path: '/vipIndex/myQuan'})
         }
       },
+      back:function () {
+        this.$router.go(-1)
+      }
     },
     beforeCreate(){
 

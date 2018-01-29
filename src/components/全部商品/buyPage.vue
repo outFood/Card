@@ -75,7 +75,7 @@
     </yd-cell-group>
     <div class="toPay">
       <div class="left">需付：<span>￥{{buyPageData.result.marketprice*total+parseInt(buyPageData.result.dispatchprice)}}</span></div>
-      <router-link to="/sortIndex/selPay" class="right">立即支付</router-link>
+      <router-link to="#" class="right" @click.native="createOrder">立即支付</router-link>
     </div>
   </yd-layout>
 </template>
@@ -228,5 +228,15 @@
         return this.$store.state.prefix
       }
     },
+    methods:{
+      createOrder(){
+        this.$store.dispatch({
+          type:'createOrder',
+          params:{
+
+          }
+        })
+      }
+    }
   }
 </script>
