@@ -140,9 +140,12 @@
         this.$store.dispatch({
           type:'resCommodityListData',
           params:{
-            order:'',
+            page:1,
+            pagesize:10,
+            cate:sortid,
             t:config.t,
             openid:localStorage.getItem('openid'),
+            order:'',
             keywords:'',
             ishot:0,
             isnew:0,
@@ -150,9 +153,6 @@
             istime:0,
             isrecommand:0,
             issendfree:0,
-            pagesize:10,
-            page:1,
-            cate:sortid,
             by:'',
             mid:0,
             frommyshop:0,
@@ -221,8 +221,8 @@
       }
     },
     created(){
-      console.log(this.parent)
-      console.log(this.children)
+//      console.log(this.parent)
+//      console.log(this.children)
 
     },
     beforeCreate(){

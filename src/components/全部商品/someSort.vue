@@ -10,70 +10,79 @@
         <div><yd-button @click.native="show4 = true" :class="{cur:curTab==4}">筛选 <img src="/static/img/shaixuan.png" alt="" v-if="curTab!=4"><img src="/static/img/shaixuan_red.png" alt="" v-else></yd-button></div>
       </div>
     </header>
-    <div class="content">
-      <!--商品列表-->
-      <div class="con-h" v-if="allSort_h">
-        <div v-for="(item,key) in commodityListData.list" :key="key" @click="resCommodityDetailData(item.id)">
-          <img :src="item.thumb" alt="">
-          <div>
-            <p>{{item.title}}</p>
-            <span class="price">￥{{item.marketprice}}</span><span class="goPay"  @click="show2 = true">购买</span>
+    <yd-infinitescroll :callback="loadList" ref="infinitescrollDemo">
+      <yd-list theme="1" slot="list">
+        <div class="content">
+          <!--商品列表-->
+          <div class="con-h" v-if="allSort_h">
+            <div v-for="(item,key) in commodityListData" :key="key" @click="resCommodityDetailData(item.id)">
+              <img :src="item.thumb" alt="">
+              <div>
+                <p>{{item.title}}</p>
+                <span class="price">￥{{item.marketprice}}</span><span class="goPay"  @click="show2 = true">购买</span>
+              </div>
+            </div>
+          </div>
+          <div class="con-v"v-else>
+            <div v-for="(item,key) in commodityListData" :key="key">
+              <img :src="item.thumb" alt="">
+              <div class="right">
+                <p>{{item.title}}</p>
+                <span class="price">￥{{item.marketprice}}</span><span class="goPay"  @click="show2 = true">购买</span>
+              </div>
+            </div>
           </div>
         </div>
+      </yd-list>
+      <!-- 数据全部加载完毕显示 -->
+      <span slot="doneTip">啦啦啦，啦啦啦，没有数据啦~~</span>
+      <!-- 加载中提示，不指定，将显示默认加载中图标 -->
+      <img slot="loadingTip" src="http://static.ydcss.com/uploads/ydui/loading/loading10.svg"/>
+
+    </yd-infinitescroll>
+    <!--筛选弹窗-->
+    <yd-popup v-model="show4" position="right" width="60%" class="shaixuan_pop">
+      <div class="head">筛选</div>
+      <div class="tabNav">
+        <span v-for="(item,key) in tabNav" :key="key" @click="changeSearchKey(item)"  :class="{cur:searchKey==item}">{{item}}</span>
       </div>
-      <div class="con-v"v-else>
-        <div v-for="(item,key) in commodityListData.list" :key="key">
-          <img :src="item.thumb" alt="">
-          <div class="right">
-            <p>{{item.title}}</p>
-            <span class="price">￥{{item.marketprice}}</span><span class="goPay"  @click="show2 = true">购买</span>
-          </div>
-        </div>
+      <p>选择分类</p>
+      <yd-scrolltab>
+        <yd-scrolltab-panel label="空调" icon="demo-icons-category1">
+          空调
+        </yd-scrolltab-panel>
+
+        <yd-scrolltab-panel label="冰箱" icon="demo-icons-category2" active>
+          冰箱
+        </yd-scrolltab-panel>
+
+        <yd-scrolltab-panel label="洗衣机" icon="demo-icons-category3">
+          洗衣机
+        </yd-scrolltab-panel>
+
+        <!-- ... -->
+      </yd-scrolltab>
+      <div class="footer">
+        <span @click="show4=false">取消筛选</span>
+        <span  @click="screen('确认')">确认</span>
       </div>
-      <!--筛选弹窗-->
-      <yd-popup v-model="show4" position="right" width="60%" class="shaixuan_pop">
-        <div class="head">筛选</div>
-        <div class="tabNav">
-          <span v-for="(item,key) in tabNav" :key="key" @click="changeSearchKey(item)"  :class="{cur:searchKey==item}">{{item}}</span>
-        </div>
-        <p>选择分类</p>
-        <yd-scrolltab>
-          <yd-scrolltab-panel label="空调" icon="demo-icons-category1">
-            空调
-          </yd-scrolltab-panel>
-
-          <yd-scrolltab-panel label="冰箱" icon="demo-icons-category2" active>
-            冰箱
-          </yd-scrolltab-panel>
-
-          <yd-scrolltab-panel label="洗衣机" icon="demo-icons-category3">
-            洗衣机
-          </yd-scrolltab-panel>
-
-          <!-- ... -->
-        </yd-scrolltab>
-        <div class="footer">
-          <span @click="show4=false">取消筛选</span>
-          <span  @click="screen('确认')">确认</span>
-        </div>
-      </yd-popup>
-      <!--购买弹框-->
-      <yd-popup v-model="show2" position="bottom" height="60%" class="pay_pop">
-        <div class="top">
-          <div><img src="http://img1.3lian.com/2015/a1/95/d/105.jpg" alt=""></div>
-          <span class="price">￥19.9</span>
-          <div class="close" @click="show2=false"><span>x</span></div>
-        </div>
-        <div class="middle">
-          <span>数量</span>
-          <yd-spinner unit="1" min='1' v-model="curGoodsNum"></yd-spinner>
-        </div>
-        <div class="bottom">
-          <div>加入购物车</div>
-          <div>立即购买</div>
-        </div>
-      </yd-popup>
-    </div>
+    </yd-popup>
+    <!--购买弹框-->
+    <yd-popup v-model="show2" position="bottom" height="60%" class="pay_pop">
+      <div class="top">
+        <div><img src="http://img1.3lian.com/2015/a1/95/d/105.jpg" alt=""></div>
+        <span class="price">￥19.9</span>
+        <div class="close" @click="show2=false"><span>x</span></div>
+      </div>
+      <div class="middle">
+        <span>数量</span>
+        <yd-spinner unit="1" min='1' v-model="curGoodsNum"></yd-spinner>
+      </div>
+      <div class="bottom">
+        <div>加入购物车</div>
+        <div>立即购买</div>
+      </div>
+    </yd-popup>
     <footers></footers>
   </div>
 </template>
@@ -101,6 +110,12 @@
       },
       sortid(){
         return this.$store.state.sortid
+      },
+      someSortPage(){
+        return this.$store.state.someSortPage
+      },
+      newCommodityListData(){
+        return this.$store.state.newCommodityListData
       }
     },
     methods:{
@@ -184,11 +199,40 @@
           })
           this.show4=false;
         }else{
-          
+
         }
       },
       loadList(){
-        console.log('哈哈')
+        console.log('滚动加载')
+        this.$store.dispatch({
+          type:'resCommodityListData',
+          params:{
+            page:this.someSortPage,
+            pagesize:6,
+            cate:this.sortid,
+            t:config.t,
+            openid:localStorage.getItem('openid'),
+            order:'',
+            keywords:'',
+            ishot:0,
+            isnew:0,
+            isdiscount:0,
+            istime:0,
+            isrecommand:0,
+            issendfree:0,
+            by:'',
+            mid:0,
+            frommyshop:0,
+          },
+          myText:'滚动加载'
+        })
+        if (this.newCommodityListData.length < 10) {
+          /* 所有数据加载完毕 */
+          this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.loadedDone');
+          return;
+        }
+        /* 单次请求数据完毕 */
+        this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.finishLoad');
       },
       resCommodityDetailData(id){
         console.log('ppp')
@@ -209,12 +253,20 @@
 <style>
   <!---->
   /*#someSort{*/
-    /*margin-bottom: 70px;*/
+  /*margin-bottom: 70px;*/
   /*}*/
+  .yd-list-loading{
+    height:2.5rem;
+    margin-bottom:3rem;
+  }
+  .yd-list-donetip{
+    margin-bottom:2rem;
+  }
   #someSort header{
     width:100%;
     position: fixed !important;
-    top:0
+    top:0;
+    z-index: 100;
   }
   #someSort header .search{
     display: -webkit-box;
@@ -302,7 +354,6 @@
     flex-wrap: wrap;
     padding:0.3125rem;
     margin-top:2.8rem;
-    margin-bottom:2.5rem;
   }
   #someSort .content .con-h>div{
     -webkit-box-flex: 0;
@@ -344,7 +395,6 @@
   #someSort .content .con-v{
     font-size:0.4rem;
     margin-top:3.1rem;
-    margin-bottom:2.5rem;
   }
   #someSort .content .con-v>div{
     padding:0.3125rem;
@@ -380,26 +430,26 @@
     color:#ff5076
   }
   /*筛选弹窗*/
-  #someSort .content .shaixuan_pop .yd-popup{
+  #someSort .shaixuan_pop .yd-popup{
     width:90% !important;
   }
-  #someSort .content .shaixuan_pop{
+  #someSort .shaixuan_pop{
     color: #a3a3a3;;
   }
-  #someSort .content .shaixuan_pop .head{
+  #someSort .shaixuan_pop .head{
     background: #f9f9f9;
     color:#a3a3a3;
     text-align: left;
     padding:5px 0.3125rem;
   }
-  #someSort .content .shaixuan_pop .tabNav{
+  #someSort .shaixuan_pop .tabNav{
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
     flex-wrap: wrap;
   }
-  #someSort .content .shaixuan_pop .tabNav span{
+  #someSort .shaixuan_pop .tabNav span{
     display: inline-block;
     flex: 0 0 31%;
     padding:3px 6px;
@@ -408,26 +458,26 @@
     margin-top:0.3125rem;
     border-radius: 3px;
   }
-  #someSort .content .shaixuan_pop p{
+  #someSort .shaixuan_pop p{
     border-top:1px solid #ebebeb;
     border-bottom:1px solid #ebebeb;
     margin-top: 0.3125rem;
     padding: 5px 0;
   }
-  #someSort .content .shaixuan_pop .yd-scrolltab{
+  #someSort .shaixuan_pop .yd-scrolltab{
     top:4.5rem;
     bottom:1.25rem;
   }
-  #someSort .content .shaixuan_pop strong{
+  #someSort .shaixuan_pop strong{
     display: none;
   }
-  #someSort .content .shaixuan_pop .yd-scrolltab-nav{
+  #someSort .shaixuan_pop .yd-scrolltab-nav{
     width:45%;
   }
-  #someSort .content .shaixuan_pop .yd-scrolltab-content{
+  #someSort .shaixuan_pop .yd-scrolltab-content{
     padding: 0;
   }
-  #someSort .content .shaixuan_pop .footer{
+  #someSort .shaixuan_pop .footer{
     position: fixed !important;
     bottom: 0 !important;
     display: -webkit-box;
@@ -439,7 +489,7 @@
     border-top:1px solid #ebebeb;
     padding: 0.3125rem;
   }
-  #someSort .content .shaixuan_pop .footer span:nth-child(2){
+  #someSort .shaixuan_pop .footer span:nth-child(2){
     color:red
   }
   /*购买弹窗*/

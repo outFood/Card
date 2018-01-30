@@ -21,12 +21,14 @@ export default {
       //分类
       sortData: {},
       keywords: '',//请求商品列表的分类关键字
-      commodityListData: {},
+      commodityListData:[],
+      newCommodityListData:[],
       commodityDetailData: {},
       commodityColorSizeData: {},
       payStaus: '购买',
       buyPageData: {},
       sortid:'',
+      someSortPage:2,
       //附近商家
       Fujin_sortData: [],
       getFujin_slideData: [],
@@ -110,7 +112,8 @@ export default {
           commit({
             type: 'saveCommodityListData',
             res: res,
-            sortid:data.params.cate
+            sortid:data.params.cate,
+            myText:data.myText
           })
         }).catch(function (err) {
         alert(err)
@@ -580,8 +583,15 @@ export default {
       }
     },
     saveCommodityListData(state, data) {//商品列表
-      console.log(data)
-      VueSet(state, 'commodityListData', data.res.data.result)
+      console.log(data.res.data.result.list)
+      if(data.myText=='滚动加载'){
+        VueSet(state, 'commodityListData', [...state.commodityListData,...data.res.data.result.list])
+        VueSet(state,'someSortPage',state.someSortPage+1)
+      }else{
+        VueSet(state, 'commodityListData',data.res.data.result.list)
+      }
+      //保存下来用于判断数据是否全部加载完毕
+      VueSet(state,'newCommodityListData',data.res.data.result.list)
       VueSet(state, 'sortid', data.sortid)
       if (state.commodityListData != {}) {
         router.push({path: '/sortIndex/someSort'})

@@ -2,7 +2,7 @@
   <div id="gonggao" v-if="gonggaoData&&gonggaoItem" :style="{background:gonggaoData.style.background,borderColor:gonggaoData.style.bordercolor}">
     <img :src="prefix+gonggaoData.params.iconurl" alt="">
     <yd-rollnotice :speed="gonggaoData.params.speed+'00'">
-      <yd-rollnotice-item v-for="(item,key) in gonggaoItem" :key="key"><router-link to="item.linkUrl" :style="{color:gonggaoData.style.color,}"><img src="/static/img/tongzhi.png" alt="">{{item.title}}</router-link></yd-rollnotice-item>
+      <yd-rollnotice-item v-for="(item,key) in gonggaoItem" :key="key"><router-link to="/shopIndex/noticePage" :style="{color:gonggaoData.style.color,}"><img src="/static/img/tongzhi.png" alt="">{{item.title}}</router-link></yd-rollnotice-item>
     </yd-rollnotice>
   </div>
 </template>

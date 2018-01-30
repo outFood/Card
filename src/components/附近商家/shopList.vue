@@ -93,7 +93,7 @@
   }
   #shopList section{
     position: absolute;
-    top:1.625rem;
+    top:1.4rem;
     bottom:0;
     left:0;
     right:0;

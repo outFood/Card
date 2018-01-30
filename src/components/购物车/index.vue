@@ -15,7 +15,7 @@
           <div class="right" @click="resCommodityDetailData(item.goodsid)">
             <h6>{{item.title}}</h6>
             <p>{{item.optiontitle}}</p>
-            <span class="price">￥{{item.ggprice}}</span>
+            <span class="price">￥{{item.marketprice}}</span>
           </div>
           <span class="yd-spinner" style="height: 0.6rem; width: 2rem;">
                 <a href="#" @click="addOrReduceOrDel(['减',item.total,item.id,item.optionid,item.minbuy])"></a>
