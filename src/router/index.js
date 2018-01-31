@@ -38,6 +38,8 @@ import agentDetail from '@/components/代理中心/detail'
 import photo from '@/components/代理中心/photo'
 import agentRegist from '@/components/代理中心/agentRegist'
 import agentWait from '@/components/代理中心/agentWait'
+import goPay from '@/components/代理中心/goPay'
+import agentLine from '@/components/代理中心/agentLine'
 
 //E聊
 import eChart from '@/components/E聊/index'
@@ -193,6 +195,12 @@ export default new Router({
         },{
           path:'agentPrice',
           component:agentPrice
+        },{
+          path:'goPay',
+          component:goPay
+        },{
+          path:'agentLine',
+          component:agentLine
         },
       ]
     },

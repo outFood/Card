@@ -46,6 +46,10 @@ export default {
       priceData:{},
       tixianData:{},
       tuiguangData:{},
+      //代理中心
+      agentData:{},
+      agentPriceData:{},
+      agentLineData:{},
       //个人中心
       wodeHeadData: {},
       wodeBodyData: {},
@@ -376,9 +380,16 @@ export default {
             }else if(res.data.member.isaagent==1&&res.data.member.aagentstatus==0){//注册了代理，审核中
               console.log('注册了代理，审核中')
               router.push({path:'/agentIndex/agentWait'})
-            }else{//已经是代理商了
+            }
+            // else if(res.data.member.aagentstatus==0||res.data.member.aagentstatus==1&&res.data.member.isaagent==1){
+            //   router.push({path: '/agentIndex/goPay'})
+            // }
+            else{//已经是代理商了
               console.log('已经是代理商了')
-              router.push({path:'/agentIndex/'})
+              commit({
+                type:'saveAgentData',
+                data:res
+              })
             }
           }
         }).catch(function (err) {console.log('请求失败:'+err)})
@@ -387,6 +398,24 @@ export default {
       axios.get(' http://cscs.ylhhyk.com/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=abonus.register.get_main',{params:data.params}).then(function (res) {
         router.push({path:'/agentIndex/agentWait'})
       }).catch(function (err) {console.log('请求失败：'+err)})
+    },
+    resAgentPrice({commit, state}, data){
+      axios.get('http://cscs.ylhhyk.com/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=abonus.withdraw.get_main',{params:data.params})
+        .then(function (res) {
+          commit({
+            type:'saveAgentPriceData',
+            data:res
+          })
+        }).catch(function (err) {console.log('请求失败:'+err)})
+    },
+    resAgentLine({commit, state}, data){
+      axios.get('http://cscs.ylhhyk.com/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=abonus.down.get_main',{params:data.params})
+        .then(function (res) {
+          commit({
+            type:'saveAgentLineData',
+            data:res
+          })
+        }).catch(function (err) {console.log('请求失败:'+err)})
     },
     //个人中心
     resWode({commit, state}, data) {
@@ -601,9 +630,6 @@ export default {
       VueSet(state, 'Fujin_sortData', data.data.Fujin_sortData.data)
       VueSet(state, 'getFujin_slideData', data.data.getFujin_slideData.data)
       VueSet(state, 'Fujin_ListData', data.data.Fujin_ListData.data)
-      console.log(state.getFujin_slideData)
-      console.log(state.Fujin_sortData)
-      console.log(state.Fujin_ListData)
       if (state.Fujin_sortData && state.getFujin_slideData && state.Fujin_ListData) {
         router.push({path: '/fujin/'})
       }
@@ -679,11 +705,27 @@ export default {
     },
     savePriceData(state, data){
       VueSet(state,'priceData',data.res.data.result)
-      console.log(state.priceData)
     },
     saveTixianData(state, data){
       VueSet(state,'tixianData',data.res)
       console.log(state.tixianData)
+    },
+    //代理中心
+    saveAgentData(state, data){
+      VueSet(state,'agentData',data.data.data)
+      if(state.agentData!={}){
+        router.push({path:'/agentIndex/'})
+      }
+    },
+    saveAgentPriceData(state, data){
+      VueSet(state,'agentPriceData',data.data.data.result)
+      if(state.agentPriceData!={}){
+        router.push({path: '/agentIndex/agentPrice'})
+      }
+      console.log(state.agentPriceData)
+    },
+    saveAgentLineData(state, data){
+      console.log(data)
     },
     //个人中心
     saveWodeData(state,data){

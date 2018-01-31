@@ -1,90 +1,306 @@
 <template>
-  <yd-layout title="代理中心" link="/shopIndex" id="agent">
+  <yd-layout :title="agentData.set.texts.center" link="/shopIndex" id="agent">
     <div class='header'>
-      <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
+      <img :src="agentData.member.avatar">
       <div class="headInfo">
-        <h6>晴愔</h6>
-        <p>浙江省杭州市滨江区</p>
+        <h6>{{agentData.member.nickname}}</h6>
+        <p>{{agentData.member.aagenttype==1?agentData.bonusall.aagents['0'].aagentprovinces['0']:(agentData.member.aagenttype==2?agentData.bonusall.aagents['0'].aagentprovinces['0']+agentData.bonusall.aagents['0'].aagentcitys:(agentData.member.aagenttype==3?agentData.bonusall.aagents['0'].aagentprovinces+agentData.bonusall.aagents['0'].aagentcitys+agentData.bonusall.aagents['0'].aagentareas:agentData.bonusall.aagents['0'].aagentprovinces+agentData.bonusall.aagents['0'].aagentcitys+agentData.bonusall.aagents['0'].aagenttownships))}}</p>
       </div>
-      <div class="grade">【钻石级别】</div>
+      <div class="grade">【创业达人 {{agentData.member.aagenttype==1?'省级':(agentData.member.aagenttype==2?'市级':(agentData.member.aagenttype==3?'区级':'乡镇'))}}】</div>
     </div>
     <div class="mid">
-      <div class="left">
+      <div class="left" @click="resAgentLine">
         <img src="/static/img/people_white.png" alt="">
         <p>我的下线</p>
-        0人
+        {{agentData.bonus.total}}人
       </div>
       <div class="middle">
         本月预计分红
-        <h5>0</h5>
+        <h5>{{agentData.bonus_wait}}</h5>
         区级：0.00 乡镇：0.00
       </div>
       <div class="right">
         <img src="/static/img/Commission.png" alt="">
-        <p>我的下线</p>
-        0人
-        <router-link to="/agentIndex/agentPrice" class="withdrawals">佣金提现</router-link>
+        <p>可提现佣金</p>
+        0元
+        <router-link to="#" class="withdrawals" @click.native="resAgentPrice">佣金提现</router-link>
       </div>
     </div>
     <div class="bot">
-      <router-link to="/agentIndex/agentDetail" class="head">
-        <div>累计分红：<span>0.00</span></div>
-        <img src="/static/img/more.png" alt="">
-      </router-link>
-      <div class="main main1" v-if="len==4||len==2">
-        <div>
-          <img src="/static/img/money.png" alt="">
-          <p>省级</p>
-          <span>0.00</span>
+      <!--省级-->
+      <div v-if="agentData.member.aagenttype==1">
+        <router-link to="/agentIndex/agentDetail" class="head">
+          <div>{{agentData.set.texts.bonus_total}}：<span>{{agentData.bonus.total}}</span></div>
+          <img src="/static/img/more.png" alt="">
+        </router-link>
+        <div class="main main1">
+          <div>
+            <img src="/static/img/money.png" alt="">
+            <p>省级</p>
+            <span>{{agentData.bonus.total1}}</span>
+          </div>
+          <div>
+            <img src="/static/img/money.png" alt="">
+            <p>市级</p>
+            <span>{{agentData.bonus.total2}}</span>
+          </div>
+          <div>
+            <img src="/static/img/money.png" alt="">
+            <p>区级</p>
+            <span>{{agentData.bonus.total3}}</span>
+          </div>
+          <div>
+            <img src="/static/img/money.png" alt="">
+            <p>乡镇级</p>
+            <span>noData</span>
+          </div>
         </div>
-        <div>
-          <img src="/static/img/money.png" alt="">
-          <p>市级</p>
-          <span>0.00</span>
+        <router-link to="/agentIndex/agentDetail" class="head">
+          <div>{{agentData.set.texts.bonus_lock}}：<span>{{agentData.bonus.lock}}</span></div>
+          <img src="/static/img/more.png" alt="">
+        </router-link>
+        <div class="main main1">
+          <div>
+            <img src="/static/img/money.png" alt="">
+            <p>省级</p>
+            <span>{{agentData.bonus.lock1}}</span>
+          </div>
+          <div>
+            <img src="/static/img/money.png" alt="">
+            <p>市级</p>
+            <span>{{agentData.bonus.lock2}}</span>
+          </div>
+          <div>
+            <img src="/static/img/money.png" alt="">
+            <p>区级</p>
+            <span>{{agentData.bonus.lock3}}</span>
+          </div>
+          <div>
+            <img src="/static/img/money.png" alt="">
+            <p>乡镇级</p>
+            <span>noData</span>
+          </div>
         </div>
-        <div>
-          <img src="/static/img/money.png" alt="">
-          <p>区级</p>
-          <span>0.00</span>
-        </div>
-        <div>
-          <img src="/static/img/money.png" alt="">
-          <p>乡镇级</p>
-          <span>0.00</span>
+        <router-link to="/agentIndex/agentDetail" class="head">
+          <div>{{agentData.set.texts.bonus_pay}}：<span>{{agentData.bonus.ok}}</span></div>
+          <img src="/static/img/more.png" alt="">
+        </router-link>
+        <div class="main main1">
+          <div>
+            <img src="/static/img/money.png" alt="">
+            <p>省级</p>
+            <span>{{agentData.bonus.ok1}}</span>
+          </div>
+          <div>
+            <img src="/static/img/money.png" alt="">
+            <p>市级</p>
+            <span>{{agentData.bonus.ok2}}</span>
+          </div>
+          <div>
+            <img src="/static/img/money.png" alt="">
+            <p>区级</p>
+            <span>{{agentData.bonus.ok3}}</span>
+          </div>
+          <div>
+            <img src="/static/img/money.png" alt="">
+            <p>乡镇级</p>
+            <span>noData</span>
+          </div>
         </div>
       </div>
-      <div class="main main2"  v-if="len==3">
-        <div>
-          <img src="/static/img/money.png" alt="">
-          <p>省级</p>
-          <span>0.00</span>
+      <!--区级-->
+      <div v-if="agentData.member.aagenttype==3">
+        <router-link to="/agentIndex/agentDetail" class="head">
+          <div>{{agentData.set.texts.bonus_total}}：<span>{{agentData.bonus.total}}</span></div>
+          <img src="/static/img/more.png" alt="">
+        </router-link>
+        <div class="main main1">
+          <div>
+            <img src="/static/img/money.png" alt="">
+            <p>区级</p>
+            <span>{{agentData.bonus.total3}}</span>
+          </div>
+          <div>
+            <img src="/static/img/money.png" alt="">
+            <p>乡镇级</p>
+            <span>noData</span>
+          </div>
         </div>
-        <div>
-          <img src="/static/img/money.png" alt="">
-          <p>市级</p>
-          <span>0.00</span>
+        <router-link to="/agentIndex/agentDetail" class="head">
+          <div>{{agentData.set.texts.bonus_lock}}：<span>{{agentData.bonus.lock}}</span></div>
+          <img src="/static/img/more.png" alt="">
+        </router-link>
+        <div class="main main1">
+          <div>
+            <img src="/static/img/money.png" alt="">
+            <p>区级</p>
+            <span>{{agentData.bonus.lock3}}</span>
+          </div>
+          <div>
+            <img src="/static/img/money.png" alt="">
+            <p>乡镇级</p>
+            <span>noData</span>
+          </div>
         </div>
-        <div>
-          <img src="/static/img/money.png" alt="">
-          <p>区级</p>
-          <span>0.00</span>
+        <router-link to="/agentIndex/agentDetail" class="head">
+          <div>{{agentData.set.texts.bonus_pay}}：<span>{{agentData.bonus.ok}}</span></div>
+          <img src="/static/img/more.png" alt="">
+        </router-link>
+        <div class="main main1">
+          <div>
+            <img src="/static/img/money.png" alt="">
+            <p>区级</p>
+            <span>{{agentData.bonus.ok3}}</span>
+          </div>
+          <div>
+            <img src="/static/img/money.png" alt="">
+            <p>乡镇级</p>
+            <span>noData</span>
+          </div>
         </div>
       </div>
-      <div class="main main3"  v-if="len==1">
-        <div>
-          <img src="/static/img/money.png" alt="">
-          <p>省级</p>
-          <span>0.00</span>
+      <!--市级-->
+      <div v-if="agentData.member.aagenttype==2">
+        <router-link to="/agentIndex/agentDetail" class="head">
+          <div>{{agentData.set.texts.bonus_total}}：<span>{{agentData.bonus.total}}</span></div>
+          <img src="/static/img/more.png" alt="">
+        </router-link>
+        <div class="main main2">
+          <div>
+            <img src="/static/img/money.png" alt="">
+            <p>市级</p>
+            <span>{{agentData.bonus.total2}}</span>
+          </div>
+          <div>
+            <img src="/static/img/money.png" alt="">
+            <p>区级</p>
+            <span>{{agentData.bonus.total3}}</span>
+          </div>
+          <div>
+            <img src="/static/img/money.png" alt="">
+            <p>乡镇</p>
+            <span>noData</span>
+          </div>
+        </div>
+        <router-link to="/agentIndex/agentDetail" class="head">
+          <div>{{agentData.set.texts.bonus_lock}}：<span>{{agentData.bonus.lock}}</span></div>
+          <img src="/static/img/more.png" alt="">
+        </router-link>
+        <div class="main main2">
+          <div>
+            <img src="/static/img/money.png" alt="">
+            <p>市级</p>
+            <span>{{agentData.bonus.lock2}}</span>
+          </div>
+          <div>
+            <img src="/static/img/money.png" alt="">
+            <p>区级</p>
+            <span>{{agentData.bonus.lock3}}</span>
+          </div>
+          <div>
+            <img src="/static/img/money.png" alt="">
+            <p>乡镇</p>
+            <span>noData</span>
+          </div>
+        </div>
+        <router-link to="/agentIndex/agentDetail" class="head">
+          <div>{{agentData.set.texts.bonus_pay}}：<span>{{agentData.bonus.ok}}</span></div>
+          <img src="/static/img/more.png" alt="">
+        </router-link>
+        <div class="main main2">
+          <div>
+            <img src="/static/img/money.png" alt="">
+            <p>市级</p>
+            <span>{{agentData.bonus.ok2}}</span>
+          </div>
+          <div>
+            <img src="/static/img/money.png" alt="">
+            <p>区级</p>
+            <span>{{agentData.bonus.ok3}}</span>
+          </div>
+          <div>
+            <img src="/static/img/money.png" alt="">
+            <p>乡镇</p>
+            <span>noData</span>
+          </div>
+        </div>
+      </div>
+      <!--乡镇-->
+      <div v-if="agentData.member.aagenttype==4">
+        <router-link to="/agentIndex/agentDetail" class="head">
+          <div>{{agentData.set.texts.bonus_total}}：<span>{{agentData.bonus.total}}</span></div>
+          <img src="/static/img/more.png" alt="">
+        </router-link>
+        <div class="main main3">
+          <div>
+            <img src="/static/img/agentPosition.png" alt="">
+            <p>乡镇</p>
+            <span>noData</span>
+          </div>
+        </div>
+        <router-link to="/agentIndex/agentDetail" class="head">
+          <div>{{agentData.set.texts.bonus_lock}}：<span>{{agentData.bonus.lock}}</span></div>
+          <img src="/static/img/more.png" alt="">
+        </router-link>
+        <div class="main main3">
+          <div>
+            <img src="/static/img/agentPosition.png" alt="">
+            <p>乡镇</p>
+            <span>noData</span>
+          </div>
+        </div>
+        <router-link to="/agentIndex/agentDetail" class="head">
+          <div>{{agentData.set.texts.bonus_pay}}：<span>{{agentData.bonus.ok}}</span></div>
+          <img src="/static/img/more.png" alt="">
+        </router-link>
+        <div class="main main3">
+          <div>
+            <img src="/static/img/agentPosition.png" alt="">
+            <p>乡镇</p>
+            <span>noData</span>
+          </div>
         </div>
       </div>
     </div>
   </yd-layout>
 </template>
 <script>
+  import config from '../../myConfig'
   export default {
     data(){
       return{
         len:2
+      }
+    },
+    computed:{
+      agentData(){
+        return this.$store.state.agentData
+      },
+      prefix(){//轮播图片前缀
+        return this.$store.state.prefix
+      },
+    },
+    methods:{
+      resAgentPrice(){
+        this.$store.dispatch({
+          type:'resAgentPrice',
+          params:{
+            t:config.t,
+            openid:localStorage.getItem('openid'),
+            uniacid:config.uniacid
+          }
+        })
+      },
+      resAgentLine(){
+        this.$store.dispatch({
+          type:'resAgentLine',
+          params:{
+            openid:localStorage.getItem('openid'),
+            mid:localStorage.getItem('userid'),
+            uniacid:config.uniacid,
+            t:config.t
+          }
+        })
       }
     }
   }
@@ -105,7 +321,7 @@
     border-radius: 50%;
   }
   #agent .header .headInfo{
-    flex:0 0 55%;
+    flex:0 0 47%;
     text-align: left;
     margin-left:0.3125rem;
     font-size:0.375rem;
@@ -116,7 +332,7 @@
   }
   #agent .header .grade{
   color:#ff5552;
-   font-weight: bold;
+  font-size:0.375rem;
  }
   #agent .mid{
     background: #ff9a00;
@@ -139,7 +355,6 @@
     color:#fff;
   }
   #agent .bot{
-    background: #fff;
     margin:0.3125rem 0;
   }
   #agent .bot .head{
@@ -152,6 +367,11 @@
     padding:0.3125rem;
     text-align: left;
     border-bottom: 1px solid #eee;
+    background: #fff;
+  }
+  #agent .bot .head:not(:first-child){
+    /*border-top:1px solid #eee;*/
+    margin-top: 10px;
   }
   #agent .bot .head img{
     width:0.625rem;
@@ -165,6 +385,7 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+    background: #fff;
   }
   #agent .bot .main img{
     width:0.9375rem;

@@ -92,7 +92,7 @@
 </script>
 <style>
 #footers{
-  z-index: 1;
+  z-index: 100;
   position: fixed;
   bottom:-1px;
   left:0;

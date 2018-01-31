@@ -2,17 +2,17 @@
   <div id="shopList">
     <nav>
       <yd-accordion>
-        <yd-accordion-item title="商家分类">
+        <yd-accordion-item title="智能排序">
           <div>
             <p v-for="(item,key) in Fujin_sortData" :key="key">{{item.catename}}</p>
           </div>
         </yd-accordion-item>
-        <yd-accordion-item title="智能排序">
+        <yd-accordion-item title="优惠排序">
           <div>
             <p>分为冯绍峰</p>
           </div>
         </yd-accordion-item>
-        <yd-accordion-item title="优惠活动">
+        <yd-accordion-item title="综合排序">
           <div>
             <p>二维若的无</p>
           </div>
@@ -65,10 +65,10 @@
   #shopList{
     font-size:0.4375rem;
     position: relative;
-    margin-bottom:2.5rem;
+    padding-bottom: 61rem;
   }
   #shopList nav .yd-accordion .yd-accordion-head{
-    width:33%;
+    width:33.3%;
     float:left;
     padding:0.1875rem 0.625rem;
     background: #fff;

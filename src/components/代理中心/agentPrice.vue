@@ -2,14 +2,14 @@
   <yd-layout title="代理佣金" link="/distributIndex" id="price">
     <yd-flexbox class="head">
       <yd-flexbox-item>
-        <p>{{priceData.thisset.texts.commission_total}}({{priceData.thisset.texts.yuan}})</p>
-        {{priceData.member.commission_total}}
+        <p>累计佣金(元)</p>
+        0.00
       </yd-flexbox-item>
     </yd-flexbox>
     <div class="body">
       <div class="listItem">
-        <div class="left"><img src="/static/img/price_block.png">{{priceData.thisset.texts.commission_ok}}</div>
-        <div class="right">{{priceData.member.commission_ok}} {{priceData.thisset.texts.yuan}}</div>
+        <div class="left"><img src="/static/img/price_block.png">可提现佣金</div>
+        <div class="right">0.00元</div>
       </div>
     </div>
     <yd-accordion>
@@ -30,15 +30,10 @@
       }
     },
     computed:{
-      priceData(){
-        return this.$store.state.priceData
-      }
+      agentPriceData(){
+        return this.$store.state.agentPriceData
+      },
     },
-    beforeCreate(){
-      this.$store.dispatch({
-        type:'resPrice',
-      })
-    }
   }
 </script>
 <style>
