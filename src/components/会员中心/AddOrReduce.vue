@@ -1,0 +1,63 @@
+<template>
+  <div id="AddOrReduce">
+    <yd-navbar title="资金往来">
+      <router-link to="#" slot="left">
+        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
+      </router-link>
+    </yd-navbar>
+    <div class="list">
+      <div class="list-item">
+        <div class="left"><img src="http://static.ydcss.com/uploads/ydui/1.jpg">哈哈</div>
+        <div class="right"><span>￥-7899 </span><div><p>E卡系统</p><p>消费7899</p></div></div>
+      </div>
+    </div>
+  </div>
+</template>
+<style>
+  #AddOrReduce{
+
+  }
+  #AddOrReduce .list{
+    padding: 0 10px;
+    background: #fff;
+  }
+  #AddOrReduce .list .list-item{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding:10px 0;
+    border-bottom: 1px solid #eee;
+  }
+  #AddOrReduce .list .list-item .left{
+
+  }
+  #AddOrReduce .list .list-item .left img{
+    width:40px;height:40px;vertical-align: middle;margin-right:10px;
+  }
+  #AddOrReduce .list .list-item .right{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+  }
+  #AddOrReduce .list .list-item .right div{
+    background: orangered;
+    color:#fff;
+    margin-left:10px;
+    padding:5px 10px;
+    text-align: center;
+  }
+</style>
+<script>
+  export default {
+    methods:{
+      back:function () {
+        this.$router.go(-1)
+      }
+    }
+  }
+</script>

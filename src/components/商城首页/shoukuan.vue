@@ -4,7 +4,7 @@
     <div class="shoukuanma">
       <p class="biaoshi"><img src="/static/img/phone-sky.png" alt="">普通会员</p>
       <h6>扫一扫 ，向我收钱</h6>
-      <img src="/static/img/timg.jpg" alt="">
+      <img :src="shouKuanCode.code" alt="">
       <div>长按图片可保存二维码</div>
     </div>
     <p class="errTip">如果付款失败，将尝试其他付款方式</p>
@@ -17,11 +17,11 @@
 
       }
     },
-//     beforeCreate(){
-//       this.$store.dispatch({
-//         type:'resShouKuan'
-//       })
-//     }
+    computed:{
+      shouKuanCode(){
+        return this.$store.state.shouKuanCode
+      }
+    }
   }
 </script>
 <style>

@@ -29,7 +29,7 @@
     <div class="bot">
       <!--省级-->
       <div v-if="agentData.member.aagenttype==1">
-        <router-link to="/agentIndex/agentDetail" class="head">
+        <router-link to="#" class="head" @click.native="resFenHong('累计分红')">
           <div>{{agentData.set.texts.bonus_total}}：<span>{{agentData.bonus.total}}</span></div>
           <img src="/static/img/more.png" alt="">
         </router-link>
@@ -55,7 +55,7 @@
             <span>noData</span>
           </div>
         </div>
-        <router-link to="/agentIndex/agentDetail" class="head">
+        <router-link to="#" class="head" @click.native="resFenHong('待结算分红')">
           <div>{{agentData.set.texts.bonus_lock}}：<span>{{agentData.bonus.lock}}</span></div>
           <img src="/static/img/more.png" alt="">
         </router-link>
@@ -81,7 +81,7 @@
             <span>noData</span>
           </div>
         </div>
-        <router-link to="/agentIndex/agentDetail" class="head">
+        <router-link to="#" class="head" @click.native="resFenHong('已结算分红')">
           <div>{{agentData.set.texts.bonus_pay}}：<span>{{agentData.bonus.ok}}</span></div>
           <img src="/static/img/more.png" alt="">
         </router-link>
@@ -110,7 +110,7 @@
       </div>
       <!--区级-->
       <div v-if="agentData.member.aagenttype==3">
-        <router-link to="/agentIndex/agentDetail" class="head">
+        <router-link to="/agentIndex/agentDetail" @click.native="resFenHong('累计分红')" class="head">
           <div>{{agentData.set.texts.bonus_total}}：<span>{{agentData.bonus.total}}</span></div>
           <img src="/static/img/more.png" alt="">
         </router-link>
@@ -126,7 +126,7 @@
             <span>noData</span>
           </div>
         </div>
-        <router-link to="/agentIndex/agentDetail" class="head">
+        <router-link to="/agentIndex/agentDetail" @click.native="resFenHong('待结算分红')" class="head">
           <div>{{agentData.set.texts.bonus_lock}}：<span>{{agentData.bonus.lock}}</span></div>
           <img src="/static/img/more.png" alt="">
         </router-link>
@@ -142,7 +142,7 @@
             <span>noData</span>
           </div>
         </div>
-        <router-link to="/agentIndex/agentDetail" class="head">
+        <router-link to="/agentIndex/agentDetail" @click.native="resFenHong('已结算分红')" class="head">
           <div>{{agentData.set.texts.bonus_pay}}：<span>{{agentData.bonus.ok}}</span></div>
           <img src="/static/img/more.png" alt="">
         </router-link>
@@ -161,7 +161,7 @@
       </div>
       <!--市级-->
       <div v-if="agentData.member.aagenttype==2">
-        <router-link to="/agentIndex/agentDetail" class="head">
+        <router-link to="/agentIndex/agentDetail" @click.native="resFenHong('累计分红')" class="head">
           <div>{{agentData.set.texts.bonus_total}}：<span>{{agentData.bonus.total}}</span></div>
           <img src="/static/img/more.png" alt="">
         </router-link>
@@ -182,7 +182,7 @@
             <span>noData</span>
           </div>
         </div>
-        <router-link to="/agentIndex/agentDetail" class="head">
+        <router-link to="/agentIndex/agentDetail" @click.native="resFenHong('待结算分红')" class="head">
           <div>{{agentData.set.texts.bonus_lock}}：<span>{{agentData.bonus.lock}}</span></div>
           <img src="/static/img/more.png" alt="">
         </router-link>
@@ -203,7 +203,7 @@
             <span>noData</span>
           </div>
         </div>
-        <router-link to="/agentIndex/agentDetail" class="head">
+        <router-link to="/agentIndex/agentDetail" @click.native="resFenHong('已结算分红')" class="head">
           <div>{{agentData.set.texts.bonus_pay}}：<span>{{agentData.bonus.ok}}</span></div>
           <img src="/static/img/more.png" alt="">
         </router-link>
@@ -227,7 +227,7 @@
       </div>
       <!--乡镇-->
       <div v-if="agentData.member.aagenttype==4">
-        <router-link to="/agentIndex/agentDetail" class="head">
+        <router-link to="/agentIndex/agentDetail" @click.native="resFenHong('累计分红')" class="head">
           <div>{{agentData.set.texts.bonus_total}}：<span>{{agentData.bonus.total}}</span></div>
           <img src="/static/img/more.png" alt="">
         </router-link>
@@ -238,7 +238,7 @@
             <span>noData</span>
           </div>
         </div>
-        <router-link to="/agentIndex/agentDetail" class="head">
+        <router-link to="/agentIndex/agentDetail" @click.native="resFenHong('待结算分红')" class="head">
           <div>{{agentData.set.texts.bonus_lock}}：<span>{{agentData.bonus.lock}}</span></div>
           <img src="/static/img/more.png" alt="">
         </router-link>
@@ -249,7 +249,7 @@
             <span>noData</span>
           </div>
         </div>
-        <router-link to="/agentIndex/agentDetail" class="head">
+        <router-link to="/agentIndex/agentDetail" @click.native="resFenHong('已结算分红')" class="head">
           <div>{{agentData.set.texts.bonus_pay}}：<span>{{agentData.bonus.ok}}</span></div>
           <img src="/static/img/more.png" alt="">
         </router-link>
@@ -300,6 +300,21 @@
             uniacid:config.uniacid,
             t:config.t
           }
+        })
+      },
+      resFenHong(curText){
+        console.log(status)
+        this.$store.dispatch({
+          type:'resFenHong',
+          params:{
+            page:1,
+            pagesize:10,
+            uniacid:config.uniacid,
+            t:config.t,
+            openid:localStorage.getItem('openid'),
+            status:curText=='累计分红'?'':(curText=='待结算分红'?2:1)
+          },
+          curText:curText
         })
       }
     }

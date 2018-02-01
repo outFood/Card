@@ -1,11 +1,11 @@
 <template>
-  <yd-layout title="我的下线(1)" link="/distributIndex" id="agentLine">
+  <yd-layout title="我的下线" link="/distributIndex" id="agentLine">
     <p class="tip">成员信息 <img src="/static/img/star_hong.png" alt="">为已经成为代理商的下线</p>
-    <div class="item">
-      <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
+    <div class="item" v-for="(item,key) in agentLineData.list" :key="key">
+      <img :src="item.avatar">
       <div class="middle">
-        <h6><img src="/static/img/star_hong.png" alt="">晴愔</h6>
-        <span>成为分销商时间;2017.12.25 10:43</span>
+        <h6><img src="/static/img/star_hong.png" alt="">{{item.realname}}</h6>
+        <span>成为分销商时间:{{item.aagenttime}}</span>
       </div>
       <div class="right">
         <span>+0</span>
@@ -23,15 +23,10 @@
 
       }
     },
-    beforeCreate(){
-      this.$store.dispatch({
-        type:'resXiaXian',
-        params:{
-          openid:localStorage.getItem('openid'),
-          mid:config.mid,
-          t:config.t
-        }
-      })
+    computed:{
+      agentLineData(){
+        return this.$store.state.agentLineData
+      }
     }
   }
 </script>

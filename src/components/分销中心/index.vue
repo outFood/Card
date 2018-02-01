@@ -1,5 +1,10 @@
 <template>
-  <yd-layout title="分销中心" link="/shopIndex" id="distribut">
+  <div id="distribut">
+    <yd-navbar title="分销中心">
+      <router-link to="#" slot="left">
+        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
+      </router-link>
+    </yd-navbar>
     <div class="head">
       <yd-flexbox class="line1">
         <div class="left"><img :src="fenxiao_headData.member.avatar"></div>
@@ -41,7 +46,7 @@
       </yd-flexbox-item>
     </yd-flexbox>
     <footers></footers>
-  </yd-layout>
+  </div>
 </template>
 <script>
   import router from '@/router'
@@ -110,6 +115,11 @@
         }
         return arr
       },
+    },
+    methods:{
+      back:function () {
+        this.$router.go(-1)
+      }
     },
     beforeCreate(){
 //      this.$store.dispatch({

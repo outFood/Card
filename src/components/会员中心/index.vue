@@ -35,9 +35,9 @@
     </div>
     <div class="zijin">
       <div><span>我的资金:0.00</span></div>
-      <div><span>资金来往</span></div>
+      <div @click="resAddOrReduce"><span>资金来往</span></div>
       <div><span>授权登录</span></div>
-      <div><span>返还记录</span></div>
+      <div @click="resRecord"><span>返还记录</span></div>
     </div>
     <div class="dingdan">
       <router-link to="#" class="top" @click.native="lookOrder('全部')">
@@ -61,6 +61,7 @@
   </div>
 </template>
 <script>
+  import config from '../../myConfig'
   import router from '@/router'
   export default {
     data(){
@@ -105,6 +106,28 @@
         }else if(text=='我的优惠券'){
           router.push({path: '/vipIndex/myQuan'})
         }
+      },
+      resAddOrReduce(){
+        this.$store.dispatch({
+          type:'resAddOrReduce',
+          params:{
+            page:1,
+            pagesize:10,
+            uniacid:config.uniacid,
+            t:config.t,
+            openid:localStorage.getItem('openid'),
+          }
+        })
+      },
+      resRecord(){
+        this.$store.dispatch({
+          type:'resRecord',
+          params:{
+            uniacid:config.uniacid,
+            t:config.t,
+            openid:localStorage.getItem('openid'),
+          }
+        })
       },
       back:function () {
         this.$router.go(-1)

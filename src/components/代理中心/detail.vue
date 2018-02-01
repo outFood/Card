@@ -1,38 +1,58 @@
 <template>
   <yd-layout title="分红明细" link="/agentIndex" id="detail">
     <p class="leiji"><span>累计分红</span><span>+0.00元</span></p>
-    <yd-tab>
-      <yd-tab-panel label="全部">
-        <div class="item">
-          <div class="left">
-            <p>FSEGFDHTGFTHJY(一级)</p>
-            <span>2017-12-25 10:45</span>
-          </div>
-          <div class="right">
-            <span>+0.00已完成</span> <img src="/static/img/more.png" alt="">
-          </div>
+    <div class="detailNav">
+      <span :class="{curText:curText=='累计分红'}" @click="resFenHong('累计分红')">全部</span>
+      <span :class="{curText:curText=='待结算分红'}" @click="resFenHong('待结算分红')">待结算分红</span>
+      <span :class="{curText:curText=='已结算分红'}"  @click="resFenHong('已结算分红')">已结算分红</span>
+    </div>
+    <div class="list" >
+      <div class="item">
+        <div class="left">
+          <p>FSEGFDHTGFTHJY(一级)</p>
+          <span>2017-12-25 10:45</span>
         </div>
-
-        <div class="noData">
-          <img src="/static/img/Commission_sky.png" alt="">暂时没有任何数据
+        <div class="right">
+          <span>+0.00已完成</span> <img src="/static/img/more.png" alt="">
         </div>
-      </yd-tab-panel>
-      <yd-tab-panel label="待结算">
-        我需要三件东西：爱情友谊和图书。然而这三者之间何其相通！炽热的爱情可以充实图书的内容，图书又是人们最忠实的朋友。
-        <div class="noData">
-          <img src="/static/img/Commission_sky.png" alt="">暂时没有任何数据
-        </div>
-      </yd-tab-panel>
-      <yd-tab-panel label="已结算">
-        时间是一切财富中最宝贵的财富。
-        <div class="noData">
-          <img src="/static/img/Commission_sky.png" alt="">暂时没有任何数据
-        </div>
-      </yd-tab-panel>
-    </yd-tab>
+      </div>
+    </div>
+    <div class="noData">
+      <img src="/static/img/Commission_sky.png" alt="">暂时没有任何数据
+    </div>
     <footers></footers>
   </yd-layout>
 </template>
+<script>
+  import config from '../../myConfig'
+  export default {
+    computed:{
+      curText(){
+        return this.$store.state.curText
+      },
+      fenHongData(){
+        return this.$store.state.fenHongData
+      }
+    },
+    methods:{
+      resFenHong(curText){
+        console.log(status)
+        this.$store.dispatch({
+          type:'resFenHong',
+          params:{
+            page:1,
+            pagesize:10,
+            uniacid:config.uniacid,
+            t:config.t,
+            openid:localStorage.getItem('openid'),
+            status:curText=='累计分红'?'':(curText=='待结算分红'?2:1)
+          },
+          curText:curText
+        })
+      }
+    }
+  }
+</script>
 <style>
   #detail{
 
@@ -46,20 +66,28 @@
     display: flex;
     justify-content: space-between;
   }
-  #detail .yd-tab-nav .yd-tab-active:before {
-    width: 100%;
-    margin-left: -50%;
+  #detail .detailNav{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    height:50px;
+    line-height: 50px;
+    border-bottom: 1px solid #eee;
   }
-  #detail .yd-tab-nav-item:not(:last-child):after {
-    display: none;
+  #detail .detailNav .curText{
+    color:red;
+    border-bottom:2px solid red;
   }
-  #detail .yd-tab-nav a{
-    font-size:0.4375rem;
+  #detail .detailNav span{
+    display: block;
+    height:100%;
+    flex:0 0 33.3%;
+    text-align: center;
   }
-  #detail .yd-tab-panel{
-    background: transparent;
-  }
-  #detail .item{
+  #detail .list .item{
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -70,23 +98,23 @@
     line-height:0.625rem;
     background: #fff;
   }
-  #detail .item:last-child{
+  #detail .list .item:last-child{
     border-bottom:none;
   }
-  #detail .item .left{
+  #detail .list .item .left{
     text-align: left;
   }
-  #detail .item .left span{
+  #detail .list .item .left span{
     color:#aaa;
   }
-  #detail .item .right{
+  #detail .list .item .right{
 
   }
-  #detail .item .right span{
+  #detail .list .item .right span{
     display: inline-block;
     width:1.5625rem;
   }
-  #detail .item .right img{
+  #detail .list .item .right img{
     width:0.625rem;
     height:0.625rem;
   }

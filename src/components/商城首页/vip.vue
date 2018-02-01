@@ -1,16 +1,20 @@
 <template>
   <yd-layout title="E卡会员" link="#" id="vip">
     <div class='vipInfo'>
-      <img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2977994388,1327444185&fm=27&gp=0.jpg" alt="" class="vipCard">
+      <div class="card">
+          <img src="https://authorize.ylhhyk.com/Template/HongYi/new/images/membershipCard-logo.png" alt="">
+          <img :src="vipCard.code" alt="">
+          <p class="bottom"> 会员ID:{{vipCard.member.id}}</p>
+      </div>
       <div class="vipOtherInfo">
         <div>
           积分 <span>获取</span>
         </div>
         <div>
-          等级 <span>普通会员</span>
+          等级 <span>{{vipCard.level.levelname}}</span>
         </div>
         <div>
-          优惠券 <span>查看</span>
+          商城余额 <span>{{vipCard.member.credit2}}</span>
         </div>
       </div>
       <span class="use">立即使用</span>
@@ -34,11 +38,11 @@
 
       }
     },
-//     beforeCreate(){
-//       this.$store.dispatch({
-//         type:'resVip'
-//       })
-//     }
+    computed:{
+      vipCard(){
+        return this.$store.state.vipCard
+      }
+    }
   }
 </script>
 <style>
@@ -51,23 +55,45 @@
     left:0;
   }
   #vip .vipInfo{
-    padding: 20px;
+    padding: 0.625rem;
   }
-  #vip .vipInfo img{
+  #vip .vipInfo .card{
     width:100%;
+    height:5.25rem;
+    background: url(https://authorize.ylhhyk.com/Template/HongYi/new/images/membershipCard.png);
+    background-size: 100% 100%;
+    padding:0.3125rem 0.46875rem;
+    position: relative;
   }
+  #vip .vipInfo .card img:nth-child(1){
+    width:4.5rem;
+    height:1rem;
+    float: left;
+  }
+  #vip .vipInfo .card img:nth-child(2){
+     width:3rem;
+     height:3rem;
+    float: right;
+    border-radius: 5px;
+   }
+  #vip .vipInfo .card p{
+    position: absolute;
+    bottom:0.3125rem;left:0.46875rem;
+    color:#fff;
+  }
+
   #vip .vipInfo .vipOtherInfo{
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
     align-items: center;
-    margin:30px auto;
-    font-size: 12px;
+    margin:0.9375rem auto;
+    font-size:0.375rem;
   }
   #vip .vipInfo .vipOtherInfo>div{
     flex: 0 0 33%;
-    padding:10px 0;
+    padding:0.3125rem 0;
   }
   #vip .vipInfo .vipOtherInfo>div:not(:last-child){
     border-right:2px solid #f1aa4e
@@ -75,15 +101,15 @@
   #vip .vipInfo .vipOtherInfo>div span{
     display: block;
     color:#f1aa4e;
-    font-size: 14px;
+    font-size:0.4375rem;
     font-weight: bold;
   }
   #vip .vipInfo .use{
-    padding:5px 15px;
+    padding:0.15625rem 0.46875rem;
     border:1px solid #f1aa4e;
     color:#f1aa4e;
     border-radius: 5px;
-    font-size:14px;
+    font-size:0.4375rem;
   }
   #vip .foot .yd-cell:after {
     border-bottom: 0px solid #b2b2b2;

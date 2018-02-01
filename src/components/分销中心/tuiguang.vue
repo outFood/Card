@@ -2,8 +2,8 @@
   <div id="tuiguang">
     <yd-slider autoplay="3000">
       <yd-slider-item>
-        <a href="http://www.ydcss.com">
-          <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
+        <a href="#">
+          <img :src="qrcodeImg.img">
         </a>
       </yd-slider-item>
     </yd-slider>
@@ -11,34 +11,49 @@
     <div class="buzhou">
       <div class="item">
         <span>第一步</span>
-        <i>转发商品链接或商品图片给好友；</i>
+        <i>转发商品链接或商品图片给微信好友；</i>
       </div>
     </div>
     <div class="buzhou">
       <div class="item">
-        <span>第一步</span>
-        <i>转发商品链接或商品图片给好友里面GV的购房红包通过2；</i>
+        <span>第二步</span>
+        <i>从您转发的链接或图片进入商城的好友系统将自动锁定；</i>
       </div>
     </div>
     <div class="buzhou">
       <div class="item">
-        <span>第一步</span>
-        <i>您可以从分销中心查看【我的下线】和【佣金明细】；</i>
+        <span>第三步</span>
+        <i>您可以在分销中心查看【我的团队】和【佣金明细】；</i>
       </div>
     </div>
-    <div class="shuoming">说明: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea est eum expedita itaque labore nam necessitatibus nisi, numquam obcaecati pariatur repellat reprehenderit rerum sint tempora temporibus totam velit voluptatum! Dignissimos.</div>
+    <div class="shuoming">说明:分享后会带有独有的推荐码，您的好友访问后，系统会自动检测并记录客户关系。如果您的好友已被其他人抢先发展成客户,它就不能成为您的客户，以最早发展成为客户为准</div>
   </div>
 </template>
 <script>
+  import config from '../../myConfig'
   export default {
     data(){
       return {
 
       }
     },
+    computed:{
+      qrcodeText(){
+        return this.$store.state.qrcodeText
+      },
+      qrcodeImg(){
+        return this.$store.state.qrcodeImg
+      }
+    },
     beforeCreate(){
       this.$store.dispatch({
-         type:'resTuiGuang'
+        type:'resTuiGuang',
+        params:{
+          uniacid:config.uniacid,
+          t:config.t,
+          openid:localStorage.getItem('openid'),
+          ispost:''
+        }
       })
      }
   }

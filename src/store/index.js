@@ -18,6 +18,9 @@ export default {
       homeData: {},
       prefix: 'http://cscs.ylhhyk.com/attachment/',//附加前缀
       pageNum: 0,
+      fuKuanCode:{},
+      shouKuanCode:{},
+      vipCard:{},
       //分类
       sortData: {},
       keywords: '',//请求商品列表的分类关键字
@@ -46,10 +49,14 @@ export default {
       priceData:{},
       tixianData:{},
       tuiguangData:{},
+      qrcodeText:{},
+      qrcodeImg:{},
       //代理中心
       agentData:{},
       agentPriceData:{},
       agentLineData:{},
+      curText:'累计分红',
+      fenHongData:{},
       //个人中心
       wodeHeadData: {},
       wodeBodyData: {},
@@ -61,7 +68,9 @@ export default {
       myOrder:{},
       orderStatus:null,
       myLikeData:{},
-      zuJiData:{}
+      zuJiData:{},
+      addOrOrder:{},
+      recordData:{}
     }
   },
   getters: {
@@ -82,24 +91,33 @@ export default {
           })
         }).catch(function (err) {console.log('请求失败：'+err)})
     },
-    // resFuKuan({commit, state}, data){
-    //   axios.get('https://xcx.xcwll.cn/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=member.branch.payment&mid='+localStorage.getItem('userid'))
-    //     .then(function (res) {
-    //     console.log(res)
-    //   }).catch(function (err) {alert(err)})
-    // },
-    // resShouKuan({commit, state}, data){
-    //   axios.get('https://xcx.xcwll.cn/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=member.branch.receivables&mid='+localStorage.getItem('userid'))
-    //     .then(function (res) {
-    //     console.log(res)
-    //   }).catch(function (err) {alert(err)})
-    // },
-    // resVip({commit, state}, data){
-    //   axios.get('https://xcx.xcwll.cn/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=member.branch&mid='+localStorage.getItem('userid'))
-    //     .then(function (res) {
-    //     console.log(res)
-    //   }).catch(function (err) {alert(err)})
-    // },
+    resFuKuan({commit, state}, data){
+      axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.branch.get_payment',{params:data.params})
+        .then(function (res) {
+          commit({
+            type:'saveFuKuanCode',
+            data:res
+          })
+        }).catch(function (err) {console.log('请求失败：'+err)})
+    },
+    resShouKuan({commit, state}, data){
+      axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.branch.get_receivables',{params:data.params})
+        .then(function (res) {
+          commit({
+            type:'saveShouKuanCode',
+            data:res
+          })
+      }).catch(function (err) {alert(err)})
+    },
+    resVipCard({commit, state}, data){
+      axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.branch.get_main',{params:data.params})
+        .then(function (res) {
+          commit({
+            type:'saveVipCard',
+            data:res
+          })
+      }).catch(function (err) {alert(err)})
+    },
     //分类
     resSortData({commit, state}, data) {
       axios.get(config.baseUrl+'/bale/api.php?mod=category&uniacid='+config.uniacid+'&t='+config.t)
@@ -250,7 +268,6 @@ export default {
         }))
     },
     resExclusiveShopData({commit, state}, data) {
-      // var url='https://xcx.xcwll.cn/app'+(data.url).replace(/^./, "")+'&state=we7sid-989f479443e701453157a809d00e2e0f&sign=907857da4524149aacd027f26975f731'
       var url = config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.index.get_main&state=we7sid-989f479443e701453157a809d00e2e0f&sign=5fc39c4c2d8acbfb7c253e67cbecda05&mid=0'
       axios.get(url,{params:data.params}).then(function (res) {
         commit({
@@ -336,13 +353,16 @@ export default {
         }).catch(function (err) {console.log('请求失败:'+err)})
     },
     resTuiGuang({commit, state}, data){
-      axios.get(config.baseUrl+"/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=commission.qrcode.get_main&mid="+localStorage.getItem('userid'))
-        .then(function (res) {
-          console.log(res)
-          // commit({
-          //   type:'saveTuiGuangData',
-          //   res:res
-          // })
+      axios.get(config.baseUrl+"/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=commission.qrcode.get_main",{params:data.params})
+        .then(function (restext) {
+          data.params.ispost='1'
+          axios.get(config.baseUrl+"/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=commission.qrcode.get_main",{params:data.params})
+            .then(function (resimg) {
+              commit({
+                type:'saveTuiGuangData',
+                data:[restext,resimg]
+              })
+            }).catch(function (err) {console.log('请求失败：'+err)})
         }).catch(function (err) {console.log('请求失败：'+err)})
     },
     resXiaoDianData({commit, state}, data){
@@ -364,7 +384,7 @@ export default {
         mid:localStorage.getItem('userid'),
         uniacid:config.uniacid
       }
-      axios.get('http://cscs.ylhhyk.com/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=abonus.index.get_main',{params:agentParams})
+      axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=abonus.index.get_main',{params:agentParams})
         .then(function (res) {
           if(res.data.member.isagent==0){//没有申请分销商
             console.log('没有申请分销商')
@@ -395,12 +415,12 @@ export default {
         }).catch(function (err) {console.log('请求失败:'+err)})
     },
     registAgent({commit, state}, data){
-      axios.get(' http://cscs.ylhhyk.com/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=abonus.register.get_main',{params:data.params}).then(function (res) {
+      axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=abonus.register.get_main',{params:data.params}).then(function (res) {
         router.push({path:'/agentIndex/agentWait'})
       }).catch(function (err) {console.log('请求失败：'+err)})
     },
     resAgentPrice({commit, state}, data){
-      axios.get('http://cscs.ylhhyk.com/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=abonus.withdraw.get_main',{params:data.params})
+      axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=abonus.withdraw.get_main',{params:data.params})
         .then(function (res) {
           commit({
             type:'saveAgentPriceData',
@@ -409,11 +429,21 @@ export default {
         }).catch(function (err) {console.log('请求失败:'+err)})
     },
     resAgentLine({commit, state}, data){
-      axios.get('http://cscs.ylhhyk.com/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=abonus.down.get_main',{params:data.params})
+      axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=abonus.down.get_main',{params:data.params})
         .then(function (res) {
           commit({
             type:'saveAgentLineData',
             data:res
+          })
+        }).catch(function (err) {console.log('请求失败:'+err)})
+    },
+    resFenHong({commit, state}, data){
+      axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=abonus.bonus.get_list',{params:data.params})
+        .then(function (res) {
+          commit({
+            type:'saveFenHongData',
+            data:res,
+            curText:data.curText
           })
         }).catch(function (err) {console.log('请求失败:'+err)})
     },
@@ -590,6 +620,24 @@ export default {
             res:res
           })
         }).catch(function (err) {console.log('请求失败')})
+    },
+    resAddOrReduce({commit, state}, data){
+      axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.capital.get_contactsMoney',{params:data.params})
+        .then(function (res) {
+          commit({
+            type:'saveAddOrReduce',
+            data:res
+          })
+        }).catch(function (err) {console.log('请求失败：'+err)})
+    },
+    resRecord({commit, state}, data){
+      axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.capital.get_main',{params:data.params})
+        .then(function (res) {
+          commit({
+            type:'saveRecord',
+            data:res
+          })
+        }).catch(function (err) {console.log('请求失败：'+err)})
     }
   },
   mutations: {
@@ -602,6 +650,24 @@ export default {
       VueSet(state, 'homeData', data.data.data.result)
       if (state.homeData != {}) {
         router.push({path: '/shopIndex/'})
+      }
+    },
+    saveFuKuanCode(state, data){
+      VueSet(state,'fuKuanCode',data.data.data.result)
+      if(state.fuKuanCode!={}){
+        router.push({path: '/shopIndex/fukuan'})
+      }
+    },
+    saveShouKuanCode(state, data){
+      VueSet(state,'shouKuanCode',data.data.data.result)
+      if(state.shouKuanCode!={}){
+        router.push({path: '/shopIndex/shoukuan'})
+      }
+    },
+    saveVipCard(state, data){
+      VueSet(state,'vipCard',data.data.data.result)
+      if(state.vipCard!={}){
+        router.push({path: '/shopIndex/vip'})
       }
     },
     //分类
@@ -710,6 +776,15 @@ export default {
       VueSet(state,'tixianData',data.res)
       console.log(state.tixianData)
     },
+    saveTuiGuangData(state, data){
+      VueSet(state,'qrcodeText',data.data[0].data.result)
+      VueSet(state,'qrcodeImg',data.data[1].data.result)
+      console.log(state.qrcodeText)
+      console.log(state.qrcodeImg)
+      if(state.qrcodeText!={}&&state.qrcodeImg!={}){
+        router.push({path:'/distributIndex/tuiguang'})
+      }
+    },
     //代理中心
     saveAgentData(state, data){
       VueSet(state,'agentData',data.data.data)
@@ -725,7 +800,17 @@ export default {
       console.log(state.agentPriceData)
     },
     saveAgentLineData(state, data){
-      console.log(data)
+      VueSet(state,'agentLineData',data.data.data.result)
+      if(state.agentLineData!={}){
+        router.push({path:'/agentIndex/agentLine'})
+      }
+    },
+    saveFenHongData(state, data){
+      VueSet(state,'fenHongData',data.data.data.result)
+      VueSet(state,'curText',data.curText)
+      if(state.curText!=''&&state.fenHongData!={}){
+        router.push({path:'/agentIndex/agentDetail'})
+      }
     },
     //个人中心
     saveWodeData(state,data){
@@ -775,6 +860,18 @@ export default {
     saveZujiData(state, data){
       VueSet(state,'zuJiData',data.res.data.result)
       console.log(state.zuJiData)
+    },
+    saveAddOrReduce(state, data){
+      VueSet(state,'addOrOrder',data.data.data.result)
+      if(state.addOrOrder!={}){
+        router.push({path: '/vipIndex/AddOrReduce'})
+      }
+    },
+    saveRecord(state, data){
+      VueSet(state,'recordData',data.data.data.result)
+      if(state.recordData!=0){
+        router.push({path: '/vipIndex/record'})
+      }
     }
   }
 }

@@ -2,7 +2,7 @@
   <div id="fukuan">
     <h6>向商家付款</h6>
     <div class="fukuanma">
-      <img src="/static/img/timg.jpg" alt="">
+      <img :src="fuKuanCode.code" alt="">
       <div>长按图片可保存二维码</div>
     </div>
     <p class="errTip">如果付款失败，将尝试其他付款方式</p>
@@ -15,11 +15,11 @@
 
       }
     },
-//     beforeCreate(){
-//       this.$store.dispatch({
-//         type:'resFuKuan'
-//       })
-//     }
+    computed:{
+      fuKuanCode(){
+        return this.$store.state.fuKuanCode
+      }
+    }
   }
 </script>
 <style>

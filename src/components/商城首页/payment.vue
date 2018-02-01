@@ -1,23 +1,73 @@
 <template>
   <div id="payment">
-    <router-link to="/distributIndex/tuiguang">
+    <router-link to="#" @click.native="resTuiGuang">
       <img src="/static/img/tuijianma.png" alt="">
       推荐码
     </router-link>
-    <router-link to="/shopIndex/fukuan">
+    <router-link to="#" @click.native="resFuKuan">
       <img src="/static/img/fukuan.png" alt="">
       我要付款
     </router-link>
-    <router-link to="/shopIndex/shoukuan">
+    <router-link to="#" @click.native="resShouKuan">
       <img src="/static/img/shoukuan.png" alt="">
       我要收款
     </router-link>
-    <router-link to="/shopIndex/vip">
+    <router-link to="#" @click.native="resVipCard">
       <img src="/static/img/vip_card2.png" alt="">
       会员卡
     </router-link>
   </div>
 </template>
+<script>
+  import config from '../../myConfig'
+  export default {
+    methods:{
+      resTuiGuang(){
+        this.$store.dispatch({
+          type:'resTuiGuang',
+          params:{
+            uniacid:config.uniacid,
+            t:config.t,
+            openid:localStorage.getItem('openid'),
+            ispost:''
+          }
+        })
+      },
+      resFuKuan(){
+        this.$store.dispatch({
+          type:'resFuKuan',
+          params:{
+            uniacid:config.uniacid,
+            t:config.t,
+            openid:localStorage.getItem('openid'),
+            money:''
+          }
+        })
+      },
+      resShouKuan(){
+        this.$store.dispatch({
+          type:'resShouKuan',
+          params:{
+            uniacid:config.uniacid,
+            t:config.t,
+            openid:localStorage.getItem('openid'),
+            amount:''
+          }
+        })
+      },
+      resVipCard(){
+        this.$store.dispatch({
+          type:'resVipCard',
+          params:{
+            uniacid:config.uniacid,
+            t:config.t,
+            openid:localStorage.getItem('openid'),
+          }
+        })
+      }
+    }
+  }
+</script>
 <style scoped>
   #payment{
     background: #efbe10;

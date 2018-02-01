@@ -67,6 +67,8 @@ import zuji from '@/components/会员中心/zuji'
 import myQuan from '@/components/会员中心/myQuan'
 import getQuan from '@/components/会员中心/getQuan'
 import recharge from '@/components/会员中心/recharge'
+import AddOrReduce from '@/components/会员中心/AddOrReduce'
+import record from '@/components/会员中心/record'
 
 
 Vue.use(Router)
@@ -280,6 +282,12 @@ export default new Router({
         },{
           path:'recharge',
           component:recharge
+        },{
+          path:'AddOrReduce',
+          component:AddOrReduce
+        },{
+          path:'record',
+          component:record
         }
       ]
     }
