@@ -233,7 +233,34 @@
         this.$store.dispatch({
           type:'createOrder',
           params:{
-
+            orderid:0,
+            id:0,
+            goods:'',
+            giftid:'',
+            gdid:'',
+            diydata:'',
+            dispatchtype:0,
+            fromcart:0,
+            carrierid:0,
+            addressid:1229,
+            carriers:'',
+            remark:'',
+            remark1:undefined,
+            remark2:undefined,
+            remark3:undefined,
+            time:'',
+            img:'',
+            date:'',
+            casIndex:'',
+            region:北京,北京市,朝阳区,
+            deduct:0,
+            deduct2:0,
+            couponid:0,
+            contype:2,
+            invoicename:'',
+            submit:true,
+            packageid:0,
+            app:1
           }
         })
       }

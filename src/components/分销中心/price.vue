@@ -1,12 +1,17 @@
 <template>
-  <yd-layout title="分销佣金" link="/distributIndex" id="price">
+  <div id="price">
+    <yd-navbar title="分销佣金">
+      <router-link to="#" slot="left">
+        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
+      </router-link>
+    </yd-navbar>
     <yd-flexbox class="head">
       <yd-flexbox-item>
         <p>{{priceData.thisset.texts.commission_total}}({{priceData.thisset.texts.yuan}})</p>
         {{priceData.member.commission_total}}
       </yd-flexbox-item>
       <yd-flexbox-item>
-        <span>提现明细</span>
+        <router-link to="/distributIndex/tixianDetail">提现明细</router-link>
       </yd-flexbox-item>
     </yd-flexbox>
     <div class="body">
@@ -30,7 +35,7 @@
         <div class="left"><img src="/static/img/tixian.png">{{priceData.thisset.texts.commission_pay}}</div>
         <div class="right">{{priceData.member.commission_pay}} {{priceData.thisset.texts.yuan}}</div>
       </div>
-      <div class="listItem" v-if="priceData.member.commission_charge > 0">
+      <div class="listItem">
         <div class="left"><img src="/static/img/shui.png">{{priceData.thisset.texts.commission_charge}}</div>
         <div class="right">{{priceData.member.commission_charge}} {{priceData.thisset.texts.yuan}}</div>
       </div>
@@ -51,7 +56,7 @@
       </yd-accordion-item>
     </yd-accordion>
     <yd-button size="large" type="primary" class="woyao">我要提现</yd-button>
-  </yd-layout>
+  </div>
 </template>
 <script>
   export default {
@@ -63,6 +68,11 @@
     computed:{
       priceData(){
         return this.$store.state.priceData
+      }
+    },
+    methods:{
+      back:function () {
+        this.$router.go(-1)
       }
     },
     beforeCreate(){
@@ -87,10 +97,11 @@
   #price .head>div:nth-child(2){
     text-align: right;
   }
-  #price .head>div:nth-child(2) span{
+  #price .head>div:nth-child(2) a{
     padding: 2px 5px;
     border: 1px solid #fff;
     border-radius: 0.3125rem;
+    color:#fff;
   }
   #price .body{
     padding: 0 0.3125rem;

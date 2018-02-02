@@ -47,6 +47,8 @@ export default {
       fenxiao_headData: {},
       fenxiao_bodyData: {},
       priceData:{},
+      yongDetail:{},
+      xiaXian:{},
       tixianData:{},
       tuiguangData:{},
       qrcodeText:{},
@@ -156,9 +158,6 @@ export default {
       function commodityPingjiaSortData() {
         return axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.detail.get_comment_list',{params:data.params})
       }
-      function submitCart() {
-        return axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.submit',{params:data.params})
-      }
       function like() {
         return axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.favorite.toggle',{params:data.params})
       }
@@ -206,8 +205,8 @@ export default {
               res: res
             })
           }).catch(function (err) {
-          alert(err)
-        })
+            alert(err)
+          })
       }
     },
     createOrder({commit, state}, data){
@@ -240,6 +239,31 @@ export default {
             data: 0
           })
         })
+    },
+    cancelSel({commit, state}, data){
+      axios.get(config.baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.select',{params:data.params})
+        .then(function (res) {
+
+        }).catch(function (err) {console.log('请求失败：'+err)})
+    },
+    subMitCart({commit, state}, data){
+      axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.submit',{params:data.params})
+        .then(function (res) {
+          var myPrams={
+            t:config.t,
+            openid:localStorage.getItem('openid'),
+            mid:localStorage.getItem('userid')
+          }
+          axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.create.get_main',{params:myPrams})
+            .then(function (res) {
+              commit({
+                type: 'saveBuyPageData',
+                res: res
+              })
+            }).catch(function (err) {
+            alert(err)
+          })
+        }).catch(function (err) {alert(err)})
     },
     //附近商家
     resFujinData({commit, state}, data) {
@@ -330,26 +354,32 @@ export default {
           })
         }).catch(function (res) {alert(err)})
     },
-    resTiXian({commit, state}, data){
-      var params={
-        mid:config.mid,
-        openid:localStorage.getItem('openid'),
-        t:config.t
-      }
-      axios.get(config.baseUrl+"/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.log.get_list&i=2",params)
+    resYongDetail({commit, state}, data){
+      axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.order.get_list',{params:data.params})
         .then(function (res) {
-          console.log(res)
-          // commit({
-          //   type:'saveTixianData',
-          //   res:res
-          // })
+          commit({
+            type:'saveYongDetail',
+            data:res
+          })
+        }).catch(function (err) {alert(err)})
+    },
+    resTiXian({commit, state}, data){
+      axios.get(config.baseUrl+"/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.log.get_list&i=2",{params:data.params})
+        .then(function (res) {
+          commit({
+            type:'saveTixianData',
+            data:res
+          })
         }).catch(function (err) {console.log('请求失败:'+err)})
 
     },
     resXiaXian({commit, state}, data){
       axios.get(config.baseUrl+"/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.down.get_list&page=1&level=1",{params:data.params})
         .then(function (res) {
-          console.log(res)
+          commit({
+            type:'saveXiaXian',
+            data:res
+          })
         }).catch(function (err) {console.log('请求失败:'+err)})
     },
     resTuiGuang({commit, state}, data){
@@ -756,7 +786,6 @@ export default {
     //分销
     saveFenxiaoHead(state, data){
       VueSet(state, 'fenxiao_headData', data.data.data)
-      console.log(state.fenxiao_headData)
       //在分销中心里,status为0表示未审核，1代表审核通过；register为0代表没注册过，1注册过
       if(state.fenxiao_headData.result.register==0){//没注册过
           router.push({path:'/distributIndex/apply'})
@@ -772,8 +801,14 @@ export default {
     savePriceData(state, data){
       VueSet(state,'priceData',data.res.data.result)
     },
+    saveYongDetail(state, data){
+      VueSet(state,'yongDetail',data.data.data.result)
+    },
+    saveXiaXian(state, data){
+      VueSet(state,'xiaXian',data.data.data.result)
+    },
     saveTixianData(state, data){
-      VueSet(state,'tixianData',data.res)
+      VueSet(state,'tixianData',data.data.data.result)
       console.log(state.tixianData)
     },
     saveTuiGuangData(state, data){

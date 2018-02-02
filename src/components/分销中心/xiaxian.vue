@@ -1,54 +1,57 @@
 <template>
-  <yd-layout title="我的下线(1)" link="/distributIndex" id="xiaxian">
-    <yd-tab>
-      <yd-tab-panel label="一级(1)">
-        <p class="tip">成员信息 <img src="/static/img/star_hong.png" alt="">为已经成为分销商的下线</p>
-        <div class="item">
-          <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
-          <div class="middle">
-            <h6><img src="/static/img/star_hong.png" alt="">晴愔</h6>
-            <span>成为分销商时间;2017.12.25 10:43</span>
-          </div>
-          <div class="right">
-            <span>+0</span>
-            <span>0个成员</span>
-          </div>
-        </div>
-        <div class="item">
-          <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
-          <div class="middle">
-            <h6><img src="/static/img/star_hong.png" alt="">晴愔</h6>
-            <span>成为分销商时间;2017.12.25 10:43</span>
-          </div>
-          <div class="right">
-            <span>+0</span>
-            <span>0个成员</span>
-          </div>
-        </div>
-        <div class="item">
-          <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
-          <div class="middle">
-            <h6><img src="/static/img/star_hong.png" alt="">晴愔</h6>
-            <span>成为分销商时间;2017.12.25 10:43</span>
-          </div>
-          <div class="right">
-            <span>+0</span>
-            <span>0个成员</span>
-          </div>
-        </div>
-      </yd-tab-panel>
-      <yd-tab-panel label="二级(0)">
-      </yd-tab-panel>
-    </yd-tab>
+  <div id="xiaxian">
+    <yd-navbar title="我的下线">
+      <router-link to="#" slot="left">
+        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
+      </router-link>
+    </yd-navbar>
+    <div class="orderNav">
+      <span :class="{curOrderNav:curSel==1}" @click="lookXiaXian('一级')">一级({{xiaXian.list.length}})</span>
+      <span :class="{curOrderNav:curSel==2}" @click="lookXiaXian('二级')">二级({{xiaXian.list.length}})</span>
+    </div>
+    <p class="tip">成员信息 <img src="/static/img/star_hong.png" alt="">为已经成为分销商的下线</p>
+    <div class="item" v-for="(item,key) in xiaXian.list" :key="key">
+      <img :src="item.avatar">
+      <div class="middle">
+        <h6><img src="/static/img/star_hong.png" alt="">{{item.realname}}</h6>
+        <span>成为分销商时间:{{item.agenttime}}</span>
+      </div>
+      <div class="right">
+        <span>+0</span>
+        <span>0个成员</span>
+      </div>
+    </div>
     <footers></footers>
-  </yd-layout>
+  </div>
 </template>
 <script>
   import config from '../../myConfig'
   export default {
     data(){
       return{
-
+        curSel:1
+      }
+    },
+    computed:{
+      xiaXian(){
+        return this.$store.state.xiaXian
+      }
+    },
+    methods:{
+      lookXiaXian(curSelText){
+        curSelText=='一级'?this.curSel=1:(curSelText=='二级'?this.curSel=2:1)
+        this.$store.dispatch({
+          type:'resXiaXian',
+          params:{
+            openid:localStorage.getItem('openid'),
+            mid:config.mid,
+            t:config.t,
+            status:this.curSel
+          }
+        })
+      },
+      back:function () {
+        this.$router.go(-1)
       }
     },
     beforeCreate(){
@@ -57,15 +60,33 @@
         params:{
           openid:localStorage.getItem('openid'),
           mid:config.mid,
-          t:config.t
+          t:config.t,
+          status:1
         }
       })
     }
   }
 </script>
 <style>
-  #xiaxian{
-
+  #xiaxian .orderNav{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    height:50px;
+    line-height: 50px;
+  }
+  #xiaxian .curOrderNav{
+    color:red;
+    border-bottom:2px solid red;
+  }
+  #xiaxian .orderNav span{
+    display: block;
+    height:100%;
+    flex:0 0 50%;
+    text-align: center;
   }
   #xiaxian .yd-tab-nav .yd-tab-active:before {
     width: 100%;

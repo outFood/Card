@@ -30,7 +30,7 @@
           <yd-checkbox v-model="isCheckAll" shape="circle" :change="checkAll">全选</yd-checkbox>
           <div class="rit">合计：<span>￥{{totalPrice}}</span> <p>不含运费</p></div>
         </div>
-        <div class="right">结算({{cartData.list.length}})</div>
+        <div class="right" @click="subMitCart">结算({{cartData.list.length}})</div>
       </div>
       <!--编辑删除-->
       <div class="edit" v-else>
@@ -50,15 +50,55 @@
     data() {
       return {
         cartList: [],
-        isCheckAll: false,
+        isCheckAll: true,
+        checkbox1:true,
         curNum:0,
         delShow:false,
+        select:0,
+        goodsId:''
       }
     },
     watch:{
       cartList:{
         handler(newVal,oldVal){
-          console.log(newVal)
+          function func(arr1,arr2){
+            var arr = [];
+            var bool = false;
+            for(var i=0;i<arr1.length+1;i++){
+              for(var j=0;j<arr2.length+1;j++){
+                //进行优化遇到相同直接跳出循环 同时支持对象比对
+                if(JSON.stringify(arr1[i])===JSON.stringify(arr2[j])){
+                  bool = false;
+                  break;
+                }else{
+                  bool=i;
+                }
+              }
+              if(bool!==false)arr.push(arr1[bool]);
+            }
+            return arr;
+          }
+          if(newVal.length>oldVal.length&&this.isCheckAll==false){//选中
+            this.select=1
+            this.goodsId=func(newVal,oldVal)[0]
+            console.log(this.goodsId)
+          }else if(newVal.length<oldVal.length&&this.isCheckAll==false){//取消选中
+            this.select=0
+            this.goodsId=func(oldVal,newVal)[0]
+            console.log(this.goodsId)
+          }
+          var curSel=func(oldVal,newVal)
+          console.log(curSel)
+          this.$store.dispatch({
+            type:'cancelSel',
+            params:{
+              id:this.goodsId,
+              t:config.t,
+              openid:localStorage.getItem('openid'),
+              mid:localStorage.getItem('userid'),
+              select:this.select
+            }
+          })
         },
         deep:true
       }
@@ -191,12 +231,24 @@
           }
         })
       },
+      subMitCart(){
+        this.$store.dispatch({
+          type:'subMitCart',
+          params:{
+            t:config.t,
+            openid:localStorage.getItem('openid'),
+          }
+        })
+      },
       back:function () {
         this.$router.go(-1)
       }
     },
-    beforeCreate(){
-
+    mounted(){
+      for(var i=0;i<this.cartData.list.length;i++){
+        this.cartList.push(this.cartData.list[i].id)
+      }
+      console.log(this.cartList)
     }
   }
 </script>

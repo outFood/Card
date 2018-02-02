@@ -7,29 +7,29 @@
     </yd-navbar>
     <div class="head">
       <yd-flexbox class="line1">
-        <div class="left"><img :src="fenxiao_headData.member.avatar"></div>
+        <div class="left"><img :src="fenxiao_headData.result.member.avatar"></div>
         <yd-flexbox-item>
-          <h6>{{fenxiao_headData.member.nickname}}</h6>
-          <i>[{{!fenxiao_headData.level ? (!fenxiao_headData.thisset.levelname ? '普通等级' : fenxiao_headData.thisset.levelname) : fenxiao_headData.level.levelname}}]</i>
-          <span>{{fenxiao_headData.thisset.texts.up}}: {{!fenxiao_headData.up ? '总店' : fenxiao_headData.up.nickname}}</span>
-          <span>本人ID:{{fenxiao_headData.member.id}}</span>
+          <h6>{{fenxiao_headData.result.member.nickname}}</h6>
+          <i>{{fenxiao_headData.level.levelname?fenxiao_headData.level.levelname:'普通等级'}}</i>
+          <span>{{fenxiao_headData.result.thisset.texts.up}}: {{!fenxiao_headData.result.up ? '总店' : fenxiao_headData.result.up.nickname}}</span>
+          <span>本人ID:{{fenxiao_headData.result.member.id}}</span>
         </yd-flexbox-item>
         <router-link to="/distributIndex/xiaodian" class="right"><img src="/static/img/set.png"></router-link>
       </yd-flexbox>
       <yd-flexbox class="line2">
         <yd-flexbox-item>
-          <span>{{fenxiao_headData.thisset.texts.commission_pay}}({{fenxiao_headData.thisset.texts.yuan}})</span>
-          <h5>{{fenxiao_headData.member.commission_pay}}</h5>
+          <span>{{fenxiao_headData.result.thisset.texts.commission_pay}}({{fenxiao_headData.result.thisset.texts.yuan}})</span>
+          <h5>{{fenxiao_headData.result.member.commission_pay}}</h5>
         </yd-flexbox-item>
         <yd-flexbox-item>
-          <span>{{fenxiao_headData.thisset.texts.commission_total}}({{fenxiao_headData.thisset.texts.yuan}})</span>
-          <h5>{{fenxiao_headData.member.commission_total}}</h5>
+          <span>{{fenxiao_headData.result.thisset.texts.commission_total}}({{fenxiao_headData.result.thisset.texts.yuan}})</span>
+          <h5>{{fenxiao_headData.result.member.commission_total}}</h5>
         </yd-flexbox-item>
       </yd-flexbox>
       <yd-flexbox class="line3">
         <yd-flexbox-item>
-          <span>{{fenxiao_headData.thisset.texts.commission_ok}}({{fenxiao_headData.thisset.texts.yuan}})</span>
-          <h5>{{fenxiao_headData.member.commission_ok}}</h5>
+          <span>{{fenxiao_headData.result.thisset.texts.commission_ok}}({{fenxiao_headData.result.thisset.texts.yuan}})</span>
+          <h5>{{fenxiao_headData.result.member.commission_ok}}</h5>
         </yd-flexbox-item>
         <yd-flexbox-item>
           <span class="btn">佣金提现</span>
@@ -94,7 +94,7 @@
     },
     computed:{
       fenxiao_headData(){
-        return this.$store.state.fenxiao_headData.result
+        return this.$store.state.fenxiao_headData
       },
       fenxiao_bodyData(){
         var arr=[]
