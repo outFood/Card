@@ -9,33 +9,41 @@
       </router-link>
     </yd-navbar>
     <div class="shop" v-if="cartData.list.length>0">
-      <yd-checklist v-model="cartList" ref="checklistDemo" :callback="change"  :label="false">
-        <yd-checklist-item v-for="(item,key) in cartData.list" :key="key" :val="item.id">
-          <img :src="item.thumb">
-          <div class="right" @click="resCommodityDetailData(item.goodsid)">
-            <h6>{{item.title}}</h6>
-            <p>{{item.optiontitle}}</p>
-            <span class="price">￥{{item.marketprice}}</span>
-          </div>
-          <span class="yd-spinner" style="height: 0.6rem; width: 2rem;">
+      <div class="shop-item"v-for="(item,key) in cartData.list" :key="key">
+        <div class="check">
+          <img src="/static/img/check.png" alt="" v-if="item.selected==1" @click='selOrNo(item.id,0)'>
+          <img src="/static/img/no-check.png" alt="" v-else @click='selOrNo(item.id,1)'>
+        </div>
+        <img :src="item.thumb" class="shopImg">
+        <div class="right" @click="resCommodityDetailData(item.goodsid)">
+          <h6>{{item.title}}</h6>
+          <p>{{item.optiontitle}}</p>
+          <span class="price">￥{{item.marketprice}}</span>
+        </div>
+        <span class="yd-spinner" style="height: 0.6rem; width: 2rem;">
                 <a href="#" @click="addOrReduceOrDel(['减',item.total,item.id,item.optionid,item.minbuy])"></a>
                 <input type="number" pattern="[0-9]*" v-model="item.total" class="yd-spinner-input">
                 <a href="#" @click="addOrReduceOrDel(['加',item.total,item.id,item.optionid])"></a>
               </span>
-        </yd-checklist-item>
-      </yd-checklist>
+      </div>
       <!--选择购买-->
       <div class="checkAll" v-if="delShow==false">
         <div class="left">
-          <yd-checkbox v-model="isCheckAll" shape="circle" :change="checkAll">全选</yd-checkbox>
-          <div class="rit">合计：<span>￥{{totalPrice}}</span> <p>不含运费</p></div>
+          <div class="check">
+            <img src="/static/img/check.png" alt="" v-if="isCheckAll" @click='selOrNo("",0)'>
+            <img src="/static/img/no-check.png" alt="" v-else @click='selOrNo("",1)'>
+          </div>
+          <div class="rit">合计：<span>￥{{cartData.totalprice}}</span> <p>不含运费</p></div>
         </div>
         <div class="right" @click="subMitCart">结算({{cartData.list.length}})</div>
       </div>
       <!--编辑删除-->
       <div class="edit" v-else>
-        <yd-checkbox v-model="isCheckAll" shape="circle" :change="checkAll">全选</yd-checkbox>
-        <div class="delete" :class="{redDelete:cartList.length}" @click="addOrReduceOrDel(['删除'])">删除</div>
+        <div class="check">
+          <img src="/static/img/check.png" alt="" v-if="isCheckAll" @click='selOrNo("",0)'>
+          <img src="/static/img/no-check.png" alt="" v-else @click='selOrNo("",1)'>
+        </div>
+        <div class="delete" :class="{redDelete:checkedArr.length}" @click="addOrReduceOrDel(['删除'])">删除</div>
       </div>
     </div>
     <no-data v-else></no-data>
@@ -50,87 +58,29 @@
     data() {
       return {
         cartList: [],
-        isCheckAll: true,
-        checkbox1:true,
-        curNum:0,
         delShow:false,
         select:0,
         goodsId:''
-      }
-    },
-    watch:{
-      cartList:{
-        handler(newVal,oldVal){
-          function func(arr1,arr2){
-            var arr = [];
-            var bool = false;
-            for(var i=0;i<arr1.length+1;i++){
-              for(var j=0;j<arr2.length+1;j++){
-                //进行优化遇到相同直接跳出循环 同时支持对象比对
-                if(JSON.stringify(arr1[i])===JSON.stringify(arr2[j])){
-                  bool = false;
-                  break;
-                }else{
-                  bool=i;
-                }
-              }
-              if(bool!==false)arr.push(arr1[bool]);
-            }
-            return arr;
-          }
-          if(newVal.length>oldVal.length&&this.isCheckAll==false){//选中
-            this.select=1
-            this.goodsId=func(newVal,oldVal)[0]
-            console.log(this.goodsId)
-          }else if(newVal.length<oldVal.length&&this.isCheckAll==false){//取消选中
-            this.select=0
-            this.goodsId=func(oldVal,newVal)[0]
-            console.log(this.goodsId)
-          }
-          var curSel=func(oldVal,newVal)
-          console.log(curSel)
-          this.$store.dispatch({
-            type:'cancelSel',
-            params:{
-              id:this.goodsId,
-              t:config.t,
-              openid:localStorage.getItem('openid'),
-              mid:localStorage.getItem('userid'),
-              select:this.select
-            }
-          })
-        },
-        deep:true
       }
     },
     computed:{
       cartData(){
          return this.$store.state.cartData
       },
-      totalPrice:{
-        get(){
-          return this.$store.state.cartData.totalprice
-        },
-        set(newValue){
-          this.$store.state.cartData.totalprice=newValue
-        }
+      isCheckAll(){
+        return this.$store.state.isCheckAll
+      },
+      checkedArr(){
+        return this.$store.state.checkedArr
       }
     },
     methods: {
-      change(value, isCheckAll) {
-        this.isCheckAll = isCheckAll;
-      },
-      checkAll() {
-        this.isCheckAll = !this.isCheckAll;
-        this.$refs.checklistDemo.$emit('ydui.checklist.checkall', this.isCheckAll);
-      },
       addOrReduceOrDel(arr){//---------------------------------------
         if(arr[0]=='加'){
-          var total=parseInt(arr[1])+1;
           this.$store.dispatch({
             type:'cartUpdate',
             params:{
-              total:total,
+              total:parseInt(arr[1])+1,
               optionid:arr[3],
               id:arr[2],
               t:config.t,
@@ -138,18 +88,11 @@
               openid:localStorage.getItem('openid')
             }
           })
-          for(var k=0;k<this.cartData.list.length;k++){
-            if(this.cartData.list[k].id==arr[2]){
-              this.cartData.list[k].total++;
-              this.totalPrice+=this.cartData.list[k].ggprice;
-            }
-          }
         }else if(arr[0]=='减'&&arr[1]>arr[4]){
-          var total=parseInt(arr[1])-1;
           this.$store.dispatch({
             type:'cartUpdate',
             params:{
-              total:total,
+              total:parseInt(arr[1])-1,
               optionid:arr[3],
               id:arr[2],
               t:config.t,
@@ -157,69 +100,18 @@
               openid:localStorage.getItem('openid')
             }
           })
-          for(var k=0;k<this.cartData.list.length;k++){
-            if(this.cartData.list[k].id==arr[2]){
-              if(this.cartData.list[k].total>1){
-                this.cartData.list[k].total--;
-                this.totalPrice-=this.cartData.list[k].ggprice;
-              }else if(this.cartData.list[k].total==1){
-                console.log([arr[2]])
-                //如果减少到数量为一的时候，做删除的操作
-                this.$store.dispatch({
-                  type:'cartDelete',
-                  params:{
-                    mid:localStorage.getItem('userid'),
-                    openid:localStorage.getItem('openid'),
-                    ids:[arr[2]],
-                    t:config.t,
-                  }
-                })
-                this.totalPrice-=this.cartData.list[k].ggprice
-                this.cartData.list.splice(k,1)
-              }
-              console.log(this.cartData.list)
-            }
-          }
-        }else{
-          console.log('ggggg')
-          if(this.cartList){
-            console.log(this.cartList)
+        }else if(arr[0]=='删除'){
+          if(this.checkedArr){
             this.$store.dispatch({
               type:'cartDelete',
               params:{
                 mid:localStorage.getItem('userid'),
                 openid:localStorage.getItem('openid'),
-                ids:this.cartList,
+                ids:this.checkedArr.join(','),
                 t:config.t,
               }
             })
           }
-          if(this.isCheckAll==true){
-            console.log('全选')
-            this.totalPrice=0
-            this.cartData.list=[]
-          }else{
-            for(var k=0;k<this.cartData.list.length;k++){
-              if(this.cartData.list[k].id==this.cartList[0]){
-                this.totalPrice-=this.cartData.list[k].ggprice
-                this.cartData.list.splice(k,1)
-              }
-            }
-          }
-        }
-      },
-      cartDelete(){
-        if(this.cartList){
-                console.log(this.cartList)
-          this.$store.dispatch({
-            type:'cartDelete',
-            params:{
-              mid:localStorage.getItem('userid'),
-              openid:localStorage.getItem('openid'),
-              ids:this.cartList,
-              t:config.t,
-            }
-          })
         }
       },
       resCommodityDetailData(id){
@@ -228,6 +120,18 @@
           params:{
             id:id,
             t:config.t
+          }
+        })
+      },
+      selOrNo(id,selected){
+        this.$store.dispatch({
+          type:'selOrNo',
+          params:{
+            t:config.t,
+            mid:localStorage.getItem('userid'),
+            openid:localStorage.getItem('openid'),
+            id:id,
+            select:selected
           }
         })
       },
@@ -244,12 +148,6 @@
         this.$router.go(-1)
       }
     },
-    mounted(){
-      for(var i=0;i<this.cartData.list.length;i++){
-        this.cartList.push(this.cartData.list[i].id)
-      }
-      console.log(this.cartList)
-    }
   }
 </script>
 <style>
@@ -262,25 +160,31 @@
   }
   #cart .shop{
     margin-bottom:110px;
+    background: #fff;
   }
-  #cart .shop  .yd-checklist-content{
+  #cart .shop  .shop-item{
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    padding:10px 0;
+    padding:10px  0px 10px 10px;
     align-items: center;
+    border-bottom: 1px solid #cdcdcd;
   }
-  #cart .shop  .yd-checklist-content img{
-    width:70px;
-    height:70px;
+  #cart .shop .check img{
+    width:20px;height:20px;
   }
-  #cart .shop  .yd-checklist-content .right{
+  #cart .shop  .shop-item .shopImg{
+    width:60px;
+    height:60px;
+    margin-left:10px;
+  }
+  #cart .shop  .shop-item .right{
     margin-left:10px;
     text-align: left;
     flex: 0 0 50%;
   }
-  #cart .shop  .yd-checklist-content .right h6{
+  #cart .shop  .shop-item .right h6{
     text-overflow: -o-ellipsis-lastline;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -290,10 +194,10 @@
     font-size:12px;
 
   }
-  #cart .shop  .yd-checklist-content .right p{
+  #cart .shop  .shop-item .right p{
     margin:10px 0;
   }
-  #cart .shop  .yd-checklist-content .right .price{
+  #cart .shop  .shop-item .right .price{
     color:red;
   }
   #cart .shop .checkAll{
@@ -351,12 +255,12 @@
     bottom:60px;
 
   }
-  #cart .shop .edit label{
+  #cart .shop .edit .check{
     flex: 0 0 70%;
     text-align: left;
     padding-left: 10px;
   }
-  #cart .shop .edit>div{
+  #cart .shop .edit>div:not(:nth-child(1)){
     flex:0 0 30%;
     background: #ccc;
     height:100%;

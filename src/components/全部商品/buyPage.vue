@@ -18,16 +18,15 @@
     </router-link>
     <router-link to="/vipIndex/myAddress" class="noAddress" v-else><span>请选择收货地址</span><img src="/static/img/more.png" alt=""></router-link>
     <div class="list">
-      <div class="item">
+      <div class="item" v-for="(item,key) in buyPageData.result.goods_list">
         <div class="top">
-          <p><img src="/static/img/shop_black.png" alt=""> {{buyPageData.result.goods_list[0].shopname == null ? '官方演示' : buyPageData.result.goods_list[0].shopname }}</p>
-          <div class="shopInfo">
-            <img :src="prefix+buyPageData.result.thumb">
-            <h6>{{buyPageData.result.title}} <p class="optiontitle">{{buyPageData.result.optiontitle}}</p></h6>
-            <div><h6>￥{{buyPageData.result.marketprice}}</h6><yd-spinner v-model="total"></yd-spinner></div>
+          <p><img src="/static/img/shop_black.png" alt="">{{item.shopname?item.shopname:'官方演示'}}</p>
+          <div class="shopInfo" v-for="(infoItem,key) in item.goods" :key="key">
+            <img :src="infoItem.thumb">
+            <h6>{{infoItem.title}} <p class="optiontitle">{{infoItem.optiontitle}}</p></h6>
+            <div><h6>￥{{infoItem.marketprice}}</h6><p>X{{infoItem.total}}</p></div>
           </div>
         </div>
-        <div class="bottom">共 <span>{{total}}</span> 件商品，共计：<span>{{buyPageData.result.marketprice*total}}元</span></div>
       </div>
     </div>
     <yd-cell-group title="买家留言" class="leaveWord">
@@ -38,48 +37,23 @@
     <yd-cell-group>
       <yd-cell-item>
         <span slot="left">商品小计</span>
-        <span slot="right">￥{{buyPageData.result.marketprice}}</span>
+        <span slot="right">￥{{buyPageData.result.other.goodsprice}}</span>
       </yd-cell-item>
-      <!--<yd-cell-item>-->
-        <!--<span slot="left">重复购买优惠</span>-->
-        <!--<span slot="right">￥{{buyPageData.result.marketprice}}</span>-->
-      <!--</yd-cell-item>-->
-      <!--<yd-cell-item>-->
-        <!--<span slot="left">任务活动优惠</span>-->
-        <!--<span slot="right">￥{{buyPageData.result.marketprice}}</span>-->
-      <!--</yd-cell-item>-->
-      <!--<yd-cell-item>-->
-        <!--<span slot="left">会员优惠</span>-->
-        <!--<span slot="right">￥{{buyPageData.result.marketprice}}</span>-->
-      <!--</yd-cell-item>-->
-      <!--<yd-cell-item>-->
-        <!--<span slot="left">促销优惠</span>-->
-        <!--<span slot="right">￥{{buyPageData.result.marketprice}}</span>-->
-      <!--</yd-cell-item>-->
-      <!--<yd-cell-item>-->
-        <!--<span slot="left">商城单笔满0元立减</span>-->
-        <!--<span slot="right">￥{{buyPageData.result.marketprice}}</span>-->
-      <!--</yd-cell-item>-->
-      <!--<yd-cell-item>-->
-        <!--<span slot="left">商户单笔满0元立减</span>-->
-        <!--<span slot="right">￥{{buyPageData.result.marketprice}}</span>-->
-      <!--</yd-cell-item>-->
-      <!--<yd-cell-item>-->
-        <!--<span slot="left">秒杀优惠</span>-->
-        <!--<span slot="right">￥{{buyPageData.result.marketprice}}</span>-->
-      <!--</yd-cell-item>-->
       <yd-cell-item>
         <span slot="left">运费</span>
-        <span slot="right">￥{{buyPageData.result.dispatchprice}}</span>
+        <span slot="right">￥{{buyPageData.result.other.dispatch_price}}</span>
       </yd-cell-item>
     </yd-cell-group>
     <div class="toPay">
-      <div class="left">需付：<span>￥{{buyPageData.result.marketprice*total+parseInt(buyPageData.result.dispatchprice)}}</span></div>
+      <div class="left">需付：<span>￥{{buyPageData.result.allprice}}</span></div>
       <router-link to="#" class="right" @click.native="createOrder">立即支付</router-link>
     </div>
   </yd-layout>
 </template>
 <style>
+  #buyPage{
+    margin-bottom:80px;
+  }
   #buyPage header{
     height:1.3rem !important;
     align-items: center;
@@ -123,11 +97,11 @@
     background: #fff;
     margin-top:10px;
     font-size:12px;
-    padding:10px;
+    padding:10px 10px 0 10px;
   }
   #buyPage .item .top>p{
     text-align: left;
-    margin-bottom:10px;
+    border-bottom: 1px solid #eee;
   }
   #buyPage .item .top>p img{
     width:20px;
@@ -139,32 +113,22 @@
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
+    align-items: center;
     justify-content: space-between;
+    border-bottom: 1px solid #eee;
+    padding:10px 0;
   }
   #buyPage .item .top .shopInfo img{
-    width:100px;
-    height:80px;
+    width:70px;
+    height:70px;
   }
   #buyPage .item .top .shopInfo h6{
-    text-align: left !important;
-    margin-left:10px;
+    text-align: left;
+    flex: 0 0 60%;
   }
   #buyPage .item .top .shopInfo  .optiontitle{
     font-weight: normal;
-  }
-  #buyPage .item .top .shopInfo span{
-    display: block;
-    font-size:12px;
-    color:#aaa;
     margin-top:10px;
-    text-align: right;
-  }
-  #buyPage .item .bottom{
-    text-align: right;
-    font-size: 12px;
-  }
-  #buyPage .item .bottom span{
-    color:#e4393c;
   }
   #buyPage .leaveWord{
     margin-top:10px;

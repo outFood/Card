@@ -43,6 +43,8 @@ export default {
       cartcount: 0,
       exclusiveShopData: {},
       addCartStatus:'',
+      isCheckAll:false,
+      checkedArr:[],
       //分销
       fenxiao_headData: {},
       fenxiao_bodyData: {},
@@ -225,25 +227,43 @@ export default {
     cartUpdate({commit, state}, data) {
       axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.update', {params: data.params})
         .then(function (res) {
+          axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.get_list',{params:data.params})
+            .then(function (res) {
+              commit({
+                type: 'saveCartData',
+                res: res
+              })
+            }).catch(function (err) {console.log('请求失败：'+err)})
         }).catch(function (err) {
         alert(err)
       })
     },
     cartDelete({commit, state}, data) {
-      console.log(data)
-      console.log('哈哈哈')
       axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.remove',{params:data.params})
         .then(function (res) {
           commit({
             type: 'saveCartcount',
             data: 0
           })
+          axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.get_list',{params:data.params})
+            .then(function (res) {
+              commit({
+                type: 'saveCartData',
+                res: res
+              })
+            }).catch(function (err) {console.log('请求失败：'+err)})
         })
     },
-    cancelSel({commit, state}, data){
+    selOrNo({commit, state}, data){
       axios.get(config.baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.select',{params:data.params})
         .then(function (res) {
-
+          axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.get_list',{params:data.params})
+            .then(function (res) {
+              commit({
+                type: 'saveCartData',
+                res: res
+              })
+            }).catch(function (err) {console.log('请求失败：'+err)})
         }).catch(function (err) {console.log('请求失败：'+err)})
     },
     subMitCart({commit, state}, data){
@@ -753,6 +773,18 @@ export default {
     //  购物车
     saveCartData(state, data) {
       VueSet(state, 'cartData', data.res.data.result)
+      var selArr=[]
+      for(var i=0;i<data.res.data.result.list.length;i++){
+        if(data.res.data.result.list[i].selected==1){
+          selArr.push(data.res.data.result.list[i].id)
+        }
+      }
+      VueSet(state,'checkedArr',selArr)
+      if(selArr.length==data.res.data.result.list.length){
+        VueSet(state,'isCheckAll',true)
+      }else{
+        VueSet(state,'isCheckAll',false)
+      }
       if (state.cartData != {}) {
         router.push({path: '/cart/'})
       }
