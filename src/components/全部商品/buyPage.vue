@@ -1,14 +1,11 @@
 <template>
-  <yd-layout title="确认下单" link="/sortIndex/detail" id="buyPage">
-    <router-link to="/vipIndex/myAddress"  class="address" v-if="buyPageData.result.address!=false&!curSelAddress.realname">
-      <img src="/static/img/position.png" alt="">
-      <div>
-        <h6>收货人：{{buyPageData.result.address.realname}}&nbsp;&nbsp;&nbsp;&nbsp;{{buyPageData.result.address.mobile}}</h6>
-        <p>{{buyPageData.result.address.province}}  {{buyPageData.result.address.city}} {{buyPageData.result.address.area}} {{buyPageData.result.address.address}}</p>
-      </div>
-      <img src="/static/img/more.png" alt="">
-    </router-link>
-    <router-link to="/vipIndex/myAddress"  class="address" v-else-if="curSelAddress.realname">
+  <div id="buyPage">
+    <yd-navbar title="确认订单">
+      <router-link to="#" slot="left">
+        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
+      </router-link>
+    </yd-navbar>
+    <router-link to="/vipIndex/myAddress"  class="address" v-if="curSelAddress.realname">
       <img src="/static/img/position.png" alt="">
       <div>
         <h6>收货人：{{curSelAddress.realname}}&nbsp;&nbsp;&nbsp;&nbsp;{{curSelAddress.mobile}}</h6>
@@ -31,7 +28,7 @@
     </div>
     <yd-cell-group title="买家留言" class="leaveWord">
       <yd-cell-item>
-        <yd-textarea slot="right" placeholder="50字以内（选填）" maxlength="50" v-model="leavWord"></yd-textarea>
+        <yd-textarea slot="right" placeholder="50字以内（选填）" maxlength="50" v-model="remark"></yd-textarea>
       </yd-cell-item>
     </yd-cell-group>
     <yd-cell-group>
@@ -48,7 +45,7 @@
       <div class="left">需付：<span>￥{{buyPageData.result.allprice}}</span></div>
       <router-link to="#" class="right" @click.native="createOrder">立即支付</router-link>
     </div>
-  </yd-layout>
+  </div>
 </template>
 <style>
   #buyPage{
@@ -166,11 +163,13 @@
   }
 </style>
 <script>
+  import config from '../../myConfig'
   export default {
     data(){
       return {
         buyNumber:'1',
-        leavWord:''
+        remark:'',
+        goodsIds:''
       }
     },
     computed:{
@@ -180,53 +179,52 @@
       curSelAddress(){
         return this.$store.state.curSelAddress
       },
-      total:{
-        get(){
-          return this.$store.state.buyPageData.result.total
-        },
-        set(newValue){
-          this.$store.state.buyPageData.result.total=newValue
-        }
-      },
       prefix(){
         return this.$store.state.prefix
       }
     },
+    mounted(){
+      for(var i=0,myArr=[];i<this.buyPageData.result.list.length;i++){
+        myArr.push(this.buyPageData.result.list[i].goodsid)
+        myArr.push(this.buyPageData.result.list[i].optionid)
+        myArr.push(this.buyPageData.result.list[i].total)
+      }
+      this.goodsIds=myArr.join(',')
+    },
     methods:{
       createOrder(){
+        console.log(this.buyPageData.result.address.id)
         this.$store.dispatch({
           type:'createOrder',
           params:{
             orderid:0,
             id:0,
-            goods:'',
-            giftid:'',
+            goods:this.goodsIds,
+            giftid:'',//赠品id
             gdid:'',
             diydata:'',
             dispatchtype:0,
             fromcart:0,
             carrierid:0,
-            addressid:1229,
+            addressid:this.curSelAddress.id,
             carriers:'',
-            remark:'',
-            remark1:undefined,
-            remark2:undefined,
-            remark3:undefined,
+            remark:this.remark,
             time:'',
-            img:'',
-            date:'',
-            casIndex:'',
-            region:北京,北京市,朝阳区,
             deduct:0,
             deduct2:0,
-            couponid:0,
+//            couponid:0,
             contype:2,
-            invoicename:'',
-            submit:true,
-            packageid:0,
-            app:1
+            invoicename:'',//发货单名字
+            packageid:0,//套餐id
+            app:1,
+            t:config.t,
+            mid:localStorage.getItem('userid'),
+            openid:localStorage.getItem('openid')
           }
         })
+      },
+      back:function () {
+        this.$router.go(-1)
       }
     }
   }

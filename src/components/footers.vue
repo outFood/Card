@@ -63,7 +63,15 @@
           console.log('eChart')
         }else if(path=='fujin'){//请求附近
           this.$store.dispatch({
-            type:'resFujinData'
+            type:'resFujinData',
+            params:{
+              page:1,
+              cateid:'',
+              t:config.t,
+              uniacid:config.t,
+              i:config.i,
+
+            }
           })
         }else if(path=='cart'){
           this.$store.dispatch({

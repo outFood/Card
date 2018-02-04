@@ -18,6 +18,7 @@ import someSort from '@/components/全部商品/someSort'
 import detail from '@/components/全部商品/detail'
 import buyPage from '@/components/全部商品/buyPage'
 import selPay from '@/components/全部商品/selPay'
+import paySuccess from '@/components/全部商品/paySuccess'
 //分销中心
 import distributHome from '@/components/分销中心/home'
 import distributIndex from '@/components/分销中心/index'
@@ -132,6 +133,10 @@ export default new Router({
         {
           path:'selPay',
           component:selPay
+        },
+        {
+          path:'paySuccess',
+          component:paySuccess
         }
       ]
     },

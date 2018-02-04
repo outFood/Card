@@ -39,10 +39,13 @@
   }
 </script>
 <style scoped>
+ #slider .yd-slider {
+    height: 140px !important;
+  }
  #slider img{
    height:140px;
  }
-  .yd-slider-pagination{
+ #slider .yd-slider-pagination{
     bottom:1.1rem;
   }
 </style>

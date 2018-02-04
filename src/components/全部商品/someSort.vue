@@ -1,12 +1,12 @@
 <template>
   <div id="someSort">
     <header style="position: fixed;width:100%;top:0;">
-      <div class="search"><img src="/static/img/back_black.png" alt="" @click="back()"><yd-search v-model="searchKey"></yd-search><i class="searchBtn" @click="screen('搜索')">搜索</i><span @click="allSort_h=!allSort_h"><img src="/static/img/allSort_h.png" v-if="allSort_h"><img src="/static/img/allSort_v.png" v-else></span></div>
+      <div class="search"><img src="/static/img/back_black.png" alt="" @click="back()"><yd-search v-model="searchKey"></yd-search><i class="searchBtn" @click="screen(['搜索'])">搜索</i><span @click="allSort_h=!allSort_h"><img src="/static/img/allSort_h.png" v-if="allSort_h"><img src="/static/img/allSort_v.png" v-else></span></div>
       <!--tab-->
       <div class="tab">
-        <div @click="screen('all')" :class="{cur:curTab==1}">综合</div>
-        <div @click="screen('sail')" :class="{cur:curTab==2}">销量</div>
-        <div @click="screen('price')" :class="{cur:curTab==3}">价格 <span class="top" :class="{curtop:curtop}"></span><span class="bottom" :class="{curbottom:curbottom}"></span></div>
+        <div @click="screen(['all'])" :class="{cur:curTab==1}">综合</div>
+        <div @click="screen(['sail'])" :class="{cur:curTab==2}">销量</div>
+        <div @click="screen(['price'])" :class="{cur:curTab==3}">价格 <span class="top" :class="{curtop:curtop}"></span><span class="bottom" :class="{curbottom:curbottom}"></span></div>
         <div><yd-button @click.native="show4 = true" :class="{cur:curTab==4}">筛选 <img src="/static/img/shaixuan.png" alt="" v-if="curTab!=4"><img src="/static/img/shaixuan_red.png" alt="" v-else></yd-button></div>
       </div>
     </header>
@@ -44,7 +44,7 @@
     <yd-popup v-model="show4" position="right" width="60%" class="shaixuan_pop">
       <div class="head">筛选</div>
       <div class="tabNav">
-        <span v-for="(item,key) in tabNav" :key="key" @click="changeSearchKey(item)"  :class="{cur:searchKey==item}">{{item}}</span>
+        <span v-for="(item,key) in tabNav" :key="key" @click="screen(['筛选',item])" :class="{cur:searchKey==item}">{{item}}</span>
       </div>
       <p>选择分类</p>
       <yd-scrolltab>
@@ -64,7 +64,7 @@
       </yd-scrolltab>
       <div class="footer">
         <span @click="show4=false">取消筛选</span>
-        <span  @click="screen('确认')">确认</span>
+        <span @click="show4=false">确认</span>
       </div>
     </yd-popup>
     <!--购买弹框-->
@@ -119,10 +119,6 @@
       }
     },
     methods:{
-      changeSearchKey(item){
-        this.searchKey=item
-        console.log(this.searchKey)
-      },
       screen(parameter){
         var params={
           order:'',
@@ -142,7 +138,7 @@
           mid:0,
           frommyshop:0,
         }
-        if(parameter=='all'){
+        if(parameter[0]=='all'){
           this.curTab=1
           this.curbottom=false
           this.curtop=false
@@ -152,7 +148,7 @@
             type:'resCommodityListData',
             params:params
           })
-        }else if(parameter=='sail'){
+        }else if(parameter[0]=='sail'){
           this.curTab=2
           this.curbottom=false
           this.curtop=false
@@ -163,7 +159,7 @@
             params:params
           })
           console.log('销量筛选')
-        }else if(parameter=='price'){
+        }else if(parameter[0]=='price'){
           this.curTab=3
           this.clickNum++;
           params.order='minprice'
@@ -187,7 +183,7 @@
             })
           }
           console.log('价格筛选')
-        }else if(parameter=='搜索'){//点击的是搜索
+        }else if(parameter[0]=='搜索'&&parameter.length==1){//点击的是搜索
           console.log('关键字搜索')
           this.$store.dispatch({
             type:'resCommodityListData',
@@ -195,11 +191,17 @@
               t:config.t,
               keywords:this.searchKey,
             }
-
           })
           this.show4=false;
-        }else{
-
+        }else if(parameter[0]=='筛选'){
+          this.$store.dispatch({
+            type:'resCommodityListData',
+            params:{
+              t:config.t,
+              keywords:parameter[1],
+            }
+          })
+          this.show4=false;
         }
       },
       loadList(){

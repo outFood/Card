@@ -65,6 +65,16 @@
     },
     components: {position,banner,menu2,youxuan,shopList},
     beforeCreate(){
+      this.$store.dispatch({
+        type:'resFujinData',
+        params:{
+          page:1,
+          cateid:'',
+          t:config.t,
+          uniacid:config.uniacid,
+          i:config.i
+        }
+      })
     }
   }
 </script>

@@ -11,11 +11,11 @@
     <div class="order">
       <p class="number">
         <span>订单编号</span>
-        <span>FHJ4328907584J789</span>
+        <span>{{selPay.order.ordersn}}</span>
       </p>
       <p class="price">
         <span>订单金额</span>
-        <span>￥999.00</span>
+        <span>￥{{selPay.order.price}}</span>
       </p>
     </div>
     <p class="notes">
@@ -38,11 +38,11 @@
         </div>
         <img src="/static/img/more.png" class="more">
       </div>
-      <div>
+      <div @click="balancePay">
         <img src="/static/img/balance.png" alt="">
         <div>
           <p>余额支付</p>
-          <span>当前约: <i>￥890.00</i></span>
+          <span>当前约: <i>￥{{selPay.money}}</i></span>
         </div>
         <img src="/static/img/more.png" class="more">
       </div>
@@ -50,13 +50,35 @@
   </div>
 </template>
 <script>
+  import config from '../../myConfig'
   export default {
     data(){
       return{
 
       }
     },
+    computed:{
+      selPay(){
+        return this.$store.state.selPay
+      }
+    },
     methods:{
+      balancePay(){
+        this.$dialog.confirm({
+          mes: '确认要支付吗？',
+          opts: () => {
+            this.$store.dispatch({
+              type:'balancePay',
+              params:{
+                t:config.t,
+                openid:localStorage.getItem('openid'),
+                ordersn:this.selPay.order.ordersn
+              }
+            })
+          },
+        });
+
+      },
       back:function () {
         this.$router.go(-1)
       }

@@ -32,6 +32,7 @@ export default {
       buyPageData: {},
       sortid:'',
       someSortPage:2,
+      selPay:{},
       //附近商家
       Fujin_sortData: [],
       getFujin_slideData: [],
@@ -212,7 +213,28 @@ export default {
       }
     },
     createOrder({commit, state}, data){
-      console.log(data)
+      axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.create.submit',{params:data.params})
+        .then(function (res) {
+          axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.pay.get_order',{params:{id:res.data.result.orderid,t:config.t,mid:localStorage.getItem('userid'),openid:localStorage.getItem('openid')}})
+            .then(function (res) {
+              commit({
+                type:'saveSelPay',
+                data:res
+              })
+            }).catch(function (err) {console.log('请求失败:'+err)})
+        }).catch(function (err) {console.log('请求失败:'+err)})
+    },
+    balancePay({commit, state}, data){
+      axios.post(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=creditshop.buy.payment',data.params,{
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }})
+        .then(function (res) {
+          // if(res.data.suc=='购买成功'){
+          //   router.push({path: '/sortIndex/paySuccess'})
+          // }
+          router.push({path: '/sortIndex/paySuccess'})
+        }).catch(function (err) {console.log('请求失败:'+err)})
     },
     //查看购物车
     lookCart({commit, state}, data) {
@@ -255,7 +277,7 @@ export default {
         })
     },
     selOrNo({commit, state}, data){
-      axios.get(config.baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.select',{params:data.params})
+      axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.select',{params:data.params})
         .then(function (res) {
           axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.get_list',{params:data.params})
             .then(function (res) {
@@ -291,13 +313,11 @@ export default {
       function getFujin_sortData() {//分类
         return axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.get_category&uniacid=2&t='+config.t);
       }
-
       function getFujin_slideData() {//轮播
         return axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.get_category_swipe&uniacid=2&t='+config.t);
       }
-
       function getFujin_ListData() {//商户列表
-        return axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.ajaxmerchuser&uniacid=2&id=2'+'&t='+config.t);
+        return axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.ajaxmerchuser',{params:data.params});
       }
       axios.all([getFujin_sortData(), getFujin_slideData(), getFujin_ListData()])//一次性并发多个请求
         .then(axios.spread(function (Fujin_sortData, getFujin_slideData, Fujin_ListData) {
@@ -764,11 +784,19 @@ export default {
     },
     saveBuyPageData(state, data) {
       VueSet(state, 'buyPageData', data.res.data)
-      console.log(state.buyPageData)
+      VueSet(state, 'curSelAddress',data.res.data.result.address)
+      console.log(state.curSelAddress)
       if (state.buyPageData != {}) {
         router.push({path: '/sortIndex/buyPage'})
       }
 
+    },
+    saveSelPay(state, data){
+      VueSet(state,'selPay',data.data.data.result)
+      console.log(state.selPay)
+      if(state.selPay!={}){
+        router.push({path: '/sortIndex/selPay'})
+      }
     },
     //  购物车
     saveCartData(state, data) {
