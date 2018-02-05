@@ -25,8 +25,8 @@
       <span>16.00</span>
     </div>
     <div class="btn-two">
-      <div>订单详情</div>
-      <div>返回首页</div>
+      <router-link to="#" @click.native="lookOrder('待发货')">订单详情</router-link>
+      <router-link to="/shopIndex">返回首页</router-link>
     </div>
   </div>
 </template>
@@ -82,7 +82,7 @@
     margin:10px 0;
     background: #fafafa;
   }
-  #paySuccess .btn-two>div{
+  #paySuccess .btn-two a{
     border:1px solid #8a8a8a;
     background: #fff;
     flex: 0 0 40%;
@@ -95,7 +95,13 @@
     methods:{
       back:function () {
         this.$router.go(-1)
-      }
+      },
+      lookOrder(text){
+        this.$store.dispatch({
+          type:'resMyOrder',
+          text:text
+        })
+      },
     },
     computed:{
       curSelAddress(){

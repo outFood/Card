@@ -57,6 +57,7 @@ import vipIndex from '@/components/会员中心/index'
 import vipInfo from '@/components/会员中心/vipInfo'
 import nickname from '@/components/会员中心/nickname'
 import order from '@/components/会员中心/order'
+import orderDetail from '@/components/会员中心/orderDetail'
 import myAddress from '@/components/会员中心/myAddress'
 import addAddress from '@/components/会员中心/addAddress'
 import editAddress from '@/components/会员中心/editAddress'
@@ -70,6 +71,7 @@ import getQuan from '@/components/会员中心/getQuan'
 import recharge from '@/components/会员中心/recharge'
 import AddOrReduce from '@/components/会员中心/AddOrReduce'
 import record from '@/components/会员中心/record'
+import evaluate from '@/components/会员中心/evaluate'
 
 
 Vue.use(Router)
@@ -255,6 +257,9 @@ export default new Router({
           path:'order',
           component:order
         },{
+          path:'orderDetail',
+          component:orderDetail
+        },{
           path:'myAddress',
           component:myAddress
         },{
@@ -293,6 +298,9 @@ export default new Router({
         },{
           path:'record',
           component:record
+        },{
+          path:'evaluate',
+          component:evaluate
         }
       ]
     }
