@@ -221,9 +221,9 @@
             goodsid:'',
             level:this.star,
             content:this.leaveWord,
-            images:this.headerImage,
             i:config.i,
-            orderid:this.evaluatPage.order.id
+            orderid:this.evaluatPage.order.id,
+            images:this.headerImage,
           }
         })
       }
@@ -306,12 +306,19 @@
     padding-left: 10px;
   }
   #evaluate form .upload{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
     text-align: left;background: #fff;padding:10px 10px 10px 0;
-    position: relative;width:100%;height:90px;
+    position: relative;width:100%;
     border-bottom: 1px solid #eee;
   }
   #evaluate form .upload img{
     width:60px;height:60px;vertical-align: middle;
+    margin:0 0 10px 10px;
   }
   #evaluate form .upload input{
     opacity: 0;position: absolute;top: 0;right: 0px;height:100%;width:100%;z-index: 100
@@ -321,11 +328,11 @@
     width:40px;
     height:40px;
     border:1px solid #eee;
-    margin: 0 auto;
     line-height: 40px;
     text-align: center;
     color:#eee;
     font-size:40px;
+    margin-left: 10px;
   }
   #evaluate form .yd-cell-title{
     font-size: 14px !important;

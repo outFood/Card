@@ -9,7 +9,7 @@
       </yd-tab-panel>
       <yd-tab-panel label="详情"><detail-pic></detail-pic></yd-tab-panel>
       <yd-tab-panel label="参数"><detailParams></detailParams></yd-tab-panel>
-      <yd-tab-panel label="评价">真理惟一可靠的标准就是永远自相符合。</yd-tab-panel>
+      <yd-tab-panel label="评价"><evalute></evalute></yd-tab-panel>
     </yd-tab>
     <navbar></navbar>
   </div>
@@ -20,13 +20,14 @@
   import detailTitlePrice from '@/components/全部商品/detailTitlePrice'
   import detailParams from '@/components/全部商品/detailParams'
   import detailPic from '@/components/全部商品/detailPic'
+  import evalute from '@/components/全部商品/evalute'
   export default {
     data(){
       return {
 
       }
     },
-    components:{detailSlider,detailTitlePrice,navbar,detailParams,detailPic}
+    components:{detailSlider,detailTitlePrice,navbar,detailParams,detailPic,evalute}
   }
 </script>
 <style>

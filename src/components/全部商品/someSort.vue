@@ -237,7 +237,6 @@
         this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.finishLoad');
       },
       resCommodityDetailData(id){
-        console.log('ppp')
         this.$store.dispatch({
           type:'resCommodityDetailData',
           params:{

@@ -39,7 +39,7 @@
   }
 </script>
 <style scoped>
- #slider .yd-slider {
+.yd-slider {
     height: 140px !important;
   }
  #slider img{

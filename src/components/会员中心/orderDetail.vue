@@ -6,38 +6,67 @@
       </router-link>
     </yd-navbar>
     <div class="alreadyPay">
-      <p>买家已付款</p>
-      <span>订单金额:￥78.00</span>
+      <p>
+        <span v-if="orderDetail.order.status==2">买家已付款</span>
+        <span v-if="orderDetail.order.status==0">待付款</span>
+        <span v-if="orderDetail.order.status==3">交易完成</span>
+      </p>
+      <span>订单金额:￥{{orderDetail.order.price}}</span>
     </div>
     <div class="address">
       <img src="/static/img/position-o.png" alt="">
       <div class="right">
-        <p>吴巧红 183789994</p>
-        <span>回家考虑</span>
+        <p>{{orderDetail.address.realname}} {{orderDetail.address.mobile}}</p>
+        <span>{{orderDetail.address.province}} {{orderDetail.address.city}} {{orderDetail.address.area}} {{orderDetail.address.address}}</span>
       </div>
     </div>
     <div class="item">
         <div class="middle">
-          <p><img src="/static/img/shop_black.png" alt="">旗舰店</p>
-          <div class="shopInfo">
-            <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
-            <div class="mid"><h6>毛衣</h6><span>S</span></div>
-            <div><h6>￥789.00</h6><span>X2</span></div>
+          <p><img src="/static/img/shop_black.png" alt="">E卡系统</p>
+          <div class="shopInfo" v-for="(item,key) in orderDetail.goods" :key="key">
+            <img :src="item.thumb">
+            <div class="mid"><h6>{{item.title}}</h6><span>{{item.optiontitle}}</span></div>
+            <div><h6>￥{{item.price}}</h6><span>X{{item.total}}</span></div>
           </div>
         </div>
       </div>
     <div class="orderInfo1">
-      <p><span>商品小计</span>￥57.00</p>
-      <p><span>运费</span>8.00</p>
-      <p><span>实付费(含运费)</span><i>65.00</i></p>
+      <p><span>商品小计</span>￥{{orderDetail.order.goodsprice}}</p>
+      <p><span>运费</span>{{orderDetail.order.dispatchprice}}</p>
+      <div v-if="!orderDetail.order.ispackage">
+        <p v-if="orderDetail.order.deductenough > 0"><span>满额立减</span>-￥ {{orderDetail.order.deductenough}}</p>
+        <p v-if="orderDetail.order.couponprice > 0"><span>优惠券优惠</span>-￥ {{orderDetail.order.couponprice}}</p>
+        <p v-if="orderDetail.order.buyagainprice > 0"><span>重复购买优惠</span>-￥ {{orderDetail.order.buyagainprice}}</p>
+        <p v-if="orderDetail.order.discountprice > 0"><span>会员优惠</span>-￥ {{orderDetail.order.discountprice}}</p>
+        <p v-if="orderDetail.order.isdiscountprice > 0"><span>促销优惠</span>-￥ {{orderDetail.order.isdiscountprice}}</p>
+        <p v-if="orderDetail.order.deductprice > 0"><span>{{orderDetail.shopset.trade.credittext}}抵扣</span>-￥ {{orderDetail.order.deductprice}}</p>
+        <p v-if="orderDetail.order.deductcredit2 > 0"><span>{{orderDetail.shopset.trade.moneytext}}抵扣</span>-￥ {{orderDetail.order.deductcredit2}}</p>
+        <p v-if="orderDetail.order.seckilldiscountprice > 0"><span>秒杀优惠</span>-￥ {{orderDetail.order.seckilldiscountprice}}</p>
+      </div>
+      <p><span>实付费(含运费)</span><i>{{orderDetail.order.price}}</i></p>
     </div>
     <div class="orderInfo2">
-      <p>订单编号    HJK678904345678</p>
-      <p>创建时间    3456</p>
+      <p>订单编号    {{orderDetail.order.ordersn}}</p>
+      <p>创建时间    {{orderDetail.order.createtime}}</p>
+      <p>支付时间    {{orderDetail.order.paytime}}</p>
     </div>
     <div class="foot">
-      <span>申请退款</span>
-      <span>删除订单</span>
+      <div v-if="orderDetail.order.userdeleted == 0">
+        <div v-if="orderDetail.order.status == 0">
+          <span @click="cancelOrder(orderDetail.order.id)" size="large" class="cancelOrder">取消订单</span>
+          <yd-actionsheet :items="myItems1" v-model="isCancelOrder" cancel="取消"></yd-actionsheet>
+          <span v-if="orderDetail.order.paytype != 3">支付订单</span>
+        </div>
+        <span v-if="orderDetail.order.canverify && orderDetail.order.status != -1 && orderDetail.order.status != 0">{{orderDetail.order.dispatchtype == 1 ? '我要取货' : '我要使用'}}</span>
+        <span v-if="orderDetail.order.status == 3 || orderDetail.order.status == -1" @click="delOrder(orderDetail.order.id)">删除订单</span>
+        <span v-if="orderDetail.order.status == 2"  @click="sureGet(orderDetail.order.id)">确认收货</span>
+        <span v-if="orderDetail.order.canrefund">{{orderDetail.order.refundstate > 0 ? '查看' : ''}}{{orderDetail.order.status == 1 ? '申请退款' : '申请售后'}}{{orderDetail.order.refundstate > 0 ? '进度' : ''}}</span>
+        <span v-if="orderDetail.order.refundstate > 0"  style="overflow:visible;">取消申请</span>
+      </div>
+      <div v-else>
+        <span>彻底删除订单</span>
+        <span>恢复订单</span>
+      </div>
     </div>
   </div>
 </template>
@@ -47,7 +76,7 @@
     color:#fff;
     padding:20px;
   }
-  #orderDetail .alreadyPay span{
+  #orderDetail .alreadyPay>span{
     font-size:12px;
   }
   #orderDetail .address{
@@ -99,7 +128,6 @@
   }
   #orderDetail .item .middle .shopInfo{
     margin:10px 0;
-    background: #f8f8f8;
   }
   #orderDetail .item .middle .shopInfo img{
     width:70px;
@@ -152,14 +180,123 @@
   #orderDetail .foot span{
     border:1px solid #5f5f5f;
     padding:3px 5px;border-radius: 10px;
+    margin-left:10px;
   }
 </style>
 <script>
+  import config from '../../myConfig'
   export default {
-    methods:{
-      back:function () {
-        this.$router.go(-1)
+    data(){
+      return{
+        isCancelOrder: false,
+        curOrderId:'',
+        myItems1: [
+          {
+            label: '我不想买了',
+            callback: () => {
+              this.$dialog.confirm({
+                mes: '确定要取消该订单吗？',
+                opts: () => {
+                  this.$store.dispatch({
+                    type:'cancelOrder',
+                    params:{
+                      t:config.t,
+                      openid:localStorage.getItem('openid'),
+                      id:this.curOrderId,
+                      remark:'我不想买了'
+                    }
+                  })
+                },
+              });
+            }
+          },
+          {
+            label: '信息填写错误，重新拍',
+            callback: () => {
+              this.$dialog.confirm({
+                mes: '确定要取消该订单吗？',
+                opts: () => {
+                  this.$store.dispatch({
+                    type:'cancelOrder',
+                    params:{
+                      t:config.t,
+                      openid:localStorage.getItem('openid'),
+                      id:this.curOrderId,
+                      remark:'信息填写错误，重新拍'
+                    }
+                  })
+                },
+              });
+            }
+          },
+          {
+            label: '其他原因',
+            callback: () => {
+              this.$dialog.confirm({
+                mes: '确定要取消该订单吗？',
+                opts: () => {
+                  this.$store.dispatch({
+                    type:'cancelOrder',
+                    params:{
+                      t:config.t,
+                      openid:localStorage.getItem('openid'),
+                      id:this.curOrderId,
+                      remark:'其他原因'
+                    }
+                  })
+                },
+              });
+            }
+          }
+        ]
       }
+    },
+    computed:{
+      orderDetail(){
+        return this.$store.state.orderDetail
+      }
+    },
+    methods:{
+      back() {
+        this.$router.go(-1)
+      },
+      sureGet(id){//
+        this.$dialog.confirm({
+          mes: '确认已经收到货了吗?',
+          opts: () => {
+            this.$store.dispatch({
+              type:'sureGet',
+              params:{
+                t:config.t,
+                openid:localStorage.getItem('openid'),
+                id:id,
+              }
+            })
+          },
+        });
+      },
+      delOrder(id){
+        this.$dialog.confirm({
+          mes: '确定要删除该订单吗？',
+          opts: () => {
+            this.$store.dispatch({
+              type:'delOrder',
+              params:{
+                t:config.t,
+                openid:localStorage.getItem('openid'),
+                id:id,
+                userdeleted:1
+              }
+            })
+          },
+        });
+      },
+      cancelOrder(id){
+        console.log(id)
+        this.isCancelOrder=true;
+        this.curOrderId=id;
+        console.log(this.curOrderId)
+      },
     }
   }
 </script>

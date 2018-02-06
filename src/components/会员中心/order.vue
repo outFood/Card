@@ -1,5 +1,10 @@
 <template>
-  <yd-layout title="我的订单" link="#" id="order">
+  <div id="order">
+    <yd-navbar title="订单">
+      <router-link to="#" slot="left">
+        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
+      </router-link>
+    </yd-navbar>
     <div class="orderNav">
       <span  :class="{curOrderNav:orderStatus==6}"  @click="lookOrder('全部')">全部</span>
       <span  :class="{curOrderNav:orderStatus==0}"  @click="lookOrder('待付款')">待付款</span>
@@ -8,60 +13,60 @@
       <span  :class="{curOrderNav:orderStatus==4}"  @click="lookOrder('退换货')">退换货</span>
     </div>
     <no-order v-if="myOrder.list.length==0"></no-order>
+
     <div class="list" v-else>
-      <div class="item" v-for="(item,key) in myOrder.list" :key="key">
-        <div class="top" @click="resOrderDetail(item.id)">
-          <span>订单号：{{item.ordersn}}</span>
-          <div>{{item.statusstr}} <img src="/static/img/more.png" alt=""></div>
-        </div>
-        <div class="middle" v-for="(goods,key) in item.goods" :key="key">
-          <p v-if="goods.shopname"><img src="/static/img/shop_black.png" alt="">{{goods.shopname}}</p>
-          <div class="shopInfo" v-for="(goodsItem,key) in goods.goods">
-            <img :src="goodsItem.thumb">
-            <div class="mid"><h6>{{goodsItem.title}}</h6><span v-if="goodsItem.optionid!='0'">{{goodsItem.optiontitle}}</span></div>
-            <div><h6>￥{{goodsItem.price}}</h6><span>X{{goodsItem.total}}</span></div>
+      <yd-infinitescroll :callback="loadList" ref="infinitescrollDemo">
+        <yd-list theme="1" slot="list">
+          <div class="item" v-for="(item,key) in myOrder.list" :key="key">
+            <div class="top" @click="resOrderDetail(item.id)">
+              <span>订单号：{{item.ordersn}}</span>
+              <div>{{item.statusstr}} <img src="/static/img/more.png" alt=""></div>
+            </div>
+            <div class="middle" v-for="(goods,key) in item.goods" :key="key">
+              <p v-if="goods.shopname"><img src="/static/img/shop_black.png" alt="">{{goods.shopname}}</p>
+              <div class="shopInfo" v-for="(goodsItem,key) in goods.goods" @click="resCommodityDetailData(goodsItem.goodsid)">
+                <img :src="goodsItem.thumb">
+                <div class="mid"><h6>{{goodsItem.title}}</h6><span v-if="goodsItem.optionid!='0'">{{goodsItem.optiontitle}}</span></div>
+                <div><h6>￥{{goodsItem.price}}</h6><span>X{{goodsItem.total}}</span></div>
+              </div>
+              <div class="bot">共{{goods.goods.length}}件商品，实付：<span>{{item.price}}元</span></div>
+            </div>
+            <div class="bottom">
+              <p v-if="item.userdeleted == 1">
+                <span v-if="item.status == 3 || item.status == -1">彻底删除</span>
+                <span v-if="item.status == 3">恢复订单</span>
+              </p>
+              <p v-if="item.userdeleted == 0&&item.status == 0">
+                <span v-if="item.paytype != 3" class="nowPay" @click="nowPay(item.id)">支付订单</span>
+                <span @click="cancelOrder(item.id)" size="large" class="cancelOrder">取消订单</span>
+                <yd-actionsheet :items="myItems1" v-model="isCancelOrder" cancel="取消"></yd-actionsheet>
+              </p>
+              <p v-if="item.canverify && item.status != -1 && item.status != 0">
+                <span>{{item.dispatchtype == 1 ? '我要取货' : '我要使用'}}</span>
+              </p>
+              <p v-if="item.status == 3 || item.status == -1">
+                <span @click="delOrder(item.id)">删除订单</span>
+              </p>
+              <p v-if="item.status > 1 && item.addressid > 0">
+                <span @click="logistics(item.expresscom,item.expresssn)">查看物流</span>
+              </p>
+              <p v-if="item.status == 2">
+                <span @click="sureGet(item.id)">确认收货</span>
+              </p>
+              <p v-if="item.canrefund">
+                <span>{{item.status == 1 ? '申请退款' : '申请售后'}}{{item.refundstate > 0 ? '中' : ''}}</span>
+              </p>
+            </div>
           </div>
-          <div class="bot">共{{goods.goods.length}}件商品，实付：<span>{{item.price}}元</span></div>
-        </div>
-        <div class="bottom">
-          <p v-if="item.userdeleted == 1">
-            <span v-if="item.status == 3 || item.status == -1">彻底删除</span>
-            <span v-if="item.status == 3">恢复订单</span>
-          </p>
-          <p v-if="item.userdeleted == 0&&item.status == 0">
-            <span v-if="item.paytype != 3" class="nowPay" @click="nowPay(item.id)">支付订单</span>
-            <span @click="cancelOrder(item.id)" size="large" class="cancelOrder">取消订单</span>
-            <yd-actionsheet :items="myItems1" v-model="isCancelOrder" cancel="取消"></yd-actionsheet>
-          </p>
-          <p v-if="item.canverify && item.status != -1 && item.status != 0">
-            <span>{{item.dispatchtype == 1 ? '我要取货' : '我要使用'}}</span>
-          </p>
-          <p v-if="item.status == 3 || item.status == -1">
-            <span @click="delOrder(item.id)">删除订单</span>
-          </p>
-          <p v-if="item.status == 3|| item.status != -1">
-            <span v-if="item.status == 3 && item.iscomment == 1">追加评价</span>
-            <span v-if="item.status == 3 && item.iscomment == 0" @click="evaluate(item.id)">评价</span>
-          </p>
-          <p v-if="item.status > 1 && item.addressid > 0">
-            <span>查看物流</span>
-          </p>
-          <p v-if="item.status == 2">
-            <span @click="sureGet(item.id)">确认收货</span>
-          </p>
-          <!--<p v-if="item.canrefund">-->
-            <!--<span>{{item.status == 1 ? '申请退款' : '申请售后'}}{{item.refundstate > 0 ? '中' : ''}}</span>-->
-          <!--</p>-->
-          <p>
-            <span @click="refound(item.id)">申请退款</span>
-            <!--<span>申请退款中</span>-->
-            <span>申请售后</span>
-            <!--<span>申请售后中</span>-->
-          </p>
-        </div>
-      </div>
+        </yd-list>
+        <!-- 数据全部加载完毕显示 -->
+        <span slot="doneTip">啦啦啦，啦啦啦，没有数据啦~~</span>
+        <!-- 加载中提示，不指定，将显示默认加载中图标 -->
+        <img slot="loadingTip" src="http://static.ydcss.com/uploads/ydui/loading/loading10.svg"/>
+
+      </yd-infinitescroll>
     </div>
-  </yd-layout>
+  </div>
 </template>
 <script>
   import router from '@/router'
@@ -169,7 +174,13 @@
         });
       },
       resOrderDetail(id){
-        router.push({path: '/vipIndex/orderDetail'})
+        this.$store.dispatch({
+          type:'resOrderDetail',
+          params:{
+            t:config.t,
+            id:id
+          }
+        })
       },
       nowPay(id){
         this.$store.dispatch({
@@ -208,9 +219,36 @@
           }
         })
       },
-      refound(){
+      resCommodityDetailData(id){
+        this.$store.dispatch({
+          type:'resCommodityDetailData',
+          params:{
+            id:id,
+            t:config.t
+          }
+        })
+      },
+      logistics(expresscom,expresssn){//查看物流
+        this.$dialog.confirm({
+          mes: '快递公司：'+expresscom+'<br/>快递单号：'+expresssn+'<br/>(可前往对应网站查看物流信息)',
+          opts: () => {
+          },
+        });
+      },
+      back() {
+    this.$router.go(-1)
+  },
+      loadList(){//根据当前的page和当前的分类状态
 
-      }
+
+//        if (this.newCommodityListData.length < 10) {
+//          /* 所有数据加载完毕 */
+//          this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.loadedDone');
+//          return;
+//        }
+//        /* 单次请求数据完毕 */
+//        this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.finishLoad');
+      },
     },
     components:{noOrder}
   }
