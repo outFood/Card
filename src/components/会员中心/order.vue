@@ -36,6 +36,10 @@
                 <span v-if="item.status == 3 || item.status == -1">彻底删除</span>
                 <span v-if="item.status == 3">恢复订单</span>
               </p>
+              <p>
+                <span v-if="item.status == 3 && item.iscomment == 1">追加评价</span>
+                <span v-if="item.status == 3 && item.iscomment == 0" @click="evaluate(item.id)">评价</span>
+              </p>
               <p v-if="item.userdeleted == 0&&item.status == 0">
                 <span v-if="item.paytype != 3" class="nowPay" @click="nowPay(item.id)">支付订单</span>
                 <span @click="cancelOrder(item.id)" size="large" class="cancelOrder">取消订单</span>
