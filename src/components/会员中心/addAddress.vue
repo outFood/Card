@@ -62,14 +62,14 @@
 <style>
   #regist form{
     text-align: left;
-    padding: 10px;
+    padding: 0.3125rem;
     background: #fff;
   }
   #regist form i{
     color:red;
   }
   #regist form .item{
-    padding: 10px 0;
+    padding: 0.3125rem 0;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -90,14 +90,14 @@
   }
   *::-webkit-input-placeholder {
     color: #b0b0b0;
-    font-size:12px;
+    font-size:0.375rem;
   }
   button {
     position: fixed !important;
     bottom: 0 !important;
     border-radius: 0 !important;
-    height: 50px !important;
-    font-size: 16px !important;
+    height:1.5625rem !important;
+    font-size:0.5rem !important;
   }
 </style>
 

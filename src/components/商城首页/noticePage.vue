@@ -8,14 +8,14 @@
 <style>
   #noticePage{
     position: fixed;
-    top:0;right:0;bottom:0;left:0;background: #fff;padding:10px;text-align: left;
+    top:0;right:0;bottom:0;left:0;background: #fff;padding:0.3125rem;text-align: left;
   }
   #noticePage h2{
     font-size:0.6rem;
   }
   #noticePage p{
     color:#8a8a8a;
-    margin-top:10px;
+    margin-top:.3125rem;
   }
   #noticePage p span{
     color:blue;
@@ -23,6 +23,6 @@
   #noticePage img{
     display: block;
     width:90%;
-    margin:30px auto;
+    margin:0.9375rem auto;
   }
 </style>

@@ -27,7 +27,7 @@
     position: relative;
   }
  #myQuan .yd-flexbox .left{
-    font-size: 10px;
+    font-size:0.3125rem;
   }
  #myQuan .yd-flexbox .left div{
     font-size: 20px;

@@ -15,7 +15,7 @@
 </template>
 <style>
   #AddOrReduce .list{
-    padding: 0 10px;
+    padding: 0 0.3125rem;
     background: #fff;
   }
   #AddOrReduce .list .list-item{

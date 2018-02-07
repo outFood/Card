@@ -33,7 +33,7 @@
 </script>
 <style>
   #listmenu span{
-    font-size: 14px !important;
+    font-size: 0.4375rem !important;
   }
   #listmenu i{
     font-size:0.6rem !important;

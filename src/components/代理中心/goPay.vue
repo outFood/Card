@@ -47,17 +47,17 @@
 <style>
   #goPay form{
     text-align: left;
-    padding: 10px;
+    padding:0.3125rem;
     background: #fff;
   }
   #goPay form .item{
-    padding: 10px 0;
+    padding: 0.3125rem 0;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
     align-items: center;
-    padding:10px 0;
+    padding:0.3125rem 0;
     border-bottom: 1px solid #eee;
   }
   #goPay form .item i{
@@ -76,7 +76,7 @@
   }
   #goPay *::-webkit-input-placeholder {
     color: #b0b0b0;
-    font-size:12px;
+    font-size:0.375rem;
   }
 </style>
 

@@ -60,9 +60,9 @@
 </script>
 <style>
   #sliderNav2{
-    margin:10px 0;
-    font-size:12px;
-    padding-top:10px;
+    margin:0.3125rem 0;
+    font-size:0.375rem;
+    padding-top:0.3125rem;
   }
   #sliderNav2 .yd-slider-item{
     display: -webkit-box;
@@ -72,11 +72,11 @@
     flex-wrap: wrap;
   }
   #sliderNav2 .yd-slider-item a{
-    margin-bottom:10px;
+    margin-bottom:0.3125rem;
   }
   #sliderNav2 img{
-    width:40px;
-    height:40px;
+    width:1.25rem;
+    height:1.25rem;
     margin: 0 auto;
     margin-bottom:5px;
   }

@@ -17,12 +17,12 @@
 
   }
   #apply .clock{
-    width:20px;
-    height:20px;
-    margin:15px 0;
+    width:0.625rem;
+    height:0.625rem;
+    margin:0.46875rem 0;
   }
   #apply h5{
-    font-size:20px;
+    font-size:0.625rem;
     color:#04ab02;
     font-weight: normal;
   }
@@ -34,6 +34,6 @@
     color:#fff;
     padding:6px;
     border-radius: 3px;
-    margin-top:10px;
+    margin-top:0.3125rem;
   }
 </style>

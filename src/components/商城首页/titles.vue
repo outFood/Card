@@ -24,9 +24,9 @@ export default{
 
 	#titles .titleword{
 		width: 100%;
-		height: 30px;
-		line-height: 30px;
-		font-size: 16px;
+		height:0.9375rem;
+		line-height:0.9375rem;
+		font-size:0.5rem;
 		text-align: center;
 	}
 </style>

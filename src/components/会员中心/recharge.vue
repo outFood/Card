@@ -27,14 +27,14 @@
 <style>
   #recharge form{
     text-align: left;
-    padding: 10px 10px 0 10px;
+    padding: 0.3125rem 0.3125rem 0 0.3125rem;
     background: #fff;
   }
   #recharge form i{
     color:red;
   }
   #recharge form .item{
-    padding: 10px 0;
+    padding: 0.3125rem 0;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;

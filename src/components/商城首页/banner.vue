@@ -1,6 +1,6 @@
 <template>
   <div id="slider">
-    <yd-slider autoplay="3000">
+    <yd-slider autoplay="3000" style="height: 140px !important;">
       <yd-slider-item v-for="(item,key) in imgData" :key="key">
         <router-link to="/fujinIndex/exclusiveShop">
           <img :src="prefix+item.imgurl">
@@ -39,9 +39,6 @@
   }
 </script>
 <style scoped>
-.yd-slider {
-    height: 140px !important;
-  }
  #slider img{
    height:140px;
  }

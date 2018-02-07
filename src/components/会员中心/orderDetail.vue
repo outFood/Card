@@ -115,11 +115,11 @@
     justify-content: space-between;
   }
   #orderDetail .item .middle{
-    margin-bottom: 10px;
+    margin-bottom: 0.3125rem;
   }
   #orderDetail .item .middle>p{
     text-align: left;
-    margin-bottom:10px;
+    margin-bottom:0.3125rem;
   }
   #orderDetail .item .middle>p img{
     width:20px;
@@ -167,7 +167,7 @@
     color:#989898;
     background: #fff;
     text-align: left;
-    padding: 10px;
+    padding:0.3125rem;
     line-height: 20px;
   }
   #orderDetail .foot{
@@ -179,8 +179,8 @@
   }
   #orderDetail .foot span{
     border:1px solid #5f5f5f;
-    padding:3px 5px;border-radius: 10px;
-    margin-left:10px;
+    padding:3px 5px;border-radius: 0.3125rem;
+    margin-left:0.3125rem;
   }
 </style>
 <script>

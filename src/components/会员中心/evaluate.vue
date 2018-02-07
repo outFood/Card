@@ -233,8 +233,8 @@
 <style>
   #evaluate .item{
     background: #fff;
-    margin-top:10px;
-    padding:10px;
+    margin-top:0.3125rem;
+    padding:0.3125rem;
   }
   #evaluate .item .shopInfo{
     display: -webkit-box;
@@ -244,58 +244,58 @@
     justify-content: space-between;
   }
   #evaluate .item .middle{
-    margin-bottom: 10px;
+    margin-bottom: 0.3125rem;
   }
   #evaluate .item .middle>p{
     text-align: left;
-    margin-bottom:10px;
+    margin-bottom:0.3125rem;
   }
   #evaluate .item .middle>p img{
-    width:20px;
-    height:20px;
+    width:0.625rem;
+    height:0.625rem;
     vertical-align: middle;
   }
   #evaluate .item .middle .shopInfo{
-    margin:10px 0;
+    margin:0.3125rem 0;
   }
   #evaluate .item .middle .shopInfo img{
-    width:70px;
-    height:60px;
+    width:2.1875rem;
+    height:1.875rem;
   }
   #evaluate .item .middle .shopInfo span{
     display: block;
-    font-size:12px;
+    font-size:0.375rem;
     color:#aaa;
-    margin-top:10px;
+    margin-top:0.3125rem;
     text-align: right;
   }
   #evaluate .item .middle .shopInfo .mid span{
     text-align: center !important;
   }
   #evaluate .notes{
-    padding:10px;text-align: left;color:#858585
+    padding:0.3125rem;text-align: left;color:#858585
   }
   /**/
   #evaluate form{
     text-align: left;
-    padding: 10px;
+    padding: 0.3125rem;
     background: #fff;
   }
   *::-webkit-input-placeholder {
     color: #b0b0b0;
-    font-size:12px;
+    font-size:0.375rem;
   }
   #evaluate form i{
     color:red;
   }
   #evaluate form .item{
-    padding: 10px 0;
+    padding: 0.3125rem 0;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
     align-items: center;
-    padding:10px 0;
+    padding:0.3125rem 0;
     border-bottom: 1px solid #eee;
   }
   #evaluate form .item span{
@@ -303,7 +303,7 @@
   }
   #evaluate form .item input{
     border: none;
-    padding-left: 10px;
+    padding-left: 0.3125rem;
   }
   #evaluate form .upload{
     display: -webkit-box;
@@ -312,27 +312,27 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    text-align: left;background: #fff;padding:10px 10px 10px 0;
+    text-align: left;background: #fff;padding:0.3125rem 0.3125rem 0.3125rem 0;
     position: relative;width:100%;
     border-bottom: 1px solid #eee;
   }
   #evaluate form .upload img{
-    width:60px;height:60px;vertical-align: middle;
-    margin:0 0 10px 10px;
+    width:1.875rem;height:1.875rem;vertical-align: middle;
+    margin:0 0 0.3125rem 0.3125rem;
   }
   #evaluate form .upload input{
     opacity: 0;position: absolute;top: 0;right: 0px;height:100%;width:100%;z-index: 100
   }
   #evaluate form .upload .addMore{
     display: inline-block;
-    width:40px;
-    height:40px;
+    width:1.25rem;
+    height:1.25rem;
     border:1px solid #eee;
-    line-height: 40px;
+    line-height:1.25rem;
     text-align: center;
     color:#eee;
-    font-size:40px;
-    margin-left: 10px;
+    font-size:1.25rem;
+    margin-left: 0.3125rem;
   }
   #evaluate form .yd-cell-title{
     font-size: 14px !important;

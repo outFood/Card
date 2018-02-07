@@ -70,16 +70,16 @@
     display: -ms-flexbox;
     display: flex;
     align-items: center;
-    padding:20px 0;
+    padding:0.625rem 0;
     color:orange;
-    font-size: 12px;
+    font-size:0.375rem;
   }
   #vipGrad .tab>div,.triangle>div{
     flex: 0 0 33%;
   }
   #vipGrad .tab img{
-    width:40px;
-    height:40px;
+    width:1.25rem;
+    height:1.25rem;
     display: block;
     border-radius: 50%;
     margin: 0 auto;
@@ -92,44 +92,44 @@
     position: relative;
   }
   #vipGrad .triangle span{
-    border:10px solid transparent;
-    border-top:13px solid #f5f5f5;
+    border:0.3125rem solid transparent;
+    border-top:0.41rem solid #f5f5f5;
     position: absolute;
-    top: -20px;
+    top: -0.625rem;
     left: 40%;
   }
   #vipGrad .tabPage{
     text-align: left;
-    padding-left:30px;
-    line-height: 25px;
-    padding-bottom: 20px;
+    padding-left:0.9375rem;
+    line-height:0.78rem;
+    padding-bottom: 0.625rem;
   }
   #vipGrad .tabPage p{
-    font-size: 12px;
+    font-size:0.375rem;
   }
   #vipGrad .tabPage p:before{
     display: block;
     content:'';
-    width:10px;
-    height:10px;
+    width:0.3125rem;
+    height:0.3125rem;
     background: #f5f5f5;
     border-radius: 50%;
     position: absolute;
-    left:10px;
+    left:0.3125rem;
     margin-top:5px;
   }
   #vipGrad .tabPage .shengji{
-    width:80px;
-    height:30px;
-    line-height: 30px;
+    width:2.5rem;
+    height:0.9375rem;
+    line-height:0.9375rem;
     text-align: center;
     border-radius: 5px;
     background: orange;
     color:#fff;
     margin:0 auto;
-    margin-top:30px;
+    margin-top:0.9375rem;
 
     color:#fff;
-    font-size:13px;
+    font-size:0.41rem;
   }
 </style>

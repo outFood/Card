@@ -213,7 +213,7 @@
   }
   #vip .zijin {
     background: #fff;
-    margin: 10px 0;
+    margin: 0.3125rem 0;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -242,12 +242,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding:0.3125rem;
     border-bottom: 1px solid #eee;
   }
   #vip .dingdan .top img {
-    width: 20px;
-    height: 20px;
+    width:0.625rem;
+    height:0.625rem;
     vertical-align: middle;
   }
   #vip .dingdan .bottom {
@@ -255,28 +255,28 @@
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    font-size: 12px;
+    font-size:0.375rem;
   }
   #vip .dingdan .bottom > a {
     flex: 0 0 25%;
-    padding: 10px 0;
+    padding: 0.3125rem 0;
   }
   #vip .dingdan .bottom > a:not(:last-child) {
     border-right: 1px solid #eee
   }
   #vip .dingdan .bottom > a img {
-    width: 40px;
-    height: 40px;
+    width:1.25rem;
+    height: 1.25rem;
     display: block;
     margin: 0 auto;
     margin-bottom: 5px;
   }
   #vip .other {
-    margin: 10px 0 80px 0;
+    margin: 0.3125rem 0 2.5rem 0;
     background: #fff;
   }
   #vip .other .other-head {
-    padding: 10px;
+    padding: 0.3125rem;
     text-align: left;
     border-bottom: 1px solid #eee;
   }
@@ -286,11 +286,11 @@
     display: -ms-flexbox;
     display: flex;
     flex-wrap: wrap;
-    font-size: 12px;
+    font-size:0.375rem;
   }
   #vip .other .other-content > a {
     flex: 0 0 25%;
-    padding: 10px 0;
+    padding:0.3125rem 0;
   }
   #vip .other .other-content > a:not(:nth-child(4n)) {
     border-right: 1px solid #eee;
@@ -300,8 +300,8 @@
     border-bottom: 1px solid #eee;
   }
   #vip .other .other-content > a img {
-    width: 40px;
-    height: 40px;
+    width:1.25rem;
+    height:1.25rem;
     display: block;
     margin: 0 auto;
     margin-bottom: 5px;

@@ -84,8 +84,8 @@
     display: flex;
     align-items: center;
     background: #fff;
-    height:50px;
-    line-height: 50px;
+    height:1.5625rem;
+    line-height:1.5625rem;
   }
   #tixianDetail .curOrderNav{
     color:red;
@@ -98,7 +98,7 @@
     text-align: center;
   }
   #tixianDetail .leiji{
-    padding:15px;
+    padding:0.47rem;
     background: #fff;
     display: -webkit-box;
     display: -webkit-flex;

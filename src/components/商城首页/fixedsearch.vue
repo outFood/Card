@@ -29,15 +29,15 @@
     border-radius: 5px;
   }
   #headers .circle{
-    border-radius:50px;
+    border-radius:1.5625rem;
   }
   #headers input{
     background: rgb(255, 255, 255);
     color: rgb(102, 102, 102);
     opacity: 1;
     flex: 0 0 70%;
-    height: 30px;
-    padding-left: 10px;
+    height:0.9375rem;
+    padding-left:0.3125rem;
     border:none
   }
 </style>

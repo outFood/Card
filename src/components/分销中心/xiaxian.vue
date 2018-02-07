@@ -75,8 +75,8 @@
     display: flex;
     align-items: center;
     background: #fff;
-    height:50px;
-    line-height: 50px;
+    height:1.5625rem;
+    line-height:1.5625rem;
   }
   #xiaxian .curOrderNav{
     color:red;
@@ -97,16 +97,16 @@
   }
   #xiaxian .yd-tab-nav a{
     font-size:0.4375rem;
-    padding: 8px 0;
+    padding:0.25rem 0;
   }
   #xiaxian .tip{
     background: #f5f5f5;
     text-align: left;
-    padding: 15px;
+    padding:0.46875rem;
   }
   #xiaxian .tip img{
-    width:20px;
-    height:20px;
+    width:0.625rem;
+    height:0.625rem;
     vertical-align: middle;
   }
   #xiaxian .item{
@@ -115,27 +115,27 @@
     display: -ms-flexbox;
     display: flex;
     align-items: center;
-    padding: 10px;
+    padding:0.3125rem;
   }
   #xiaxian .item:not(:last-child){
     border-bottom:1px solid #eee;
   }
   #xiaxian .item>img{
-    width:60px;
-    height:60px;
+    width:1.875rem;
+    height:1.875rem;
   }
   #xiaxian .item span{
-    font-size:12px;
+    font-size:0.375rem;
     color:#aaa;
   }
   #xiaxian .item .middle{
     flex:0 0 60%;
     text-align: left;
-    padding-left: 10px;
+    padding-left:0.3125rem;
   }
   #xiaxian .item .middle img{
-    width:20px;
-    heigth:20px;
+    width:0.625rem;
+    heigth:0.625rem;
     vertical-align: middle;
   }
   #xiaxian .item .right{

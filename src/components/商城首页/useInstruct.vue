@@ -44,14 +44,14 @@
     text-align: left;
   }
   #useInstruct .content{
-    padding:0 15px 15px 15px;
+    padding:0 0.46875rem 0.46875rem 0.46875rem;
   }
   #useInstruct .content h6{
-    margin:15px 0 10px 0;
+    margin:0.46875rem 0 0.3125rem 0;
   }
   #useInstruct .content p{
-    font-size:12px;
+    font-size:0.375rem;
     color:#737173;
-    line-height: 20px;
+    line-height:0.625rem;
   }
 </style>

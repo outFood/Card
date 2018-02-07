@@ -91,8 +91,8 @@
     justify-content: space-between;
     align-items: center;
     background: #fff;
-    margin: 10px 0;
-    padding: 10px;
+    margin:0.3125rem 0;
+    padding:0.3125remx;
   }
   #vipInfo .updatePic img:nth-child(1){
     width:50px;
@@ -111,13 +111,13 @@
   }
   #vipInfo .detailInfo>div{
     background: #fff;
-    padding:15px 10px;
+    padding:15px 0.3125rem;
     text-align: left;
     border-bottom:1px solid #d9d9d9;
   }
   #vipInfo .detailInfo>div span{
     color:red;
-    margin:0 10px;
+    margin:0 0.3125rem;
   }
   #vipInfo .detailInfo>div input{
     border:none;

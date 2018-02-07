@@ -54,7 +54,7 @@
       </div>
       <div class="item">
         <yd-checkbox-group v-model="readed" size="30" class="xieyi">
-          <yd-checkbox val=""></yd-checkbox><span style="font-size: 24px;">我已经阅读并了解了</span><u @click="show1=true">【代理商申请协议】</u>
+          <yd-checkbox val=""></yd-checkbox><span style="font-size:0.75rem;">我已经阅读并了解了</span><u @click="show1=true">【代理商申请协议】</u>
         </yd-checkbox-group>
       </div>
 
@@ -79,30 +79,30 @@
 <style>
 #daili form{
   text-align: left;
-  padding: 10px;
+  padding:0.3125rem;
   background: #fff;
 }
 #daili u{
   text-decoration: none;
 }
 #daili form p{
-  padding: 10px 0;
+  padding:0.3125rem 0;
 }
 *::-webkit-input-placeholder {
   color: #b0b0b0;
-  font-size:12px;
+  font-size:0.375rem;
 }
 #daili form i{
   color:red;
 }
 #daili form .item{
-  padding: 10px 0;
+  padding:0.3125rem 0;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   align-items: center;
-  padding:10px 0;
+  padding:0.3125rem 0;
   border-bottom: 1px solid #eee;
 }
 #daili form .item span{
@@ -110,19 +110,19 @@
 }
 #daili form .item input{
   border: none;
-  padding-left: 10px;
+  padding-left:0.3125rem;
 }
 #daili form .item img{
-  width:20px;
-  height:20px;
+  width:0.625rem;
+  height:0.625rem;
   vertical-align: middle;
 }
 #daili form .item .img{
   flex: 0 0 10%;
 }
 #daili form .yd-checkbox-icon {
-  width: 15px !important;
-  height: 15px !important;
+  width: 0.46875rem !important;
+  height: 0.46875rem !important;
 }
 #daili form .yd-checkbox-icon i{
   width:7px !important;
@@ -136,7 +136,7 @@
   padding-right:5px;
 }
 #daili form .xieyi  span{
-  font-size:14px !important;
+  font-size:0.4375rem !important;
 }
 #daili form .xieyi u{
   color:#2e70a2;
@@ -144,7 +144,7 @@
   font-weight: bold;
 }
 #daili .xieyiCon{
-   padding:10px !important;
+   padding:0.3125rem !important;
    text-indent: 1rem
  }
 #daili form .xieyi u{
@@ -156,26 +156,26 @@
   margin-bottom:5px;
 }
 #daili form .upload{
-  text-align: left;background: #fff;padding:10px 10px 10px 0;
-  position: relative;width:100%;height:80px;
+  text-align: left;background: #fff;padding:0.3125rem 0.3125rem 0.3125rem 0;
+  position: relative;width:100%;height:2.5rem;
   border-bottom: 1px solid #eee;
 }
 #daili form .upload img{
-  width:60px;height:60px;vertical-align: middle;
+  width:1.875rem;height:1.875rem;vertical-align: middle;
 }
 #daili form .upload input{
   opacity: 0;position: absolute;top: 0;right: 0px;height:100%;width:100%;z-index: 100
 }
 #daili form .upload .addMore{
   display: inline-block;
-  width:40px;
-  height:40px;
+  width:1.25rem;
+  height:1.25rem;
   border:1px solid #eee;
   margin: 0 auto;
-  line-height: 40px;
+  line-height:1.25rem;
   text-align: center;
   color:#eee;
-  font-size:40px;
+  font-size:1.25rem;
 }
 </style>
 <script>

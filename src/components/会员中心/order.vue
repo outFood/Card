@@ -265,8 +265,8 @@
     display: flex;
     align-items: center;
     background: #fff;
-    height:50px;
-    line-height: 50px;
+    height:1.5625rem;
+    line-height:1.5625rem;
   }
   #order .curOrderNav{
     color:red;
@@ -280,9 +280,9 @@
   }
   #order .item{
     background: #fff;
-    margin-top:10px;
-    font-size:12px;
-    padding:10px;
+    margin-top:0.3125rem;
+    font-size:0.375rem;
+    padding:0.3125rem;
    }
   #order .item .top,.shopInfo{
     display: -webkit-box;
@@ -292,8 +292,8 @@
     justify-content: space-between;
   }
   #order .item .top img{
-    width:15px;
-    height:15px;
+    width:0.46875rem;
+    height:0.46875rem;
     vertical-align: middle;
   }
   #order .item .top div{
@@ -301,29 +301,29 @@
   }
   #order .item .middle{
     border-top:1px solid #eee;
-    margin:10px 0;
+    margin:0.3125rem 0;
   }
   #order .item .middle>p{
     text-align: left;
-    margin-bottom:10px;
+    margin-bottom:0.3125rem;
   }
   #order .item .middle>p img{
-    width:20px;
-    height:20px;
+    width:0.625rem;
+    height:0.625rem;
     vertical-align: middle;
   }
   #order .item .middle .shopInfo{
-    margin:10px 0;
+    margin:0.3125rem 0;
   }
   #order .item .middle .shopInfo img{
-    width:70px;
-    height:60px;
+    width:2.1875rem;
+    height:1.875rem;
   }
   #order .item .middle .shopInfo span{
     display: block;
-    font-size:12px;
+    font-size:0.375rem;
     color:#aaa;
-    margin-top:10px;
+    margin-top:0.3125rem;
     text-align: right;
   }
   #order .item .middle .shopInfo .mid span{
@@ -331,10 +331,10 @@
   }
   #order .item .middle .bot{
     text-align: right;
-    font-size: 12px;
+    font-size:0.375rem;
     border-top:1px solid #eee;
     border-bottom:1px solid #eee;
-    padding:10px 0;
+    padding:0.3125rem 0;
   }
   #order .item .middle .bot span{
     color:red;

@@ -27,7 +27,7 @@
 <style>
   #shoukuan{
     background: #f1aa4e;
-    padding: 10px 20px;
+    padding:0.3125rem 0.625rem;
     position: fixed;
     top:0;
     right:0;
@@ -39,26 +39,26 @@
   }
   #shoukuan .shoukuanma{
     background: #fff;
-    margin:30px auto;
-    padding-bottom: 20px;
+    margin:0.9375rem auto;
+    padding-bottom:0.625rem;
   }
   #shoukuan .shoukuanma .biaoshi{
     background: #eee;
     text-align: left;
-    padding-left: 10px;
-    margin-bottom:20px;
+    padding-left:0.3125rem;
+    margin-bottom:0.625rem;
   }
   #shoukuan .shoukuanma .biaoshi img{
-    width:20px;
-    height:20px;
+    width:0.625rem;
+    height:0.625rem;
     vertical-align: middle;
-    margin-right:10px;
+    margin-right:0.3125rem;
   }
   #shoukuan .shoukuanma img{
-    margin:20px auto;
+    margin:0.625rem auto;
   }
   #shoukuan .errTip{
     color:#fff8cb;
-    font-size: 12px;
+    font-size:0.375rem;
   }
 </style>

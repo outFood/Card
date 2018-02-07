@@ -455,12 +455,12 @@ export default {
       })
     },
     resPrice({commit, state}, data) {
-      var params = {
+      var myParams = {
         mid: config.mid,
         openid: localStorage.getItem('openid'),
         t: config.t
       }
-      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.withdraw.get_main&i=2', params)
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.withdraw.get_main&i=2', {params:myParams})
         .then(function (res) {
           commit({
             type: 'savePriceData',
@@ -651,7 +651,6 @@ export default {
     login({commit, state}, data) {
       axios.get(config.baseUrl + "/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.user.passwordlogin", {params: data.params})
         .then(function (res) {
-          console.log(res)
           if (res.data.data != {}) {
             localStorage.setItem('openid', res.data.data.openid)
             localStorage.setItem('userid', res.data.data.mid)

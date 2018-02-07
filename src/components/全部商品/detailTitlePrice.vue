@@ -71,12 +71,12 @@
     flex:0 0 20%;
     border-left:1px solid #aaa;
     color:#aaa;
-    height:50px;
+    height:1.5625rem;
     text-align: center;
   }
   #titlePrice .titleShare div img{
-    width:25px;
-    height:25px;
+    width:0.87125rem;
+    height:0.87125rem;
     display: block;
     margin:0 auto;
     margin-bottom: 5px;
@@ -86,24 +86,24 @@
   }
   #titlePrice .price{
     font-weight: bold;
-    font-size:20px;
-    margin-top: 10px;
+    font-size:0.625rem;
+    margin-top:0.3125rem;
   }
   #titlePrice .price span{
     font-weight: normal;
-    font-size:14px;
+    font-size:0.4375rem;
     text-decoration: line-through;
   }
   #titlePrice .countDown{
-    margin: 10px 0;
+    margin: 0.3125rem 0;
     border:1px solid #eee;
     width:85%;
-    height:30px;
-    line-height: 30px;
+    height:0.9375rem;
+    line-height:0.9375rem;
     color:#000;
   }
   #titlePrice .countDown .time{
-    font-size:16px;
+    font-size:0.5rem;
     font-weight: bold;
   }
   #titlePrice .countDown>span:nth-child(1){
@@ -115,7 +115,7 @@
   #titlePrice .other span{
     display: inline-block;
     width: 25%;
-    font-size:12px
+    font-size:0.375rem
   }
   #titlePrice .other span:last-child{
     width:45%

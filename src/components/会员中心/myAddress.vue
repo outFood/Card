@@ -107,7 +107,7 @@
     background: #fff;
     font-size: 14px !important;
     color: #3d4245;
-    margin-bottom: 10px;
+    margin-bottom:0.3125rem;
   }
   #myAddress .address-item .yd-flexbox {
     padding: 15px;
@@ -130,7 +130,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding:0.3125rem;
   }
   #myAddress .address-item .use .setDefault img{
     width:15px;
@@ -142,7 +142,7 @@
     display: inline-block;
   }
   #myAddress .address-item .use>div:nth-child(2) div:first-child {
-    margin-right: 10px;
+    margin-right:0.3125rem;
   }
   #myAddress button {
     position: fixed !important;

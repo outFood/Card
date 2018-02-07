@@ -43,7 +43,7 @@
       </div>
       <div class="item">
         <yd-checkbox-group v-model="readed" size="30" class="xieyi">
-          <yd-checkbox val=""></yd-checkbox><span style="font-size: 24px;">我已经阅读并了解了</span><u @click="show1=true">【分销商申请协议】</u>
+          <yd-checkbox val=""></yd-checkbox><span style="font-size:0.75rem;">我已经阅读并了解了</span><u @click="show1=true">【分销商申请协议】</u>
         </yd-checkbox-group>
       </div>
       <yd-button size="large" type="danger" @click.native="toApply">申请成为会员</yd-button>
@@ -135,23 +135,23 @@
 <style>
   #regist form{
     text-align: left;
-    padding: 10px;
+    padding:0.3125rem;
     background: #fff;
   }
   #regist form p{
-    padding: 10px 0;
+    padding:0.3125rem 0;
   }
   #regist form i{
     color:red;
   }
   #regist form .item{
-    padding: 10px 0;
+    padding:0.3125rem 0;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
     align-items: center;
-    padding:10px 0;
+    padding:0.3125rem 0;
     border-bottom: 1px solid #eee;
   }
   #regist form .item span{
@@ -167,23 +167,23 @@
   }
   *::-webkit-input-placeholder {
     color: #b0b0b0;
-    font-size:12px;
+    font-size:0.375rem;
   }
   #regist form .getCode>div{
     flex:0 0 50%
   }
   #regist form .getCode button{
     flex:0 0 20%;
-    height:25px;
+    height:0.78125rem;
   }
   #regist form .item img{
-    width:20px;
-    height:20px;
+    width:0.625rem;
+    height:0.625rem;
     vertical-align: middle;
   }
   #regist form .yd-checkbox-icon {
-    width: 15px !important;
-    height: 15px !important;
+    width:0.46875rem !important;
+    height: 0.46875rem !important;
   }
   #regist form .yd-checkbox-icon i{
     width:7px !important;
@@ -196,7 +196,7 @@
     display: inline;
   }
   #regist form .xieyi  span{
-    font-size:14px !important;
+    font-size:0.4375rem !important;
   }
   #regist form .xieyi u{
     color:#2e70a2;
@@ -207,7 +207,7 @@
     color:#3493e7
   }
   #regist .xieyiCon{
-    padding:10px !important;
+    padding:0.3125rem !important;
     text-indent: 1rem
   }
 </style>

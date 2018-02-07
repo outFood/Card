@@ -1,5 +1,5 @@
 <template>
-  <div id="detail" style="padding-bottom: 50px">
+  <div id="detail" style="padding-bottom: 1.5625rem">
     <!--<detail-slider></detail-slider>-->
     <!--<titlePrice></titlePrice>-->
     <yd-tab>

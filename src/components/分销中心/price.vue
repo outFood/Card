@@ -55,7 +55,7 @@
         </div>
       </yd-accordion-item>
     </yd-accordion>
-    <yd-button size="large" type="primary" class="woyao">我要提现</yd-button>
+    <yd-button size="large" type="primary" class="woyao" @click.native="tixian">我要提现</yd-button>
   </div>
 </template>
 <script>
@@ -73,6 +73,11 @@
     methods:{
       back:function () {
         this.$router.go(-1)
+      },
+      tixian(){
+        this.$store.dispatch({
+          type:'tixian'
+        })
       }
     },
     beforeCreate(){

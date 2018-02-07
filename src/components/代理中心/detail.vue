@@ -58,7 +58,7 @@
 
   }
   #detail .leiji{
-    padding:15px;
+    padding:0.46875rem;
     background: #fff;
     display: -webkit-box;
     display: -webkit-flex;
@@ -73,8 +73,8 @@
     display: flex;
     align-items: center;
     background: #fff;
-    height:50px;
-    line-height: 50px;
+    height:1.5625rem;
+    line-height:1.5625rem;
     border-bottom: 1px solid #eee;
   }
   #detail .detailNav .curText{
@@ -123,11 +123,11 @@
   }
   #detail .noData img{
     display: block;
-    width:50px;
-    height:50px;
+    width:1.5625rem;
+    height:1.5625rem;
     margin:0 auto;
-    margin-top:100px;
-    margin-bottom:10px;
+    margin-top:3.125rem;
+    margin-bottom:0.3125rem
 
    }
 

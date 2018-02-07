@@ -25,7 +25,7 @@
 <style>
   #fukuan{
     background: #f1aa4e;
-    padding: 10px 20px;
+    padding:0.3125rem 0.625rem;
     position: fixed;
     top:0;
     right:0;
@@ -37,14 +37,14 @@
   }
   #fukuan .fukuanma{
     background: #fff;
-    margin:30px auto;
-    padding-bottom: 20px;
+    margin:0.9375rem auto;
+    padding-bottom: 0.625rem;
   }
   #fukuan .fukuanma img{
-    margin:20px auto;
+    margin:0.625rem auto;
   }
   #fukuan .errTip{
   color:#fff8cb;
-    font-size: 12px;
+    font-size:0.375rem;
   }
 </style>

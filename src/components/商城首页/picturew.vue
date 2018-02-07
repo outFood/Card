@@ -79,15 +79,15 @@ export default{
   }
   #picturew .sort1 .pic_two img{
 		width: 50%;
-		height: 150px;
+		height:4.6875rem;
 	}
   #picturew .sort1 .pic_three>img{
     width:50%;
-    height:150px;
+    height:4.6875rem;
   }
   #picturew .sort1 .pic_three .right{
     width:50%;
-    height:150px;
+    height:4.6875rem;
   }
   #picturew .sort1 .pic_three .right img{
     width:100%;
@@ -96,11 +96,11 @@ export default{
   }
   #picturew .sort1 .pic_four>img{
     width:50%;
-    height:150px;
+    height:4.6875rem;
   }
   #picturew .sort1 .pic_four .right{
     width:50%;
-    height:150px;
+    height:4.6875rem;
   }
   #picturew .sort1 .pic_four .right>img{
     width:100%;
@@ -127,7 +127,7 @@ export default{
   }
   #picturew .sort2 img{
     width:50%;
-    height:150px;
+    height:4.6875rem;
   }
   /*///////////////*/
   #picturew .sort3{
@@ -140,7 +140,7 @@ export default{
   }
   #picturew .sort3 img{
     width:33%;
-    height:100px;
+    height:3.125rem;
   }
   /*///////////////*/
   #picturew .sort4{
@@ -153,6 +153,6 @@ export default{
   }
   #picturew .sort4 img{
     width:25%;
-    height:60px;
+    height:1.875rem;
   }
 </style>

@@ -18,7 +18,7 @@
 
   }
   #AddOrReduce .list{
-    padding: 0 10px;
+    padding: 0 0.3125rem;
     background: #fff;
   }
   #AddOrReduce .list .list-item{
@@ -28,14 +28,14 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding:10px 0;
+    padding:0.3125rem 0;
     border-bottom: 1px solid #eee;
   }
   #AddOrReduce .list .list-item .left{
 
   }
   #AddOrReduce .list .list-item .left img{
-    width:40px;height:40px;vertical-align: middle;margin-right:10px;
+    width:1.25rem;height:1.25rem;vertical-align: middle;margin-right:0.3125rem;
   }
   #AddOrReduce .list .list-item .right{
     display: -webkit-box;
@@ -47,8 +47,8 @@
   #AddOrReduce .list .list-item .right div{
     background: orangered;
     color:#fff;
-    margin-left:10px;
-    padding:5px 10px;
+    margin-left:0.3125rem;
+    padding:5px 0.3125rem;
     text-align: center;
   }
 </style>

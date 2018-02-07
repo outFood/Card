@@ -386,7 +386,7 @@
   }
   #agent .bot .head:not(:first-child){
     /*border-top:1px solid #eee;*/
-    margin-top: 10px;
+    margin-top: 0.3125rem;
   }
   #agent .bot .head img{
     width:0.625rem;

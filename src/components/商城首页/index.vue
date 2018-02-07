@@ -15,8 +15,8 @@
 </template>
 <style>
   #home{
-    padding-top:50px;
-    padding-bottom:65px;
+    padding-top:1.5625rem;
+    padding-bottom:2rem;
     font-size:0.4375rem;
   }
 </style>

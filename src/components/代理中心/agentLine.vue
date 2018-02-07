@@ -34,11 +34,11 @@
   #agentLine .tip{
     background: #f5f5f5;
     text-align: left;
-    padding: 15px;
+    padding:0.46875rem;
   }
   #agentLine .tip img{
-    width:20px;
-    height:20px;
+    width:0.625rem;
+    height:0.625rem;
     vertical-align: middle;
   }
   #agentLine .item{
@@ -47,28 +47,28 @@
     display: -ms-flexbox;
     display: flex;
     align-items: center;
-    padding: 10px;
+    padding:0.3125rem;
     background: #fff;
   }
   #agentLine .item:not(:last-child){
     border-bottom:1px solid #eee;
   }
   #agentLine .item>img{
-    width:60px;
-    height:60px;
+    width:1.875rem;
+    height:1.875rem;
   }
   #agentLine .item span{
-    font-size:12px;
+    font-size:0.375rem;
     color:#aaa;
   }
   #agentLine .item .middle{
     flex:0 0 60%;
     text-align: left;
-    padding-left: 10px;
+    padding-left:0.3125rem;
   }
   #agentLine .item .middle img{
-    width:20px;
-    heigth:20px;
+    width:0.625rem;
+    heigth:0.625rem;
     vertical-align: middle;
   }
   #agentLine .item .right{

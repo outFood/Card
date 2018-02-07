@@ -214,14 +214,14 @@
 
   }
   #nickname .upload img{
-    width:60px;height:60px;position: absolute;right: 10px;top:10px;
+    width:60px;height:60px;position: absolute;right: 0.3125rem;top:10px;
   }
   #nickname .upload input{
     opacity: 0;position: absolute;top: 0;right: 0px;height:100%;width:100%;z-index: 100
   }
   #nickname .setNickName span{
     color:red;
-    margin:0 10px;
+    margin:0 0.3125rem;
   }
   #nickname .setNickName input{
     border:none;

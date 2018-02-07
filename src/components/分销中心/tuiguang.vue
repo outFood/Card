@@ -62,24 +62,24 @@
   #tuiguang{
     text-align: left;
     background: #fff;
-    padding-bottom:15px;
+    padding-bottom:0.46875rem;
   }
   #tuiguang .smile{
-    padding: 10px;
+    padding:0.3125rem;
     background: #eee;
   }
   #tuiguang .smile img{
-    width:20px;
-    height:20px;
+    width:0.625rem;
+    height:0.625rem;
     vertical-align: middle;
-    margin-right:10px;
+    margin-right: 0.3125rem;
   }
   #tuiguang .buzhou{
     background: #fff;
-    padding: 0 10px;
+    padding: 0  0.3125rem;
   }
   #tuiguang .buzhou .item{
-    padding:10px 0;
+    padding: 0.3125rem 0;
     border-bottom:1px solid #eee;
     overflow: hidden;
     text-overflow:ellipsis;
@@ -89,8 +89,8 @@
     background: orange;
     color:#fff;
     width:90%;
-    margin:15px auto;
-    padding: 10px;
+    margin:0.46875rem auto;
+    padding: 0.3125rem;
     border-radius: 5px;
   }
 </style>

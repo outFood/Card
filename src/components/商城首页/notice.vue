@@ -46,20 +46,20 @@
     display: flex;
     align-items: center;
     background: #fff;
-    padding: 5px 10px;
+    padding: 5px 0.3125rem;
     border:1px solid transparent;
    }
   #gonggao img{
-    width:20px;
-    height:20px;
-    margin-right:10px;
+    width:0.625rem;
+    height:0.625rem;
+    margin-right:0.3125rem;
     vertical-align: middle;
   }
   #gonggao .yd-rollnotice{
     border-left:1px solid #eee;
     background: transparent;
     text-align: left;
-    padding-left:10px;
+    padding-left:0.3125rem;
   }
   #gonggao .yd-rollnotice a{
     width:100%;
