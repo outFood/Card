@@ -105,12 +105,12 @@
 <style scoped>
   #myAddress .address-item {
     background: #fff;
-    font-size: 14px !important;
+    font-size: 0.4375rem !important;
     color: #3d4245;
     margin-bottom:0.3125rem;
   }
   #myAddress .address-item .yd-flexbox {
-    padding: 15px;
+    padding:0.46875rem;
   }
   #myAddress .address-item .yd-flexbox .yd-flexbox-item:nth-child(1) {
     text-align: left;
@@ -119,7 +119,7 @@
     text-align: right;
   }
   #myAddress .address-item .address {
-    padding: 0px 20px 20px 15px;
+    padding: 0px 0.625rem 0.625rem 0.46875rem;
     border-bottom: 1px solid #eee;
     text-align: left;
   }
@@ -133,8 +133,8 @@
     padding:0.3125rem;
   }
   #myAddress .address-item .use .setDefault img{
-    width:15px;
-    height:15px;
+    width:0.46875rem;
+    height:0.46875rem;
     vertical-align: middle;
     margin-right:5px;
   }
@@ -148,7 +148,7 @@
     position: fixed !important;
     bottom: 0 !important;
     border-radius: 0 !important;
-    height: 50px !important;
-    font-size: 16px !important;
+    height: 1.5625rem !important;
+    font-size: 0.5rem !important;
   }
 </style>

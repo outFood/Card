@@ -92,8 +92,8 @@
   .form-group{
     display:flex;
     align-items: center;
-    font-size:16px;
-    padding:20px;
+    font-size:0.5rem;
+    padding:0.625rem;
     border-bottom: 1px solid #eee;
   }
   .form-group input{
@@ -104,22 +104,22 @@
     margin:0.78125rem;
     display:flex;
     justify-content: space-between;
-    font-size:14px;
+    font-size:0.4375rem;
     color:#feae19;
   }
   .Btn{
     width:90%;
-    height:40px;
-    margin:20px auto;
+    height:1.25rem;
+    margin:0.625rem auto;
     font-size:0.5rem;
   }
   .otherLoginMethod{
     font-size: 0.4375rem;
     color:#868686;
-    padding-bottom:30px;
+    padding-bottom:0.9375rem;
   }
   .otherLoginMethod .first{
-    margin-bottom: 20px;
+    margin-bottom: 0.625rem;
   }
   .otherLoginMethod .first span{
     display: inline-block;
@@ -128,19 +128,19 @@
     border-top:1px solid #d4d4d4;
   }
   .otherLoginMethod .first span:nth-child(1){
-    margin-right:10px;
+    margin-right:0.3125rem;
   }
   .otherLoginMethod .first span:nth-child(2){
-    margin-left:10px;
+    margin-left:0.3125rem;
   }
   .otherLoginMethod .second img{
-    width:50px;
-    height:50px;
+    width:1.5625rem;
+    height:1.5625rem;
   }
   .otherLoginMethod .second img:nth-child(1){
-    margin-right:20px;
+    margin-right:0.625rem;
   }
   .otherLoginMethod .second img:nth-child(2){
-    margin-left:20px;
+    margin-left:0.625rem;
   }
 </style>

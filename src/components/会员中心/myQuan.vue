@@ -30,7 +30,7 @@
     font-size:0.3125rem;
   }
  #myQuan .yd-flexbox .left div{
-    font-size: 20px;
+    font-size:0.625rem;
     font-weight: bold;
     color:red;
   }

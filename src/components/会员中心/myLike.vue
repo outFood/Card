@@ -42,12 +42,12 @@
 </script>
 <style>
   #myLike .noData{
-    margin-top:20px;
+    margin-top:0.625rem;
   }
   #myLike .noData span{
     display: inline-block;
     width:30%;
-    height:8px;
+    height:0.25rem;
     border-top:1px solid #eee;
   }
   #myLike{
@@ -60,14 +60,14 @@
     display: flex;
     align-items: center;
     background: #fff;
-    padding:10px;
-    margin-bottom:10px;
+    padding:0.3125rem;
+    margin-bottom:0.3125rem;
     text-align: left;
   }
   #myLike .item>img{
-    width:50px;
-    height:50px;
-    margin-right:10px;
+    width:1.5625rem;
+    height:1.5625rem;
+    margin-right:0.3125rem;
   }
   #myLike .item .right h6{
     font-weight: bold;
