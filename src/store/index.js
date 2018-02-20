@@ -493,6 +493,21 @@ export default {
       })
 
     },
+    tixian({commit, state}, data){
+      router.push({path: '/distributIndex/tixian'})
+      // axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.apply.get_main',{params:data.params})
+      //   .then(function (res) {
+      //     console.log(res)
+      //   }).catch(function (err) {console.log('请求失败:' + err)})
+    },
+    next({commit, state}, data){
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.apply.get_main',{params:data.params})
+        .then(function (res) {
+          if(res.data.result.message=="需要您完善资料才能继续操作"){
+            router.push({path: '/vipIndex/vipInfo'})
+          }
+        }).catch(function (err) {console.log('请求失败:' + err)})
+    },
     resXiaXian({commit, state}, data) {
       axios.get(config.baseUrl + "/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.down.get_list&page=1&level=1", {params: data.params})
         .then(function (res) {
@@ -687,8 +702,7 @@ export default {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
-      })
-        .then(function (res) {
+      }).then(function (res) {
           console.log(res)
         }).catch(function (err) {
         console.log('请求失败:' + err)

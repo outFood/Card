@@ -59,6 +59,7 @@
   </div>
 </template>
 <script>
+  import config from '../../myConfig'
   export default {
     data(){
       return {
@@ -76,7 +77,12 @@
       },
       tixian(){
         this.$store.dispatch({
-          type:'tixian'
+          type:'tixian',
+          params:{
+            mid:config.mid,
+            openid:localStorage.getItem('openid'),
+            t:config.t,
+          }
         })
       }
     },

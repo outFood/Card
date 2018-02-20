@@ -9,9 +9,9 @@
       <img src="/static/img/more.png" alt="" class="more">
     </router-link>
     <div class="detailInfo">
-      <div>姓名 <span>*</span><input :placeholder="vipInfoData.realname==''?'请输入姓名':vipInfoData.realname" v-model="realname"></div>
-      <div>手机号 <span>*</span><input placeholder="请输入手机号" v-model="mobile"></div>
-      <div>微信号 <span>*</span><input :placeholder="vipInfoData.weixin==''?'请输入微信号':vipInfoData.weixin" v-model="weixin"></div>
+      <div>姓名 <span>*</span><input placeholder="请输入姓名" v-model="vipInfoData.realname"></div>
+      <div>手机号 <span>*</span><input placeholder="请输入手机号" v-model="vipInfoData.mobile"></div>
+      <div>微信号 <span>*</span><input placeholder="请输入微信号" v-model="vipInfoData.weixin"></div>
     </div>
     <yd-cell-group>
       <!--<yd-cell-item arrow>-->
@@ -20,7 +20,7 @@
       <!--</yd-cell-item>-->
       <yd-cell-item arrow>
         <span slot="left">所在地区：</span>
-        <input slot="right" type="text" @click.stop="show1 = true" v-model="areas" readonly :placeholder="(vipInfoData.province==''&&vipInfoData.city==''&&vipInfoData.area=='')?'请选择所在地区':(vipInfoData.province&&vipInfoData.city&&vipInfoData.area)">
+        <input slot="right" type="text" @click.stop="show1 = true" v-model="vipInfoData.province+' '+vipInfoData.city+' '+vipInfoData.area" readonly placeholder="请选择所在地区">
       </yd-cell-item>
     </yd-cell-group>
     <yd-cityselect v-model="show1" :callback="result1" :items="district"></yd-cityselect>
@@ -34,7 +34,7 @@
   export default {
     data(){
       return {
-        mobile:'13867104693',
+        mobile:'',
         realname:'',
         weixin:'',
         birthday: '',
@@ -57,10 +57,11 @@
           type:'updatePersonInfo',
           params:{
             mid:localStorage.getItem('userid'),
-            realname:this.realname,
-            mobile:this.mobile,
-            weixin:this.weixin,
-            areas:this.areas,
+            openid:localStorage.getItem('openid'),
+            realname:this.realname!=''?this.realname:this.vipInfoData.realname,
+            mobile:this.mobile!=''?this.mobile:this.vipInfoData.mobile,
+            weixin:this.weixin!=''?this.weixin:this.vipInfoData.weixin,
+            areas:this.areas!=''?this.areas:this.vipInfoData.areas,
             t:config.t
           }
         })
@@ -92,7 +93,7 @@
     align-items: center;
     background: #fff;
     margin:0.3125rem 0;
-    padding:0.3125remx;
+    padding:0.3125rem;
   }
   #vipInfo .updatePic img:nth-child(1){
     width:50px;

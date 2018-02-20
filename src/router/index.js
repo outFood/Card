@@ -31,6 +31,7 @@ import xiaxian from '@/components/分销中心/xiaxian'
 import tixianDetail from '@/components/分销中心/tixianDetail'
 import wait from '@/components/分销中心/wait'
 import apply from '@/components/分销中心/apply'
+import tixian from '@/components/分销中心/tixian'
 //代理中心
 import agentIndex from '@/components/代理中心/index'
 import agentPrice from '@/components/代理中心/agentPrice'
@@ -153,6 +154,9 @@ export default new Router({
         {
           path:'price',
           component:price
+        },{
+          path:'tixian',
+          component:tixian
         },{
           path:'tuiguang',
           component:tuiguang

@@ -69,8 +69,7 @@
           }
         }
       },
-      postImg() {
-        console.log('调用接口')
+      postImg() {//调用接口
       },
       rotateImg(img, direction, canvas) {
         //最小与最大旋转方向，图片旋转4次后回到原方向
@@ -133,7 +132,6 @@
         //如果图片大于四百万像素，计算压缩比并将大小压至400万以下
         let ratio;
         if ((ratio = width * height / 4000000) > 1) {
-          console.log("大于400万像素")
           ratio = Math.sqrt(ratio);
           width /= ratio;
           height /= ratio;
@@ -148,7 +146,6 @@
         //如果图片像素大于100万则使用瓦片绘制
         let count;
         if ((count = width * height / 1000000) > 1) {
-          console.log("超过100W像素");
           count = ~~(Math.sqrt(count) + 1); //计算要分成多少块瓦片
           //            计算每块瓦片的宽和高
           let nw = ~~(width / count);
@@ -181,9 +178,6 @@
         }
         //进行最小压缩
         let ndata = canvas.toDataURL('image/jpeg', 0.1);
-        console.log('压缩前：' + initSize);
-        console.log('压缩后：' + ndata.length);
-        console.log('压缩率：' + ~~(100 * (initSize - ndata.length) / initSize) + "%");
         tCanvas.width = tCanvas.height = canvas.width = canvas.height = 0;
         return ndata;
       },
