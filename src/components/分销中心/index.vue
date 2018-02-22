@@ -32,7 +32,7 @@
           <h5>{{fenxiao_headData.result.member.commission_ok}}</h5>
         </yd-flexbox-item>
         <yd-flexbox-item>
-          <span class="btn">佣金提现</span>
+          <span class="btn" @click="tixian">佣金提现</span>
         </yd-flexbox-item>
       </yd-flexbox>
     </div>
@@ -119,7 +119,18 @@
     methods:{
       back:function () {
         this.$router.go(-1)
+      },
+      tixian(){
+        if(this.fenxiao_headData.result.member.commission_ok<this.fenxiao_headData.result.thisset.withdraw){
+                this.$dialog.toast({
+                    mes: '一个没有任何图标的提示！',
+                    timeout: 1500
+                });
+        }else{
+          router.push({path: '/distributIndex/tixian'})
+        }
       }
+
     },
     beforeCreate(){
 //      this.$store.dispatch({

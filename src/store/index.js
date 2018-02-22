@@ -494,11 +494,10 @@ export default {
 
     },
     tixian({commit, state}, data){
-      router.push({path: '/distributIndex/tixian'})
-      // axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.apply.get_main',{params:data.params})
-      //   .then(function (res) {
-      //     console.log(res)
-      //   }).catch(function (err) {console.log('请求失败:' + err)})
+       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.apply.get_main',{params:data.params})
+         .then(function (res) {
+           console.log(res)
+         }).catch(function (err) {console.log('请求失败:' + err)})
     },
     next({commit, state}, data){
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.apply.get_main',{params:data.params})
@@ -1139,11 +1138,10 @@ export default {
       }
     },
     saveAgentPriceData(state, data) {
-      VueSet(state, 'agentPriceData', data.data.data.result)
+      VueSet(state, 'agentPriceData', data.data.data)
       if (state.agentPriceData != {}) {
         router.push({path: '/agentIndex/agentPrice'})
       }
-      console.log(state.agentPriceData)
     },
     saveAgentLineData(state, data) {
       VueSet(state, 'agentLineData', data.data.data.result)

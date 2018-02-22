@@ -6,7 +6,7 @@
           <!----------------------------------------------------------->
           <position></position>
           <banner></banner>
-          <menu2></menu2>
+          <sort-slide></sort-slide>
           <youxuan></youxuan>
           <shop-list></shop-list>
           <!----------------------------------------------------------->
@@ -29,7 +29,7 @@
   import config from '../../myConfig'
   import position from '@/components/附近商家/position'
   import banner from '@/components/附近商家/banner'
-  import menu2 from '@/components/商城首页/menu2'
+  import sortSlide from '@/components/附近商家/sortSlide'
   import youxuan from '@/components/附近商家/youxuan'
   import shopList from '@/components/附近商家/shopList'
   export default {
@@ -63,7 +63,7 @@
         })
       }
     },
-    components: {position,banner,menu2,youxuan,shopList},
+    components: {position,banner,sortSlide,youxuan,shopList},
     beforeCreate(){
       this.$store.dispatch({
         type:'resFujinData',

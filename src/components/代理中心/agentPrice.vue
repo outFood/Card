@@ -3,14 +3,30 @@
     <yd-flexbox class="head">
       <yd-flexbox-item>
         <p>累计佣金(元)</p>
-        0.00
+        {{agentPriceData.commission_total}}
       </yd-flexbox-item>
     </yd-flexbox>
     <div class="body">
       <div class="listItem">
         <div class="left"><img src="/static/img/price_block.png">可提现佣金</div>
-        <div class="right">0.00元</div>
+        <div class="right">{{agentPriceData.abonus_ok}}元</div>
       </div>
+      <div class="listItem">
+        <div class="left"><img src="/static/img/price_block.png">已申佣金</div>
+        <div class="right">{{agentPriceData.abonus_apply}}元</div>
+       </div>
+       <div class="listItem">
+         <div class="left"><img src="/static/img/price_block.png">待打款佣金</div>
+         <div class="right">{{agentPriceData.abonus_check}}元</div>
+       </div>
+       <div class="listItem">
+          <div class="left"><img src="/static/img/price_block.png">无效佣金</div>
+          <div class="right">{{agentPriceData.abonus_fail}}元</div>
+       </div>
+       <div class="listItem">
+          <div class="left"><img src="/static/img/price_block.png">成功提现佣金</div>
+          <div class="right">{{agentPriceData.abonus_pay}}元</div>
+       </div>
     </div>
     <yd-accordion>
       <yd-accordion-item title="用户须知">
@@ -19,7 +35,7 @@
         </div>
       </yd-accordion-item>
     </yd-accordion>
-    <yd-button size="large" type="primary" class="woyao">我要提现</yd-button>
+      <yd-button size="large" type="primary" class="woyao">到分销中心统一提</yd-button>
   </yd-layout>
 </template>
 <script>

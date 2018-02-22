@@ -73,6 +73,7 @@
   </div>
 </template>
 <script type="text/babel">
+  import config from '../../myConfig'
     export default {
         data() {
             return {
@@ -88,6 +89,16 @@
                 card:'5626859898562',
                 sureCard:'5626859898562'
             }
+        },
+        beforeCreate(){
+          this.$store.dispatch({
+              type:'tixian',
+              params:{
+                mid:config.mid,
+                openid:localStorage.getItem('openid'),
+                t:config.t,
+              }
+            })
         },
         methods:{
           back:function () {

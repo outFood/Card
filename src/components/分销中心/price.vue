@@ -60,6 +60,7 @@
 </template>
 <script>
   import config from '../../myConfig'
+  import router from '@/router'
   export default {
     data(){
       return {
@@ -76,14 +77,7 @@
         this.$router.go(-1)
       },
       tixian(){
-        this.$store.dispatch({
-          type:'tixian',
-          params:{
-            mid:config.mid,
-            openid:localStorage.getItem('openid'),
-            t:config.t,
-          }
-        })
+        router.push({path: '/distributIndex/tixian'})
       }
     },
     beforeCreate(){
