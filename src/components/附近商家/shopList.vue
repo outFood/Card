@@ -29,7 +29,7 @@
             <p>电话:{{item.tel}}</p>
           </div>
           <div class="right">
-            <span>进店</span>
+            <router-link to="/fujin/exclusiveShop">进店</router-link>
             1389394m
           </div>
         </div>
@@ -127,7 +127,7 @@
     color:red;
     font-size:0.375rem;
   }
-  #shopList section .listItem .top .right span{
+  #shopList section .listItem .top .right a{
     display: block;
     padding:2px 6px;
     border:1px solid red;
