@@ -53,6 +53,7 @@ export default {
       //分销
       fenxiao_headData: {},
       fenxiao_bodyData: {},
+      okTiXian:{},
       priceData: {},
       yongDetail: {},
       xiaXian: {},
@@ -496,7 +497,10 @@ export default {
     tixian({commit, state}, data){
        axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.apply.get_main',{params:data.params})
          .then(function (res) {
-           console.log(res)
+           commit({
+             type:'saveOkTiXian',
+             data:res
+           })
          }).catch(function (err) {console.log('请求失败:' + err)})
     },
     next({commit, state}, data){
@@ -1120,6 +1124,9 @@ export default {
     saveTixianData(state, data) {
       VueSet(state, 'tixianData', data.data.data.result)
       console.log(state.tixianData)
+    },
+    saveOkTiXian(state, data){
+      VueSet(state,'okTiXian',data.data.data.result)
     },
     saveTuiGuangData(state, data) {
       VueSet(state, 'qrcodeText', data.data[0].data.result)

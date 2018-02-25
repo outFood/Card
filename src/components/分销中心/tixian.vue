@@ -10,7 +10,7 @@
         <span>我的可提现佣金</span>
       </div>
       <div class="item">
-        <b style="font-size:20px;">￥6135.02</b>
+        <b style="font-size:20px;">￥{{okTiXian.commission_ok}}</b>
       </div>
       <div class="item">
         <span>名称</span>
@@ -82,14 +82,19 @@
                 tixianMethod: '提现到支付宝',
                 alipayMethod:true,
                 bankMethod:false,
-                name:'吴巧红',
-                alipay:'15658163225',
-                sureAlipay:'15658163225',
-                bank:'中国工商银行',
-                card:'5626859898562',
-                sureCard:'5626859898562'
+                name:'',
+                alipay:'',
+                sureAlipay:'',
+                bank:'',
+                card:'',
+                sureCard:''
             }
         },
+      computed:{
+        okTiXian(){
+          return this.$store.state.okTiXian
+        },
+      },
         beforeCreate(){
           this.$store.dispatch({
               type:'tixian',
@@ -129,13 +134,17 @@
                     this.$store.dispatch({
                       type:'next',
                         params: {
+                          t:config.t,
+                          openid:localStorage.getItem('openid'),
+                          mid:localStorage.getItem('userid'),
                           type:2,
+                          ispost:1,
                           realname: this.name,
                           alipay: this.alipay,
                           alipay1: this.sureAlipay,
-                          bankname: this.bank,
-                          bankcard: this.card,
-                          bankcard1: this.sureCard
+                          // bankname: this.bank,
+                          // bankcard: this.card,
+                          // bankcard1: this.sureCard
                        },
                     })
                 }
@@ -148,10 +157,14 @@
                       this.$store.dispatch({
                         type:'next',
                           params: {
+                            t:config.t,
+                            openid:localStorage.getItem('openid'),
+                            mid:localStorage.getItem('userid'),
+                            ispost:1,
                             type:2,
                             realname: this.name,
-                            alipay: this.alipay,
-                            alipay1: this.sureAlipay,
+                            // alipay: this.alipay,
+                            // alipay1: this.sureAlipay,
                             bankname: this.bank,
                             bankcard: this.card,
                             bankcard1: this.sureCard
