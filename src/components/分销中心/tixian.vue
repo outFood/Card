@@ -137,6 +137,7 @@
                           t:config.t,
                           openid:localStorage.getItem('openid'),
                           mid:localStorage.getItem('userid'),
+                          //0：余额，//1：微信钱包，//2：支付宝，//3银行卡
                           type:2,
                           ispost:1,
                           realname: this.name,
@@ -161,7 +162,7 @@
                             openid:localStorage.getItem('openid'),
                             mid:localStorage.getItem('userid'),
                             ispost:1,
-                            type:2,
+                            type:3,
                             realname: this.name,
                             // alipay: this.alipay,
                             // alipay1: this.sureAlipay,

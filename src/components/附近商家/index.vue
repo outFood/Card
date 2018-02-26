@@ -53,15 +53,6 @@
       pullrefresh() {
         console.log('下拉刷新')
       },
-      resExclusiveShopData(id) {
-        this.$store.dispatch({
-          type: 'resExclusiveShopData',
-          params:{
-            merchid: id,
-            t:config.t
-          }
-        })
-      }
     },
     components: {position,banner,sortSlide,youxuan,shopList},
     beforeCreate(){

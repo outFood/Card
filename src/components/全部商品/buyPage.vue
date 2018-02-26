@@ -5,7 +5,7 @@
         <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
       </router-link>
     </yd-navbar>
-    <router-link to="/vipIndex/myAddress"  class="address" v-if="curSelAddress.realname">
+    <router-link to="#" @click.native="changeAddress" class="address" v-if="curSelAddress.realname">
       <img src="/static/img/position.png" alt="">
       <div>
         <h6>收货人：{{curSelAddress.realname}}&nbsp;&nbsp;&nbsp;&nbsp;{{curSelAddress.mobile}}</h6>
@@ -13,7 +13,7 @@
       </div>
       <img src="/static/img/more.png" alt="">
     </router-link>
-    <router-link to="/vipIndex/myAddress" class="noAddress" v-else><span>请选择收货地址</span><img src="/static/img/more.png" alt=""></router-link>
+    <router-link to="#" @click.native="changeAddress" class="noAddress" v-else><span>请选择收货地址</span><img src="/static/img/more.png" alt=""></router-link>
     <div class="list">
       <div class="item" v-for="(item,key) in buyPageData.result.goods_list">
         <div class="top">
@@ -163,6 +163,7 @@
   }
 </style>
 <script>
+  import router from '@/router'
   import config from '../../myConfig'
   export default {
     data(){
@@ -221,6 +222,12 @@
             mid:localStorage.getItem('userid'),
             openid:localStorage.getItem('openid')
           }
+        })
+      },
+      changeAddress(){
+        router.push({path: '/vipIndex/myAddress'})
+        this.$store.dispatch({
+          type:'changeAddress',
         })
       },
       back:function () {

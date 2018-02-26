@@ -12,12 +12,12 @@
       <span  :class="{curOrderNav:orderStatus==2}"  @click="lookOrder('待收货')">待收货</span>
       <span  :class="{curOrderNav:orderStatus==4}"  @click="lookOrder('退换货')">退换货</span>
     </div>
-    <no-order v-if="myOrder.list.length==0"></no-order>
+    <no-order v-if="myOrder.length==0"></no-order>
 
     <div class="list" v-else>
-      <yd-infinitescroll :callback="loadList" ref="infinitescrollDemo">
+      <yd-infinitescroll :callback="loadMoreList" ref="infinitescrollDemo">
         <yd-list theme="1" slot="list">
-          <div class="item" v-for="(item,key) in myOrder.list" :key="key">
+          <div class="item" v-for="(item,key) in myOrder" :key="key">
             <div class="top" @click="resOrderDetail(item.id)">
               <span>订单号：{{item.ordersn}}</span>
               <div>{{item.statusstr}} <img src="/static/img/more.png" alt=""></div>
@@ -242,16 +242,18 @@
       back() {
     this.$router.go(-1)
   },
-      loadList(){//根据当前的page和当前的分类状态
-
-
-//        if (this.newCommodityListData.length < 10) {
-//          /* 所有数据加载完毕 */
-//          this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.loadedDone');
-//          return;
-//        }
-//        /* 单次请求数据完毕 */
-//        this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.finishLoad');
+      loadMoreList(){//根据当前的page和当前的分类状态
+        console.log('哈哈')
+        this.$store.dispatch({
+          type:'loadMoreList'
+        })
+        if (this.myOrder.length%10!=0) {
+          /* 所有数据加载完毕 */
+          this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.loadedDone');
+          return;
+        }
+        /* 单次请求数据完毕 */
+        this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.finishLoad');
       },
     },
     components:{noOrder}

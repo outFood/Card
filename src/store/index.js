@@ -37,6 +37,7 @@ export default {
       sortid: '',
       someSortPage: 2,
       selPay: {},
+      changeAddress:false,
       //附近商家
       Fujin_sortData: [],
       getFujin_slideData: [],
@@ -75,9 +76,10 @@ export default {
       myAddressData: {},
       wantEditAddress: [],
       curSelAddress: {},
-      myOrder: {},
+      myOrder: [],
       orderDetail:{},
       orderStatus:6,
+      curOrderStausPage:1,
       myLikeData: {},
       zuJiData: {},
       addOrOrder: {},
@@ -290,6 +292,11 @@ export default {
         console.log('请求失败:' + err)
       })
     },
+    changeAddress({commit, state}, data){
+      commit({
+        type:'changeAddress'
+      })
+    },
     //查看购物车
     lookCart({commit, state}, data) {
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.get_list', {params: data.params})
@@ -401,8 +408,8 @@ export default {
         }))
     },
     resExclusiveShopData({commit, state}, data) {
-      var url = config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.index.get_main&state=we7sid-989f479443e701453157a809d00e2e0f&sign=5fc39c4c2d8acbfb7c253e67cbecda05&mid=0'
-      axios.get(url, {params: data.params}).then(function (res) {
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.index.get_main', {params: data.params})
+        .then(function (res) {
         commit({
           type: 'saveExclusiveShopData',
           res: res
@@ -792,7 +799,7 @@ export default {
       }
       commit({
         type:'saveOrderStatus',
-        data:status
+        data:{status:status,curOrderStausPage:1,myOrder:[]}
       })
       var params = {
         status: status,
@@ -806,7 +813,28 @@ export default {
           commit({
             type: 'saveMyOrder',
             res: res,
-            orderStatus: status
+            orderStatus: status,
+            curOrderStausPage:1
+          })
+        }).catch(function (err) {
+        alert(err)
+      })
+    },
+    loadMoreList({commit, state}, data){
+      var params = {
+        status: state.orderStatus,
+        mid: localStorage.getItem('userid'),
+        openid: localStorage.getItem('openid'),
+        page: state.curOrderStausPage+1,
+        t: config.t
+      }
+      axios.get(config.baseUrl + "/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.index.get_list", {params: params})
+        .then(function (res) {
+          commit({
+            type: 'saveMyOrder',
+            res: res,
+            orderStatus: state.orderStatus,
+            curOrderStausPage:state.curOrderStausPage+1
           })
         }).catch(function (err) {
         alert(err)
@@ -836,7 +864,8 @@ export default {
               commit({
                 type: 'saveMyOrder',
                 res: res,
-                orderStatus:state.orderStatus
+                orderStatus:state.orderStatus,
+                curOrderStausPage:state.curOrderStausPage
               })
             }).catch(function (err) {
             alert(err)
@@ -860,7 +889,8 @@ export default {
               commit({
                 type: 'saveMyOrder',
                 res: res,
-                orderStatus:state.orderStatus
+                orderStatus:state.orderStatus,
+                curOrderStausPage:state.curOrderStausPage
               })
             }).catch(function (err) {
             alert(err)
@@ -882,7 +912,8 @@ export default {
               commit({
                 type: 'saveMyOrder',
                 res: res,
-                orderStatus:state.orderStatus
+                orderStatus:state.orderStatus,
+                curOrderStausPage:state.curOrderStausPage
               })
             }).catch(function (err) {
             alert(err)
@@ -1052,6 +1083,11 @@ export default {
         router.push({path: '/sortIndex/selPay'})
       }
     },
+    changeAddress(state, data){
+      VueSet(state,'changeAddress',true)
+    },
+
+
     //  购物车
     saveCartData(state, data) {
       VueSet(state, 'cartData', data.res.data.result)
@@ -1088,7 +1124,7 @@ export default {
         router.push({path: '/fujinIndex/exclusiveShop'})
       }
       console.log('**************exclusiveShopData****************')
-      console.log(state.exclusiveShopData)
+      console.log(state.exclusiveShopData.index_cache)
     },
     saveCurSelShop(state, data) {
       VueSet(state, 'curSelShop', data.data.params)
@@ -1192,14 +1228,16 @@ export default {
     saveSelAddress(state, data) {
       VueSet(state, 'curSelAddress', data.data.item)
       console.log(state.curSelAddress)
-      if (state.curSelAddress != {}) {
+      if (state.curSelAddress != {}&&state.changeAddress!=false) {
         router.push({path: '/sortIndex/buyPage'})
       }
+      VueSet(state, 'changeAddress',false)
     },
     saveMyOrder(state, data) {
-      VueSet(state, 'myOrder', data.res.data.result)
+      VueSet(state, 'myOrder',[...state.myOrder,...data.res.data.result.list])
       VueSet(state, 'orderStatus', data.orderStatus)
-      if (state.myOrder != {} && state.orderStatus != null) {
+      VueSet(state, 'curOrderStausPage', data.curOrderStausPage)
+      if (state.myOrder != [] && state.orderStatus != null) {
         router.push({path: '/vipIndex/order'})
       }
     },
@@ -1210,7 +1248,9 @@ export default {
       }
     },
     saveOrderStatus(state, data){
-      VueSet(state,'orderStatus',data.data)
+      VueSet(state,'orderStatus',data.data.status)
+      VueSet(state,'curOrderStausPage',data.data.curOrderStausPage)
+      VueSet(state,'myOrder',data.data.myOrder)
     },
     saveEvalutePage(state, data){
       VueSet(state,'evaluatPage',data.data.data)

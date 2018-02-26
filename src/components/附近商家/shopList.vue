@@ -29,7 +29,7 @@
             <p>电话:{{item.tel}}</p>
           </div>
           <div class="right">
-            <router-link to="/fujin/exclusiveShop">进店</router-link>
+            <router-link to="#" @click.native="resExclusiveShopData(item.id)">进店</router-link>
             1389394m
           </div>
         </div>
@@ -42,6 +42,7 @@
   </div>
 </template>
 <script>
+  import config from '../../myConfig'
   export default {
     computed:{
       Fujin_sortData(){
@@ -56,6 +57,16 @@
         this.$store.dispatch({
           type:'saveCurSelShop',
           params:item
+        })
+      },
+      resExclusiveShopData(id) {//      /fujin/exclusiveShop
+        this.$store.dispatch({
+          type: 'resExclusiveShopData',
+          params:{
+            merchid: id,
+            t:config.t,
+            mid:localStorage.getItem('userid')
+          }
         })
       }
     }

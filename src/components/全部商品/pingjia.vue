@@ -77,6 +77,6 @@
   }
   #pingjia .list .list-item .middle .imgs img{
     width:32%;
-    height:0.3125rem;
+    height:2.3125rem;
   }
 </style>
