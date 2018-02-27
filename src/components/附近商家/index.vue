@@ -60,6 +60,7 @@
         type:'resFujinData',
         params:{
           page:1,
+          pagesize:10,
           cateid:'',
           t:config.t,
           uniacid:config.uniacid,

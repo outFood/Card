@@ -240,8 +240,8 @@
         });
       },
       back() {
-    this.$router.go(-1)
-  },
+        this.$router.go(-1)
+      },
       loadMoreList(){//根据当前的page和当前的分类状态
         console.log('哈哈')
         this.$store.dispatch({

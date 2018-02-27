@@ -24,7 +24,7 @@
             </div>
           </div>
           <div class="con-v"v-else>
-            <div v-for="(item,key) in commodityListData" :key="key">
+            <div v-for="(item,key) in commodityListData" :key="key" @click="resCommodityDetailData(item.id)">
               <img :src="item.thumb" alt="">
               <div class="right">
                 <p>{{item.title}}</p>

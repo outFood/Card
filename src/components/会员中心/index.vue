@@ -45,7 +45,7 @@
         <div>查看全部订单 <img src="/static/img/more.png" alt=""></div>
       </router-link>
       <div class="bottom">
-        <router-link to="#" v-for="(item,key) in wodeBodyData.menu.data" :key="key"  @click.native="lookOrder(item.text)"><img src="http://static.ydcss.com/uploads/ydui/1.jpg">{{item.text}}</router-link>
+        <router-link to="#" v-for="(item,key) in orderData" :key="key"  @click.native="lookOrder(item.text)"><img :src="item.iconSrc">{{item.text}}</router-link>
       </div>
     </div>
     <div class="other">
@@ -53,7 +53,7 @@
         其他
       </div>
       <div class="other-content">
-        <router-link v-for="(item,key) in wodeBodyData.listmenu.data" :key="key" to="#" @click.native="toOther(item.text)"><img src="http://static.ydcss.com/uploads/ydui/1.jpg">{{item.text}}
+        <router-link v-for="(item,key) in menuData" :key="key" to="#" @click.native="toOther(item.text)"><img :src="item.iconSrc">{{item.text}}
         </router-link>
       </div>
     </div>
@@ -77,15 +77,40 @@
       wodeBodyData(){
         return this.$store.state.wodeBodyData
       },
-//      menuData() {
-//        return this.$store.state.wodeBodyData.listmenu.data
-//      },
-//      orderData(){
-//        return this.$store.state.wodeBodyData.menu.data
-//      },
-      loginStatus(){
-        return this.$store.state.loginStatus
-      }
+      menuData() {
+        var menuData=this.$store.state.wodeBodyData.listmenu.data
+        for(var i=0;i<menuData.length;i++){
+          if(menuData[i].text=='全部订单'){
+            menuData.splice(i,1)
+          }else if(menuData[i].text=='我的关注'){
+            menuData[i].iconSrc='/static/img/black-heart.png'
+          }else if(menuData[i].text=='我的足迹'){
+            menuData[i].iconSrc='/static/img/footmark.png'
+          }else if(menuData[i].text=='我的地址'){
+            menuData[i].iconSrc='/static/img/position.png'
+          }else if(menuData[i].text=='领取优惠券'){
+            menuData[i].iconSrc='/static/img/get.png'
+          }else if(menuData[i].text=='我的优惠券'){
+            menuData[i].iconSrc='/static/img/quan.png'
+          }
+        }
+        return menuData
+      },
+      orderData(){
+        var orderData=this.$store.state.wodeBodyData.menu.data
+        for(var i=0;i<orderData.length;i++){
+          if(i==0){
+            orderData[0].iconSrc='/static/img/waitPay.png'
+          }else if(i==1){
+            orderData[1].iconSrc='/static/img/waitSend.png'
+          }else if(i==2){
+            orderData[2].iconSrc='/static/img/waitGet.png'
+          }else if(i==3){
+            orderData[3].iconSrc='/static/img/waitBack.png'
+          }
+        }
+        return orderData
+      },
     },
     methods: {
       lookOrder(text){
@@ -126,6 +151,8 @@
             uniacid:config.uniacid,
             t:config.t,
             openid:localStorage.getItem('openid'),
+            mid:localStorage.getItem('userid'),
+            page:10
           }
         })
       },
@@ -135,6 +162,9 @@
     },
     beforeCreate(){
 
+    },
+    mounted(){
+      console.log(this.menuData)
     }
   }
 </script>
@@ -265,8 +295,8 @@
     border-right: 1px solid #eee
   }
   #vip .dingdan .bottom > a img {
-    width:1.25rem;
-    height: 1.25rem;
+    width:1rem;
+    height: 1rem;
     display: block;
     margin: 0 auto;
     margin-bottom: 5px;
@@ -300,8 +330,8 @@
     border-bottom: 1px solid #eee;
   }
   #vip .other .other-content > a img {
-    width:1.25rem;
-    height:1.25rem;
+    width:0.8rem;
+    height:0.8rem;
     display: block;
     margin: 0 auto;
     margin-bottom: 5px;

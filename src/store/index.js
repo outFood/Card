@@ -41,9 +41,11 @@ export default {
       //附近商家
       Fujin_sortData: [],
       getFujin_slideData: [],
-      Fujin_ListData: {},
+      Fujin_ListData: [],
       payStatus: '购买',
       curSelShop: {},
+      curCateid:'',
+      shopListPage:1,
       //购物车
       cartData: {},
       cartcount: 0,
@@ -139,6 +141,12 @@ export default {
         }).catch(function (err) {
         alert(err)
       })
+    },
+    resNoticePage({commit, state}, data){
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=article.index.get_main', {params: data.params})
+        .then(function (res) {
+
+        }).catch(function (err) {console.log('请求失败：' + err)})
     },
     //分类
     resSortData({commit, state}, data) {
@@ -386,15 +394,12 @@ export default {
       function getFujin_sortData() {//分类
         return axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.get_category&uniacid=2&t=' + config.t);
       }
-
       function getFujin_slideData() {//轮播
         return axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.get_category_swipe&uniacid=2&t=' + config.t);
       }
-
       function getFujin_ListData() {//商户列表
         return axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.ajaxmerchuser', {params: data.params});
       }
-
       axios.all([getFujin_sortData(), getFujin_slideData(), getFujin_ListData()])//一次性并发多个请求
         .then(axios.spread(function (Fujin_sortData, getFujin_slideData, Fujin_ListData) {
           commit({
@@ -404,6 +409,10 @@ export default {
               getFujin_slideData: getFujin_slideData,
               Fujin_ListData: Fujin_ListData
             }
+          })
+          commit({
+            type:'changeShopListPage',
+            shopListPage:2
           })
         }))
     },
@@ -423,6 +432,44 @@ export default {
         type: 'saveCurSelShop',
         data: data
       })
+    },
+    loadMoreShop({commit, state}, data){
+      var params={
+        page:state.shopListPage,
+        pagesize:10,
+        cateid:state.curCateid,
+        t:config.t,
+        uniacid:config.t,
+        i:config.i,
+      }
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.ajaxmerchuser', {params: params})
+        .then(function (res) {
+          commit({
+            type:'loadMoreShop',
+            data:res
+          })
+      }).catch(function (err) {alert(err)})
+    },
+    changeCateid({commit, state}, data){
+      commit({
+        type:'changeCateid',
+        data:data
+      })
+      var params={
+        page:1,
+        pagesize:10,
+        cateid:data.cateid,
+        t:config.t,
+        uniacid:config.t,
+        i:config.i,
+      }
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.ajaxmerchuser', {params: params})
+        .then(function (res) {
+          commit({
+            type:'saveShopList',
+            data:res
+          })
+        }).catch(function (err) {alert(err)})
     },
     //分销中心
     resApply({commit, state}, data) {
@@ -1043,14 +1090,6 @@ export default {
         router.push({path: '/sortIndex/someSort'})
       }
     },
-    saveFujinData(state, data) {
-      VueSet(state, 'Fujin_sortData', data.data.Fujin_sortData.data)
-      VueSet(state, 'getFujin_slideData', data.data.getFujin_slideData.data)
-      VueSet(state, 'Fujin_ListData', data.data.Fujin_ListData.data)
-      if (state.Fujin_sortData && state.getFujin_slideData && state.Fujin_ListData) {
-        router.push({path: '/fujin/'})
-      }
-    },
     saveCommodityDetailData(state, data) {
       VueSet(state, 'commodityDetailData', data.data.commodityDetailData.data)
       VueSet(state, 'commodityColorSizeData', data.data.commodityColorSizeData.data.result)
@@ -1086,8 +1125,6 @@ export default {
     changeAddress(state, data){
       VueSet(state,'changeAddress',true)
     },
-
-
     //  购物车
     saveCartData(state, data) {
       VueSet(state, 'cartData', data.res.data.result)
@@ -1118,6 +1155,14 @@ export default {
       }
     },
     //附近商家
+    saveFujinData(state, data) {
+      VueSet(state, 'Fujin_sortData', data.data.Fujin_sortData.data)
+      VueSet(state, 'getFujin_slideData', data.data.getFujin_slideData.data)
+      VueSet(state, 'Fujin_ListData', data.data.Fujin_ListData.data.result.list)
+      if (state.Fujin_sortData && state.getFujin_slideData && state.Fujin_ListData) {
+        router.push({path: '/fujin/'})
+      }
+    },
     saveExclusiveShopData(state, data) {
       VueSet(state, 'exclusiveShopData', data.res.data.result)
       if (state.exclusiveShopData != {}) {
@@ -1132,6 +1177,21 @@ export default {
       if (state.curSelShop != {}) {
         router.push({path: '/fujin/map'})
       }
+    },
+    changeCateid(state, data){
+      VueSet(state,'curCateid',data.data.cateid)
+      VueSet(state,'shopListPage',1)
+    },
+    changeShopListPage(state, data){
+      VueSet(state,'shopListPage',data.shopListPage)
+    },
+    saveShopList(state, data){
+      VueSet(state,'Fujin_ListData',data.data.data.result.list)
+    },
+    loadMoreShop(state, data){
+      VueSet(state,'Fujin_ListData',[...state.Fujin_ListData,...data.data.data.result.list])
+      VueSet(state,'shopListPage',state.shopListPage+1)
+      console.log(state.Fujin_ListData)
     },
     //分销
     saveFenxiaoHead(state, data) {

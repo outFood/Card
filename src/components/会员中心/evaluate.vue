@@ -337,4 +337,7 @@
   #evaluate form .yd-cell-title{
     font-size: 14px !important;
   }
+  #evaluate .yd-btn-warning{
+    position: fixed;bottom:0;left:0;right:0;
+  }
 </style>

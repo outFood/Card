@@ -50,14 +50,14 @@
     display: inline-block;
     width:0.625rem;
     height:0.625rem;
-    background: #f5f5f5;
+    background: #fafafa;
     border-radius: 50%;
   }
  #myQuan .yd-flexbox .left span {
     display: inline-block;
     width: 0.625rem;
     height: 0.625rem;
-    background: #f5f5f5;
+    background: #fafafa;
     border-radius: 50%;
   }
  #myQuan .right span {

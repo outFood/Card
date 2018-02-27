@@ -2,9 +2,9 @@
   <div id="shopList">
     <nav>
       <yd-accordion>
-        <yd-accordion-item title="智能排序">
+        <yd-accordion-item title="综合排序">
           <div>
-            <p v-for="(item,key) in Fujin_sortData" :key="key">{{item.catename}}</p>
+            <p v-for="(item,key) in Fujin_sortData" :key="key" @click="changeCateid(item.id)">{{item.catename}}</p>
           </div>
         </yd-accordion-item>
         <yd-accordion-item title="优惠排序">
@@ -12,7 +12,7 @@
             <p>分为冯绍峰</p>
           </div>
         </yd-accordion-item>
-        <yd-accordion-item title="综合排序">
+        <yd-accordion-item title="智能排序">
           <div>
             <p>二维若的无</p>
           </div>
@@ -20,36 +20,49 @@
       </yd-accordion>
     </nav>
     <section>
-      <div class="listItem" v-for="(item,key) in Fujin_ListData.list" :key="key">
-        <div class="top">
-          <img :src="item.logo">
-          <div class="center">
-            <h6>{{item.merchname}}</h6>
-            <p>地址:{{item.address}}</p>
-            <p>电话:{{item.tel}}</p>
+      <yd-infinitescroll :callback="loadMoreShop" ref="infinitescrollDemo">
+        <yd-list theme="1" slot="list">
+          <div class="listItem" v-for="(item,key) in Fujin_ListData" :key="key">
+            <div class="top">
+              <img :src="item.logo">
+              <div class="center">
+                <h6>{{item.merchname}}</h6>
+                <p>地址:{{item.address}}</p>
+                <p>电话:{{item.tel}}</p>
+              </div>
+              <div class="right">
+                <router-link to="#" @click.native="resExclusiveShopData(item.id)">进店</router-link>
+                1389394m
+              </div>
+            </div>
+            <div class="bottom">
+              <div @click="openMap(item)">打开地图</div>
+              <div>联系商家</div>
+            </div>
           </div>
-          <div class="right">
-            <router-link to="#" @click.native="resExclusiveShopData(item.id)">进店</router-link>
-            1389394m
-          </div>
-        </div>
-        <div class="bottom">
-          <div @click="openMap(item)">打开地图</div>
-          <div>联系商家</div>
-        </div>
-      </div>
+        </yd-list>
+        <!-- 数据全部加载完毕显示 -->
+        <span slot="doneTip">啦啦啦，啦啦啦，没有数据啦~~</span>
+        <!-- 加载中提示，不指定，将显示默认加载中图标 -->
+        <img slot="loadingTip" src="http://static.ydcss.com/uploads/ydui/loading/loading10.svg"/>
+
+      </yd-infinitescroll>
     </section>
   </div>
 </template>
 <script>
   import config from '../../myConfig'
   export default {
+    data(){
+      return{
+      }
+    },
     computed:{
       Fujin_sortData(){
         return this.$store.state.Fujin_sortData
       },
       Fujin_ListData(){
-        return this.$store.state.Fujin_ListData.result
+        return this.$store.state.Fujin_ListData
       }
     },
     methods:{
@@ -68,7 +81,26 @@
             mid:localStorage.getItem('userid')
           }
         })
-      }
+      },
+      changeCateid(cateid){
+        this.$store.dispatch({
+          type:'changeCateid',
+          cateid:cateid,
+        })
+      },
+      loadMoreShop(){//根据当前的page和当前的分类状态
+        console.log('哈哈')
+        this.$store.dispatch({
+          type:'loadMoreShop'
+        })
+        if (this.Fujin_ListData.length%10!=0) {
+          /* 所有数据加载完毕 */
+          this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.loadedDone');
+          return;
+        }
+        /* 单次请求数据完毕 */
+        this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.finishLoad');
+      },
     }
   }
 </script>
@@ -97,7 +129,6 @@
   #shopList nav .yd-accordion .yd-accordion-content p{
     padding: 0.3125rem 0;
     padding-right:8px;
-    height:1.5625rem;
   }
   #shopList nav .yd-accordion .yd-accordion-content p:not(:last-child){
     border-bottom: 1px solid #eee;
