@@ -2,40 +2,95 @@
   <div id="pingjia">
     <div class="nav">
       <p>宝贝评价(67893)</p>
-      <span>全部</span>
-      <span>好评</span>
-      <span>中评</span>
-      <span>差评</span>
-      <span>晒图</span>
+      <span @click="evaluteFilter('all')">全部({{commodityPingjiaData.count.all}})</span>
+      <span @click="evaluteFilter('good')">好评({{commodityPingjiaData.count.good}})</span>
+      <span @click="evaluteFilter('normal')">中评({{commodityPingjiaData.count.normal}})</span>
+      <span @click="evaluteFilter('bad')">差评({{commodityPingjiaData.count.bad}})</span>
+      <span @click="evaluteFilter('pic')">晒图({{commodityPingjiaData.count.pic}})</span>
     </div>
     <div class="list">
-      <div class="list-item">
-        <p class="top">
-          <img src="http://static.ydcss.com/uploads/ydui/1.jpg" class="headImg">
-          一浅半夏
-          <img src="/static/img/two-heart.png" alt="" class="two-heart"/>
-        </p>
-        <div class="middle">
-          <p class="colorsize">2018-02-01 颜色分类：军绿色 尺码：xs</p>
-          <p class="pingjia">黄金客户时间分开开发贷款改改货款纠纷的时间见覅近段时间发股份将对方打开给付对价快高考</p>
-          <p class="imgs">
-            <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
-            <img src="http://static.ydcss.com/uploads/ydui/2.jpg">
-            <img src="http://static.ydcss.com/uploads/ydui/3.jpg">
-            <img src="http://static.ydcss.com/uploads/ydui/2.jpg">
-          </p>
-        </div>
-      </div>
+      <yd-infinitescroll :callback="loadMoreList" ref="infinitescrollDemo">
+        <yd-list theme="1" slot="list">
+          <div class="list-item" v-for="(item,key) in commodityPingjiaSortData">
+            <p class="top">
+              <img :src="item.headimgurl" class="headImg">
+              {{item.nickname}}
+              <img src="/static/img/two-heart.png" alt="" class="two-heart"/>
+            </p>
+            <div class="middle">
+              <p class="colorsize">{{item.createtime}}</p>
+              <p class="pingjia">{{item.content}}</p>
+              <p class="imgs">
+                <img :src="imgItem" v-for="(imgItem,key) in item.images[0]">
+              </p>
+            </div>
+          </div>
+        </yd-list>
+        <!-- 数据全部加载完毕显示 -->
+        <span slot="doneTip">啦啦啦，啦啦啦，没有数据啦~~</span>
+        <!-- 加载中提示，不指定，将显示默认加载中图标 -->
+        <img slot="loadingTip" src="http://static.ydcss.com/uploads/ydui/loading/loading10.svg"/>
+
+      </yd-infinitescroll>
+
     </div>
   </div>
 </template>
+<script>
+  import config from '../../myConfig'
+  export default {
+    data(){
+      return{
+
+      }
+    },
+    computed:{
+      commodityPingjiaData(){
+        return this.$store.state.commodityPingjiaData
+      },
+      commodityPingjiaSortData(){
+        return this.$store.state.commodityPingjiaSortData
+      },
+      commodityDetailData(){
+        return this.$store.state.commodityDetailData
+      }
+    },
+    methods:{
+      loadMoreList(){//根据当前的page和当前的分类状态
+        console.log('哈哈')
+        this.$store.dispatch({
+          type:'loadMoreEvalute',
+          id:this.commodityDetailData.result.goods.id
+        })
+        if (this.commodityPingjiaSortData.length%10!=0) {
+          /* 所有数据加载完毕 */
+          this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.loadedDone');
+          return;
+        }
+        /* 单次请求数据完毕 */
+        this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.finishLoad');
+      },
+      evaluteFilter(level,goodsid){
+        console.log(level)
+        this.$store.dispatch({
+          type:'evaluteFilter',
+          params:{
+            level:level,
+            id:this.commodityDetailData.result.goods.id,
+            t:config.t
+          }
+        })
+      }
+    }
+  }
+</script>
 <style>
   #pingjia{
-    padding:10px;
     text-align:left;
   }
   #pingjia .nav{
-
+    padding: 10px;
+    background: #fff;
   }
   #pingjia .nav p{
   }
@@ -47,6 +102,14 @@
     border-radius: 3px;
     margin:10px 0;
   }
+.yd-tab-panel{
+    background: #fafafa !important;
+  }
+  .yd-tab-panel .list-item{
+  background: #fff;
+    padding:10px;
+    margin-bottom: 10px;
+}
   #pingjia .list{
 
   }

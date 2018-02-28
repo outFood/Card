@@ -24,10 +24,16 @@
             </div>
             <div class="middle" v-for="(goods,key) in item.goods" :key="key">
               <p v-if="goods.shopname"><img src="/static/img/shop_black.png" alt="">{{goods.shopname}}</p>
-              <div class="shopInfo" v-for="(goodsItem,key) in goods.goods" @click="resCommodityDetailData(goodsItem.goodsid)">
-                <img :src="goodsItem.thumb">
-                <div class="mid"><h6>{{goodsItem.title}}</h6><span v-if="goodsItem.optionid!='0'">{{goodsItem.optiontitle}}</span></div>
-                <div><h6>￥{{goodsItem.price}}</h6><span>X{{goodsItem.total}}</span></div>
+              <div v-for="(goodsItem,key) in goods.goods">
+                <div class="shopInfo" @click="resCommodityDetailData(goodsItem.goodsid)">
+                  <img :src="goodsItem.thumb">
+                  <div class="mid"><h6>{{goodsItem.title}}</h6><span v-if="goodsItem.optionid!='0'">{{goodsItem.optiontitle}}</span></div>
+                  <div><h6>￥{{goodsItem.price}}</h6><span>X{{goodsItem.total}}</span></div>
+                </div>
+                <p class="evalute">
+                  <span v-if="item.status == 3 && item.iscomment == 1">追加评价</span>
+                  <span v-if="item.status == 3 && item.iscomment == 0" @click="evaluate(item.id,goodsItem.goodsid)">评价</span>
+                </p>
               </div>
               <div class="bot">共{{goods.goods.length}}件商品，实付：<span>{{item.price}}元</span></div>
             </div>
@@ -35,10 +41,6 @@
               <p v-if="item.userdeleted == 1">
                 <span v-if="item.status == 3 || item.status == -1">彻底删除</span>
                 <span v-if="item.status == 3">恢复订单</span>
-              </p>
-              <p>
-                <span v-if="item.status == 3 && item.iscomment == 1">追加评价</span>
-                <span v-if="item.status == 3 && item.iscomment == 0" @click="evaluate(item.id)">评价</span>
               </p>
               <p v-if="item.userdeleted == 0&&item.status == 0">
                 <span v-if="item.paytype != 3" class="nowPay" @click="nowPay(item.id)">支付订单</span>
@@ -212,14 +214,16 @@
           },
         });
       },
-      evaluate(id){
+      evaluate(oderid,goodsid){
+        console.log(oderid,goodsid)
         this.$store.dispatch({
           type:'evaluate',
           params:{
             t:config.t,
             openid:localStorage.getItem('openid'),
             i:config.i,
-            id:id,
+            id:oderid,
+//            goodsid:goodsid
           }
         })
       },
@@ -316,6 +320,17 @@
   }
   #order .item .middle .shopInfo{
     margin:0.3125rem 0;
+  }
+  #order .item .middle .evalute{
+    text-align: right;
+    padding:10px 0;
+  }
+  #order .item .middle .evalute span{
+    border: 1px solid #777;
+    padding: 3px 5px;
+    color: #333;
+    border-radius: 3px;
+    margin-left: 5px;
   }
   #order .item .middle .shopInfo img{
     width:2.1875rem;

@@ -43,6 +43,7 @@
       <div class="icon" @click="clickIcon('关注')"><img src="/static/img/heart.png" alt="" v-if="isfavorite"><img src="/static/img/heart-kong.png" alt="" v-else>关注</div>
       <div class="icon" @click="clickIcon('店铺')"><img src="/static/img/shop_black.png" alt="" class="shop">店铺</div>
       <div class="icon" @click="clickIcon('购物车')"><img src="/static/img/cart_black.png" alt="">购物车</div>
+      <span v-if='cartcount>0' class="cartcount">{{cartcount}}</span>
       <div class="addCart" @click="changePayStaus('加入购物车')">加入购物车</div>
       <router-link to="#" class="pay"  @click.native="changePayStaus('购买')">购买</router-link>
     </div>
@@ -139,11 +140,6 @@
       }
     },
     mounted(){
-
-      console.log('this.diynavbar--------------------------')
-      console.log(this.diynavbar)
-//      console.log('this.navbar----------------------------')
-//      console.log(this.navbar)
     },
     methods:{
       changePayStaus(status){//此方法用于在用户点击“加入购物车”或“购买”按钮的时候，去改变当前购买状态，从而在点击确认的时候，将商品加入购物车或者跳转到支付页面
@@ -255,6 +251,15 @@
   .curBg{
     background: red !important;
     color:#fff
+  }
+  #navbar .cartcount{
+    display: block;
+    color:#fff;
+    background: red;
+    width:20px;
+    height:20px;
+    line-height: 20px;
+    border-radius: 50%;
   }
   #navbar .sizePop .yd-popup-content{
   }

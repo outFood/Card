@@ -38,6 +38,8 @@ export default {
       someSortPage: 2,
       selPay: {},
       changeAddress:false,
+      curEvalutePage:1,
+      curLevel:'all',
       //附近商家
       Fujin_sortData: [],
       getFujin_slideData: [],
@@ -178,17 +180,14 @@ export default {
       function commodityDetailData() {
         return axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.detailapp.get_detailapp', {params: data.params})
       }
-
       function commodityColorSizeData() {
         return axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.detailapp.picker', {params: data.params})
       }
-
       function commodityPingjiaData() {
-        return axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.detail.get_comments', {params: data.params})
+        return axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.detail.get_comments&level=all&page=1', {params: data.params})
       }
-
       function commodityPingjiaSortData() {
-        return axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.detail.get_comment_list', {params: data.params})
+        return axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.detail.get_comment_list&level=all&page=1', {params: data.params})
       }
       axios.all([commodityDetailData(), commodityColorSizeData(),commodityPingjiaData(),commodityPingjiaSortData()]).then(axios.spread(function (commodityDetailData, commodityColorSizeData,commodityPingjiaData,commodityPingjiaSortData) {
         // console.log('commodityColorSizeData-----------------')
@@ -199,10 +198,37 @@ export default {
             commodityDetailData: commodityDetailData,
             commodityColorSizeData: commodityColorSizeData,
             commodityPingjiaData:commodityPingjiaData,
-            commodityPingjiaSortData:commodityPingjiaSortData
+            commodityPingjiaSortData:commodityPingjiaSortData,
+            page:2
           }
         })
       }))
+    },
+    evaluteFilter({commit, state}, data){
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.detail.get_comment_list', {params: data.params})
+        .then(function (res) {
+          commit({
+            type:'saveEvaluteFilter',
+            data:res,
+            level:data.params.level,
+            page:1
+          })
+        }).catch(function (err) {console.log('请求失败:' + err)})
+    },
+    loadMoreEvalute({commit, state}, data){
+      var params={
+        id:data.id,
+        t:config.t,
+        page:state.curEvalutePage,
+        level:state.curLevel
+      }
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.detail.get_comment_list', {params:params})
+        .then(function (res) {
+          commit({
+            type:'saveMoreEvalute',
+            data:res,
+          })
+        }).catch(function (err) {console.log('请求失败:' + err)})
     },
     like({commit, state}, data){
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.favorite.toggle', {params: data.params})
@@ -1094,11 +1120,22 @@ export default {
       VueSet(state, 'commodityDetailData', data.data.commodityDetailData.data)
       VueSet(state, 'commodityColorSizeData', data.data.commodityColorSizeData.data.result)
       VueSet(state, 'commodityPingjiaData', data.data.commodityPingjiaData.data.result)
-      VueSet(state, 'commodityPingjiaSortData', data.data.commodityPingjiaSortData.data.result)
-      console.log(state.commodityPingjiaSortData)
+      VueSet(state, 'commodityPingjiaSortData', data.data.commodityPingjiaSortData.data.result.list)
+      VueSet(state, 'curEvalutePage', data.data.page)
       if (state.commodityDetailData != {}) {
         router.push({path: '/sortIndex/detail'})
       }
+    },
+    saveEvaluteFilter(state, data){
+      VueSet(state, 'commodityPingjiaSortData', data.data.data.result.list)
+      VueSet(state, 'curEvalutePage', data.page)
+      VueSet(state, 'curLevel', data.level)
+    },
+    saveMoreEvalute(state, data){
+      VueSet(state, 'commodityPingjiaSortData',[...state.commodityPingjiaSortData,...data.data.data.result.list])
+      VueSet(state, 'curEvalutePage',state.curEvalutePage+1)
+      console.log(state.commodityPingjiaSortData)
+      console.log(state.curEvalutePage)
     },
     saveLike(state, data){
       VueSet(state,'isfavorite',data.data.data.result.isfavorite)

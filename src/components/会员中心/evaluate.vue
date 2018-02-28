@@ -50,6 +50,13 @@
     computed:{
       evaluatPage(){
         return this.$store.state.evaluatPage
+      },
+      goodsidArr(){
+        var goodsidArr=[]
+        for(var i=0;i<this.$store.state.evaluatPage.goods.length;i++){
+          goodsidArr.push(this.$store.state.evaluatPage.goods[i].goodsid)
+        }
+        return goodsidArr
       }
     },
     methods: {
@@ -218,7 +225,7 @@
             t:config.t,
             openid:localStorage.getItem('openid'),
             mid:localStorage.getItem('userid'),
-            goodsid:'',
+            goodsid:this.goodsidArr,
             level:this.star,
             content:this.leaveWord,
             i:config.i,
