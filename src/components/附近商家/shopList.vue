@@ -144,6 +144,9 @@
     background: #fff;
     margin-top:10px;
   }
+  #shopList section .listItem:last-child{
+    margin-bottom:100px;
+  }
   #shopList section .listItem .top{
     display: -webkit-box;
     display: -webkit-flex;

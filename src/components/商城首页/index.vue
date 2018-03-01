@@ -10,6 +10,7 @@
     <goods></goods>
     <picturew></picturew>
     <listmenu></listmenu>
+    <get-coupon></get-coupon>
     <footers/>
   </div>
 </template>
@@ -28,6 +29,7 @@
   import searchinput from '@/components/商城首页/searchinput'
   import menu1 from '@/components/商城首页/menu1'
   import menu2 from '@/components/商城首页/menu2'
+  import getCoupon from '@/components/商城首页/getCoupon'
   import goods from '@/components/商城首页/goods'
   import picturew from '@/components/商城首页/picturew'
   import shopList from '@/components/附近商家/shopList'
@@ -50,7 +52,8 @@
       goods,
       picturew,
       shopList,
-      listmenu
+      listmenu,
+      getCoupon
     },
    computed:{
      sliderNavData(){

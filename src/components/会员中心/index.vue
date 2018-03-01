@@ -29,7 +29,7 @@
         <div v-if="openid!=null&&openid!=''">
           <span>积分</span>
           <span>{{wodeHeadData.credit1}}</span>
-          <router-link to="#" class="btn">获取</router-link>
+          <router-link to="#" class="btn" style="visibility: hidden">获取</router-link>
         </div>
       </div>
     </div>

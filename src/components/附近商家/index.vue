@@ -5,6 +5,7 @@
         <yd-pullrefresh :callback="pullrefresh" ref="pullrefreshDemo">
           <!----------------------------------------------------------->
           <position></position>
+          <search></search>
           <banner></banner>
           <sort-slide></sort-slide>
           <youxuan></youxuan>
@@ -28,6 +29,7 @@
 <script type="text/babel">
   import config from '../../myConfig'
   import position from '@/components/附近商家/position'
+  import search from '@/components/附近商家/search'
   import banner from '@/components/附近商家/banner'
   import sortSlide from '@/components/附近商家/sortSlide'
   import youxuan from '@/components/附近商家/youxuan'
@@ -54,19 +56,6 @@
         console.log('下拉刷新')
       },
     },
-    components: {position,banner,sortSlide,youxuan,shopList},
-    beforeCreate(){
-      this.$store.dispatch({
-        type:'resFujinData',
-        params:{
-          page:1,
-          pagesize:10,
-          cateid:'',
-          t:config.t,
-          uniacid:config.uniacid,
-          i:config.i
-        }
-      })
-    }
+    components: {position,search,banner,sortSlide,youxuan,shopList},
   }
 </script>

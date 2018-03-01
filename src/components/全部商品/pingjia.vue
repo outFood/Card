@@ -1,8 +1,8 @@
 <template>
   <div id="pingjia">
     <div class="nav">
-      <p>宝贝评价(67893)</p>
-      <span @click="evaluteFilter('all')">全部({{commodityPingjiaData.count.all}})</span>
+      <p>宝贝评价({{evaluteTotal}})</p>
+      <span @click="evaluteFilter('')">全部({{commodityPingjiaData.count.all}})</span>
       <span @click="evaluteFilter('good')">好评({{commodityPingjiaData.count.good}})</span>
       <span @click="evaluteFilter('normal')">中评({{commodityPingjiaData.count.normal}})</span>
       <span @click="evaluteFilter('bad')">差评({{commodityPingjiaData.count.bad}})</span>
@@ -51,6 +51,9 @@
       commodityPingjiaSortData(){
         return this.$store.state.commodityPingjiaSortData
       },
+      evaluteTotal(){
+        return this.$store.state.evaluteTotal
+      },
       commodityDetailData(){
         return this.$store.state.commodityDetailData
       }
@@ -77,7 +80,9 @@
           params:{
             level:level,
             id:this.commodityDetailData.result.goods.id,
-            t:config.t
+            t:config.t,
+            page:1,
+            pagesize:10
           }
         })
       }

@@ -25,7 +25,7 @@
   }
 </script>
 <style>
-.yd-slider{
+#detailSlider .yd-slider{
     height:300px !important;
   }
 

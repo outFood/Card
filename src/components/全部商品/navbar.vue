@@ -42,8 +42,8 @@
     <div class="navbar1">
       <div class="icon" @click="clickIcon('关注')"><img src="/static/img/heart.png" alt="" v-if="isfavorite"><img src="/static/img/heart-kong.png" alt="" v-else>关注</div>
       <div class="icon" @click="clickIcon('店铺')"><img src="/static/img/shop_black.png" alt="" class="shop">店铺</div>
-      <div class="icon" @click="clickIcon('购物车')"><img src="/static/img/cart_black.png" alt="">购物车</div>
-      <span v-if='cartcount>0' class="cartcount">{{cartcount}}</span>
+      <div class="icon" @click="clickIcon('购物车')"><img src="/static/img/cart_black.png" alt="" style="position: relative !important;">购物车</div>
+      <span class="cartcount">{{cartcount}}</span>
       <div class="addCart" @click="changePayStaus('加入购物车')">加入购物车</div>
       <router-link to="#" class="pay"  @click.native="changePayStaus('购买')">购买</router-link>
     </div>
@@ -256,10 +256,13 @@
     display: block;
     color:#fff;
     background: red;
-    width:20px;
-    height:20px;
-    line-height: 20px;
+    width:15px;
+    height:15px;
+    line-height: 16px;
     border-radius: 50%;
+    font-size:12px;
+    position: absolute;
+    top:5px;right:57%;
   }
   #navbar .sizePop .yd-popup-content{
   }
@@ -370,7 +373,7 @@
     line-height:25px;
     padding-top:5px;
     font-size:12px;
-    position: relative;
+    /*position: relative;*/
   }
   #navbar .navbar1 .icon span{
     display: block;
@@ -397,7 +400,7 @@
     line-height:25px;
     padding-top:5px;
     font-size:12px;
-    position: relative;
+    /*position: relative;*/
   }
   #navbar .navbar2 .icon span{
     display: block;
@@ -433,7 +436,7 @@
     line-height:25px;
     padding-top:5px;
     font-size:12px;
-    position: relative;
+    /*position: relative;*/
   }
   #navbar .navbar5 .icon span{
     display: block;
@@ -460,7 +463,7 @@
     line-height:25px;
     padding-top:5px;
     font-size:12px;
-    position: relative;
+    /*position: relative;*/
   }
   #navbar .navbar6 .icon span{
     display: block;
@@ -487,7 +490,7 @@
     line-height:25px;
     padding-top:5px;
     font-size:12px;
-    position: relative;
+    /*position: relative;*/
   }
   #navbar .navbar7 .pay{
     flex: 0 0 50%;
