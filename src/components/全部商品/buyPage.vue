@@ -182,6 +182,9 @@
       },
       prefix(){
         return this.$store.state.prefix
+      },
+      payMessage(){
+        return this.$store.state.payMessage
       }
     },
     mounted(){
@@ -194,7 +197,6 @@
     },
     methods:{
       createOrder(){
-        console.log(this.buyPageData.result.address.id)
         this.$store.dispatch({
           type:'createOrder',
           params:{
@@ -205,7 +207,7 @@
             gdid:'',
             diydata:'',
             dispatchtype:0,
-            fromcart:0,
+            fromcart:1,
             carrierid:0,
             addressid:this.curSelAddress.id,
             carriers:'',
@@ -213,7 +215,7 @@
             time:'',
             deduct:0,
             deduct2:0,
-//            couponid:0,
+            couponid:0,
             contype:2,
             invoicename:'',//发货单名字
             packageid:0,//套餐id
@@ -223,6 +225,14 @@
             openid:localStorage.getItem('openid')
           }
         })
+        setTimeout(()=>{
+          if(this.payMessage!=''){
+            this.$dialog.toast({
+              mes: this.payMessage,
+              timeout: 2000
+            });
+          }
+        },1000)
       },
       changeAddress(){
         router.push({path: '/vipIndex/myAddress'})

@@ -52,13 +52,14 @@
     </div>
     <div class="foot">
       <div v-if="orderDetail.order.userdeleted == 0">
-        <div v-if="orderDetail.order.status == 0">
-          <span @click="cancelOrder(orderDetail.order.id)" size="large" class="cancelOrder">取消订单</span>
-          <yd-actionsheet :items="myItems1" v-model="isCancelOrder" cancel="取消"></yd-actionsheet>
-          <span v-if="orderDetail.order.paytype != 3">支付订单</span>
-        </div>
+        <yd-actionsheet :items="myItems1" v-model="isCancelOrder" cancel="取消"></yd-actionsheet>
+        <span v-if="orderDetail.order.status == 0" @click="cancelOrder(orderDetail.order.id)" size="large" class="cancelOrder">取消订单</span>
+        <span v-if="orderDetail.order.status == 0&&orderDetail.order.paytype != 3" @click="nowPay(orderDetail.order.id)">支付订单</span>
         <span v-if="orderDetail.order.canverify && orderDetail.order.status != -1 && orderDetail.order.status != 0">{{orderDetail.order.dispatchtype == 1 ? '我要取货' : '我要使用'}}</span>
         <span v-if="orderDetail.order.status == 3 || orderDetail.order.status == -1" @click="delOrder(orderDetail.order.id)">删除订单</span>
+        <span v-if="orderDetail.order.status == 3 && orderDetail.order.iscomment == 1">追加评价</span>
+        <span v-if="orderDetail.order.status == 3 && orderDetail.order.iscomment == 0" @click="evaluate(orderDetail.order.id)">评价</span>
+        <span v-if="orderDetail.order.status > 1 && orderDetail.order.addressid > 0" @click="logistics(orderDetail.order.expresscom,orderDetail.order.expresssn)">查看物流</span>
         <span v-if="orderDetail.order.status == 2"  @click="sureGet(orderDetail.order.id)">确认收货</span>
         <span v-if="orderDetail.order.canrefund">{{orderDetail.order.refundstate > 0 ? '查看' : ''}}{{orderDetail.order.status == 1 ? '申请退款' : '申请售后'}}{{orderDetail.order.refundstate > 0 ? '进度' : ''}}</span>
         <span v-if="orderDetail.order.refundstate > 0"  style="overflow:visible;">取消申请</span>
@@ -260,6 +261,26 @@
       back() {
         this.$router.go(-1)
       },
+      logistics(expresscom,expresssn){//查看物流
+        this.$dialog.confirm({
+          mes: '快递公司：'+expresscom+'<br/>快递单号：'+expresssn+'<br/>(可前往对应网站查看物流信息)',
+          opts: () => {
+          },
+        });
+      },
+      evaluate(oderid){
+        console.log(oderid)
+        this.$store.dispatch({
+          type:'evaluate',
+          params:{
+            t:config.t,
+            openid:localStorage.getItem('openid'),
+            i:config.i,
+            id:oderid,
+//            goodsid:goodsid
+          }
+        })
+      },
       sureGet(id){//
         this.$dialog.confirm({
           mes: '确认已经收到货了吗?',
@@ -290,6 +311,17 @@
             })
           },
         });
+      },
+      nowPay(id){
+        this.$store.dispatch({
+          type:'nowPay',
+          params:{
+            id:id,
+            t: config.t,
+            mid: localStorage.getItem('userid'),
+            openid: localStorage.getItem('openid')
+          }
+        })
       },
       cancelOrder(id){
         console.log(id)

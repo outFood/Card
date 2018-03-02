@@ -19,7 +19,7 @@
       </p>
     </div>
     <p class="notes">
-      由于微信支付限额, obcaecati perferendis placeat quam quos ratione sapiente sunt unde voluptate!
+      由于微信支付限额,大额支付请线下转款到中国工商银行3602 1172 0910 0084 647(广州琶州支行) 单位:广州泛达九州网络科技有限公司
     </p>
     <div class="payMethods">
       <div>

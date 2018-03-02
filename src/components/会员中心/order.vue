@@ -184,7 +184,9 @@
           type:'resOrderDetail',
           params:{
             t:config.t,
-            id:id
+            id:id,
+            mid:localStorage.getItem('userid'),
+            openid:localStorage.getItem('openid')
           }
         })
       },
@@ -232,7 +234,9 @@
           type:'resCommodityDetailData',
           params:{
             id:id,
-            t:config.t
+            t:config.t,
+            mid:localStorage.getItem('userid'),
+            openid:localStorage.getItem('openid')
           }
         })
       },

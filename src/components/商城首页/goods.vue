@@ -196,12 +196,13 @@
     },
     methods:{
       resCommodityDetailData(id){
-        console.log(id)
         this.$store.dispatch({
           type:'resCommodityDetailData',
           params:{
             id:id,
-            t:config.t
+            t:config.t,
+            mid:localStorage.getItem('userid'),
+            openid:localStorage.getItem('openid')
           }
         })
       }

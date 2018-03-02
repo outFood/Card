@@ -40,7 +40,7 @@
       <!--<div class="pay" :style="{background:navbar.style.buycolor}"  @click="changePayStaus('购买')">购买</div>-->
     <!--</div>-->
     <div class="navbar1">
-      <div class="icon" @click="clickIcon('关注')"><img src="/static/img/heart.png" alt="" v-if="isfavorite"><img src="/static/img/heart-kong.png" alt="" v-else>关注</div>
+      <div class="icon" @click="clickIcon('关注')"><img src="/static/img/heart.png" alt="" v-if="isFavorite"><img src="/static/img/heart-kong.png" alt="" v-else>关注</div>
       <div class="icon" @click="clickIcon('店铺')"><img src="/static/img/shop_black.png" alt="" class="shop">店铺</div>
       <div class="icon" @click="clickIcon('购物车')"><img src="/static/img/cart_black.png" alt="" style="position: relative !important;">购物车</div>
       <span class="cartcount">{{cartcount}}</span>
@@ -135,8 +135,8 @@
       cartcount(){
         return this.$store.state.cartcount
       },
-      isfavorite(){
-        return this.$store.state.isfavorite
+      isFavorite(){
+        return this.$store.state.isFavorite
       }
     },
     mounted(){
@@ -220,7 +220,7 @@
           })
         }else if(icontext=='关注'){
           this.likeClick++;
-          if(this.likeClick%2==1){
+          if(this.isFavorite==false){
             this.$store.dispatch({
               type:'like',
               params:{
@@ -237,6 +237,8 @@
               params:{
                 t:config.t,
                 id:this.commodity_goods.id,
+                openid:localStorage.getItem('openid'),
+                mid:localStorage.getItem('userid'),
                 isfavorite:0
               }
             })

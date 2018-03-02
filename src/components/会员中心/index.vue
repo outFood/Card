@@ -164,7 +164,6 @@
 
     },
     mounted(){
-      console.log(this.menuData)
     }
   }
 </script>

@@ -21,10 +21,10 @@
           <span class="price">￥{{item.marketprice}}</span>
         </div>
         <span class="yd-spinner" style="height: 0.6rem; width: 2rem;">
-                <a href="#" @click="addOrReduceOrDel(['减',item.total,item.id,item.optionid,item.minbuy])"></a>
-                <input type="number" pattern="[0-9]*" v-model="item.total" class="yd-spinner-input">
-                <a href="#" @click="addOrReduceOrDel(['加',item.total,item.id,item.optionid])"></a>
-              </span>
+          <a href="#" @click="addOrReduceOrDel(['减',item.total,item.id,item.optionid,item.minbuy])"></a>
+          <input type="number" pattern="[0-9]*" v-model="item.total" class="yd-spinner-input">
+          <a href="#" @click="addOrReduceOrDel(['加',item.total,item.id,item.optionid])"></a>
+         </span>
       </div>
       <!--选择购买-->
       <div class="checkAll" v-if="delShow==false">
@@ -35,7 +35,7 @@
           </div>
           <div class="rit">合计：<span>￥{{cartData.totalprice}}</span> <p>不含运费</p></div>
         </div>
-        <div class="right" @click="subMitCart">结算({{cartData.list.length}})</div>
+        <div class="right" @click="subMitCart">结算({{cartNum}})</div>
       </div>
       <!--编辑删除-->
       <div class="edit" v-else>
@@ -67,6 +67,24 @@
       cartData(){
          return this.$store.state.cartData
       },
+      cartNum(){
+        var cartNum=0;
+        for(var i=0;i<this.$store.state.cartData.list.length;i++){
+          if(this.$store.state.cartData.list[i].selected=='1'){
+            cartNum+=parseInt(this.$store.state.cartData.list[i].total)
+          }
+        }
+        return cartNum
+      },
+      priceNum(){
+        var priceNum=0;
+        for(var i=0;i<this.$store.state.cartData.list.length;i++){
+          if(this.$store.state.cartData.list[i].selected=='1'){
+            priceNum+=parseInt(this.$store.state.cartData.list[i].marketprice)
+          }
+        }
+        return marketprice
+      },
       isCheckAll(){
         return this.$store.state.isCheckAll
       },
@@ -76,6 +94,7 @@
     },
     methods: {
       addOrReduceOrDel(arr){//---------------------------------------
+        console.log(arr)
         if(arr[0]=='加'){
           this.$store.dispatch({
             type:'cartUpdate',
@@ -88,18 +107,25 @@
               openid:localStorage.getItem('openid')
             }
           })
-        }else if(arr[0]=='减'&&arr[1]>arr[4]){
-          this.$store.dispatch({
-            type:'cartUpdate',
-            params:{
-              total:parseInt(arr[1])-1,
-              optionid:arr[3],
-              id:arr[2],
-              t:config.t,
-              mid:localStorage.getItem('userid'),
-              openid:localStorage.getItem('openid')
-            }
-          })
+        }else if(arr[0]=='减'){
+          if(arr[1]>arr[4]){
+            this.$store.dispatch({
+              type:'cartUpdate',
+              params:{
+                total:parseInt(arr[1])-1,
+                optionid:arr[3],
+                id:arr[2],
+                t:config.t,
+                mid:localStorage.getItem('userid'),
+                openid:localStorage.getItem('openid')
+              }
+            })
+          }else{
+            this.$dialog.toast({
+              mes:'受不了了，宝贝不能再减少了哦',
+              timeout: 1500
+            });
+          }
         }else if(arr[0]=='删除'){
           if(this.checkedArr){
             this.$store.dispatch({
@@ -119,7 +145,9 @@
           type:'resCommodityDetailData',
           params:{
             id:id,
-            t:config.t
+            t:config.t,
+            mid:localStorage.getItem('userid'),
+            openid:localStorage.getItem('openid')
           }
         })
       },

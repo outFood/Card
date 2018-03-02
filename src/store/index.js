@@ -32,9 +32,10 @@ export default {
       commodityPingjiaData:{},
       commodityPingjiaSortData:{},
       evaluteTotal:0,
-      isfavorite:false,
+      isFavorite:false,
       payStaus: '购买',
       buyPageData: {},
+      payMessage:'',
       sortid: '',
       someSortPage: 2,
       selPay: {},
@@ -302,11 +303,19 @@ export default {
               openid: localStorage.getItem('openid')
             }
           })
-            .then(function (res) {
-              commit({
-                type: 'saveSelPay',
-                data: res
-              })
+            .then(function (res2) {
+              if(res.data.status==0){
+                commit({
+                  type:'savePayMessage',
+                  data:res
+                })
+                // alert(res.data.result.message)
+              }else{
+                commit({
+                  type: 'saveSelPay',
+                  data: res2
+                })
+              }
             }).catch(function (err) {
             console.log('请求失败:' + err)
           })
@@ -1138,6 +1147,7 @@ export default {
       VueSet(state, 'commodityPingjiaSortData', data.data.commodityPingjiaSortData.data.result.list)
       VueSet(state,'evaluteTotal',data.data.commodityPingjiaSortData.data.result.total)
       VueSet(state, 'curEvalutePage', data.data.page)
+      VueSet(state, 'isFavorite', data.data.commodityDetailData.data.result.goods_other.isFavorite)
       if (state.commodityDetailData != {}) {
         router.push({path: '/sortIndex/detail'})
       }
@@ -1154,7 +1164,7 @@ export default {
       console.log(state.curEvalutePage)
     },
     saveLike(state, data){
-      VueSet(state,'isfavorite',data.data.data.result.isfavorite)
+      VueSet(state,'isFavorite',data.data.data.result.isfavorite)
     },
     changePayStaus(state, data) {
       VueSet(state, 'payStatus', data.payStatus)
@@ -1162,15 +1172,17 @@ export default {
     saveBuyPageData(state, data) {
       VueSet(state, 'buyPageData', data.res.data)
       VueSet(state, 'curSelAddress', data.res.data.result.address)
-      console.log(state.curSelAddress)
       if (state.buyPageData != {}) {
         router.push({path: '/sortIndex/buyPage'})
       }
 
     },
+    savePayMessage(state, data){
+      VueSet(state,'payMessage',data.data.data.result.message)
+    },
     saveSelPay(state, data) {
       VueSet(state, 'selPay', data.data.data.result)
-      console.log(state.selPay)
+      VueSet(state,'payMessage','')
       if (state.selPay != {}) {
         router.push({path: '/sortIndex/selPay'})
       }
@@ -1225,8 +1237,6 @@ export default {
       if (state.exclusiveShopData != {}) {
         router.push({path: '/fujin/exclusiveShop'})
       }
-      console.log('**************exclusiveShopData****************')
-      // console.log(state.exclusiveShopData.index_cache)
     },
     saveCurSelShop(state, data) {
       VueSet(state, 'curSelShop', data.data.params)
@@ -1248,7 +1258,6 @@ export default {
     loadMoreShop(state, data){
       VueSet(state,'Fujin_ListData',[...state.Fujin_ListData,...data.data.data.result.list])
       VueSet(state,'shopListPage',state.shopListPage+1)
-      console.log(state.Fujin_ListData)
     },
     //分销
     saveFenxiaoHead(state, data) {
