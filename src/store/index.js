@@ -89,6 +89,7 @@ export default {
       curOrderStausPage:1,
       myLikeData: {},
       zuJiData: {},
+      getQuan:{},
       addOrOrder: {},
       recordData: {},
       evaluatPage:{}
@@ -1065,6 +1066,34 @@ export default {
         console.log('请求失败')
       })
     },
+    resGetQuan({commit, state}, data){
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=sale.coupon.index.getlist',{params:data.params})
+        .then(function (res) {
+          console.log(res)
+          commit({
+            type:'saveGetQuan',
+            data:res
+          })
+        }).catch(function (err) {
+        console.log('请求失败')
+      })
+    },
+    getCoupon({commit, state}, data){
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=sale.coupon.detail.pay',{params:data.params})
+        .then(function (res) {
+
+        }).catch(function (err) {
+        console.log('请求失败')
+      })
+    },
+    resMyQuan({commit, state}, data){
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=sale.coupon.my.getlist',{params:data.params})
+        .then(function (res) {
+
+        }).catch(function (err) {
+        console.log('请求失败')
+      })
+    },
     resAddOrReduce({commit, state}, data) {
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.capital.get_contactsMoney', {params: data.params})
         .then(function (res) {
@@ -1391,6 +1420,9 @@ export default {
     saveZujiData(state, data) {
       VueSet(state, 'zuJiData', data.res.data.result)
       console.log(state.zuJiData)
+    },
+    saveGetQuan(state, data){
+      VueSet(state,'getQuan',data.data.data.result)
     },
     saveAddOrReduce(state, data) {
       VueSet(state, 'addOrOrder', data.data.data.result)

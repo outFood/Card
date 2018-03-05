@@ -17,6 +17,26 @@
     </yd-flexbox>
   </yd-layout>
 </template>
+<script>
+  import config from '../../myConfig'
+  export default {
+    data(){
+      return{
+
+      }
+    },
+    beforeCreate(){
+      this.$store.dispatch({
+        type:'resMyQuan',
+        params:{
+          page:1,
+          cateid:0,
+          t:config.t
+        }
+      })
+    }
+  }
+</script>
 <style scoped>
  #myQuan .yd-flexbox{
     font-size:14px;

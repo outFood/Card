@@ -31,6 +31,7 @@
         params:{
           page:1,
           mid:localStorage.getItem('userid'),
+          openid:localStorage.getItem('openid'),
           t:config.t
         }
       })
