@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import config from './myConfig'
 
 import Vuex from 'vuex'
 //挂在数据中心组件
@@ -60,7 +61,8 @@ window.app = new Vue({
       type:'resHomeData',
       params:{
         id:12,
-        t:2
+        t:2,
+        uniacid:config.uniacid
       }
     })
   }

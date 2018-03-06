@@ -56,7 +56,12 @@
         path=path.replace('/','')//去掉后面的
         if(path=='shopIndex'){//请求首页
           this.$store.dispatch({
-            type:'resHomeData'
+            type:'resHomeData',
+            params:{
+              id:12,
+              t:2,
+              uniacid:config.uniacid
+            }
           })
         }else if(path=='sortIndex'){//请求分类
           this.$store.dispatch({
@@ -121,7 +126,8 @@
             params:{
               openid:localStorage.getItem('openid'),
               mid:localStorage.getItem('userid'),
-              t:config.t
+              t:config.t,
+              uniacid:config.uniacid
             }
           })
         }

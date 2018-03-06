@@ -1,6 +1,6 @@
 <template>
   <yd-layout title="领取优惠券" link="/vipIndex"  id="getQuan">
-    <yd-flexbox v-for="(item,key) in getQuan.list" :key="key">
+    <yd-flexbox v-for="(item,key) in getQuan.list" :key="key"  @click.native="resCouponDetail(item.id)">
       <div class="left">
         <div>{{item.title3}}</div>
         {{item.title2}}
@@ -8,12 +8,13 @@
       </div>
       <yd-flexbox-item>
         <div>{{item.tagtitle}}</div>
+        <p v-if="item.t>'0'">剩余{{item.t}}/{{item.last}}</p>
         {{item.title4}}
       </yd-flexbox-item>
-      <div class="right" @click="getCoupon(item.id)">
-        立即领取
+      <router-link to="#" class="right">
+        {{item.gettypestr}}
         <span></span>
-      </div>
+      </router-link>
     </yd-flexbox>
   </yd-layout>
 </template>
@@ -28,26 +29,20 @@
     computed:{
       getQuan(){
         return this.$store.state.getQuan
+      },
+      getCouponMessage(){
+        return this.$store.state.getCouponMessage
       }
     },
     methods:{
-      getCoupon(id){
-        this.$dialog.confirm({
-          title: '选填标题',
-          mes: '我有一个小毛驴我从来也不骑！',
-          opts: () => {
-            this.$store.dispatch({
-              type:'getCoupon',
-              params:{
-                id:id,
-                t:config.t,
-                uniacid:config.uniacid,
-                mid:localStorage.getItem('userid'),
-                openid:localStorage.getItem('openid'),
-              }
-            })
+      resCouponDetail(id){
+        this.$store.dispatch({
+          type:'resCouponDetail',
+          params:{
+            id:id,
+            t:config.t
           }
-        });
+        })
       }
     },
     beforeCreate(){
@@ -88,6 +83,9 @@
     font-weight: bold;
     font-size: 14px;
   }
+  #getQuan .yd-flexbox .yd-flexbox-item p{
+    color:#52b6ff
+  }
   #getQuan .yd-flexbox .right{
     color:red;
   }
@@ -108,7 +106,7 @@
   #getQuan .right span {
     position: absolute;
     right: -0.3125rem;
-    top: 45%;
+    top: 40%;
   }
   #getQuan .left span{
     position: absolute;

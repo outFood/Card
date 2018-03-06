@@ -73,6 +73,7 @@ import recharge from '@/components/会员中心/recharge'
 import AddOrReduce from '@/components/会员中心/AddOrReduce'
 import record from '@/components/会员中心/record'
 import evaluate from '@/components/会员中心/evaluate'
+import getQuanDetail from '@/components/会员中心/getQuanDetail'
 
 
 Vue.use(Router)
@@ -305,6 +306,9 @@ export default new Router({
         },{
           path:'evaluate',
           component:evaluate
+        },{
+          path:'getQuanDetail',
+          component:getQuanDetail
         }
       ]
     }

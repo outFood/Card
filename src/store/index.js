@@ -89,7 +89,10 @@ export default {
       curOrderStausPage:1,
       myLikeData: {},
       zuJiData: {},
-      getQuan:{},
+      getQuan:{},//领券列表
+      couponDetail:{},
+      getCouponMessage:'',//点击领券返回消息
+      getCoupon:{},//领券结果
       addOrOrder: {},
       recordData: {},
       evaluatPage:{}
@@ -105,7 +108,7 @@ export default {
   actions: {
     //首页
     resHomeData({commit, state}, data) {
-      axios.get(config.baseUrl + '/app/index.php?c=wxapp&a=module&do=main&id=12&uniacid=' + config.uniacid)
+      axios.get(config.baseUrl + '/app/index.php?c=wxapp&a=module&do=main',{params:data.params})
         .then(function (res) {
           commit({
             type: 'saveHomeData',
@@ -746,7 +749,7 @@ export default {
       }
 
       function resWodeBodyData() {
-        return axios.get(config.baseUrl + "/app/index.php?c=wxapp&a=module&do=nav&type=3&uniacid=" + config.uniacid)
+        return axios.get(config.baseUrl + "/app/index.php?c=wxapp&a=module&do=nav&type=3&uniacid=" + config.uniacid+'&t='+config.t)
       }
 
       axios.all([resWodeHeadData(), resWodeBodyData()])//一次性并发多个请求
@@ -1069,7 +1072,6 @@ export default {
     resGetQuan({commit, state}, data){
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=sale.coupon.index.getlist',{params:data.params})
         .then(function (res) {
-          console.log(res)
           commit({
             type:'saveGetQuan',
             data:res
@@ -1078,10 +1080,28 @@ export default {
         console.log('请求失败')
       })
     },
-    getCoupon({commit, state}, data){
+    resCouponDetail({commit, state}, data){
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=sale.coupon.detail.get_main',{params:data.params})
+        .then(function (res) {
+          commit({
+            type:'saveCouponDetail',
+            data:res
+          })
+        }).catch(function (err) {
+        console.log('请求失败')
+      })
+    },
+    couponPay({commit, state}, data){
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=sale.coupon.detail.pay',{params:data.params})
         .then(function (res) {
-
+          // if(res.data.status==-1){
+          //   commit({
+          //     type:'saveGetCouponMessage',
+          //     data:res
+          //   })
+          // }else{
+          //
+          // }
         }).catch(function (err) {
         console.log('请求失败')
       })
@@ -1423,6 +1443,15 @@ export default {
     },
     saveGetQuan(state, data){
       VueSet(state,'getQuan',data.data.data.result)
+    },
+    saveCouponDetail(state, data){
+      VueSet(state,'couponDetail',data.data.data.result)
+      if(state.couponDetail!={}){
+        router.push({path: '/vipIndex/getQuanDetail'})
+      }
+    },
+    saveGetCouponMessage(state, data){
+      VueSet(state,'getCouponMessage',data.data.data.result.message)
     },
     saveAddOrReduce(state, data) {
       VueSet(state, 'addOrOrder', data.data.data.result)
