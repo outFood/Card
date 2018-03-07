@@ -30,9 +30,6 @@
       getQuan(){
         return this.$store.state.getQuan
       },
-      getCouponMessage(){
-        return this.$store.state.getCouponMessage
-      }
     },
     methods:{
       resCouponDetail(id){
@@ -40,7 +37,7 @@
           type:'resCouponDetail',
           params:{
             id:id,
-            t:config.t
+            t:config.t,
           }
         })
       }

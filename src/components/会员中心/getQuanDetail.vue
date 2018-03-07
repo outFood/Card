@@ -9,27 +9,35 @@
       <div class="top">
         <div class="borderDiv">
           <p>充值优惠券</p>
-         <div class="main">
+         <div class="main1" v-if="couponDetail.coupon.backtype=='2'">
            <div class="left">
-             <p>充值满36789元可用</p>
+             <p>{{couponDetail.coupon.title2}}</p>
              <span>立返</span>
            </div>
            <div class="right">
-             <p>2元余额</p>
-             <p>10积分</p>
-             <p>1元红包</p>
+             <p v-if="couponDetail.coupon.backmoney&&couponDetail.coupon.backmoney>0">{{couponDetail.coupon.backmoney}}元余额</p>
+             <p v-if="couponDetail.coupon.backcredit&&couponDetail.coupon.backcredit>0">{{couponDetail.coupon.backcredit}}积分</p>
+             <p v-if="couponDetail.coupon.backredpack&&couponDetail.coupon.backredpack>0">{{couponDetail.coupon.backredpack}}元红包</p>
            </div>
          </div>
+          <div class="main2" v-else>
+            <p>{{couponDetail.coupon.title3}}</p>
+            <p>{{couponDetail.coupon.title2}}</p>
+          </div>
           <p>有效期：即兑换日内30天内有效</p>
         </div>
       </div>
       <div class="bottom">
         <span class="leftCircle"></span>
         <span class="rightCircle"></span>
+        <div v-if="couponDetail.coupon.merchname">
+          <h6>使用商铺</h6>
+          <p>限购{{couponDetail.coupon.merchname}}店铺商品</p>
+        </div>
         <div>
           <h6>所需金额与积分</h6>
-          <p>所需金额：{{couponDetail.coupon.money}}</p>
-          <p>所需积分：{{couponDetail.coupon.credit}}</p>
+          <p v-if="couponDetail.coupon.money>0">所需金额：{{couponDetail.coupon.money}}</p>
+          <p v-if="couponDetail.coupon.credit>0">所需积分：{{couponDetail.coupon.credit}}</p>
         </div>
         <div>
           <h6>使用说明</h6>
@@ -40,24 +48,26 @@
           <h6>领取限制</h6>
           <div v-if="couponDetail.coupon.islimitlevel=='1'">
             用户必须达到以下条件之一:
-            <div v-if="couponDetail.coupon.limitmemberlevels&&couponDetail.coupon.limitmemberlevels!=''">
+            <div v-if="couponDetail.coupon.limitmemberlevels">
+              会员等级：
+              <p v-if="couponDetail.meblvname">{{couponDetail.meblvname}}</p>
               <p v-for="(item,key) in couponDetail.level1" :key="key">{{item.levelname}}</p>
             </div>
-          </div>
-          <div v-if="couponDetail.coupon.limitagentlevels&&couponDetail.coupon.limitagentlevels==='0'&&couponDetail.hascommission">
-            {{couponDetail.leveltitle2}}:
-            <div v-for="(item,key) in couponDetail.limitagentlevels">
-              <p v-if="item=='0'">{{couponDetail.commissionname}}</p>
+            <div v-if="couponDetail.coupon.limitagentlevels&&couponDetail.coupon.limitagentlevels.length>0&&couponDetail.hascommission">
+              {{couponDetail.leveltitle2}}等级:
+              <div v-for="(item,key) in couponDetail.limitagentlevels">
+                <p v-if="item=='0'">{{couponDetail.commissionname}}</p>
+              </div>
+              <p v-for="(item,key) in couponDetail.level2" :key="key">{{item.levelname}}</p>
             </div>
-            <p v-for="(item,key) in couponDetail.level2" :key="key">{{item.levelname}}</p>
-          </div>
-          <div v-if="couponDetail.coupon.limitpartnerlevels&&couponDetail.coupon.limitpartnerlevels==='0'&&couponDetail.hasglobonus">
-            {{couponDetail.leveltitle3}}:{{couponDetail.globonuname}}
-            <p v-for="(item,key) in couponDetail.level3" :key="key">{{item.levelname}}</p>
-          </div>
-          <div v-if="couponDetail.coupon.limitaagentlevels&&couponDetail.coupon.limitaagentlevels==='0'&&couponDetail.$hasabonus">
-            {{couponDetail.leveltitle4}}:{{couponDetail.abonuname}}
-            <p v-for="(item,key) in couponDetail.level4" :key="key">{{item.levelname}}</p>
+            <div v-if="couponDetail.coupon.limitpartnerlevels&&couponDetail.hasglobonus">
+              {{couponDetail.leveltitle3}}:{{couponDetail.globonuname}}
+              <p v-for="(item,key) in couponDetail.level3" :key="key">{{item.levelname}}</p>
+            </div>
+            <div v-if="couponDetail.abonuname">
+              {{couponDetail.leveltitle4}}等级:{{couponDetail.abonuname}}
+              <p v-for="(item,key) in couponDetail.level4" :key="key">{{item.levelname}}</p>
+            </div>
           </div>
           <div v-if="couponDetail.coupon.islimitlevel=='0'">
             <p>无</p>
@@ -67,8 +77,8 @@
           <h6>有效期限</h6>
           <p v-if="couponDetail.coupon.timestr=='0'">永久有效</p>
           <p v-else-if="couponDetail.coupon.timestr=='1'">即{{couponDetail.coupon.gettypestr}}日内{{couponDetail.coupon.timedays}}天有效</p>
-          <p v-else>{{couponDetail.coupon.timestr}}</p>
-          <p v-if="couponDetail.coupon.merchname=='0'">
+          <p v-else>有效期{{couponDetail.coupon.timestr}}</p>
+          <p v-if="couponDetail.coupon.merchname">
             限购{{couponDetail.coupon.merchname}}店铺商品
           </p>
 
@@ -140,13 +150,25 @@
     left:50%;
     transform: translate(-50%,20%);
   }
-  #getQuanDetail .quanBody .borderDiv  .main{
+  #getQuanDetail .quanBody .borderDiv  .main1{
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
     align-items: center;
     margin-top:10px;
+  }
+  #getQuanDetail .quanBody .borderDiv  .main1 .left{
+    flex:0 0 50%;
+  }
+  #getQuanDetail .quanBody .borderDiv  .main1 .left span{
+    font-size: 30px;
+  }
+  #getQuanDetail .quanBody .borderDiv  .main1 .right{
+    flex:0 0 50%;
+  }
+  #getQuanDetail .quanBody .borderDiv  .main2{
+    margin-top: 15px;
   }
   #getQuanDetail .quanBody .bottom{
     background:#fff;
@@ -194,6 +216,7 @@
   }
 </style>
 <script>
+  import config from '../../myConfig'
   export default {
     data(){
       return{
@@ -203,6 +226,9 @@
     computed:{
       couponDetail(){
         return this.$store.state.couponDetail
+      },
+      couponMessage(){
+        return this.$store.state.couponMessage
       }
     },
     methods:{
@@ -211,16 +237,23 @@
           title: '提示',
           mes: '确认要'+gettypestr+'吗？',
           opts: () => {
-            if(gettypestr=='领取'){
-
-            }else if(gettypestr=='购买'){
-              this.$store.dispatch({
-                type:'couponPay',
+            this.$store.dispatch({
+                type:'couponGetOrPay',
                 params:{
-                  id:id
+                  id:id,
+                  t:config.t,
+                  openid:localStorage.getItem('openid'),
+                  mid:localStorage.getItem('userid')
                 }
               })
-            }
+            setTimeout(()=>{
+              if(this.couponMessage!=''){
+                this.$dialog.toast({
+                  mes:this.couponMessage,
+                  timeout: 1500
+                });
+              }
+            },1000)
           }
         });
       },

@@ -91,7 +91,7 @@ export default {
       zuJiData: {},
       getQuan:{},//领券列表
       couponDetail:{},
-      getCouponMessage:'',//点击领券返回消息
+      couponMessage:'',//点击领券或购买券返回的消息
       getCoupon:{},//领券结果
       addOrOrder: {},
       recordData: {},
@@ -863,7 +863,7 @@ export default {
       })
     },
     defaultAddress({commit, state}, data) {
-      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.setdefault&&state=we7sid-989f479443e701453157a809d00e2e0f&sign=56270194a41701253e0ca556eb6c9312', {params: data.params})
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.setdefault', {params: data.params})
         .then(function (res) {
           //设置默认地址成功重新请求地址列表
           axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.indexapp&mid=' + localStorage.getItem('userid') + '&t=' + config.t)
@@ -1091,17 +1091,22 @@ export default {
         console.log('请求失败')
       })
     },
-    couponPay({commit, state}, data){
+    couponGetOrPay({commit, state}, data){
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=sale.coupon.detail.pay',{params:data.params})
         .then(function (res) {
-          // if(res.data.status==-1){
-          //   commit({
-          //     type:'saveGetCouponMessage',
-          //     data:res
-          //   })
-          // }else{
-          //
-          // }
+          if(res.data.status==-1){
+            commit({
+              type:'saveCouponMessage',
+              data:res
+            })
+          }else{
+            axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=sale.coupon.detail.payresult',{params:{id:params.id,logid:res.data.result.logid,t:config.t,mid:localStorage.getItem('userid'),openid:localStorage.getItem('openid')}})
+              .then(function (res) {
+
+              }).catch(function (err) {
+              console.log('请求失败')
+            })
+          }
         }).catch(function (err) {
         console.log('请求失败')
       })
@@ -1450,8 +1455,8 @@ export default {
         router.push({path: '/vipIndex/getQuanDetail'})
       }
     },
-    saveGetCouponMessage(state, data){
-      VueSet(state,'getCouponMessage',data.data.data.result.message)
+    saveCouponMessage(state, data){
+      VueSet(state,'couponMessage',data.data.data.result.message)
     },
     saveAddOrReduce(state, data) {
       VueSet(state, 'addOrOrder', data.data.data.result)

@@ -32,7 +32,8 @@
           page:1,
           mid:localStorage.getItem('userid'),
           openid:localStorage.getItem('openid'),
-          t:config.t
+          t:config.t,
+          uniacid:config.uniacid
         }
       })
     }

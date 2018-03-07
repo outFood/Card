@@ -31,7 +31,8 @@
         params:{
           page:1,
           cateid:0,
-          t:config.t
+          t:config.t,
+          uniacid:config.uniacid
         }
       })
     }

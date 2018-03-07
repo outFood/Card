@@ -133,6 +133,7 @@
                     params:{
                       t:config.t,
                       openid:localStorage.getItem('openid'),
+                      mid:localStorage.getItem('userid'),
                       id:this.curOrderId,
                       remark:'其他原因'
                     }
@@ -172,6 +173,7 @@
               params:{
                 t:config.t,
                 openid:localStorage.getItem('openid'),
+                mid:localStorage.getItem('userid'),
                 id:id,
                 userdeleted:1
               }
@@ -209,7 +211,9 @@
               type:'sureGet',
               params:{
                 t:config.t,
+                uniacid:config.uniacid,
                 openid:localStorage.getItem('openid'),
+                mid:localStorage.getItem('userid'),
                 id:id,
               }
             })
@@ -222,6 +226,7 @@
           type:'evaluate',
           params:{
             t:config.t,
+            uniacid:config.uniacid,
             openid:localStorage.getItem('openid'),
             i:config.i,
             id:oderid,

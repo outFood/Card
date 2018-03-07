@@ -18,7 +18,7 @@
         <router-link to="/vipIndex/login"  v-if="openid==null||openid==''" class="toLogin">请点击登录</router-link>
         <div v-if="openid!=null&&openid!=''">
           <span>{{wodeHeadData.nickname==''?'未设置昵称':wodeHeadData.nickname}}</span>
-          <span>【普通会员】</span>
+          <span>【{{wodeHeadData.levelname?wodeHeadData.levelname:'普通会员'}}】</span>
           <span>ID:{{id}}</span>
         </div>
         <div v-if="openid!=null&&openid!=''">
