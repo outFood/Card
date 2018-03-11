@@ -13,6 +13,7 @@
     "amfe-flexible": "^2.2.1",
     "axios": "^0.17.1",
     "exif-js": "^2.3.0",
+    "http-server": "^0.11.1",
     "jquery": "^3.2.1",
     "js-base64": "^2.4.0",
     "jsonp": "^0.2.1",
