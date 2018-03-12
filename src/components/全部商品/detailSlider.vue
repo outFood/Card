@@ -2,7 +2,7 @@
   <yd-slider autoplay="3000" id="detailSlider">
     <yd-slider-item v-for="(item,key) in thumbs" :key="key">
       <a>
-        <img :src="prefix+item">
+        <img :src="item">
       </a>
     </yd-slider-item>
   </yd-slider>
@@ -18,9 +18,6 @@
       thumbs(){
         return this.$store.state.commodityDetailData.result.goods.thumbs
       },
-      prefix(){
-        return this.$store.state.prefix
-      }
     },
   }
 </script>

@@ -11,10 +11,25 @@ export default {
     return {
       nowTitle: {
         '/shopIndex/': '商城首页',
-        '/sort/': '全部商品',
+        '/sortIndex/': '全部商品',
+        '/sortIndex/detail': '商品详情',
         '/eChart/': 'E聊',
-        '/fujin/': '附近',
-        '/vip/': '会员中心',
+        '/fujin/': '附近商家',
+        '/cart/': '购物车',
+        '/vipIndex': '会员中心',
+        '/vipIndex/vipInfo': '个人资料',
+        '/vipIndex/set': '设置',
+        '/vipIndex/nickname': '修改头像和昵称',
+        '/vipIndex/AddOrReduce': '资金往来',
+        '/vipIndex/record': '积分返还记录',
+        '/vipIndex/order': '我的订单',
+        '/vipIndex/myLike': '我的关注',
+        '/vipIndex/zuji': '我的关注',
+        '/vipIndex/myAddress': '我的地址',
+        '/vipIndex/editAddress': '编辑地址',
+        '/vipIndex/addAddress': '添加地址',
+        '/vipIndex/getQuan': '领取优惠券',
+        '/vipIndex/myQuan': '我的优惠券',
       },
       homeData: {},
       prefix: 'http://cscs.ylhhyk.com/attachment/',//附加前缀
@@ -445,10 +460,10 @@ export default {
     resFujinData({commit, state}, data) {
       var id = data.id ? data.id : '';//如果点击分类的时候请求就有id,否则就是页面加载的时候请求
       function getFujin_sortData() {//分类
-        return axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.get_category&uniacid=2&t=' + config.t);
+        return axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.get_category&t=' + config.t+'&uniacid='+config.uniacid);
       }
       function getFujin_slideData() {//轮播
-        return axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.get_category_swipe&uniacid=2&t=' + config.t);
+        return axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.get_category_swipe&t=' + config.t+'&uniacid='+config.uniacid);
       }
       function getFujin_ListData() {//商户列表
         return axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.ajaxmerchuser', {params: data.params});
@@ -493,7 +508,7 @@ export default {
         pagesize:10,
         cateid:state.curCateid,
         t:config.t,
-        uniacid:config.t,
+        uniacid:config.uniacid,
         i:config.i,
       }
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.ajaxmerchuser', {params: params})
@@ -514,7 +529,7 @@ export default {
         pagesize:10,
         cateid:data.cateid,
         t:config.t,
-        uniacid:config.t,
+        uniacid:config.uniacid,
         i:config.i,
       }
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.ajaxmerchuser', {params: params})
@@ -567,9 +582,10 @@ export default {
       var myParams = {
         mid: config.mid,
         openid: localStorage.getItem('openid'),
-        t: config.t
+        t: config.t,
+        i:config.i
       }
-      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.withdraw.get_main&i=2', {params:myParams})
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.withdraw.get_main', {params:myParams})
         .then(function (res) {
           commit({
             type: 'savePriceData',
@@ -591,7 +607,7 @@ export default {
       })
     },
     resTiXian({commit, state}, data) {
-      axios.get(config.baseUrl + "/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.log.get_list&i=2", {params: data.params})
+      axios.get(config.baseUrl + "/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.log.get_list", {params: data.params})
         .then(function (res) {
           commit({
             type: 'saveTixianData',
@@ -631,10 +647,10 @@ export default {
       })
     },
     resTuiGuang({commit, state}, data) {
-      axios.get(config.baseUrl + "/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=commission.qrcode.get_main", {params: data.params})
+      axios.get(config.baseUrl + "/app/index.php?c=entry&m=ewei_shopv2&do=mobile&r=commission.qrcode.get_main", {params: data.params})
         .then(function (restext) {
           data.params.ispost = '1'
-          axios.get(config.baseUrl + "/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=commission.qrcode.get_main", {params: data.params})
+          axios.get(config.baseUrl + "/app/index.php?c=entry&m=ewei_shopv2&do=mobile&r=commission.qrcode.get_main", {params: data.params})
             .then(function (resimg) {
               commit({
                 type: 'saveTuiGuangData',
@@ -650,10 +666,11 @@ export default {
     resXiaoDianData({commit, state}, data) {
       var params = {
         t: config.t,
+        i:config.i,
         mid: config.mid,
         openid: localStorage.getItem('openid')
       }
-      axios.get(config.baseUrl + "/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=commission.myshop.set.get_main", params)
+      axios.get(config.baseUrl + "/app/index.php?c=entry&m=ewei_shopv2&do=mobile&r=commission.myshop.set.get_main", params)
         .then(function (res) {
           console.log(res)
         }).catch(function (err) {
@@ -942,7 +959,7 @@ export default {
       })
     },
     resOrderDetail({commit, state}, data){
-      axios.get(config.baseUrl +'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.index.get_detail',{params:data.params})
+      axios.get(config.baseUrl +'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.index.get_detail',{params:data.params})
         .then(function (res) {
           commit({
             type:'saveOrderDetail',
@@ -951,7 +968,7 @@ export default {
         }).catch(function (err) {alert(err)})
     },
     cancelOrder({commit, state}, data){
-      axios.get(config.baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.op.cancel',{params:data.params})
+      axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.op.cancel',{params:data.params})
         .then(function (res) {
           var params = {
             status: state.orderStatus,
@@ -976,7 +993,7 @@ export default {
       })
     },
     delOrder({commit, state}, data){
-      axios.get(config.baseUrl+'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.op.delete',{params:data.params})
+      axios.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.op.delete',{params:data.params})
         .then(function (res) {
           var params = {
             status: state.orderStatus,
@@ -999,7 +1016,7 @@ export default {
         }).catch(function (err) {alert(err)})
     },
     sureGet({commit, state}, data){
-      axios.get(config.baseUrl + '/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.op.finish',{params:data.params})
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.op.finish',{params:data.params})
         .then(function (res) {
           var params = {
             status: state.orderStatus,
@@ -1024,7 +1041,7 @@ export default {
       })
     },
     evaluate({commit, state}, data){
-      axios.get(config.baseUrl + '/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.comment.get_main',{params:data.params})
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.comment.get_main',{params:data.params})
         .then(function (res) {
           commit({
             type:'saveEvalutePage',
@@ -1035,7 +1052,7 @@ export default {
       })
     },
     submitEvaluate({commit, state}, data){
-      axios.post(config.baseUrl +'/app/index.php?t=1691&from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.comment.submit',data.params,{
+      axios.post(config.baseUrl +'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.comment.submit',data.params,{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }

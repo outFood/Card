@@ -20,6 +20,9 @@ export default {
     text-align: center;
     font-size:0.4375rem;
   }
+html{
+  font-size:32px !important;
+}
   body{
     background: #fafafa;
   }

@@ -55,6 +55,7 @@
             mid:config.mid,
             openid:localStorage.getItem('openid'),
             t:config.t,
+            i:config.i,
             status:this.curSel
           }
         })
@@ -70,6 +71,7 @@
           mid:config.mid,
           openid:localStorage.getItem('openid'),
           t:config.t,
+          i:config.i,
           status:''
         }
       })

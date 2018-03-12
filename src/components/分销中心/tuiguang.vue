@@ -51,6 +51,7 @@
         params:{
           uniacid:config.uniacid,
           t:config.t,
+          i:config.i,
           openid:localStorage.getItem('openid'),
           ispost:''
         }

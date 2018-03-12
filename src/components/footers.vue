@@ -58,8 +58,8 @@
           this.$store.dispatch({
             type:'resHomeData',
             params:{
-              id:12,
-              t:2,
+              id:config.homeid,
+              t:config.t,
               uniacid:config.uniacid
             }
           })

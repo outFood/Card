@@ -7,17 +7,17 @@
       <yd-scrolltab-panel v-for="(item,key) in parent" :label="item.name" icon="demo-icons-category1" :key="key">
         <!---->
         <span v-if="item.isSecondSort==true" class="secondSort">
-          <img :src="prefix+item.advimg" v-if="item.advimg">
+          <img :src="item.advimg" v-if="item.advimg">
           <router-link to="#" class="sortItem"  v-for="(secondSort,key) in item.curSort" :key="key">
-            <img :src="prefix+secondSort.thumb"  @click="resCommodityListData(secondSort.id)">{{secondSort.name}}
+            <img :src="secondSort.thumb"  @click="resCommodityListData(secondSort.id)">{{secondSort.name}}
           </router-link>
         </span>
         <!---->
         <span v-else class="infoItem">
-          <img :src="prefix+item.advimg" v-if="item.advimg">
+          <img :src="item.advimg" v-if="item.advimg">
           <div class="infoCon">
             <router-link to="#" v-for="(infoItem,key) in item.curSort" :key="key" @click.native="resCommodityDetailData(infoItem.id)">
-            <img :src="prefix+infoItem.thumb">
+            <img :src="infoItem.thumb">
             <div>
               <h6>{{infoItem.title}}</h6>
               <i>￥{{infoItem.minprice}}</i>
