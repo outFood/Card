@@ -20,7 +20,7 @@
       <!--</yd-cell-item>-->
       <yd-cell-item arrow>
         <span slot="left">所在地区：</span>
-        <input slot="right" type="text" @click.stop="show1 = true" v-model="vipInfoData.province+' '+vipInfoData.city+' '+vipInfoData.area" readonly placeholder="请选择所在地区">
+        <input slot="right" type="text" @click.stop="show1 = true" v-model="areas!=''?areas:vipInfoData.province+' '+vipInfoData.city+' '+vipInfoData.area" readonly placeholder="请选择所在地区">
       </yd-cell-item>
     </yd-cell-group>
     <yd-cityselect v-model="show1" :callback="result1" :items="district"></yd-cityselect>
@@ -61,7 +61,7 @@
             realname:this.realname!=''?this.realname:this.vipInfoData.realname,
             mobile:this.mobile!=''?this.mobile:this.vipInfoData.mobile,
             weixin:this.weixin!=''?this.weixin:this.vipInfoData.weixin,
-            areas:this.areas!=''?this.areas:this.vipInfoData.areas,
+            areas:this.areas!=''?this.areas:this.vipInfoData.province+' '+this.vipInfoData.city+' '+this.vipInfoData.area,
             t:config.t
           }
         })
@@ -84,6 +84,12 @@
     height:1.5rem !important;
     align-items: center;
   }
+  #vipInfo header .yd-navbar-center-title{
+    font-size:.5rem !important;
+  }
+  #vipInfo .yd-back-icon:before, .yd-next-icon:before {
+    font-size: .6rem;
+  }
   #vipInfo .updatePic{
     display: -webkit-box;
     display: -webkit-flex;
@@ -96,6 +102,7 @@
     padding:0.3125rem;
   }
   #vipInfo .updatePic img:nth-child(1){
+    margin-right:1rem;
     width:50px;
     height:50px;
     vertical-align: middle;

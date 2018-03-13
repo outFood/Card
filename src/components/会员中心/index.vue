@@ -1,5 +1,5 @@
 <template>
-  <div id="vip" v-if="wodeHeadData&&wodeBodyData">
+  <div id="vip">
     <yd-navbar title="会员中心">
       <router-link to="#" slot="left">
         <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
@@ -23,12 +23,12 @@
         </div>
         <div v-if="openid!=null&&openid!=''">
           <span>余额</span>
-          <span>{{wodeHeadData.credit2}}</span>
+          <span>{{wodeHeadData.credit2?wodeHeadData.credit2:0.00}}</span>
           <router-link to="/vipIndex/recharge" class="btn">充值</router-link>
         </div>
         <div v-if="openid!=null&&openid!=''">
           <span>积分</span>
-          <span>{{wodeHeadData.credit1}}</span>
+          <span>{{wodeHeadData.credit1?wodeHeadData.credit1:0}}</span>
           <router-link to="#" class="btn" style="visibility: hidden">获取</router-link>
         </div>
       </div>
@@ -78,7 +78,7 @@
         return this.$store.state.wodeBodyData
       },
       menuData() {
-        var menuData=this.$store.state.wodeBodyData.listmenu.data
+        var menuData=this.$store.state.wodeBodyData.module.listmenu.data
         for(var i=0;i<menuData.length;i++){
           if(menuData[i].text=='全部订单'){
             menuData.splice(i,1)
@@ -97,7 +97,7 @@
         return menuData
       },
       orderData(){
-        var orderData=this.$store.state.wodeBodyData.menu.data
+        var orderData=this.$store.state.wodeBodyData.module.menu.data
         for(var i=0;i<orderData.length;i++){
           if(i==0){
             orderData[0].iconSrc='/static/img/waitPay.png'
@@ -111,6 +111,8 @@
         }
         return orderData
       },
+    },
+    mounted(){
     },
     methods: {
       lookOrder(text){
@@ -140,6 +142,8 @@
             pagesize:10,
             uniacid:config.uniacid,
             t:config.t,
+            i:config.i,
+            mid:config.mid,
             openid:localStorage.getItem('openid'),
           }
         })
@@ -150,9 +154,11 @@
           params:{
             uniacid:config.uniacid,
             t:config.t,
+            i:config.i,
             openid:localStorage.getItem('openid'),
             mid:localStorage.getItem('userid'),
-            page:10
+            page:1,
+            pagesize:10
           }
         })
       },
@@ -168,9 +174,18 @@
   }
 </script>
 <style>
+  #vip .yd-navbar:after{
+    border:none;
+  }
   #vip header {
     height: 1.5rem !important;
     align-items: center;
+  }
+  #vip header .yd-navbar-center-title{
+    font-size:.5rem !important;
+  }
+  #vip .yd-back-icon:before, .yd-next-icon:before {
+    font-size: .6rem;
   }
   #vip #head {
     background: #00c2aa;
@@ -210,8 +225,8 @@
     color: #fff
   }
   #vip #head .personInfo .headPic img {
-    width: 1.5625rem;
-    height: 1.5625rem;
+    width: 1.7rem;
+    height: 1.7rem;
     border-radius: 50%;
     border:2px solid #fff;
   }

@@ -1,8 +1,8 @@
  var siteInfo = {
-  uniacid: '4',
-  t:4,
-  i:4,
-  homeid:30,
+  uniacid: '4',//公众号id
+  t:4,//公众号id
+  i:4,//公众号id
+  homeid:30,//首页id
   mid:localStorage.getItem('userid'),
   openid:localStorage.getItem('openid'),
   baseUrl:'/api',

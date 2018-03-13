@@ -29,10 +29,12 @@
       this.$store.dispatch({
         type:'resMyQuan',
         params:{
-          page:1,
-          cateid:0,
           t:config.t,
-          uniacid:config.uniacid
+          uniacid:config.uniacid,
+          i:config.i,
+          page:1,
+          pagesize:10,
+          cateid:0,
         }
       })
     }

@@ -183,11 +183,17 @@
     height:1.5rem !important;
     align-items: center;
   }
-  #cart .yd-navbar-center span{
-    font-size:14px !important;
+  .yd-navbar-center-title{
+    font-size:.5rem !important;
+  }
+  .yd-back-icon:before, .yd-next-icon:before {
+    font-size: .6rem;
+  }
+  .yd-navbar-item>a{
+    font-size: .45rem;
   }
   #cart .shop{
-    margin-bottom:110px;
+    margin-bottom:3.44rem;
     background: #fff;
   }
   #cart .shop  .shop-item{
@@ -195,22 +201,33 @@
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    padding:10px  0px 10px 10px;
+    padding:0.3125rem  0.3125rem 0.3125rem 0.3125rem;
     align-items: center;
     border-bottom: 1px solid #cdcdcd;
   }
   #cart .shop .check img{
-    width:20px;height:20px;
+    width:0.625rem;height:0.625rem;
   }
   #cart .shop  .shop-item .shopImg{
-    width:60px;
-    height:60px;
-    margin-left:10px;
+    width:2rem;
+    height:2rem;
+    margin-left:0.3125rem;
   }
   #cart .shop  .shop-item .right{
-    margin-left:10px;
+    margin-left:0.3125rem;
     text-align: left;
-    flex: 0 0 50%;
+    flex: 0 0 45%;
+  }
+  .yd-spinner{
+    height: 1rem !important;
+    width: 3rem !important;
+  }
+  .yd-spinner>input{
+    width:30%;
+    font-size:0.5rem
+  }
+  .yd-spinner>a{
+    width:35%
   }
   #cart .shop  .shop-item .right h6{
     text-overflow: -o-ellipsis-lastline;
@@ -219,20 +236,20 @@
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    font-size:12px;
+    font-size:0.5rem;
 
   }
   #cart .shop  .shop-item .right p{
-    margin:10px 0;
+    margin:0.3125rem 0;
   }
   #cart .shop  .shop-item .right .price{
     color:red;
   }
   #cart .shop .checkAll{
     position: fixed;
-    bottom:60px;
+    bottom:1.875rem;
     width:100%;
-    height:50px;
+    height:1.5625rem;
     background: #fff;
     z-index: 1;
 
@@ -249,24 +266,25 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding:0 10px;
+    padding:0 0.3125rem;
   }
   #cart .shop .checkAll .left .rit{
     text-align: right;
   }
   #cart .shop .checkAll .left .rit span{
+    font-size:0.57rem;
     color:#ff5555;
     font-weight: bold;
   }
   #cart .shop .checkAll .left .rit p{
-    font-size:10px;
+    font-size:0.44rem;
     color:#969696
   }
   #cart .shop .checkAll .right{
     flex: 0 0 30%;
     background: #ff5555;
     color:#fff;
-    line-height: 50px;
+    line-height: 1.72rem;
   }
   #cart .shop .edit{
     display: -webkit-box;
@@ -277,23 +295,23 @@
     z-index: 1;
 
     width:100%;
-    height:50px;
+    height:1.5625rem;
     background: #fff;
     position: fixed;
-    bottom:60px;
+    bottom:1.875rem;
 
   }
   #cart .shop .edit .check{
     flex: 0 0 70%;
     text-align: left;
-    padding-left: 10px;
+    padding-left:3.125rem;
   }
   #cart .shop .edit>div:not(:nth-child(1)){
     flex:0 0 30%;
     background: #ccc;
     height:100%;
     color:#fff;
-    line-height: 50px;
+    line-height: 1.5625rem;
   }
   #cart .shop .edit .delete{
     margin-right:5px;

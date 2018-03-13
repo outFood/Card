@@ -51,6 +51,7 @@
     watch:{
       loginStatus:{
         handler: function (val, oldVal) {
+          console.log(val)
           if(val=='登录成功'){
             this.$dialog.toast({
               mes: '登录成功！',

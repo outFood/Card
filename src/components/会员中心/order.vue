@@ -273,6 +273,16 @@
   }
 </script>
 <style>
+  #order header {
+    height: 1.5rem !important;
+    align-items: center;
+  }
+  #order header .yd-navbar-center-title{
+    font-size:.5rem !important;
+  }
+  #order .yd-back-icon:before, .yd-next-icon:before {
+    font-size: .6rem;
+  }
   #order .orderNav{
     display: -webkit-box;
     display: -webkit-flex;
@@ -343,7 +353,7 @@
   }
   #order .item .middle .shopInfo img{
     width:2.1875rem;
-    height:1.875rem;
+    height:2.1875rem;
   }
   #order .item .middle .shopInfo span{
     display: block;

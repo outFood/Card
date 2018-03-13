@@ -49,7 +49,7 @@
 </template>
 <style>
   #buyPage{
-    margin-bottom:80px;
+    margin-bottom:2.5rem;
   }
   #buyPage header{
     height:1.3rem !important;
@@ -62,21 +62,21 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding:10px;
+    padding:.3125rem;
     background:#fff;
     text-align: left;
-    margin-bottom:10px;
+    margin-bottom:.3125rem;
   }
   #buyPage .address p{
     color:#5c5c5c;
   }
   #buyPage .address img{
-    width:15px;
-    height:15px;
+    width:.5rem;
+    height:.5rem;
   }
   #buyPage .noAddress{
     background: #fff;
-    padding:10px;
+    padding:.3125rem;
   }
   #buyPage .noAddress{
     display: -webkit-box;
@@ -87,22 +87,22 @@
     justify-content: space-between;
   }
   #buyPage .noAddress img{
-    width:15px;
-    height:15px;
+    width:.5rem;
+    height:.5rem;
   }
   #buyPage .item{
     background: #fff;
-    margin-top:10px;
-    font-size:12px;
-    padding:10px 10px 0 10px;
+    margin-top:.3125rem;
+    font-size:0.375rem;
+    padding:.3125rem .3125rem 0 .3125rem;
   }
   #buyPage .item .top>p{
     text-align: left;
     border-bottom: 1px solid #eee;
   }
   #buyPage .item .top>p img{
-    width:20px;
-    height:20px;
+    width:0.625rem;
+    height:0.625rem;
     vertical-align: middle;
   }
   #buyPage .item .top .shopInfo{
@@ -112,12 +112,14 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding:.3125rem 0;
+  }
+  #buyPage .item .top .shopInfo:not(:last-child){
     border-bottom: 1px solid #eee;
-    padding:10px 0;
   }
   #buyPage .item .top .shopInfo img{
-    width:70px;
-    height:70px;
+    width:1rem;
+    height:1rem;
   }
   #buyPage .item .top .shopInfo h6{
     text-align: left;
@@ -125,10 +127,16 @@
   }
   #buyPage .item .top .shopInfo  .optiontitle{
     font-weight: normal;
-    margin-top:10px;
+    margin-top:.3125rem;
   }
   #buyPage .leaveWord{
-    margin-top:10px;
+    margin-top:.3125rem;
+  }
+  .yd-cell-title{
+    font-size:0.4rem
+  }
+  .yd-textarea>textarea{
+    font-size:0.5rem
   }
   #buyPage .toPay{
     display: -webkit-box;
@@ -142,15 +150,15 @@
     position: fixed;
     bottom: 0;
     left:0;
-    height:50px;
-    line-height: 50px;
+    height:1.5625rem;
+    line-height: 1.5625rem;
     z-index: 20;
   }
   #buyPage .toPay .left{
     flex:0 0 60%;
     height:100%;
     text-align: right;
-    padding-right: 10px;
+    padding-right: .3125rem;
   }
   #buyPage .toPay .left span{
     color:#e4393c

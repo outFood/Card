@@ -23,6 +23,7 @@ export default {
         '/vipIndex/AddOrReduce': '资金往来',
         '/vipIndex/record': '积分返还记录',
         '/vipIndex/order': '我的订单',
+        '/vipIndex/orderDetail':'订单详情',
         '/vipIndex/myLike': '我的关注',
         '/vipIndex/zuji': '我的关注',
         '/vipIndex/myAddress': '我的地址',
@@ -223,8 +224,6 @@ export default {
         return axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=goods.detail.get_comment_list&level=&page=1&pagesize=10', {params: data.params})
       }
       axios.all([commodityDetailData(), commodityColorSizeData(),commodityPingjiaData(),commodityPingjiaSortData()]).then(axios.spread(function (commodityDetailData, commodityColorSizeData,commodityPingjiaData,commodityPingjiaSortData) {
-        // console.log('commodityColorSizeData-----------------')
-        // console.log(commodityColorSizeData)
         commit({
           type: 'saveCommodityDetailData',
           data: {
@@ -766,7 +765,7 @@ export default {
       }
 
       function resWodeBodyData() {
-        return axios.get(config.baseUrl + "/app/index.php?c=wxapp&a=module&do=nav&type=3&uniacid=" + config.uniacid+'&t='+config.t)
+        return axios.get(config.baseUrl + "/app/index.php?c=wxapp&a=module&do=nav&type=3",{params:data.params})
       }
 
       axios.all([resWodeHeadData(), resWodeBodyData()])//一次性并发多个请求
@@ -794,9 +793,9 @@ export default {
     login({commit, state}, data) {
       axios.get(config.baseUrl + "/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.user.passwordlogin", {params: data.params})
         .then(function (res) {
-          if (res.data.data != {}) {
-            localStorage.setItem('openid', res.data.data.openid)
-            localStorage.setItem('userid', res.data.data.mid)
+          if (res.data.result != {}) {
+            localStorage.setItem('openid', res.data.result.data.openid)
+            localStorage.setItem('userid', res.data.result.data.mid)
           }
           commit({
             type: 'saveLoginInfo',
@@ -1016,6 +1015,10 @@ export default {
         }).catch(function (err) {alert(err)})
     },
     sureGet({commit, state}, data){
+      commit({
+        type:'saveOrderStatus',
+        data:{status:state.orderStatus,curOrderStausPage:1,myOrder:[]}
+      })
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.op.finish',{params:data.params})
         .then(function (res) {
           var params = {
@@ -1111,22 +1114,11 @@ export default {
     couponGetOrPay({commit, state}, data){
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=sale.coupon.detail.pay',{params:data.params})
         .then(function (res) {
-          if(res.data.status==-1){
-            commit({
-              type:'saveCouponMessage',
-              data:res
-            })
-          }else{
-            axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=sale.coupon.detail.payresult',{params:{id:params.id,logid:res.data.result.logid,t:config.t,mid:localStorage.getItem('userid'),openid:localStorage.getItem('openid')}})
-              .then(function (res) {
-
-              }).catch(function (err) {
-              console.log('请求失败')
-            })
-          }
-        }).catch(function (err) {
-        console.log('请求失败')
-      })
+          commit({
+            type:'saveCouponMessage',
+            data:res
+          })
+        }).catch(function (err) {console.log('领取或购买失败')})
     },
     resMyQuan({commit, state}, data){
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=sale.coupon.my.getlist',{params:data.params})
@@ -1166,7 +1158,8 @@ export default {
     },
     //首页
     saveHomeData(state, data) {
-      VueSet(state, 'homeData', data.data.data.result)
+      console.log(data)
+      VueSet(state, 'homeData', data.data.data.result.result)
       if (state.homeData != {}) {
         router.push({path: '/shopIndex/'})
       }
@@ -1197,7 +1190,6 @@ export default {
       }
     },
     saveCommodityListData(state, data) {//商品列表
-      console.log(data.res.data.result.list)
       if (data.myText == '滚动加载') {
         VueSet(state, 'commodityListData', [...state.commodityListData, ...data.res.data.result.list])
         VueSet(state, 'someSortPage', state.someSortPage + 1)
@@ -1231,8 +1223,6 @@ export default {
     saveMoreEvalute(state, data){
       VueSet(state, 'commodityPingjiaSortData',[...state.commodityPingjiaSortData,...data.data.data.result.list])
       VueSet(state, 'curEvalutePage',state.curEvalutePage+1)
-      console.log(state.commodityPingjiaSortData)
-      console.log(state.curEvalutePage)
     },
     saveLike(state, data){
       VueSet(state,'isFavorite',data.data.data.result.isfavorite)
@@ -1311,7 +1301,6 @@ export default {
     },
     saveCurSelShop(state, data) {
       VueSet(state, 'curSelShop', data.data.params)
-      console.log(state.curSelShop)
       if (state.curSelShop != {}) {
         router.push({path: '/fujin/map'})
       }
@@ -1356,7 +1345,6 @@ export default {
     },
     saveTixianData(state, data) {
       VueSet(state, 'tixianData', data.data.data.result)
-      console.log(state.tixianData)
     },
     saveOkTiXian(state, data){
       VueSet(state,'okTiXian',data.data.data.result)
@@ -1364,8 +1352,6 @@ export default {
     saveTuiGuangData(state, data) {
       VueSet(state, 'qrcodeText', data.data[0].data.result)
       VueSet(state, 'qrcodeImg', data.data[1].data.result)
-      console.log(state.qrcodeText)
-      console.log(state.qrcodeImg)
       if (state.qrcodeText != {} && state.qrcodeImg != {}) {
         router.push({path: '/distributIndex/tuiguang'})
       }
@@ -1398,22 +1384,21 @@ export default {
     },
     //个人中心
     saveWodeData(state, data) {
-      VueSet(state, 'wodeHeadData', data.data.wodeHeadData.data)
-      VueSet(state, 'wodeBodyData', data.data.wodeBodyData.data.module)
+      VueSet(state, 'wodeHeadData', data.data.wodeHeadData.data.result.user)
+      VueSet(state, 'wodeBodyData', data.data.wodeBodyData.data.result)
+      console.log(state.wodeHeadData)
+      console.log(state.wodeBodyData)
       if (state.wodeHeadData != {} && state.wodeBodyData != {}) {
         router.push({path: '/vipIndex'})
       }
     },
     saveLoginInfo(state, data) {
-      VueSet(state, 'loginStatus', data.res.data.msg)
+      VueSet(state, 'loginStatus', data.res.data.result.msg)
     },
     saveVipInfoData(state, data) {
-      console.log(data)
       VueSet(state, 'vipInfoData', data.data.data.result.member)
-      console.log(state.vipInfoData)
     },
     saveAddressList(state, data) {
-      console.log(data.res.data.result)
       VueSet(state, 'myAddressData', data.res.data.result.list)
     },
     saveWantEditAddress(state, data) {
@@ -1424,7 +1409,6 @@ export default {
     },
     saveSelAddress(state, data) {
       VueSet(state, 'curSelAddress', data.data.item)
-      console.log(state.curSelAddress)
       if (state.curSelAddress != {}&&state.changeAddress!=false) {
         router.push({path: '/sortIndex/buyPage'})
       }
@@ -1450,18 +1434,16 @@ export default {
       VueSet(state,'myOrder',data.data.myOrder)
     },
     saveEvalutePage(state, data){
-      VueSet(state,'evaluatPage',data.data.data)
+      VueSet(state,'evaluatPage',data.data.data.result)
       if(state.evaluatPage!={}){
         router.push({path: '/vipIndex/evaluate'})
       }
     },
     saveMyLikeData(state, data) {
       VueSet(state, 'myLikeData', data.res.data.result)
-      console.log(state.myLikeData)
     },
     saveZujiData(state, data) {
       VueSet(state, 'zuJiData', data.res.data.result)
-      console.log(state.zuJiData)
     },
     saveGetQuan(state, data){
       VueSet(state,'getQuan',data.data.data.result)
@@ -1473,7 +1455,11 @@ export default {
       }
     },
     saveCouponMessage(state, data){
-      VueSet(state,'couponMessage',data.data.data.result.message)
+      if(data.data.data.status==-1){
+        VueSet(state,'couponMessage',data.data.data.result.message)
+      }else if(data.data.data.status==1){
+        VueSet(state,'couponMessage',state.couponDetail.coupon.gettypestr+'成功')
+      }
     },
     saveAddOrReduce(state, data) {
       VueSet(state, 'addOrOrder', data.data.data.result)

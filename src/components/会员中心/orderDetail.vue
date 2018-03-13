@@ -72,13 +72,23 @@
   </div>
 </template>
 <style>
+  #orderDetail header {
+    height: 1.5rem !important;
+    align-items: center;
+  }
+  #orderDetail header .yd-navbar-center-title{
+    font-size:.5rem !important;
+  }
+  #orderDetail .yd-back-icon:before, .yd-next-icon:before {
+    font-size: .6rem;
+  }
   #orderDetail .alreadyPay{
     background: orange;
     color:#fff;
-    padding:20px;
+    padding:0.625rem;
   }
   #orderDetail .alreadyPay>span{
-    font-size:12px;
+    font-size:.5rem;
   }
   #orderDetail .address{
     display: -webkit-box;
@@ -87,26 +97,26 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin:10px 0;
+    margin:0.3125rem 0;
     background: #fff;
-    padding:15px;
+    padding:0.47rem;
   }
   #orderDetail .address img{
-    width:20px;height:20px;
+    width:0.625rem;height:0.625rem;
   }
   #orderDetail .address .right{
     flex: 0 0 90%;
     text-align: left;
-    margin-left:10px;
+    margin-left:0.3125rem;
   }
   #orderDetail .address .right span{
     color:#8A8A8A;
-    font-size:12px;
+    font-size:0.375rem;
   }
   #orderDetail .item{
     background: #fff;
-    margin-top:10px;
-    padding:10px;
+    margin-top:0.3125rem;
+    padding:0.3125rem;
   }
   #orderDetail .item .shopInfo{
     display: -webkit-box;
@@ -123,31 +133,31 @@
     margin-bottom:0.3125rem;
   }
   #orderDetail .item .middle>p img{
-    width:20px;
-    height:20px;
+    width:0.625rem;
+    height:0.625rem;
     vertical-align: middle;
   }
   #orderDetail .item .middle .shopInfo{
-    margin:10px 0;
+    margin:0.3125rem 0;
   }
   #orderDetail .item .middle .shopInfo img{
-    width:70px;
-    height:60px;
+    width:2.1875rem;
+    height:1.875rem;
   }
   #orderDetail .item .middle .shopInfo span{
     display: block;
-    font-size:12px;
+    font-size:0.375rem;
     color:#aaa;
-    margin-top:10px;
+    margin-top:0.3125rem;
     text-align: right;
   }
   #orderDetail .item .middle .shopInfo .mid span{
     text-align: center !important;
   }
   #orderDetail .orderInfo1{
-    padding:10px;
+    padding:0.3125rem;
     background: #fff;
-    margin:10px 0;
+    margin:0.3125rem 0;
   }
   #orderDetail .orderInfo1 p{
     display: -webkit-box;
@@ -164,16 +174,16 @@
     color:red;
   }
   #orderDetail .orderInfo2{
-    font-size: 12px;
+    font-size: 0.4rem;
     color:#989898;
     background: #fff;
     text-align: left;
     padding:0.3125rem;
-    line-height: 20px;
+    line-height:0.625rem;
   }
   #orderDetail .foot{
     background: #fff;
-    padding:15px;
+    padding:0.47rem;
     position: fixed;
     bottom:0;left:0;right:0;
     text-align: right;

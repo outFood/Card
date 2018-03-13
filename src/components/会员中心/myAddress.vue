@@ -103,6 +103,10 @@
   }
 </script>
 <style scoped>
+  #myAddress header{
+    height:1.5rem !important;
+    align-items: center;
+  }
   #myAddress .address-item {
     background: #fff;
     font-size: 0.4375rem !important;

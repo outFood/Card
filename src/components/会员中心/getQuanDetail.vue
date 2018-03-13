@@ -113,6 +113,16 @@
   </div>
 </template>
 <style scoped>
+  #getQuanDetail header {
+    height: 1.5rem !important;
+    align-items: center;
+  }
+  #getQuanDetail header .yd-navbar-center-title{
+    font-size:.5rem !important;
+  }
+  .yd-back-icon:before, .yd-next-icon:before {
+    font-size: .6rem !important;
+  }
   #getQuanDetail .quanBody{
     width:100%;
     margin-bottom:100px;
@@ -242,6 +252,8 @@
                 params:{
                   id:id,
                   t:config.t,
+                  i:config.i,
+                  uniacid:config.uniacid,
                   openid:localStorage.getItem('openid'),
                   mid:localStorage.getItem('userid')
                 }

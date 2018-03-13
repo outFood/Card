@@ -8,7 +8,7 @@
       </div>
       <div class="grade">【创业达人 {{agentData.member.aagenttype==1?'省级':(agentData.member.aagenttype==2?'市级':(agentData.member.aagenttype==3?'区级':'乡镇'))}}】</div>
     </div>
-    <div class="mid">
+    <div class="agentMid">
       <div class="left" @click="resAgentLine">
         <img src="/static/img/people_white.png" alt="">
         <p>我的下线</p>
@@ -321,7 +321,7 @@
   }
 </script>
 <style>
-  #agent .header,.mid{
+  #agent .header,.agentMid{
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;

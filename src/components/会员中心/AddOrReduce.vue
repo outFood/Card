@@ -17,6 +17,16 @@
   #AddOrReduce{
 
   }
+  #AddOrReduce header {
+    height: 1.5rem !important;
+    align-items: center;
+  }
+  #AddOrReduce header .yd-navbar-center-title{
+    font-size:.5rem !important;
+  }
+  #AddOrReduce .yd-back-icon:before, .yd-next-icon:before {
+    font-size: .6rem;
+  }
   #AddOrReduce .list{
     padding: 0 0.3125rem;
     background: #fff;

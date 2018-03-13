@@ -1,5 +1,10 @@
 <template>
-  <yd-layout title="领取优惠券" link="/vipIndex"  id="getQuan">
+  <div id="getQuan">
+    <yd-navbar title="领取优惠券">
+      <router-link to="#" slot="left">
+        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
+      </router-link>
+    </yd-navbar>
     <yd-flexbox v-for="(item,key) in getQuan.list" :key="key"  @click.native="resCouponDetail(item.id)">
       <div class="left">
         <div>{{item.title3}}</div>
@@ -16,7 +21,7 @@
         <span></span>
       </router-link>
     </yd-flexbox>
-  </yd-layout>
+  </div>
 </template>
 <script>
   import config from '../../myConfig'
@@ -38,8 +43,13 @@
           params:{
             id:id,
             t:config.t,
+            i:config.i,
+            uniacid:config.uniacid
           }
         })
+      },
+      back:function () {
+        this.$router.go(-1)
       }
     },
     beforeCreate(){
@@ -47,14 +57,27 @@
         type:'resGetQuan',
         params:{
           page:1,
+          pagesize:10,
+          t:config.t,
+          i:config.i,
+          uniacid:config.uniacid,
           cateid:0,
-          t:config.t
         }
       })
     }
   }
 </script>
 <style scoped>
+  #getQuan header {
+    height: 1.5rem !important;
+    align-items: center;
+  }
+  #getQuan header .yd-navbar-center-title{
+    font-size:.5rem !important;
+  }
+.yd-back-icon:before, .yd-next-icon:before {
+    font-size: .6rem;
+  }
   #getQuan .yd-flexbox{
     font-size:14px;
     background: #fff;

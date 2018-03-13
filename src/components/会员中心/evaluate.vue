@@ -238,6 +238,16 @@
   }
 </script>
 <style>
+  #evaluate header {
+    height: 1.5rem !important;
+    align-items: center;
+  }
+  #evaluate header .yd-navbar-center-title{
+    font-size:.5rem !important;
+  }
+  #evaluate .yd-back-icon:before, .yd-next-icon:before {
+    font-size: .6rem;
+  }
   #evaluate .item{
     background: #fff;
     margin-top:0.3125rem;

@@ -68,7 +68,6 @@
             type:'resSortData'
           })
         }else if(path=='eChart'){//请求E聊
-          console.log('eChart')
         }else if(path=='fujin'){//请求附近
           this.loadmap();     //加载地图和相关组件formattedAddress
           var me = this;
@@ -120,14 +119,14 @@
             }
           })
         }else{//请求个人中心
-          console.log('个人中心')
           this.$store.dispatch({
             type: 'resWode',
             params:{
               openid:localStorage.getItem('openid'),
               mid:localStorage.getItem('userid'),
               t:config.t,
-              uniacid:config.uniacid
+              uniacid:config.uniacid,
+              i:config.i
             }
           })
         }

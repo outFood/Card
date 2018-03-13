@@ -25,6 +25,16 @@
   }
 </script>
 <style>
+  #recharge header {
+    height: 1.5rem !important;
+    align-items: center;
+  }
+  #recharge header .yd-navbar-center-title{
+    font-size:.5rem !important;
+  }
+  #recharge .yd-back-icon:before, .yd-next-icon:before {
+    font-size: .6rem;
+  }
   #recharge form{
     text-align: left;
     padding: 0.3125rem 0.3125rem 0 0.3125rem;
@@ -54,6 +64,7 @@
     border: none;
     padding-left: 5px;
     width:95%;
+    font-size:.6rem
   }
   *::-webkit-input-placeholder {
     color: #b0b0b0;
