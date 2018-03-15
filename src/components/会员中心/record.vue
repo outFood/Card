@@ -5,7 +5,8 @@
         <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
       </router-link>
     </yd-navbar>
-    <div class="list">
+    <no-order v-if=" recordData.list.length==0"></no-order>
+    <div class="list" v-else>
       <div class="list-item" v-for="(item,key) in recordData.list" :key="key">
         <div class="left">返还积分: <span>{{item.point}}</span></div>
         <div class="right">{{item.createDate}}</div>
@@ -38,12 +39,14 @@
   }
 </style>
 <script>
+  import noOrder from '@/components/会员中心/noOrder'
   export default {
     computed:{
       recordData(){
         return this.$store.state.recordData
       }
     },
+    components:{noOrder},
     methods:{
       back:function () {
         this.$router.go(-1)

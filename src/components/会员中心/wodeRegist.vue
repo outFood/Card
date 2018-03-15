@@ -50,6 +50,7 @@
 </template>
 
 <script>
+  import router from '@/router'
   import config from '../../myConfig'
   export default {
     data() {
@@ -57,11 +58,37 @@
         isReaded:false,
         code:'',
         start3: false,
-        phone:'13867104693',
-        pwd: '123456',
-        surePwd: '123456',
+        phone:'',
+        pwd: '',
+        surePwd: '',
         show1: false,
       }
+    },
+    computed:{
+      registStatus(){
+        return this.$store.state.registStatus
+      }
+    },
+    watch:{
+      registStatus:{
+        handler: function (val, oldVal) {
+          if(val=='注册成功'){
+            this.$dialog.toast({
+              mes:val,
+              timeout: 1000,
+              callback(){
+                router.push({path:'/vipIndex/login'})
+              }
+            });
+          }else{
+            this.$dialog.toast({
+              mes:val,
+              timeout: 1500,
+            });
+          }
+        },
+        deep: true
+      },
     },
     methods:{
       openAlert() {

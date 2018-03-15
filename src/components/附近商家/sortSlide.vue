@@ -39,6 +39,7 @@
         }
         len=Math.abs(len-8)
       }
+      console.log(this.haha)
     }
   }
 </script>
@@ -47,6 +48,7 @@
     margin:0.3125rem 0;
     font-size:0.375rem;
     padding-top:0.3125rem;
+    background: #fff;
   }
   #sortSlide .yd-slider-item{
     display: -webkit-box;
@@ -60,8 +62,8 @@
     flex:0 0 25%;
   }
   #sortSlide img{
-    width:1.25rem;
-    height:1.25rem;
+    width:1.5rem;
+    height:1.5rem;
     margin: 0 auto;
     margin-bottom:5px;
     border-radius: 50%;

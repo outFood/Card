@@ -33,6 +33,7 @@
     },
     methods:{
       clickMenu(text){
+        console.log(text)
         if(text=='分销中心'){
           this.$store.dispatch({
             type:'resFenxiao'

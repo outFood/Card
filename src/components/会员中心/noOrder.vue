@@ -1,7 +1,7 @@
 <template>
   <div id="noOrder">
     <div>
-      暂时没有任何订单
+      暂时没有任何数据
       <router-link to="/shopIndex" class="goPlayer">到处逛逛</router-link>
     </div>
   </div>

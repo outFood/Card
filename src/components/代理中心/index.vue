@@ -286,8 +286,10 @@
           type:'resAgentPrice',
           params:{
             t:config.t,
+            uniacid:config.uniacid,
+            i:config.i,
+            mid:localStorage.getItem('userid'),
             openid:localStorage.getItem('openid'),
-            uniacid:config.uniacid
           }
         })
       },
@@ -298,7 +300,8 @@
             openid:localStorage.getItem('openid'),
             mid:localStorage.getItem('userid'),
             uniacid:config.uniacid,
-            t:config.t
+            t:config.t,
+            i:config.i
           }
         })
       },
@@ -307,11 +310,13 @@
         this.$store.dispatch({
           type:'resFenHong',
           params:{
-            page:1,
-            pagesize:10,
             uniacid:config.uniacid,
             t:config.t,
+            i:config.i,
             openid:localStorage.getItem('openid'),
+            mid:localStorage.getItem('userid'),
+            page:1,
+            pagesize:10,
             status:curText=='累计分红'?'':(curText=='待结算分红'?2:1)
           },
           curText:curText

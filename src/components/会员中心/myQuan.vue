@@ -32,6 +32,8 @@
           t:config.t,
           uniacid:config.uniacid,
           i:config.i,
+          mid:localStorage.getItem('userid'),
+          openid:localStorage.getItem('openid'),
           page:1,
           pagesize:10,
           cateid:0,

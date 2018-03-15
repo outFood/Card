@@ -65,7 +65,12 @@
           })
         }else if(path=='sortIndex'){//请求分类
           this.$store.dispatch({
-            type:'resSortData'
+            type:'resSortData',
+            params:{
+              i:config.i,
+              t:config.t,
+              uniacid:config.uniacid
+            }
           })
         }else if(path=='eChart'){//请求E聊
         }else if(path=='fujin'){//请求附近
@@ -95,11 +100,11 @@
                   page:1,
                   pagesize:10,
                   cateid:'',
-                  t:config.t,
-                  uniacid:config.t,
-                  i:config.i,
                   lat:complate.position.lat,
-                  lng:complate.position.lng
+                  lng:complate.position.lng,
+                  uniacid:config.t,
+                  t:config.t,
+                  i:config.i,
                 },
                 positionInfo:complate
               })
@@ -144,7 +149,7 @@
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding: 5px;
+  padding: 8px;
   width:100%;
   background: #fff;
   box-shadow:    0px -3px 0px 0px rgba(0,0,0,0.01)  /*设置上阴影*/

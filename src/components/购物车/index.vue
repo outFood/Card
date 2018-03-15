@@ -76,15 +76,6 @@
         }
         return cartNum
       },
-      priceNum(){
-        var priceNum=0;
-        for(var i=0;i<this.$store.state.cartData.list.length;i++){
-          if(this.$store.state.cartData.list[i].selected=='1'){
-            priceNum+=parseInt(this.$store.state.cartData.list[i].marketprice)
-          }
-        }
-        return marketprice
-      },
       isCheckAll(){
         return this.$store.state.isCheckAll
       },
@@ -94,7 +85,6 @@
     },
     methods: {
       addOrReduceOrDel(arr){//---------------------------------------
-        console.log(arr)
         if(arr[0]=='加'){
           this.$store.dispatch({
             type:'cartUpdate',
@@ -103,6 +93,8 @@
               optionid:arr[3],
               id:arr[2],
               t:config.t,
+              i:config.i,
+              uniacid:config.uniacid,
               mid:localStorage.getItem('userid'),
               openid:localStorage.getItem('openid')
             }
@@ -133,8 +125,10 @@
               params:{
                 mid:localStorage.getItem('userid'),
                 openid:localStorage.getItem('openid'),
-                ids:this.checkedArr.join(','),
                 t:config.t,
+                i:config.i,
+                uniacid:config.uniacid,
+                ids:this.checkedArr.join(','),
               }
             })
           }
@@ -155,9 +149,11 @@
         this.$store.dispatch({
           type:'selOrNo',
           params:{
-            t:config.t,
             mid:localStorage.getItem('userid'),
             openid:localStorage.getItem('openid'),
+            uniacid:config.uniacid,
+            t:config.t,
+            i:config.i,
             id:id,
             select:selected
           }
@@ -168,6 +164,9 @@
           type:'subMitCart',
           params:{
             t:config.t,
+            i:config.i,
+            uniacid:config.uniacid,
+            mid:localStorage.getItem('userid'),
             openid:localStorage.getItem('openid'),
           }
         })
@@ -304,7 +303,7 @@
   #cart .shop .edit .check{
     flex: 0 0 70%;
     text-align: left;
-    padding-left:3.125rem;
+    padding-left:0.3rem;
   }
   #cart .shop .edit>div:not(:nth-child(1)){
     flex:0 0 30%;

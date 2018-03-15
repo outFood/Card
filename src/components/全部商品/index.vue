@@ -220,14 +220,14 @@
         return this.$store.state.sortData.children
       }
     },
-    created(){
-//      console.log(this.parent)
-//      console.log(this.children)
-
-    },
     beforeCreate(){
       this.$store.dispatch({
         type:'resSortData',
+        params:{
+          i:config.i,
+          t:config.t,
+          uniacid:config.uniacid
+        }
       })
     }
   }

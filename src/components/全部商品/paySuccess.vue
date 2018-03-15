@@ -25,7 +25,7 @@
       <span>16.00</span>
     </div>
     <div class="btn-two">
-      <router-link to="#" @click.native="lookOrder('待发货')">订单详情</router-link>
+      <router-link to="#" @click.native="resOrderDetail()">订单详情</router-link>
       <router-link to="/shopIndex">返回首页</router-link>
     </div>
   </div>
@@ -91,15 +91,23 @@
   }
 </style>
 <script>
+  import config from '../../myConfig'
   export default {
     methods:{
       back:function () {
         this.$router.go(-1)
       },
-      lookOrder(text){
+      resOrderDetail(){
         this.$store.dispatch({
-          type:'resMyOrder',
-          text:text
+          type:'resOrderDetail',
+          params:{
+            t:config.t,
+            i:config.i,
+            uniacid:config.uniacid,
+            mid:localStorage.getItem('userid'),
+            openid:localStorage.getItem('openid'),
+            id:this.$store.state.selPay.order.id
+          }
         })
       },
     },

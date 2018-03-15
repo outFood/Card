@@ -39,8 +39,8 @@
   export default {
     data() {
       return {
-        phone:'13867104693',
-        pwd: '123456',
+        phone:'',
+        pwd: '',
       }
     },
     computed:{
@@ -59,6 +59,11 @@
               callback(){
                 router.push({path:'/vipIndex'})
               }
+            });
+          }else{
+            this.$dialog.toast({
+              mes:val,
+              timeout: 1500,
             });
           }
         },

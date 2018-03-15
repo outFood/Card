@@ -46,7 +46,11 @@
             openid:localStorage.getItem('openid'),
             mid:config.mid,
             t:config.t,
-            status:this.curSel
+            uniacid:config.uniacid,
+            i:config.i,
+            status:this.curSel,
+            page:1,
+            level:1
           }
         })
       },

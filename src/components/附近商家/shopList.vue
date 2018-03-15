@@ -78,7 +78,10 @@
           params:{
             merchid: id,
             t:config.t,
-            mid:localStorage.getItem('userid')
+            i:config.i,
+            uniacid:config.uniacid,
+            mid:localStorage.getItem('userid'),
+            openid:localStorage.getItem('openid'),
           }
         })
       },

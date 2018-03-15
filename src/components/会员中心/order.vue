@@ -186,9 +186,11 @@
           type:'resOrderDetail',
           params:{
             t:config.t,
-            id:id,
+            i:config.i,
+            uniacid:config.uniacid,
             mid:localStorage.getItem('userid'),
-            openid:localStorage.getItem('openid')
+            openid:localStorage.getItem('openid'),
+            id:id,
           }
         })
       },

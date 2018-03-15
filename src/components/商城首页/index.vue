@@ -22,6 +22,7 @@
   }
 </style>
 <script>
+  import router from '@/router'
   import fixedsearch from '@/components/商城首页/fixedsearch'
   import payment from '@/components/商城首页/payment'
   import banner from '@/components/商城首页/banner'
@@ -72,5 +73,8 @@
         }
       },1000)
     },
+    beforeCreate(){
+
+    }
   }
 </script>

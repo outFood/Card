@@ -13,6 +13,7 @@
 
 </template>
 <script>
+  import router from '@/router'
   import config from '../../myConfig'
   import Exif from 'exif-js'
 
@@ -26,6 +27,25 @@
     computed:{
       wodeHeadData(){
         return this.$store.state.wodeHeadData
+      },
+      updateNickNameResult(){
+        return this.$store.state.updateNickNameResult
+      }
+    },
+    watch:{
+      updateNickNameResult:{
+        handler: function (val, oldVal) {
+          this.$dialog.toast({
+            mes:'头像'+val.result.msg,
+            timeout: 1500,
+            callback: () => {
+              if(val.status==1){
+                router.push({path: '/vipIndex/vipInfo'})
+              }
+            }
+          });
+        },
+        deep: true
       },
     },
     methods: {

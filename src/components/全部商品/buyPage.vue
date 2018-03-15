@@ -15,7 +15,7 @@
     </router-link>
     <router-link to="#" @click.native="changeAddress" class="noAddress" v-else><span>请选择收货地址</span><img src="/static/img/more.png" alt=""></router-link>
     <div class="list">
-      <div class="item" v-for="(item,key) in buyPageData.result.goods_list">
+      <div class="item" v-for="(item,key) in buyPageData.goods_list">
         <div class="top">
           <p><img src="/static/img/shop_black.png" alt="">{{item.shopname?item.shopname:'官方演示'}}</p>
           <div class="shopInfo" v-for="(infoItem,key) in item.goods" :key="key">
@@ -34,15 +34,15 @@
     <yd-cell-group>
       <yd-cell-item>
         <span slot="left">商品小计</span>
-        <span slot="right">￥{{buyPageData.result.other.goodsprice}}</span>
+        <span slot="right">￥{{buyPageData.other.goodsprice}}</span>
       </yd-cell-item>
       <yd-cell-item>
         <span slot="left">运费</span>
-        <span slot="right">￥{{buyPageData.result.other.dispatch_price}}</span>
+        <span slot="right">￥{{buyPageData.other.dispatch_price}}</span>
       </yd-cell-item>
     </yd-cell-group>
     <div class="toPay">
-      <div class="left">需付：<span>￥{{buyPageData.result.allprice}}</span></div>
+      <div class="left">需付：<span>￥{{buyPageData.allprice}}</span></div>
       <router-link to="#" class="right" @click.native="createOrder">立即支付</router-link>
     </div>
   </div>
@@ -196,10 +196,10 @@
       }
     },
     mounted(){
-      for(var i=0,myArr=[];i<this.buyPageData.result.list.length;i++){
-        myArr.push(this.buyPageData.result.list[i].goodsid)
-        myArr.push(this.buyPageData.result.list[i].optionid)
-        myArr.push(this.buyPageData.result.list[i].total)
+      for(var i=0,myArr=[];i<this.buyPageData.list.length;i++){
+        myArr.push(this.buyPageData.list[i].goodsid)
+        myArr.push(this.buyPageData.list[i].optionid)
+        myArr.push(this.buyPageData.list[i].total)
       }
       this.goodsIds=myArr.join(',')
     },
@@ -229,6 +229,8 @@
             packageid:0,//套餐id
             app:1,
             t:config.t,
+            i:config.i,
+            uniacid:config.uniacid,
             mid:localStorage.getItem('userid'),
             openid:localStorage.getItem('openid')
           }

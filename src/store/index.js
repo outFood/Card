@@ -31,6 +31,8 @@ export default {
         '/vipIndex/addAddress': '添加地址',
         '/vipIndex/getQuan': '领取优惠券',
         '/vipIndex/myQuan': '我的优惠券',
+        '/vipIndex/login':'登录',
+        '/vipIndex/wodeRegist':'注册'
       },
       homeData: {},
       prefix: 'http://cscs.ylhhyk.com/attachment/',//附加前缀
@@ -94,7 +96,9 @@ export default {
       //个人中心
       wodeHeadData: {},
       wodeBodyData: {},
+      updateNickNameResult:{},
       loginStatus: '',
+      registStatus:'',
       vipInfoData: {},
       myAddressData: {},
       wantEditAddress: [],
@@ -175,7 +179,7 @@ export default {
     },
     //分类
     resSortData({commit, state}, data) {
-      axios.get(config.baseUrl + '/bale/api.php?mod=category&uniacid=' + config.uniacid + '&t=' + config.t)
+      axios.get(config.baseUrl + '/bale/api.php?mod=category',{params:data.params})
         .then(function (res) {
           commit({
             type: 'saveSortData',
@@ -203,8 +207,9 @@ export default {
       var cartPrams={t:config.t,uniacid:config.uniacid,mid:localStorage.getItem('userid'),openid:localStorage.getItem('openid')}
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.get_list', {params:cartPrams})
         .then(function (res) {
-          for(var i=0,sum=0;i<res.data.result.list.length;i++){
-            sum+=parseInt(res.data.result.list[i].total)
+          console.log(res)
+          for(var i=0,sum=0;i<res.data.result.data.list.length;i++){
+            sum+=parseInt(res.data.result.data.list[i].total)
           }
           commit({
             type:'saveCartcount2',
@@ -313,30 +318,20 @@ export default {
     createOrder({commit, state}, data) {
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.create.submit', {params: data.params})
         .then(function (res) {
-          axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.pay.get_order', {
-            params: {
-              id: res.data.result.orderid,
-              t: config.t,
-              mid: localStorage.getItem('userid'),
-              openid: localStorage.getItem('openid')
-            }
-          })
+          axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.pay.get_order', {params: {id:res.data.result.data.orderid,t: config.t,i:config.i,uniacid:config.uniacid,mid: localStorage.getItem('userid'),openid: localStorage.getItem('openid')}})
             .then(function (res2) {
               if(res.data.status==0){
                 commit({
                   type:'savePayMessage',
                   data:res
                 })
-                // alert(res.data.result.message)
               }else{
                 commit({
                   type: 'saveSelPay',
                   data: res2
                 })
               }
-            }).catch(function (err) {
-            console.log('请求失败:' + err)
-          })
+            }).catch(function (err) {console.log('请求失败:' + err)})
         }).catch(function (err) {
         console.log('请求失败:' + err)
       })
@@ -357,12 +352,15 @@ export default {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
-      })
-        .then(function (res) {
-          // if(res.data.suc=='购买成功'){
-          //   router.push({path: '/sortIndex/paySuccess'})
-          // }
-          router.push({path: '/sortIndex/paySuccess'})
+      }).then(function (res) {
+          if(res.data.status==1){
+            router.push({path: '/sortIndex/paySuccess'})
+          }else{
+            commit({
+              type:'savePayMessage',
+              data:res
+            })
+          }
         }).catch(function (err) {
         console.log('请求失败:' + err)
       })
@@ -436,17 +434,19 @@ export default {
     },
     subMitCart({commit, state}, data) {
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.submit', {params: data.params})
-        .then(function (res) {
+        .then(function (res1) {
           var myPrams = {
             t: config.t,
+            i:config.i,
+            uniacid:config.uniacid,
             openid: localStorage.getItem('openid'),
             mid: localStorage.getItem('userid')
           }
           axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.create.get_main', {params: myPrams})
-            .then(function (res) {
+            .then(function (res2) {
               commit({
                 type: 'saveBuyPageData',
-                res: res
+                res: res2
               })
             }).catch(function (err) {
             alert(err)
@@ -457,12 +457,11 @@ export default {
     },
     //附近商家
     resFujinData({commit, state}, data) {
-      var id = data.id ? data.id : '';//如果点击分类的时候请求就有id,否则就是页面加载的时候请求
       function getFujin_sortData() {//分类
-        return axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.get_category&t=' + config.t+'&uniacid='+config.uniacid);
+        return axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.get_category&t=' + config.t+'&uniacid='+config.uniacid+'&i='+config.i);
       }
       function getFujin_slideData() {//轮播
-        return axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.get_category_swipe&t=' + config.t+'&uniacid='+config.uniacid);
+        return axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.get_category_swipe&t=' + config.t+'&uniacid='+config.uniacid+'&i='+config.i);
       }
       function getFujin_ListData() {//商户列表
         return axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.ajaxmerchuser', {params: data.params});
@@ -552,9 +551,9 @@ export default {
       var headPrams = {
         t: config.t,
         uniacid: config.uniacid,
+        i:config.i,
         openid: localStorage.getItem('openid'),
         mid: localStorage.getItem('userid'),
-        i: 2
       }
       //请求HeadData
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.index.get_main', {params: headPrams})
@@ -567,7 +566,7 @@ export default {
         console.log('请求失败:' + err)
       })
       //请求BodyData
-      axios.get(config.baseUrl + '/app/index.php?c=wxapp&a=module&do=nav&type=4&uniacid=' + config.uniacid + '&t=' + config.t)
+      axios.get(config.baseUrl + '/app/index.php?c=wxapp&a=module&do=nav&type=4', {params: headPrams})
         .then(function (res) {
           commit({
             type: 'saveFenxiaoBody',
@@ -582,7 +581,8 @@ export default {
         mid: config.mid,
         openid: localStorage.getItem('openid'),
         t: config.t,
-        i:config.i
+        i:config.i,
+        uniacid:config.uniacid
       }
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.withdraw.get_main', {params:myParams})
         .then(function (res) {
@@ -680,28 +680,30 @@ export default {
     resAgent({commit, state}, data) {
       var agentParams = {
         t: config.t,
+        i:config.i,
+        uniacid: config.uniacid,
         openid: localStorage.getItem('openid'),
         mid: localStorage.getItem('userid'),
-        uniacid: config.uniacid
       }
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=abonus.index.get_main', {params: agentParams})
         .then(function (res) {
-          if (res.data.member.isagent == 0) {//没有申请分销商
+          console.log(res)
+          if (res.data.result.data.member.isagent == 0) {//没有申请分销商
             console.log('没有申请分销商')
             router.push({path: '/distributIndex/apply'})
-          } else if (res.data.member.isagent == 1 && res.data.member.status == 0) {//分销商申请了，审核中
+          } else if (res.data.result.data.member.isagent == 1 && res.data.result.data.member.status == 0) {//分销商申请了，审核中
             console.log('分销商申请了，审核中')
             router.push({path: '/distributIndex/wait'})
-          } else if (res.data.member.isagent == 1 && res.data.member.status == 1) {//已经是分销商了
+          } else if (res.data.result.data.member.isagent == 1 && res.data.result.data.member.status == 1) {//已经是分销商了
             console.log('已经是分销商了')
-            if (res.data.member.isaagent == 0) {//没注册代理
+            if (res.data.result.data.member.isaagent == 0) {//没注册代理
               console.log('没注册代理')
               router.push({path: '/agentIndex/agentRegist'})
-            } else if (res.data.member.isaagent == 1 && res.data.member.aagentstatus == 0) {//注册了代理，审核中
+            } else if (res.data.result.data.member.isaagent == 1 && res.data.result.data.member.aagentstatus == 0) {//注册了代理，审核中
               console.log('注册了代理，审核中')
               router.push({path: '/agentIndex/agentWait'})
             }
-            // else if(res.data.member.aagentstatus==0||res.data.member.aagentstatus==1&&res.data.member.isaagent==1){
+            // else if(res.data.result.data.member.aagentstatus==0||res.data.result.data.member.aagentstatus==1&&res.data.result.data.member.isaagent==1){
             //   router.push({path: '/agentIndex/goPay'})
             // }
             else {//已经是代理商了
@@ -783,9 +785,10 @@ export default {
     regist({commit, state}, data) {
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.user.register', {params: data.params})
         .then(function (res) {
-          if (res.msg == '注册成功') {
-            router.push({path: '/vipIndex/login'})
-          }
+         commit({
+            type:'saveRegistStatus',
+            data:res.data.result.msg
+          })
         }).catch(function (err) {
         console.log('请求失败:' + err)
       })
@@ -793,7 +796,7 @@ export default {
     login({commit, state}, data) {
       axios.get(config.baseUrl + "/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.user.passwordlogin", {params: data.params})
         .then(function (res) {
-          if (res.data.result != {}) {
+          if (res.data.status==1) {
             localStorage.setItem('openid', res.data.result.data.openid)
             localStorage.setItem('userid', res.data.result.data.mid)
           }
@@ -830,7 +833,10 @@ export default {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
       }).then(function (res) {
-          console.log(res)
+         commit({
+           type:'saveUpdateNickNameResult',
+           data:res
+         })
         }).catch(function (err) {
         console.log('请求失败:' + err)
       })
@@ -1158,8 +1164,7 @@ export default {
     },
     //首页
     saveHomeData(state, data) {
-      console.log(data)
-      VueSet(state, 'homeData', data.data.data.result.result)
+      VueSet(state, 'homeData', data.data.data.result.data.result)
       if (state.homeData != {}) {
         router.push({path: '/shopIndex/'})
       }
@@ -1184,33 +1189,33 @@ export default {
     },
     //分类
     saveSortData(state, data) {
-      VueSet(state, 'sortData', data.res.data)
+      VueSet(state, 'sortData', data.res.data.result.data)
       if (state.sortData != {}) {
         router.push({path: '/sortIndex/'})
       }
     },
     saveCommodityListData(state, data) {//商品列表
       if (data.myText == '滚动加载') {
-        VueSet(state, 'commodityListData', [...state.commodityListData, ...data.res.data.result.list])
+        VueSet(state, 'commodityListData', [...state.commodityListData, ...data.res.data.result.data.list])
         VueSet(state, 'someSortPage', state.someSortPage + 1)
       } else {
-        VueSet(state, 'commodityListData', data.res.data.result.list)
+        VueSet(state, 'commodityListData', data.res.data.result.data.list)
       }
       //保存下来用于判断数据是否全部加载完毕
-      VueSet(state, 'newCommodityListData', data.res.data.result.list)
+      VueSet(state, 'newCommodityListData', data.res.data.result.data.list)
       VueSet(state, 'sortid', data.sortid)
       if (state.commodityListData != {}) {
         router.push({path: '/sortIndex/someSort'})
       }
     },
     saveCommodityDetailData(state, data) {
-      VueSet(state, 'commodityDetailData', data.data.commodityDetailData.data)
-      VueSet(state, 'commodityColorSizeData', data.data.commodityColorSizeData.data.result)
-      VueSet(state, 'commodityPingjiaData', data.data.commodityPingjiaData.data.result)
-      VueSet(state, 'commodityPingjiaSortData', data.data.commodityPingjiaSortData.data.result.list)
-      VueSet(state,'evaluteTotal',data.data.commodityPingjiaSortData.data.result.total)
+      VueSet(state, 'commodityDetailData',data.data.commodityDetailData.data.result.data)
+      VueSet(state, 'commodityColorSizeData', data.data.commodityColorSizeData.data.result.data)
+      VueSet(state, 'commodityPingjiaData',data.data.commodityPingjiaData.data.result.data)
+      VueSet(state, 'commodityPingjiaSortData',data.data.commodityPingjiaSortData.data.result.data.list)
+      VueSet(state,'evaluteTotal',data.data.commodityPingjiaSortData.data.result.data.total)
       VueSet(state, 'curEvalutePage', data.data.page)
-      VueSet(state, 'isFavorite', data.data.commodityDetailData.data.result.goods_other.isFavorite)
+      VueSet(state, 'isFavorite', data.data.commodityDetailData.data.result.data.result.goods_other.isFavorite)
       if (state.commodityDetailData != {}) {
         router.push({path: '/sortIndex/detail'})
       }
@@ -1231,18 +1236,18 @@ export default {
       VueSet(state, 'payStatus', data.payStatus)
     },
     saveBuyPageData(state, data) {
-      VueSet(state, 'buyPageData', data.res.data)
-      VueSet(state, 'curSelAddress', data.res.data.result.address)
+      VueSet(state, 'buyPageData', data.res.data.result.data)
+      VueSet(state, 'curSelAddress',data.res.data.result.data.address)
       if (state.buyPageData != {}) {
         router.push({path: '/sortIndex/buyPage'})
       }
 
     },
     savePayMessage(state, data){
-      VueSet(state,'payMessage',data.data.data.result.message)
+      VueSet(state,'payMessage',data.data.data.result.msg)
     },
     saveSelPay(state, data) {
-      VueSet(state, 'selPay', data.data.data.result)
+      VueSet(state, 'selPay', data.data.data.result.data.result)
       VueSet(state,'payMessage','')
       if (state.selPay != {}) {
         router.push({path: '/sortIndex/selPay'})
@@ -1253,15 +1258,15 @@ export default {
     },
     //  购物车
     saveCartData(state, data) {
-      VueSet(state, 'cartData', data.res.data.result)
+      VueSet(state, 'cartData',data.res.data.result.data)
       var selArr = []
-      for (var i = 0; i < data.res.data.result.list.length; i++) {
-        if (data.res.data.result.list[i].selected == 1) {
-          selArr.push(data.res.data.result.list[i].id)
+      for (var i = 0; i < data.res.data.result.data.list.length; i++) {
+        if (data.res.data.result.data.list[i].selected == 1) {
+          selArr.push(data.res.data.result.data.list[i].id)
         }
       }
       VueSet(state, 'checkedArr', selArr)
-      if (selArr.length == data.res.data.result.list.length) {
+      if (selArr.length == data.res.data.result.data.list.length) {
         VueSet(state, 'isCheckAll', true)
       } else {
         VueSet(state, 'isCheckAll', false)
@@ -1286,10 +1291,10 @@ export default {
     //附近商家
     saveFujinData(state, data) {
       VueSet(state, 'positionInfo', data.data.positionInfo)
-      VueSet(state, 'Fujin_sortData', data.data.Fujin_sortData.data)
-      VueSet(state, 'getFujin_slideData', data.data.getFujin_slideData.data)
-      VueSet(state, 'Fujin_ListData', data.data.Fujin_ListData.data.result.list)
-      if (state.Fujin_sortData && state.getFujin_slideData && state.Fujin_ListData) {
+      VueSet(state, 'Fujin_sortData',data.data.Fujin_sortData.data.result.data)
+      VueSet(state, 'getFujin_slideData', data.data.getFujin_slideData.data.result.data)
+      VueSet(state, 'Fujin_ListData',data.data.Fujin_ListData.data.result.data.list)
+      if (state.Fujin_ListData!=[]) {
         router.push({path: '/fujin/'})
       }
     },
@@ -1321,21 +1326,26 @@ export default {
     },
     //分销
     saveFenxiaoHead(state, data) {
-      VueSet(state, 'fenxiao_headData', data.data.data)
+      VueSet(state, 'fenxiao_headData', data.data.data.result.data)
+      console.log(state.fenxiao_headData)
       //在分销中心里,status为0表示未审核，1代表审核通过；register为0代表没注册过，1注册过
-      if (state.fenxiao_headData.result.register == 0) {//没注册过
+      if (state.fenxiao_headData.data.result.register == 0) {//没注册过
         router.push({path: '/distributIndex/apply'})
-      } else if (state.fenxiao_headData.result.register == 1 && state.fenxiao_headData.status == 0) {//注册过待审核
+        console.log('没注册过')
+      } else if (state.fenxiao_headData.data.result.register == 1 && state.fenxiao_headData.data.status == 0) {//注册过待审核
         router.push({path: '/distributIndex/wait'})
-      } else {
+        console.log('注册过，待审核')
+      }else{
+        console.log('已经是分销商')
         router.push({path: '/distributIndex'})
       }
     },
     saveFenxiaoBody(state, data) {
-      VueSet(state, 'fenxiao_bodyData', data.data.data)
+      VueSet(state, 'fenxiao_bodyData',data.data.data.result.data)
     },
     savePriceData(state, data) {
-      VueSet(state, 'priceData', data.res.data.result)
+      console.log(data)
+      VueSet(state, 'priceData', data.res.data.result.data.result)
     },
     saveYongDetail(state, data) {
       VueSet(state, 'yongDetail', data.data.data.result)
@@ -1384,22 +1394,27 @@ export default {
     },
     //个人中心
     saveWodeData(state, data) {
-      VueSet(state, 'wodeHeadData', data.data.wodeHeadData.data.result.user)
+      VueSet(state, 'wodeHeadData', data.data.wodeHeadData.data.result.data.user)
       VueSet(state, 'wodeBodyData', data.data.wodeBodyData.data.result)
-      console.log(state.wodeHeadData)
-      console.log(state.wodeBodyData)
       if (state.wodeHeadData != {} && state.wodeBodyData != {}) {
         router.push({path: '/vipIndex'})
       }
     },
+    saveUpdateNickNameResult(state, data){
+      VueSet(state,'updateNickNameResult',data.data.data)
+    },
     saveLoginInfo(state, data) {
       VueSet(state, 'loginStatus', data.res.data.result.msg)
     },
+    saveRegistStatus(state, data){
+      VueSet(state, 'registStatus',data.data)
+      console.log(state.registStatus)
+    },
     saveVipInfoData(state, data) {
-      VueSet(state, 'vipInfoData', data.data.data.result.member)
+      VueSet(state, 'vipInfoData',data.data.data.result.data.member)
     },
     saveAddressList(state, data) {
-      VueSet(state, 'myAddressData', data.res.data.result.list)
+      VueSet(state, 'myAddressData', data.res.data.result.data.result.list)
     },
     saveWantEditAddress(state, data) {
       VueSet(state, 'wantEditAddress', data.params)
@@ -1415,7 +1430,7 @@ export default {
       VueSet(state, 'changeAddress',false)
     },
     saveMyOrder(state, data) {
-      VueSet(state, 'myOrder',[...state.myOrder,...data.res.data.result.list])
+      VueSet(state, 'myOrder',[...state.myOrder,...data.res.data.result.data.list])
       VueSet(state, 'orderStatus', data.orderStatus)
       VueSet(state, 'curOrderStausPage', data.curOrderStausPage)
       if (state.myOrder != [] && state.orderStatus != null) {
@@ -1443,13 +1458,13 @@ export default {
       VueSet(state, 'myLikeData', data.res.data.result)
     },
     saveZujiData(state, data) {
-      VueSet(state, 'zuJiData', data.res.data.result)
+      VueSet(state, 'zuJiData', data.res.data.result.data)
     },
     saveGetQuan(state, data){
-      VueSet(state,'getQuan',data.data.data.result)
+      VueSet(state,'getQuan',data.data.data.result.data)
     },
     saveCouponDetail(state, data){
-      VueSet(state,'couponDetail',data.data.data.result)
+      VueSet(state,'couponDetail',data.data.data.result.data.result)
       if(state.couponDetail!={}){
         router.push({path: '/vipIndex/getQuanDetail'})
       }

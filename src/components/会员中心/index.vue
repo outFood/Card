@@ -1,5 +1,5 @@
 <template>
-  <div id="vip">
+  <div id="vip" v-if="wodeHeadData&&wodeBodyData">
     <yd-navbar title="会员中心">
       <router-link to="#" slot="left">
         <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
@@ -78,7 +78,7 @@
         return this.$store.state.wodeBodyData
       },
       menuData() {
-        var menuData=this.$store.state.wodeBodyData.module.listmenu.data
+        var menuData=this.$store.state.wodeBodyData.data.module.listmenu.data
         for(var i=0;i<menuData.length;i++){
           if(menuData[i].text=='全部订单'){
             menuData.splice(i,1)
@@ -97,7 +97,7 @@
         return menuData
       },
       orderData(){
-        var orderData=this.$store.state.wodeBodyData.module.menu.data
+        var orderData=this.$store.state.wodeBodyData.data.module.menu.data
         for(var i=0;i<orderData.length;i++){
           if(i==0){
             orderData[0].iconSrc='/static/img/waitPay.png'
@@ -167,7 +167,16 @@
       }
     },
     beforeCreate(){
-
+      this.$store.dispatch({
+        type: 'resWode',
+        params:{
+          openid:localStorage.getItem('openid'),
+          mid:localStorage.getItem('userid'),
+          t:config.t,
+          uniacid:config.uniacid,
+          i:config.i
+        }
+      })
     },
     mounted(){
     }

@@ -173,7 +173,6 @@
               params:params
             })
           }else{
-            console.log('第奇数次点击,升序')
             this.curbottom=false
             this.curtop=true
             params.by='asc'
@@ -182,7 +181,6 @@
               params:params
             })
           }
-          console.log('价格筛选')
         }else if(parameter[0]=='搜索'&&parameter.length==1){//点击的是搜索
           console.log('关键字搜索')
           this.$store.dispatch({
@@ -242,8 +240,10 @@
           params:{
             id:id,
             t:config.t,
+            i:config.i,
+            uniacid:config.uniacid,
             mid:localStorage.getItem('userid'),
-            openid:localStorage.getItem('openid')
+            openid:localStorage.getItem('openid'),
           }
         })
       },

@@ -22,7 +22,7 @@
       由于微信支付限额,大额支付请线下转款到中国工商银行3602 1172 0910 0084 647(广州琶州支行) 单位:广州泛达九州网络科技有限公司
     </p>
     <div class="payMethods">
-      <div>
+      <div @click="weixinPay">
         <img src="/static/img/wechat.png" alt="">
         <div>
           <p>微信支付</p>
@@ -50,6 +50,8 @@
   </div>
 </template>
 <script>
+  var wx = require('weixin-js-sdk');
+  import router from '@/router'
   import config from '../../myConfig'
   export default {
     data(){
@@ -60,9 +62,43 @@
     computed:{
       selPay(){
         return this.$store.state.selPay
+      },
+      payMessage(){
+        return this.$store.state.payMessage
       }
     },
+    watch:{
+      payMessage:{
+        handler: function (val, oldVal) {
+
+          this.$dialog.confirm({
+            title: '提示',
+            mes: '余额不足，去充值？',
+            opts: () => {
+              router.push({path: '/vipIndex/recharge'})
+            }
+          });
+        },
+        deep: true
+      },
+    },
     methods:{
+      weixinPay(){
+        wx.config({
+          debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+          appId: 'wx14d70d4823134eb6', // 必填，公众号的唯一标识
+          timestamp:'' , // 必填，生成签名的时间戳
+          nonceStr: '', // 必填，生成签名的随机串
+          signature: '',// 必填，签名，见附录1
+          jsApiList: [] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+        wx.ready(function(){
+
+        });
+        wx.error(function(res){
+
+        });
+      },
       balancePay(){
         this.$dialog.confirm({
           mes: '确认要支付吗？',
@@ -71,13 +107,15 @@
               type:'balancePay',
               params:{
                 t:config.t,
+                i:config.i,
+                uniacid:config.uniacid,
+                mid:localStorage.getItem('userid'),
                 openid:localStorage.getItem('openid'),
                 ordersn:this.selPay.order.ordersn
               }
             })
           },
         });
-
       },
       back:function () {
         this.$router.go(-1)

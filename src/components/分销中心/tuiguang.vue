@@ -53,6 +53,7 @@
           t:config.t,
           i:config.i,
           openid:localStorage.getItem('openid'),
+          mid:localStorage.getItem('userid'),
           ispost:''
         }
       })

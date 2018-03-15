@@ -150,14 +150,11 @@
         this.show2=true
       },
       selColorSize(arr){
-        console.log(arr)
         if(arr[0]=='颜色'){
           this.color=arr[1]
         }else if(arr[0]=='尺寸'){
           this.size=arr[1]
         }
-        console.log('颜色：'+this.color)
-        console.log('尺寸：'+this.size)
       },
       sure(){
         if(this.options!=false){//商品有规格,要传optionid
@@ -181,9 +178,10 @@
                     optionid:this.options[i].id,//规格id
                     id:this.commodity_goods.id,
                     t:config.t,
+                    i:config.i,
+                    uniacid:config.uniacid,
                     mid:localStorage.getItem('userid'),
                     openid:localStorage.getItem('openid'),
-                    uniacid:config.uniacid
                   }
                 })
                 this.show2 = false
@@ -225,9 +223,11 @@
               type:'like',
               params:{
                 t:config.t,
-                id:this.commodity_goods.id,
+                i:config.i,
+                uniacid:config.uniacid,
                 openid:localStorage.getItem('openid'),
                 mid:localStorage.getItem('userid'),
+                id:this.commodity_goods.id,
                 isfavorite:1
               }
             })
@@ -236,9 +236,11 @@
               type:'like',
               params:{
                 t:config.t,
-                id:this.commodity_goods.id,
+                i:config.i,
+                uniacid:config.uniacid,
                 openid:localStorage.getItem('openid'),
                 mid:localStorage.getItem('userid'),
+                id:this.commodity_goods.id,
                 isfavorite:0
               }
             })

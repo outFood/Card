@@ -4,7 +4,6 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import config from './myConfig'
-
 import Vuex from 'vuex'
 //挂在数据中心组件
 Vue.use(Vuex)
@@ -57,13 +56,24 @@ window.app = new Vue({
   data: {
   },
   created(){
-    this.$store.dispatch({
-      type:'resHomeData',
-      params:{
-        id:config.homeid,
-        t:config.t,
-        uniacid:config.uniacid
-      }
-    })
+    //获取localStorage里的用户信息,判断用户是否登录，未登录则跳到登录页面，登录了就请求首页数据
+    var openid=localStorage.getItem('openid')
+    var mid=localStorage.getItem('userid')
+    console.log(openid)
+    console.log(mid)
+    if(openid!=null&&openid!='undefined'&&mid!=null&&mid!='undefined'){
+      console.log('请求首页数据')
+      this.$store.dispatch({
+        type:'resHomeData',
+        params:{
+          id:config.homeid,
+          t:config.t,
+          uniacid:config.uniacid
+        }
+      })
+    }else{
+      console.log('跳登录')
+      router.push({path: 'vipIndex/login'})
+    }
   }
 })

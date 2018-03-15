@@ -222,13 +222,14 @@
         this.$store.dispatch({
           type:'submitEvaluate',
           params:{
+            uniacid:config.uniacid,
             t:config.t,
+            i:config.i,
             openid:localStorage.getItem('openid'),
             mid:localStorage.getItem('userid'),
             goodsid:this.goodsidArr,
             level:this.star,
             content:this.leaveWord,
-            i:config.i,
             orderid:this.evaluatPage.order.id,
             images:this.headerImage,
           }
