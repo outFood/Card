@@ -39,6 +39,7 @@ export default {
       pageNum: 0,
       fuKuanCode: {},
       shouKuanCode: {},
+      shoukuanMsg:'',
       vipCard: {},
       //分类
       sortData: {},
@@ -204,10 +205,9 @@ export default {
 
     },
     resCommodityDetailData({commit, state}, data) {
-      var cartPrams={t:config.t,uniacid:config.uniacid,mid:localStorage.getItem('userid'),openid:localStorage.getItem('openid')}
+      var cartPrams={t:config.t,uniacid:config.uniacid,mid:config.mid,openid:config.openid}
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.get_list', {params:cartPrams})
         .then(function (res) {
-          console.log(res)
           for(var i=0,sum=0;i<res.data.result.data.list.length;i++){
             sum+=parseInt(res.data.result.data.list[i].total)
           }
@@ -655,12 +655,8 @@ export default {
                 type: 'saveTuiGuangData',
                 data: [restext, resimg]
               })
-            }).catch(function (err) {
-            console.log('请求失败：' + err)
-          })
-        }).catch(function (err) {
-        console.log('请求失败：' + err)
-      })
+            }).catch(function (err) {console.log('请求失败：' + err)})
+        }).catch(function (err) {console.log('请求失败：' + err)})
     },
     resXiaoDianData({commit, state}, data) {
       var params = {
@@ -1170,16 +1166,22 @@ export default {
       }
     },
     saveFuKuanCode(state, data) {
-      VueSet(state, 'fuKuanCode', data.data.data.result)
+      VueSet(state, 'fuKuanCode', data.data.data.result.data)
       if (state.fuKuanCode != {}) {
         router.push({path: '/shopIndex/fukuan'})
       }
     },
     saveShouKuanCode(state, data) {
-      VueSet(state, 'shouKuanCode', data.data.data.result)
-      if (state.shouKuanCode != {}) {
-        router.push({path: '/shopIndex/shoukuan'})
+      console.log(data)
+      if(data.data.data.status==0){
+        VueSet(state,'shoukuanMsg',data.data.data.result.msg)
+      }else{
+        VueSet(state, 'shouKuanCode', data.data.data.result)
+        if (state.shouKuanCode != {}) {
+          router.push({path: '/shopIndex/shoukuan'})
+        }
       }
+
     },
     saveVipCard(state, data) {
       VueSet(state, 'vipCard', data.data.data.result)
@@ -1327,7 +1329,6 @@ export default {
     //分销
     saveFenxiaoHead(state, data) {
       VueSet(state, 'fenxiao_headData', data.data.data.result.data)
-      console.log(state.fenxiao_headData)
       //在分销中心里,status为0表示未审核，1代表审核通过；register为0代表没注册过，1注册过
       if (state.fenxiao_headData.data.result.register == 0) {//没注册过
         router.push({path: '/distributIndex/apply'})
@@ -1344,24 +1345,26 @@ export default {
       VueSet(state, 'fenxiao_bodyData',data.data.data.result.data)
     },
     savePriceData(state, data) {
-      console.log(data)
       VueSet(state, 'priceData', data.res.data.result.data.result)
+      console.log(state.priceData)
     },
     saveYongDetail(state, data) {
-      VueSet(state, 'yongDetail', data.data.data.result)
+      VueSet(state, 'yongDetail',data.data.data.result.data)
     },
     saveXiaXian(state, data) {
-      VueSet(state, 'xiaXian', data.data.data.result)
+      VueSet(state, 'xiaXian', data.data.data.result.data)
+      console.log(state.xiaXian)
     },
     saveTixianData(state, data) {
-      VueSet(state, 'tixianData', data.data.data.result)
+      VueSet(state, 'tixianData',data.data.data.result.data)
     },
     saveOkTiXian(state, data){
       VueSet(state,'okTiXian',data.data.data.result)
     },
     saveTuiGuangData(state, data) {
+      console.log(data)
       VueSet(state, 'qrcodeText', data.data[0].data.result)
-      VueSet(state, 'qrcodeImg', data.data[1].data.result)
+      VueSet(state, 'qrcodeImg', data.data[1].data.result.data)
       if (state.qrcodeText != {} && state.qrcodeImg != {}) {
         router.push({path: '/distributIndex/tuiguang'})
       }
@@ -1438,7 +1441,7 @@ export default {
       }
     },
     saveOrderDetail(state, data){
-      VueSet(state,'orderDetail',data.data.data.result)
+      VueSet(state,'orderDetail',data.data.data.result.data)
       if(state.orderDetail!={}){
        router.push({path: '/vipIndex/orderDetail'})
       }
@@ -1478,15 +1481,9 @@ export default {
     },
     saveAddOrReduce(state, data) {
       VueSet(state, 'addOrOrder', data.data.data.result)
-      if (state.addOrOrder != {}) {
-        router.push({path: '/vipIndex/AddOrReduce'})
-      }
     },
     saveRecord(state, data) {
       VueSet(state, 'recordData', data.data.data.result)
-      if (state.recordData != 0) {
-        router.push({path: '/vipIndex/record'})
-      }
     }
   }
 }

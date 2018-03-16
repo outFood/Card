@@ -158,6 +158,7 @@
   }
 </style>
 <script>
+  import router from '@/router'
   import config from '../../myConfig'
   export default {
     data(){
@@ -196,16 +197,30 @@
     },
     methods:{
       resCommodityDetailData(id){
-        this.$store.dispatch({
-          type:'resCommodityDetailData',
-          params:{
-            id:id,
-            t:config.t,
-            mid:localStorage.getItem('userid'),
-            openid:localStorage.getItem('openid')
-          }
-        })
-      }
+        var openid=localStorage.getItem('openid')
+        var mid=localStorage.getItem('userid')
+        if(openid!=null&&openid!='undefined'&&mid!=null&&mid!='undefined'){
+          this.$store.dispatch({
+            type:'resCommodityDetailData',
+            params:{
+              id:id,
+              t:config.t,
+              i:config.i,
+              uniacid:config.uniacid,
+              mid:config.mid,
+              openid:config.openid,
+            }
+          })
+        }else{
+          this.$dialog.confirm({
+            title: '提示',
+            mes: '请先登录！',
+            opts: () => {
+              router.push({path: '/vipIndex/login'})
+            }
+          });
+        }
+      },
     }
   }
 </script>

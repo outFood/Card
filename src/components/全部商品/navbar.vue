@@ -1,44 +1,5 @@
 <template>
   <div id="navbar" v-if="diynavbar">
-    <!--&lt;!&ndash;  /*navbar1&#45;&#45;&#45;&#45;&#45;&#45;五个按钮全都有*/&ndash;&gt;-->
-    <!--<div class="navbar1"  v-if="diynavbar.length==3&&navbar.params.hidecartbtn!=1">-->
-      <!--<div class="icon" :style="{background:navbar.style.background,color:navbar.style.textcolor}"    @click="clickIcon(diynavbar[0].icontext)"><img :src="diynavbar[0].imgSrc_white" alt="">{{diynavbar[0].icontext}}</div>-->
-      <!--<div class="icon" :style="{background:navbar.style.background,color:navbar.style.textcolor}"    @click="clickIcon(diynavbar[1].icontext)"><img :src="diynavbar[1].imgSrc" alt="">{{diynavbar[1].icontext}}</div>-->
-      <!--<div class="icon" :style="{background:navbar.style.background,color:navbar.style.textcolor}"    @click="clickIcon(diynavbar[2].icontext)"><img :src="diynavbar[2].imgSrc" alt="">{{diynavbar[2].icontext}}</div>-->
-      <!--<div class="addCart" :style="{background:navbar.style.cartcolor}"  @click="changePayStaus('加入购物车')">加入购物车</div>-->
-      <!--<router-link to="#" class="pay" :style="{background:navbar.style.buycolor}"  @click.native="changePayStaus('购买')">购买</router-link>-->
-    <!--</div>-->
-    <!--&lt;!&ndash; /*navbar2&#45;&#45;&#45;&#45;&#45;&#45;没有加入购物车按钮*/&ndash;&gt;-->
-    <!--<div class="navbar2" v-if="diynavbar.length==3&&navbar.params.hidecartbtn==1">-->
-      <!--<div class="icon" v-for="(item,key) in diynavbar" :key="key" :style="{background:navbar.style.background,color:navbar.style.textcolor}"  @click="clickIcon(item.icontext)"><img :src="item.imgSrc" alt=""><span  v-if="item.icontext=='购物车'&&cartcount>0" :style="{background:navbar.style.dotcolor}">{{cartcount}}</span>{{item.icontext}}</div>-->
-      <!--<div class="pay" :style="{background:navbar.style.buycolor}"  @click="changePayStaus('购买')">购买</div>-->
-    <!--</div>-->
-    <!--&lt;!&ndash;  /*navbar3&#45;&#45;&#45;&#45;&#45;&#45;只有购买按钮*/&ndash;&gt;-->
-    <!--<div class="navbar3" v-if="diynavbar.length==0&&navbar.params.hidecartbtn==1">-->
-      <!--<div class="pay" :style="{background:navbar.style.buycolor}"  @click="changePayStaus('购买')">购买</div>-->
-    <!--</div>-->
-    <!--&lt;!&ndash;/*navbar4&#45;&#45;&#45;&#45;&#45;&#45;只有加入购物车和购买按钮*/&ndash;&gt;-->
-    <!--<div class="navbar4" v-if="diynavbar.length==0">-->
-      <!--<div class="addCart" :style="{background:navbar.style.cartcolor}"  @click="changePayStaus('加入购物车')">加入购物车</div>-->
-      <!--<div class="pay" :style="{background:navbar.style.buycolor}"  @click="changePayStaus('购买')">购买</div>-->
-    <!--</div>-->
-    <!--&lt;!&ndash; /*navbar5&#45;&#45;&#45;&#45;&#45;&#45;只有一个icon*/&ndash;&gt;-->
-    <!--<div class="navbar5"  v-if="diynavbar.length==1&navbar.params.hidecartbtn!=1">-->
-      <!--<div class="icon" v-for="(item,key) in diynavbar" :key="key" :style="{background:navbar.style.background,color:navbar.style.textcolor}" @click="clickIcon(item.icontext)"><img :src="item.imgSrc" alt=""><span  v-if="item.icontext=='购物车'&&cartcount>0" :style="{background:navbar.style.dotcolor}">{{cartcount}}</span>{{item.icontext}}</div>-->
-      <!--<div class="addCart" :style="{background:navbar.style.cartcolor}"  @click="changePayStaus('加入购物车')">加入购物车</div>-->
-      <!--<div class="pay" :style="{background:navbar.style.buycolor}"  @click="changePayStaus('购买')">购买</div>-->
-    <!--</div>-->
-    <!--&lt;!&ndash;/*navbar6-&#45;&#45;&#45;&#45;有两个icon*/&ndash;&gt;-->
-    <!--<div class="navbar6" v-if="diynavbar.length==2">-->
-      <!--<div class="icon" v-for="(item,key) in diynavbar" :key="key" :style="{background:navbar.style.background,color:navbar.style.textcolor}"   @click="clickIcon(item.icontext)"><img :src="item.imgSrc" alt=""><span  v-if="item.icontext=='购物车'&&cartcount>0" :style="{background:navbar.style.dotcolor}">{{cartcount}}</span>{{item.icontext}}</div>-->
-      <!--<div class="addCart" :style="{background:navbar.style.cartcolor}"  @click="changePayStaus('加入购物车')">加入购物车</div>-->
-      <!--<div class="pay" :style="{background:navbar.style.buycolor}"  @click="changePayStaus('购买')">购买</div>-->
-    <!--</div>-->
-    <!--&lt;!&ndash;/*navbar7-&#45;&#45;&#45;&#45;只有一个icon和购买按钮*/&ndash;&gt;-->
-    <!--<div class="navbar7" v-if="diynavbar.length==1&&navbar.params.hidecartbtn==1">-->
-      <!--<div class="icon" v-for="(item,key) in diynavbar" :key="key" :style="{background:navbar.style.background,color:navbar.style.textcolor}" @click="clickIcon(item.icontext)"><img :src="item.imgSrc" alt=""><span  v-if="item.icontext=='购物车'&&cartcount>0" :style="{background:navbar.style.dotcolor}">{{cartcount}}</span>{{item.icontext}}</div>-->
-      <!--<div class="pay" :style="{background:navbar.style.buycolor}"  @click="changePayStaus('购买')">购买</div>-->
-    <!--</div>-->
     <div class="navbar1">
       <div class="icon" @click="clickIcon('关注')"><img src="/static/img/heart.png" alt="" v-if="isFavorite"><img src="/static/img/heart-kong.png" alt="" v-else>关注</div>
       <div class="icon" @click="clickIcon('店铺')"><img src="/static/img/shop_black.png" alt="" class="shop">店铺</div>
@@ -139,8 +100,6 @@
         return this.$store.state.isFavorite
       }
     },
-    mounted(){
-    },
     methods:{
       changePayStaus(status){//此方法用于在用户点击“加入购物车”或“购买”按钮的时候，去改变当前购买状态，从而在点击确认的时候，将商品加入购物车或者跳转到支付页面
         this.$store.dispatch({
@@ -159,9 +118,15 @@
       sure(){
         if(this.options!=false){//商品有规格,要传optionid
           if(this.color==undefined){
-            alert('请选择颜色')
+            this.$dialog.toast({
+              mes: '请选择颜色！',
+              timeout: 1500
+            });
           }else if(this.size==undefined){
-            alert('请选择尺寸')
+            this.$dialog.toast({
+              mes: '请选择尺寸！',
+              timeout: 1500
+            });
           }else{
             var curSel='';
             if(this.specs[0].title=='颜色'){

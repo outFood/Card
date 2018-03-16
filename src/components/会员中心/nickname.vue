@@ -36,13 +36,13 @@
       updateNickNameResult:{
         handler: function (val, oldVal) {
           this.$dialog.toast({
-            mes:'头像'+val.result.msg,
+            mes:val.result.msg,
             timeout: 1500,
-            callback: () => {
-              if(val.status==1){
-                router.push({path: '/vipIndex/vipInfo'})
-              }
-            }
+//            callback: () => {
+//              if(val.status==1){
+//                router.push({path: '/vipIndex/vipInfo'})
+//              }
+//            }
           });
         },
         deep: true
@@ -208,7 +208,7 @@
             t:config.t,
             mid:localStorage.getItem('userid'),
             openid:localStorage.getItem('openid'),
-            nickname:this.nickname,
+            nickname:this.nickname?this.nickname:this.wodeHeadData.nickname,
             headStr:this.headerImage,
           }
         })

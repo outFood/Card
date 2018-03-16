@@ -22,6 +22,9 @@
   }
 </script>
 <style>
+  #detailSlider .yd-slider-item img{
+    height:350px;
+  }
 #detailSlider .yd-slider{
     height:300px !important;
   }

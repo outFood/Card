@@ -39,6 +39,7 @@
   }
 </style>
 <script>
+  import config from '../../myConfig'
   import noOrder from '@/components/会员中心/noOrder'
   export default {
     computed:{
@@ -51,6 +52,20 @@
       back:function () {
         this.$router.go(-1)
       }
+    },
+    beforeCreate(){
+      this.$store.dispatch({
+        type:'resRecord',
+        params:{
+          uniacid:config.uniacid,
+          t:config.t,
+          i:config.i,
+          openid:localStorage.getItem('openid'),
+          mid:localStorage.getItem('userid'),
+          page:1,
+          pagesize:10
+        }
+      })
     }
   }
 </script>

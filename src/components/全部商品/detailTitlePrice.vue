@@ -75,8 +75,8 @@
     text-align: center;
   }
   #titlePrice .titleShare div img{
-    width:0.87125rem;
-    height:0.87125rem;
+    width:0.8rem;
+    height:0.8rem;
     display: block;
     margin:0 auto;
     margin-bottom: 5px;

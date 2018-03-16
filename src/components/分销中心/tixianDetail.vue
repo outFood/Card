@@ -61,9 +61,6 @@
         })
       }
     },
-    mounted(){
-      console.log(this.tixianData)
-    },
     beforeCreate(){
       this.$store.dispatch({
         type:'resTiXian',

@@ -21,6 +21,11 @@
 <script>
   import config from '../../myConfig'
   export default {
+    computed:{
+      shoukuanMsg(){
+        return this.$store.state.shoukuanMsg
+      }
+    },
     methods:{
       resTuiGuang(){
         this.$store.dispatch({
@@ -54,6 +59,12 @@
             amount:''
           }
         })
+        setTimeout(()=>{
+          this.$dialog.toast({
+            mes:this.shoukuanMsg,
+            timeout: 1000,
+          });
+        },500)
       },
       resVipCard(){
         this.$store.dispatch({

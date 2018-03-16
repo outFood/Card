@@ -235,17 +235,29 @@
         this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.finishLoad');
       },
       resCommodityDetailData(id){
-        this.$store.dispatch({
-          type:'resCommodityDetailData',
-          params:{
-            id:id,
-            t:config.t,
-            i:config.i,
-            uniacid:config.uniacid,
-            mid:localStorage.getItem('userid'),
-            openid:localStorage.getItem('openid'),
-          }
-        })
+        var openid=localStorage.getItem('openid')
+        var mid=localStorage.getItem('userid')
+        if(openid!=null&&openid!='undefined'&&mid!=null&&mid!='undefined'){
+          this.$store.dispatch({
+            type:'resCommodityDetailData',
+            params:{
+              id:id,
+              t:config.t,
+              i:config.i,
+              uniacid:config.uniacid,
+              mid:config.mid,
+              openid:config.openid,
+            }
+          })
+        }else{
+          this.$dialog.confirm({
+            title: '提示',
+            mes: '请先登录！',
+            opts: () => {
+              router.push({path: '/vipIndex/login'})
+            }
+          });
+        }
       },
       back:function () {
         this.$router.go(-1)
@@ -281,7 +293,7 @@
     border-bottom:1px solid #eee;
   }
   #someSort header .search>div{
-    flex:0 0 65%
+    flex:0 0 70%
   }
   #someSort header .search .searchBtn{
     display: block;
@@ -295,7 +307,7 @@
     background: #eee;
   }
   #someSort header .search img{
-    width:0.78125rem;
+    width:1rem;
     height:0.78125rem;
   }
   #someSort header .tab{
@@ -369,7 +381,7 @@
   }
   #someSort .content .con-h>div img{
     width:100%;
-    height:3.125rem;
+    height:5rem;
   }
   #someSort .content .con-h>div div{
     text-align: left;
@@ -403,11 +415,11 @@
     padding:0.3125rem;
     margin-bottom:0.3125rem;
     background: #fff;
-    height:3.125rem
+    height:3.6rem
   }
   #someSort .content .con-v>div img{
     width:35%;
-    height:2.41rem;
+    height:3rem;
   }
   #someSort .content .con-v>div .right{
     float: right;

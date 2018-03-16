@@ -32,6 +32,12 @@
   </div>
 </template>
 <style>
+  .yd-search-input{
+    background: #fff !important;
+  }
+  .yd-scrolltab-content-title{
+    display: none !important;
+  }
   #sort .yd-scrolltab .yd-scrolltab-content-item .infoItem .infoCon{
     display: -webkit-box;
     display: -webkit-flex;

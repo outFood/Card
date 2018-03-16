@@ -5,7 +5,7 @@
         <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
       </router-link>
     </yd-navbar>
-    <p class="leiji"><span>累计佣金</span><span>+{{yongDetail.member.commission_total}}元</span></p>
+    <p class="leiji"><span>累计佣金</span><span>+ {{yongDetail.member.commission_total?yongDetail.member.commission_total:0}} 元</span></p>
     <div class="orderNav">
       <span :class="{curOrderNav:curSel==''}" @click="lookYongDetail('所有')">所有</span>
       <span :class="{curOrderNav:curSel=='0'}" @click="lookYongDetail('待付款')">待付款</span>

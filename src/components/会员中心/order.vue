@@ -275,6 +275,11 @@
   }
 </script>
 <style>
+  .yd-actionsheet-item,.yd-actionsheet-action{
+    height:1.5rem;
+    line-height: 1.5rem;
+    font-size: .5rem;
+  }
   #order header {
     height: 1.5rem !important;
     align-items: center;

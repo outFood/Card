@@ -51,9 +51,15 @@
   #buyPage{
     margin-bottom:2.5rem;
   }
-  #buyPage header{
-    height:1.3rem !important;
+  #buyPage header {
+    height: 1.5rem !important;
     align-items: center;
+  }
+  #buyPage header .yd-navbar-center-title{
+    font-size:.5rem !important;
+  }
+  #buyPage .yd-back-icon:before, .yd-next-icon:before {
+    font-size: .6rem;
   }
   #buyPage .address{
     display: -webkit-box;

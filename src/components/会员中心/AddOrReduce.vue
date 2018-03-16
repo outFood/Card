@@ -63,11 +63,26 @@
   }
 </style>
 <script>
+  import config from '../../myConfig'
   export default {
     methods:{
       back:function () {
         this.$router.go(-1)
       }
+    },
+    beforeCreate(){
+      this.$store.dispatch({
+        type:'resAddOrReduce',
+        params:{
+          page:1,
+          pagesize:10,
+          uniacid:config.uniacid,
+          t:config.t,
+          i:config.i,
+          mid:config.mid,
+          openid:localStorage.getItem('openid'),
+        }
+      })
     }
   }
 </script>

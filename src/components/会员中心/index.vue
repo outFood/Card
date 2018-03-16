@@ -8,12 +8,12 @@
     <div id="head">
       <p>
         <router-link to="#"><img src="/static/img/msg.png" alt=""></router-link>
-        <router-link to="/vipIndex/set"><img src="/static/img/set.png" alt=""></router-link>
-        <router-link to="/vipIndex/vipInfo"><img src="/static/img/personInfo.png" alt=""></router-link>
+        <router-link to="#"  @click.native="toWhere('vipIndex/set')"><img src="/static/img/set.png" alt=""></router-link>
+        <router-link to="#" @click.native="toWhere('vipIndex/vipInfo')"><img src="/static/img/personInfo.png" alt=""></router-link>
         <span>1</span>
       </p>
       <div class="personInfo">
-        <router-link to="/vipIndex/nickname" class="headPic" tag="div"><img
+        <router-link to="#" @click.native="toWhere('/vipIndex/nickname')" class="headPic" tag="div"><img
           :src="wodeHeadData.avatar"></router-link>
         <router-link to="/vipIndex/login"  v-if="openid==null||openid==''" class="toLogin">请点击登录</router-link>
         <div v-if="openid!=null&&openid!=''">
@@ -35,9 +35,9 @@
     </div>
     <div class="zijin">
       <div><span>我的资金:0.00</span></div>
-      <div @click="resAddOrReduce"><span>资金来往</span></div>
+      <div @click="toWhere('/vipIndex/AddOrReduce')"><span>资金来往</span></div>
       <div><span>授权登录</span></div>
-      <div @click="resRecord"><span>返还记录</span></div>
+      <div @click="toWhere('/vipIndex/record')"><span>返还记录</span></div>
     </div>
     <div class="dingdan">
       <router-link to="#" class="top" @click.native="lookOrder('全部')">
@@ -116,51 +116,62 @@
     },
     methods: {
       lookOrder(text){
-        this.$store.dispatch({
-          type:'resMyOrder',
-          text:text
-        })
-      },
-      toOther(text){
-        if(text=='我的关注'){
-          router.push({path: '/vipIndex/myLike'})
-        }else if(text=='我的足迹'){
-          router.push({path: '/vipIndex/zuji'})
-        }else if(text=='我的地址'){
-          router.push({path: '/vipIndex/myAddress'})
-        }else if(text=='领取优惠券'){
-          router.push({path: '/vipIndex/getQuan'})
-        }else if(text=='我的优惠券'){
-          router.push({path: '/vipIndex/myQuan'})
+        var openid=localStorage.getItem('openid')
+        var mid=localStorage.getItem('userid')
+        if(openid!=null&&openid!='undefined'&&mid!=null&&mid!='undefined'){
+          this.$store.dispatch({
+            type:'resMyOrder',
+            text:text
+          })
+        }else{
+          this.$dialog.confirm({
+            title: '提示',
+            mes: '请先登录！',
+            opts: () => {
+              router.push({path: 'vipIndex/login'})
+            }
+          });
         }
       },
-      resAddOrReduce(){
-        this.$store.dispatch({
-          type:'resAddOrReduce',
-          params:{
-            page:1,
-            pagesize:10,
-            uniacid:config.uniacid,
-            t:config.t,
-            i:config.i,
-            mid:config.mid,
-            openid:localStorage.getItem('openid'),
+      toOther(text){
+        var openid=localStorage.getItem('openid')
+        var mid=localStorage.getItem('userid')
+        if(openid!=null&&openid!='undefined'&&mid!=null&&mid!='undefined'){
+          if(text=='我的关注'){
+            router.push({path: '/vipIndex/myLike'})
+          }else if(text=='我的足迹'){
+            router.push({path: '/vipIndex/zuji'})
+          }else if(text=='我的地址'){
+            router.push({path: '/vipIndex/myAddress'})
+          }else if(text=='领取优惠券'){
+            router.push({path: '/vipIndex/getQuan'})
+          }else if(text=='我的优惠券'){
+            router.push({path: '/vipIndex/myQuan'})
           }
-        })
+        }else{
+          this.$dialog.confirm({
+            title: '提示',
+            mes: '请先登录！',
+            opts: () => {
+              router.push({path: 'vipIndex/login'})
+            }
+          });
+        }
       },
-      resRecord(){
-        this.$store.dispatch({
-          type:'resRecord',
-          params:{
-            uniacid:config.uniacid,
-            t:config.t,
-            i:config.i,
-            openid:localStorage.getItem('openid'),
-            mid:localStorage.getItem('userid'),
-            page:1,
-            pagesize:10
-          }
-        })
+      toWhere(toStr){
+         var openid=localStorage.getItem('openid')
+         var mid=localStorage.getItem('userid')
+         if(openid!=null&&openid!='undefined'&&mid!=null&&mid!='undefined'){
+           router.push({path:toStr})
+         }else{
+           this.$dialog.confirm({
+             title: '提示',
+             mes: '请先登录！',
+             opts: () => {
+               router.push({path: 'vipIndex/login'})
+             }
+           });
+         }
       },
       back:function () {
         this.$router.go(-1)

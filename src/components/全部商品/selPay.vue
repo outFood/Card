@@ -124,8 +124,15 @@
   }
 </script>
 <style>
-  #selPay{
-
+  #selPay header {
+    height: 1.5rem !important;
+    align-items: center;
+  }
+  #selPay header .yd-navbar-center-title{
+    font-size:.5rem !important;
+  }
+  #selPay .yd-back-icon:before, .yd-next-icon:before {
+    font-size: .6rem;
   }
   #selPay .order{
     padding:0 10px;
