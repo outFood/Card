@@ -65,19 +65,36 @@
       },
       toSort(){
         this.$store.dispatch({
-          type:'resSortData'
+          type:'resSortData',
+          params:{
+            i:config.i,
+            t:config.t,
+            uniacid:config.uniacid
+          }
         })
       },
       toCart(){
-        this.$store.dispatch({
-          type:'lookCart',
-          params:{
-            t:config.t,
-            uniacid:config.uniacid,
-            mid:localStorage.getItem('userid'),
-            openid:localStorage.getItem('openid')
-          }
-        })
+        var openid=localStorage.getItem('openid')
+        var mid=localStorage.getItem('userid')
+        if(openid!=null&&openid!='undefined'&&mid!=null&&mid!='undefined'){
+          this.$store.dispatch({
+            type:'lookCart',
+            params:{
+              t:config.t,
+              uniacid:config.uniacid,
+              mid:localStorage.getItem('userid'),
+              openid:localStorage.getItem('openid')
+            }
+          })
+        }else{
+          this.$dialog.confirm({
+            title: '提示',
+            mes: '请先登录！',
+            opts: () => {
+              router.push({path: '/vipIndex/login'})
+            }
+          });
+        }
       }
     }
   }

@@ -2,16 +2,14 @@
   <div id="fujin">
     <yd-infinitescroll :callback="loadList" ref="infinitescrollDemo">
       <yd-list theme="1" slot="list">
-        <yd-pullrefresh :callback="pullrefresh" ref="pullrefreshDemo">
-          <!----------------------------------------------------------->
-          <position></position>
-          <search></search>
-          <banner></banner>
-          <sort-slide></sort-slide>
-          <youxuan></youxuan>
-          <shop-list></shop-list>
-          <!----------------------------------------------------------->
-        </yd-pullrefresh>
+        <!----------------------------------------------------------->
+        <position></position>
+        <search></search>
+        <banner></banner>
+        <sort-slide></sort-slide>
+        <youxuan></youxuan>
+        <shop-list></shop-list>
+        <!----------------------------------------------------------->
       </yd-list>
       <!-- 数据全部加载完毕显示 -->
       <span slot="doneTip">啦啦啦，啦啦啦，没有数据啦~~</span>

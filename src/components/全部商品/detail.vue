@@ -31,4 +31,8 @@
   }
 </script>
 <style>
+  #detail .yd-tab-nav-item>a{
+    padding:8px 0;
+    font-size:.45rem;
+  }
 </style>

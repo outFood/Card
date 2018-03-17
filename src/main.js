@@ -64,5 +64,6 @@ window.app = new Vue({
         uniacid:config.uniacid
       }
     })
-  }
+  },
+
 })

@@ -3,7 +3,7 @@
     <yd-slider autoplay="3000">
       <yd-slider-item>
           <router-link  v-for="(item,key) in sliderNavItem" :key="key" :to="item.linkurl" :class="['rownum'+sliderNavData.style.rownum]"  @click.native="clickMenu(item.text)">
-            <img :src="prefix+item.imgurl" alt="" :class="[sliderNavData.style.navstyle]">
+            <img :src="item.imgurl" alt="" :class="[sliderNavData.style.navstyle]">
             {{item.text}}
           </router-link>
       </yd-slider-item>
@@ -25,9 +25,6 @@
           }
         }
       },
-      prefix(){//图标附加前缀
-        return this.$store.state.prefix
-      }
     },
     created(){
       setTimeout(()=>{

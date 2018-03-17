@@ -39,7 +39,6 @@
         }
         len=Math.abs(len-8)
       }
-      console.log(this.haha)
     }
   }
 </script>

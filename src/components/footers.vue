@@ -26,11 +26,13 @@
           name:'全部商品',
           path: '/sortIndex/',
           ico: '/static/img/sort.png'
-        },{
-          name: 'E聊',
-          ico: '/static/img/eChart.png',
-          path: '/eChart/'
-        }, {
+        },
+//          {
+//          name: 'E聊',
+//          ico: '/static/img/eChart.png',
+//          path: '/eChart/'
+//        },
+          {
           name:'附近商家',
           ico: '/static/img/fujin.png',
           path: '/fujin/'
@@ -44,6 +46,14 @@
           path: '/vipIndex/'
         }],
       tipBoxShow:false
+      }
+    },
+    computed:{
+      lat(){
+        this.$store.state.positionInfo.position.lat
+      },
+      lng(){
+        this.$store.state.positionInfo.position.lng
       }
     },
     methods:{
@@ -74,44 +84,18 @@
           })
         }else if(path=='eChart'){//请求E聊
         }else if(path=='fujin'){//请求附近
-          this.loadmap();     //加载地图和相关组件formattedAddress
-          var me = this;
-          var mapObj = new AMap.Map('iCenter');
-          mapObj.plugin('AMap.Geolocation', function () {
-            var geolocation = new AMap.Geolocation({
-              enableHighAccuracy: true,//是否使用高精度定位，默认:true
-              timeout: 10000,          //超过10秒后停止定位，默认：无穷大
-              maximumAge: 0,           //定位结果缓存0毫秒，默认：0
-              convert: true,           //自动偏移坐标，偏移后的坐标为高德坐标，默认：true
-              showButton: true,        //显示定位按钮，默认：true
-              buttonPosition: 'LB',    //定位按钮停靠位置，默认：'LB'，左下角
-              buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
-              showMarker: true,        //定位成功后在定位到的位置显示点标记，默认：true
-              showCircle: true,        //定位成功后用圆圈表示定位精度范围，默认：true
-              panToLocation: true,     //定位成功后将定位到的位置作为地图中心点，默认：true
-              zoomToAccuracy: true      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
-            });
-            mapObj.addControl(geolocation);
-            geolocation.getCurrentPosition();
-            AMap.event.addListener(geolocation, 'complete', function (complate) {
-              me.$store.dispatch({
-                type:'resFujinData',
-                params:{
-                  page:1,
-                  pagesize:10,
-                  cateid:'',
-                  lat:complate.position.lat,
-                  lng:complate.position.lng,
-                  uniacid:config.t,
-                  t:config.t,
-                  i:config.i,
-                },
-                positionInfo:complate
-              })
-            });//返回定位信息
-            AMap.event.addListener(geolocation, 'error', function (err) {
-              me.cityName = '获取位置失败'
-            });      //返回定位出错信息
+          this.$store.dispatch({
+            type:'resFujinData',
+            params:{
+              page:1,
+              pagesize:10,
+              cateid:'',
+              lat:this.$store.state.lat?this.$store.state.lat:'',
+              lng:this.$store.state.lng?this.$store.state.lng:'',
+              uniacid:config.t,
+              t:config.t,
+              i:config.i,
+            },
           })
         }else if(path=='cart'){
           var openid=localStorage.getItem('openid')
@@ -161,7 +145,7 @@
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding: 8px;
+  padding:0.25rem;
   width:100%;
   background: #fff;
   box-shadow:    0px -3px 0px 0px rgba(0,0,0,0.01)  /*设置上阴影*/
@@ -169,18 +153,18 @@
 #footers>div{
   -webkit-box-flex: 0;
   -ms-flex: 0 0 14.2%;
-  flex: 0 0 16.6%;
+  flex: 0 0 20%;
 }
 #footers a{
   color:#707070;
-  font-size:12px;
+  font-size:0.45rem;
 }
 #footers a img{
-  width:25px;
-  height:25px;
+  width:0.79rem;
+  height:0.79rem;
 }
 #footers div:nth-child(3) img{
-  width:38px !important;
+  width:1rem !important;
 }
 </style>
 

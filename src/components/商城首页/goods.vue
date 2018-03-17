@@ -2,7 +2,7 @@
   <div id="goods" v-if="goodsData" :style="{background:goodsData.style.background}">
     <div class="showMethod1"  v-if="listStyle==1">
       <div v-for="(item,key) in goodsItem"  @click="resCommodityDetailData(item.gid)">
-        <img :src="prefix+item.thumb" alt="">
+        <img :src="item.thumb" alt="">
         <div  class="lastdiv"><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}">{{item.title}}</span></p>
           <p>
             <span class="price" :style="{color:goodsData.style.pricecolor}">￥{{item.price}}</span>
@@ -14,7 +14,7 @@
     </div>
     <div class="showMethod2"  v-if="listStyle==2">
       <div v-for="(item,key) in goodsItem"  @click="resCommodityDetailData(item.gid)">
-        <img :src="prefix+item.thumb" alt="">
+        <img :src="item.thumb" alt="">
         <div class="lastdiv"><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}">{{item.title}}</span></p>
           <p>
             <span class="price" :style="{color:goodsData.style.pricecolor}">￥{{item.price}}</span>
@@ -26,7 +26,7 @@
     </div>
     <div class="showMethod3" v-if="listStyle==3">
       <div v-for="(item,key) in goodsItem"  @click="resCommodityDetailData(item.gid)">
-        <img :src="prefix+item.thumb" alt="">
+        <img :src="item.thumb" alt="">
         <div class="lastdiv"><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}">{{item.title}}</span></p>
           <p>
             <span class="price" :style="{color:goodsData.style.pricecolor}">￥{{item.price}}</span>
@@ -38,7 +38,7 @@
     </div>
     <div class="showMethod4" v-if="listStyle==0">
       <div v-for="(item,key) in goodsItem" @click="resCommodityDetailData(item.gid)">
-        <img :src="prefix+item.thumb" alt="">
+        <img :src="item.thumb" alt="">
         <div class="lastdiv rightdiv"><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}">{{item.title}}</span></p>
           <p>
             <span class="price" :style="{color:goodsData.style.pricecolor}">￥{{item.price}}</span>
@@ -175,9 +175,6 @@
           }
         }
       },
-      prefix(){//图标附加前缀
-        return this.$store.state.prefix
-      }
     },
     created(){
       setTimeout(()=>{

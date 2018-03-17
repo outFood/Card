@@ -3,7 +3,7 @@
     <yd-slider autoplay="5000">
       <yd-slider-item v-for="(item,key) in haha" :key="key">
           <router-link v-for="(chen,key) in item" :key="key" to="#" :class="['rownum'+sliderNavData.style.rownum]"  @click.native="clickMenu(chen.text)">
-            <img :src="prefix+chen.imgurl" alt="" :class="[sliderNavData.style.navstyle]">
+            <img :src="chen.imgurl" alt="" :class="[sliderNavData.style.navstyle]">
             {{chen.text}}
           </router-link>
       </yd-slider-item>
@@ -11,6 +11,7 @@
   </div>
 </template>
 <script>
+  import config from '../../myConfig'
   import router from '@/router'
   export default {
     data(){
@@ -27,22 +28,40 @@
           }
         }
       },
-      prefix(){//图标附加前缀
-        return this.$store.state.prefix
-      },
     },
     methods:{
       clickMenu(text){
-        console.log(text)
-        if(text=='分销中心'){
-          this.$store.dispatch({
-            type:'resFenxiao'
-          })
-        }else if(text=='代理中心'){
-          this.$store.dispatch({
-            type:'resAgent'
-          })
+        var openid=localStorage.getItem('openid')
+        var mid=localStorage.getItem('userid')
+        if(openid!=null&&openid!='undefined'&&mid!=null&&mid!='undefined'){
+          if(text=='分销中心'){
+            this.$store.dispatch({
+              type:'resFenxiao'
+            })
+          }else if(text=='代理中心'){
+            this.$store.dispatch({
+              type:'resAgent'
+            })
+          }else if(text=='E卡商城'){
+            this.$store.dispatch({
+              type:'resSortData',
+              params:{
+                i:config.i,
+                t:config.t,
+                uniacid:config.uniacid
+              }
+            })
+          }
+        }else{
+          this.$dialog.confirm({
+            title: '提示',
+            mes: '请先登录！',
+            opts: () => {
+              router.push({path: '/vipIndex/login'})
+            }
+          });
         }
+
       }
     },
     created(){

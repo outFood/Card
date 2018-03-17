@@ -3,7 +3,7 @@
     <yd-slider autoplay="3000" style="height: 140px !important;">
       <yd-slider-item v-for="(item,key) in imgData" :key="key">
         <router-link to="/fujinIndex/exclusiveShop">
-          <img :src="prefix+item.imgurl">
+          <img :src="item.imgurl">
         </router-link>
       </yd-slider-item>
     </yd-slider>
@@ -25,9 +25,6 @@
           }
         }
       },
-      prefix(){//轮播图片附加前缀
-        return this.$store.state.prefix
-      }
     },
     created(){
       setTimeout(()=>{

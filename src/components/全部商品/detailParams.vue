@@ -16,22 +16,27 @@
   }
 </script>
 <style>
+  #detailParams{
+    background: #fff;
+  }
   #detailParams>div{
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    padding: 5px 0;
+    padding: 10px 0;
     border-bottom:1px solid #eee;
     font-size:12px;
   }
   #detailParams>div .left{
     flex: 0 0 30%;
     text-align: right;
+    padding-right:10px;
   }
   #detailParams>div .right{
-    flex: 0 0 65%;
+    flex: 0 0 70%;
     text-align: left;
-    margin-left:5%
+    padding-left:10px;
+    border-left:1px solid #eee
   }
 </style>

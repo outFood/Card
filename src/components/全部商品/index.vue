@@ -1,7 +1,7 @@
 <template>
   <div id="sort" v-if="sortData">
     <header>
-      <img src="/static/img/back_black.png" alt="" @click="back()"><yd-search></yd-search>
+      <img src="/static/img/back_black.png" alt="" @click="back()"><yd-search @click.native="toSomeSort"></yd-search>
     </header>
     <yd-scrolltab>
       <yd-scrolltab-panel v-for="(item,key) in parent" :label="item.name" icon="demo-icons-category1" :key="key">
@@ -37,6 +37,9 @@
   }
   .yd-scrolltab-content-title{
     display: none !important;
+  }
+  .yd-scrolltab-item{
+    height:1.3rem;
   }
   #sort .yd-scrolltab .yd-scrolltab-content-item .infoItem .infoCon{
     display: -webkit-box;
@@ -139,9 +142,13 @@
   }
 </style>
 <script>
+  import router from '@/router'
   import config from '../../myConfig'
   export default {
     methods:{
+      toSomeSort(){
+        router.push({path: '/sortIndex/someSort'})
+      },
       resCommodityListData(sortid){
         this.$store.dispatch({
           type:'resCommodityListData',
@@ -170,7 +177,11 @@
           type:'resCommodityDetailData',
           params:{
             id:id,
-            t:config.t
+            t:config.t,
+            i:config.i,
+            uniacid:config.uniacid,
+            mid:config.mid,
+            openid:config.openid,
           }
         })
       },

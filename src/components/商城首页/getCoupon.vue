@@ -1,6 +1,6 @@
 <template>
   <div id="getCoupon" :style="{background:coupon.style.background,marginTop:coupon.style.margintop+'px',marginBottom:coupon.style.margintop+'px'}">
-    <div :class="{coupon:true,width33:coupon.params.couponstyle=='3',width50:coupon.params.couponstyle=='2'}" v-for="(item,key) in myCoupon" :key="key" :style="{marginTop:coupon.style.margintop+'px',marginBottom:coupon.style.margintop+'px',marginLeft:coupon.style.marginleft+'px',marginRight:coupon.style.marginleft+'px',background:item.background,borderColor:item.bordercolor,color:item.textcolor}">
+    <div :class="{coupon:true,width33:coupon.params.couponstyle=='3',width50:coupon.params.couponstyle=='2'}" v-for="(item,key) in myCoupon" :key="key" :style="{marginTop:coupon.style.margintop+'px',marginBottom:coupon.style.margintop+'px',marginLeft:coupon.style.marginleft+'px',marginRight:coupon.style.marginleft+'px',background:item.background,borderColor:item.bordercolor,color:item.textcolor}" @click="resCouponDetail(item.couponid)">
       <h6>{{item.name}}</h6>
       <h6>{{item.price}}</h6>
       <span>{{item.desc}}</span>
@@ -8,7 +8,8 @@
   </div>
 </template>
 <script>
-  export default {//couponstyle coupon width33
+  import config from '../../myConfig'
+  export default {
     data(){
       return{
         myCoupon:[]
@@ -22,6 +23,19 @@
           }
         }
       }
+    },
+    methods:{
+      resCouponDetail(id){
+        this.$store.dispatch({
+          type:'resCouponDetail',
+          params:{
+            id:id,
+            t:config.t,
+            i:config.i,
+            uniacid:config.uniacid
+          }
+        })
+      },
     },
     created(){
       setTimeout(()=>{

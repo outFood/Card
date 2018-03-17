@@ -194,6 +194,7 @@
   }
 </script>
 <style>
+
   #vip .yd-navbar:after{
     border:none;
   }

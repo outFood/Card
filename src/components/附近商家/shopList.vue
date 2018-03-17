@@ -37,7 +37,7 @@
             </div>
             <div class="bottom">
               <div @click="openMap(item)">打开地图</div>
-              <div>联系商家</div>
+              <div><a href="tel:13764567708">联系商家</a></div>
             </div>
           </div>
         </yd-list>
@@ -57,13 +57,24 @@
       return{
       }
     },
-    computed:{
+    computed:{//exclusiveShopData
       Fujin_sortData(){
         return this.$store.state.Fujin_sortData
       },
       Fujin_ListData(){
         return this.$store.state.Fujin_ListData
+      },
+      exclusiveShopData(){
+        return this.$store.state.exclusiveShopData
       }
+    },
+    watch:{
+      exclusiveShopData:{
+        handler: function (val, oldVal) {
+          window.location.href=val
+        },
+        deep: true
+      },
     },
     methods:{
       openMap(item){
@@ -164,7 +175,7 @@
   }
   #shopList section .listItem .top .center{
     text-align: left;
-    flex: 0 0 50%;
+    flex: 0 0 58%;
     padding-left:5px;
   }
   #shopList section .listItem .top .center p{

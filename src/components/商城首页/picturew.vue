@@ -2,35 +2,35 @@
 	<div id="picturew" v-if="picturewData">
 			<div class="sort1">
         <div class="pic_two" v-if="picturewData.params.row==1&&picturewData.params.length==2">
-          <img :src="prefix+picturewData.params['1'].imgurl" alt="">
-          <img :src="prefix+picturewData.params['2'].imgurl" alt="">
+          <img :src="picturewData.params['1'].imgurl" alt="">
+          <img :src="picturewData.params['2'].imgurl" alt="">
         </div>
         <div class="pic_three" v-if="picturewData.params.row==1&&picturewData.params.length==3">
-          <img :src="prefix+picturewData.params['1'].imgurl" alt="">
+          <img :src="picturewData.params['1'].imgurl" alt="">
           <div class="right">
-            <img :src="prefix+picturewData.params['2'].imgurl" alt="">
-            <img :src="prefix+picturewData.params['3'].imgurl" alt="">
+            <img :src="picturewData.params['2'].imgurl" alt="">
+            <img :src="picturewData.params['3'].imgurl" alt="">
           </div>
         </div>
         <div class="pic_four" v-if="picturewData.params.row==1&&picturewData.params.length==4">
-          <img :src="prefix+picturewData.params['1'].imgurl" alt="">
+          <img :src="picturewData.params['1'].imgurl" alt="">
           <div class="right">
-            <img :src="prefix+picturewData.params['2'].imgurl" alt="">
+            <img :src="picturewData.params['2'].imgurl" alt="">
             <div class="bottom">
-              <img :src="prefix+picturewData.params['3'].imgurl" alt="">
-              <img :src="prefix+picturewData.params['4'].imgurl" alt="">
+              <img :src="picturewData.params['3'].imgurl" alt="">
+              <img :src="picturewData.params['4'].imgurl" alt="">
             </div>
           </div>
         </div>
       </div>
       <div class="sort2" v-if="picturewData.params.row==2">
-        <img :src="prefix+item.imgurl" v-for="(item,key) in arrData" :key="key">
+        <img :src="item.imgurl" v-for="(item,key) in arrData" :key="key">
       </div>
       <div class="sort3" v-if="picturewData.params.row==3">
-        <img :src="prefix+item.imgurl" v-for="(item,key) in arrData" :key="key">
+        <img :src="item.imgurl" v-for="(item,key) in arrData" :key="key">
       </div>
       <div class="sort4" v-if="picturewData.params.row==4">
-        <img :src="prefix+item.imgurl" v-for="(item,key) in arrData" :key="key">
+        <img :src="item.imgurl" v-for="(item,key) in arrData" :key="key">
       </div>
 	</div>
 </template>
@@ -56,9 +56,6 @@ export default{
       }
       return arrData
     },
-    prefix(){//图标附加前缀
-      return this.$store.state.prefix
-    }
   },
   mounted(){
   }
@@ -112,7 +109,7 @@ export default{
     margin-top:-4px;
   }
   #picturew .sort1 .pic_four .right .bottom img{
-    width: 49%;
+    width: 50%;
     height: 100%;
     margin-right: -3px;
   }
