@@ -4,7 +4,7 @@
     <payment></payment>
     <banner></banner>
     <notice></notice>
-    <searchinput></searchinput>
+    <!--<searchinput></searchinput>-->
     <menu1 v-if="pagenum==len"></menu1>
     <menu2 v-else></menu2>
     <goods></goods>

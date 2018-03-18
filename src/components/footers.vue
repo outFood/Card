@@ -50,10 +50,10 @@
     },
     computed:{
       lat(){
-        this.$store.state.positionInfo.position.lat
+        this.$store.state.lat
       },
       lng(){
-        this.$store.state.positionInfo.position.lng
+        this.$store.state.lng
       }
     },
     methods:{
@@ -105,6 +105,7 @@
               type:'lookCart',
               params:{
                 t:config.t,
+                i:config.i,
                 uniacid:config.uniacid,
                 mid:localStorage.getItem('userid'),
                 openid:localStorage.getItem('openid')

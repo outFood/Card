@@ -1,5 +1,5 @@
 <template>
-  <div id="shopList">
+  <div id="shopList" :style="{height:191*Fujin_ListData.length+'px'}">
     <nav>
       <yd-accordion>
         <yd-accordion-item title="综合排序">
@@ -37,7 +37,7 @@
             </div>
             <div class="bottom">
               <div @click="openMap(item)">打开地图</div>
-              <div><a href="tel:13764567708">联系商家</a></div>
+              <div><a :href="'tel:'+item.tel">联系商家</a></div>
             </div>
           </div>
         </yd-list>
@@ -103,7 +103,7 @@
         })
       },
       loadMoreShop(){//根据当前的page和当前的分类状态
-        console.log('哈哈')
+        console.log('加载更多')
         this.$store.dispatch({
           type:'loadMoreShop'
         })
@@ -122,7 +122,8 @@
   #shopList{
     font-size:0.4375rem;
     position: relative;
-    padding-bottom: 61rem;
+    /*padding-bottom: 61rem;*/
+    /*height:190px;*/
   }
   #shopList nav .yd-accordion .yd-accordion-head{
     width:33.3%;
@@ -175,7 +176,7 @@
   }
   #shopList section .listItem .top .center{
     text-align: left;
-    flex: 0 0 58%;
+    flex: 0 0 53%;
     padding-left:5px;
   }
   #shopList section .listItem .top .center p{

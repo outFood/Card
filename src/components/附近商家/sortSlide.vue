@@ -2,7 +2,7 @@
   <div id="sortSlide">
     <yd-slider autoplay="5000">
       <yd-slider-item v-for="(item,key) in haha" :key="key">
-        <router-link v-for="(chen,key) in item" :key="key" to="#">
+        <router-link v-for="(chen,key) in item" :key="key" to="#" @click.native="changeCateid(chen.id)">
           <img :src="chen.thumb" alt="">
           {{chen.catename}}
         </router-link>
@@ -22,12 +22,14 @@
       Fujin_sortData(){
         return this.$store.state.Fujin_sortData
       },
-      prefix(){//图标附加前缀
-        return this.$store.state.prefix
-      },
     },
     methods:{
-
+      changeCateid(cateid){
+        this.$store.dispatch({
+          type:'changeCateid',
+          cateid:cateid,
+        })
+      },
     },
     created(){
       var len=this.Fujin_sortData.length

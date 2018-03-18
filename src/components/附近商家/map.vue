@@ -9,7 +9,7 @@
     <div class="contact">
       <img :src="curSelShop.logo">
       <div><h6>{{curSelShop.merchname}}</h6><span>联系电话：{{curSelShop.tel}}</span></div>
-      <img src="/static/img/phone.png" alt="" class="phone">
+      <a :href="'tel:'+curSelShop.tel"><img src="/static/img/phone.png" alt="" class="phone"></a>
     </div>
   </div>
 </template>

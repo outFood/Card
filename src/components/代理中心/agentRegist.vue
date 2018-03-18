@@ -19,7 +19,7 @@
       </div>
       <div class="item">
         <span>邀请码</span>
-        <div><i>*</i><input placeholder="请填写邀请码" v-model="code"></div>
+        <div><i>*</i><input placeholder="默认邀请码为621666" v-model="code"></div>
       </div>
       <div class="item">
         <span>微信号</span>
@@ -188,6 +188,7 @@ import District from 'ydui-district/dist/jd_province_city_area_id';
       return{
         sort:'',
         readed: ['3'],
+        isReaded:false,
         headerImage:[], picValue: '',
         nickname:'',
         //选择省
@@ -197,28 +198,48 @@ import District from 'ydui-district/dist/jd_province_city_area_id';
         curPlaceholder:'',
         show1: false,
         realname:'吴巧红',
-        mobile:'13867104693',
-        code:'6',
+        mobile:'15658163225',
+        code:'',
         weixin:'1741432444',
-        aagenttype:1,
+        aagenttype:0,//0是用户没有选择代理类型时候的默认值
         province:'',
         city:'',
         area:'',
-        township:'麻城市白果镇'
+        township:'',
+        tipMsg:'',
+      }
+    },
+    computed:{
+      registAgentMsg(){
+        return this.$store.state.registAgentMsg
       }
     },
     watch: {
       sort: {
         handler: function (val, oldVal) {
-          this.curSel=''
           if(val=='省级'){
+            this.aagenttype=1;
             this.curPlaceholder='请选择代理省份'
           }else if(val=='市级'){
+            this.aagenttype=2;
             this.curPlaceholder='请选择代理城市'
           }else if(val=='区级'){
+            this.aagenttype=3;
             this.curPlaceholder='请选择代理地区'
           }else if(val=='乡镇'){
+            this.aagenttype=4;
             this.curPlaceholder='请选择代理地区'
+          }
+          console.log(this.aagenttype)
+        },
+        deep: true
+      },
+      readed: {
+        handler: function (val, oldVal) {
+          if(val.length==1){
+            this.isReaded=false
+          }else{
+            this.isReaded=true
           }
         },
         deep: true
@@ -227,22 +248,18 @@ import District from 'ydui-district/dist/jd_province_city_area_id';
     methods: {
       result(ret) {
         if(this.sort=='省级'){
-          this.aagenttype=1;
           this.curSel = ret.itemName1;
           this.province=ret.itemName1
         }else if(this.sort=='市级'){
-          this.aagenttype=2;
           this.curSel =ret.itemName1+ret.itemName2;
           this.province=ret.itemName1;
           this.city=ret.itemName2;
         }else if(this.sort=='区级'){
-          this.aagenttype=3;
           this.curSel =ret.itemName1+ret.itemName2 + ' ' + ret.itemName3
           this.province=ret.itemName1;
           this.city=ret.itemName2;
           this.area=ret.itemName3;
         }else if(this.sort=='乡镇'){
-          this.aagenttype=4;
           this.curSel =ret.itemName1+ret.itemName2 + ' ' + ret.itemName3
           this.province=ret.itemName1;
           this.city=ret.itemName2;
@@ -404,27 +421,67 @@ import District from 'ydui-district/dist/jd_province_city_area_id';
         tCanvas.width = tCanvas.height = canvas.width = canvas.height = 0;
         return ndata;
       },
+      openAlert() {
+        this.$dialog.alert({
+          mes:this.tipMsg
+        });
+      },
       registAgent(){
-        this.$store.dispatch({
-          type:'registAgent',
-          params:{
-            realname:this.realname,
-            mobile:this.mobile,
-            code:this.code,
-            weixin:this.weixin,
-            aagenttype:this.aagenttype,
-            province:this.province,
-            city:this.city,
-            area:this.area,
-            township:this.township,
-            t:config.t,
-            openid:localStorage.getItem('openid'),
-            mid:localStorage.getItem('userid'),
-            uniacid:config.uniacid,
-            i:config.i,
-            ispost:1,
-          }
-        })
+        var regMobile = /^((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8}$/;
+        if(this.realname==''){
+          this.tipMsg='请填写姓名!'
+          this.openAlert()
+        }else if(this.mobile==''){
+          this.tipMsg='请填写手机号!'
+          this.openAlert()
+        }else if(this.mobile.length!=11){
+          this.tipMsg='请填写11位手机号!'
+          this.openAlert()
+        }else if(!regMobile.test(this.mobile)){
+          this.tipMsg='手机号格式输入有误!'
+          this.openAlert()
+        }else if(this.code==''){
+          this.tipMsg='请填写邀请码!'
+          this.openAlert()
+        }else if(this.weixin==''){
+          this.tipMsg='请填写微信号!'
+          this.openAlert()
+        }else if(this.aagenttype==0){
+          this.tipMsg='请选择代理类型!'
+          this.openAlert()
+        }else if(this.isReaded==false){
+          this.tipMsg='请阅读分销商申请协议!'
+          this.openAlert()
+        }else{
+          this.$store.dispatch({
+            type:'registAgent',
+            params:{
+              realname:this.realname,
+              mobile:this.mobile,
+              code:this.code,
+              weixin:this.weixin,
+              aagenttype:this.aagenttype,
+              province:this.province,
+              city:this.city,
+              area:this.area,
+              township:this.township,
+              t:config.t,
+              openid:localStorage.getItem('openid'),
+              mid:localStorage.getItem('userid'),
+              uniacid:config.uniacid,
+              i:config.i,
+              ispost:1,
+            }
+          })
+          setTimeout(()=>{
+            if(this.registAgentMsg!=''){
+              this.$dialog.toast({
+                mes:this.registAgentMsg,
+                timeout: 1000
+              });
+            }
+          },500)
+        }
       }
     }
   }

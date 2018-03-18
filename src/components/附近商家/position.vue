@@ -4,7 +4,7 @@
       <yd-cell-item arrow>
         <span slot="left"><img src="/static/img/position_white.png" alt=""></span>
         <input slot="right" type="text" @click.stop="show1 = true" v-model="formattedAddress" readonly id="allmap">
-        <span slot="right"><img src="/static/img/triangle.png" alt=""></span>
+        <!--<span slot="right"><img src="/static/img/triangle.png" alt=""></span>-->
       </yd-cell-item>
     </yd-cell-group>
     <yd-cityselect v-model="show1" :callback="result1" :items="district"></yd-cityselect>
@@ -38,6 +38,7 @@
   }
 </style>
 <script type="text/babel">
+  import config from '../../myConfig'
   /* 前提是已经安装了 ydui-district */
   import District from 'ydui-district/dist/jd_province_city_area_id';
   export default {
@@ -77,6 +78,19 @@
           me.$store.dispatch({
             type:'savePositionInfo',
             params:complete
+          })
+          me.$store.dispatch({
+            type:'resFujinData',
+            params:{
+              page:1,
+              pagesize:10,
+              cateid:'',
+              lat:complete.position.lat,
+              lng:complete.position.lng,
+              uniacid:config.t,
+              t:config.t,
+              i:config.i,
+            },
           })
         });//返回定位信息
         AMap.event.addListener(geolocation, 'error', function (error) {

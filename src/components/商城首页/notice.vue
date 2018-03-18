@@ -2,7 +2,7 @@
   <div id="gonggao" v-if="gonggaoData&&gonggaoItem" :style="{background:gonggaoData.style.background,borderColor:gonggaoData.style.bordercolor}">
     <img :src="gonggaoData.params.iconurl" alt="">
     <yd-rollnotice :speed="gonggaoData.params.speed+'00'">
-      <yd-rollnotice-item v-for="(item,key) in gonggaoItem" :key="key"><router-link to="#" :style="{color:gonggaoData.style.color,}" @click.native="toNoticePage(item.linkurl)"><img src="/static/img/tongzhi.png" alt="">{{item.title}}</router-link></yd-rollnotice-item>
+      <yd-rollnotice-item v-for="(item,key) in gonggaoItem" :key="key"><router-link to="#" :style="{color:gonggaoData.style.color,}" @click.native="toSomewhere(item)"><img src="/static/img/tongzhi.png" alt="">{{item.title}}</router-link></yd-rollnotice-item>
     </yd-rollnotice>
   </div>
 </template>
@@ -24,8 +24,21 @@
       },
     },
     methods:{
-      toNoticePage(linkurl){
-        window.location.href=linkurl
+      toSomewhere(item){
+        console.log(item)
+        if(item.type==4){
+          this.$store.dispatch({
+            type:'resNoticeList',
+            url:item.linkurl,
+            params:{
+              t:config.t,
+              i:config.i,
+              uniacid:config.uniacid,
+              page:1,
+              pagesize:10
+            }
+          })
+        }
       }
     },
     created(){

@@ -13,13 +13,16 @@
       }
     },
     computed:{
-      positionInfo(){
-        return this.$store.state.positionInfo
+      lat(){
+        this.$store.state.lat
+      },
+      lng(){
+        this.$store.state.lng
       }
     },
     methods:{
       searchShop(){
-        console.log(this.positionInfo)
+        console.log()
         this.$store.dispatch({
           type:'resFujinData',
           params:{
@@ -30,8 +33,8 @@
             t:config.t,
             uniacid:config.t,
             i:config.i,
-            lat:this.positionInfo.position.lat,
-            lng:this.positionInfo.position.lng
+            lat:this.lat,
+            lng:this.lng
           }
         })
       }

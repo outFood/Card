@@ -10,7 +10,8 @@
         <span>我的可提现佣金</span>
       </div>
       <div class="item">
-        <b style="font-size:20px;">￥{{okTiXian.commission_ok}}</b>
+        <!--<b style="font-size:20px;">￥{{okTiXian.commission_ok}}</b>-->
+        <b style="font-size:20px;">￥100</b>
       </div>
       <div class="item">
         <span>名称</span>
@@ -94,42 +95,78 @@
         okTiXian(){
           return this.$store.state.okTiXian
         },
+        tixianMsg(){
+          return this.$store.state.tixianMsg
+        }
       },
-        beforeCreate(){
-          this.$store.dispatch({
-              type:'tixian',
-              params:{
-                mid:config.mid,
-                openid:localStorage.getItem('openid'),
-                t:config.t,
-              }
-            })
+      beforeCreate(){
+        this.$store.dispatch({
+            type:'tixian',
+            params:{
+              mid:config.mid,
+              openid:localStorage.getItem('openid'),
+              t:config.t,
+              i:config.i,
+              uniacid:config.uniacid
+            }
+          })
+      },
+      methods:{
+        back:function () {
+          this.$router.go(-1)
         },
-        methods:{
-          back:function () {
-            this.$router.go(-1)
-          },
-          next(){
-            if(this.name==''){
-              this.$dialog.toast({mes: '请填写姓名！',timeout: 1500,});
-            }else if(this.alipayMethod==true&&this.alipay==''){
-            this.$dialog.toast({mes: '请填写支付宝账号！',timeout: 1500,});
-            }else if(this.alipayMethod==true&&this.sureAlipay==''){
-              this.$dialog.toast({mes: '请填写确认账号！',timeout: 1500,});
-            }else if(this.bankMethod==true&&this.bank==''){
-              this.$dialog.toast({mes: '请选择银行！',timeout: 1500,});
-            }else if(this.bankMethod==true&&this.card==''){
-              this.$dialog.toast({mes: '请填写银行卡号！',timeout: 1500,});
-            }else if(this.bankMethod==true&&this.sureCard==''){
-              this.$dialog.toast({mes: '请填写确认卡号！',timeout: 1500,});
-            }else if(this.alipayMethod==true&&this.alipay!=this.sureAlipay){
-              this.$dialog.toast({mes: '支付宝账号与确认账号不一致！',timeout: 1500,});
-            }else if(this.bankMethod==true&&this.card!=this.sureCard){
-              this.$dialog.toast({mes: '银行卡号与确认卡号不一致！',timeout: 1500,});
-            }else if(this.alipayMethod==true&&this.name!=''&&this.alipay!=''&&this.sureAlipay!=''){
-              this.$dialog.confirm({
+        next(){
+          if(this.name==''){
+            this.$dialog.toast({mes: '请填写姓名！',timeout: 1500,});
+          }else if(this.alipayMethod==true&&this.alipay==''){
+          this.$dialog.toast({mes: '请填写支付宝账号！',timeout: 1500,});
+          }else if(this.alipayMethod==true&&this.sureAlipay==''){
+            this.$dialog.toast({mes: '请填写确认账号！',timeout: 1500,});
+          }else if(this.bankMethod==true&&this.bank==''){
+            this.$dialog.toast({mes: '请选择银行！',timeout: 1500,});
+          }else if(this.bankMethod==true&&this.card==''){
+            this.$dialog.toast({mes: '请填写银行卡号！',timeout: 1500,});
+          }else if(this.bankMethod==true&&this.sureCard==''){
+            this.$dialog.toast({mes: '请填写确认卡号！',timeout: 1500,});
+          }else if(this.alipayMethod==true&&this.alipay!=this.sureAlipay){
+            this.$dialog.toast({mes: '支付宝账号与确认账号不一致！',timeout: 1500,});
+          }else if(this.bankMethod==true&&this.card!=this.sureCard){
+            this.$dialog.toast({mes: '银行卡号与确认卡号不一致！',timeout: 1500,});
+          }else if(this.alipayMethod==true&&this.name!=''&&this.alipay!=''&&this.sureAlipay!=''){
+            this.$dialog.confirm({
+              title: '提示',
+              mes: '确认要提现到支付宝?</br>'+'姓名：'+this.name+'</br>支付宝账号：'+this.alipay,
+              opts: () => {
+                  this.$store.dispatch({
+                    type:'next',
+                      params: {
+                        t:config.t,
+                        openid:localStorage.getItem('openid'),
+                        mid:localStorage.getItem('userid'),
+                        //0：余额，//1：微信钱包，//2：支付宝，//3银行卡
+                        type:2,
+                        ispost:1,
+                        realname: this.name,
+                        alipay: this.alipay,
+                        alipay1: this.sureAlipay,
+                        // bankname: this.bank,
+                        // bankcard: this.card,
+                        // bankcard1: this.sureCard
+                     },
+                  })
+              }
+            });
+            setTimeout(()=>{
+              if(this.tixianMsg!=''){this.$dialog.toast({
+                mes:this.tixianMsg,
+                timeout: 1000,
+              });
+              }
+            },500)
+          }else if(this.bankMethod==true&&this.name!=''&&this.card!=''&&this.sureCard!=''){
+            this.$dialog.confirm({
                 title: '提示',
-                mes: '确认要提现到支付宝?</br>'+'姓名：'+this.name+'</br>支付宝账号：'+this.alipay,
+                mes: '确认要提现到银行卡?</br>'+'姓名：'+this.name+'</br>'+this.bank+' 卡号:'+this.card,
                 opts: () => {
                     this.$store.dispatch({
                       type:'next',
@@ -137,45 +174,21 @@
                           t:config.t,
                           openid:localStorage.getItem('openid'),
                           mid:localStorage.getItem('userid'),
-                          //0：余额，//1：微信钱包，//2：支付宝，//3银行卡
-                          type:2,
                           ispost:1,
+                          type:3,
                           realname: this.name,
-                          alipay: this.alipay,
-                          alipay1: this.sureAlipay,
-                          // bankname: this.bank,
-                          // bankcard: this.card,
-                          // bankcard1: this.sureCard
+                          // alipay: this.alipay,
+                          // alipay1: this.sureAlipay,
+                          bankname: this.bank,
+                          bankcard: this.card,
+                          bankcard1: this.sureCard
                        },
                     })
                 }
-              });
-            }else if(this.bankMethod==true&&this.name!=''&&this.card!=''&&this.sureCard!=''){
-              this.$dialog.confirm({
-                  title: '提示',
-                  mes: '确认要提现到银行卡?</br>'+'姓名：'+this.name+'</br>'+this.bank+' 卡号:'+this.card,
-                  opts: () => {
-                      this.$store.dispatch({
-                        type:'next',
-                          params: {
-                            t:config.t,
-                            openid:localStorage.getItem('openid'),
-                            mid:localStorage.getItem('userid'),
-                            ispost:1,
-                            type:3,
-                            realname: this.name,
-                            // alipay: this.alipay,
-                            // alipay1: this.sureAlipay,
-                            bankname: this.bank,
-                            bankcard: this.card,
-                            bankcard1: this.sureCard
-                         },
-                      })
-                  }
-              });
-            }
+            });
           }
         }
+      }
     }
 </script>
 <style>

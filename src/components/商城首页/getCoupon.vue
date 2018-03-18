@@ -1,6 +1,6 @@
 <template>
   <div id="getCoupon" :style="{background:coupon.style.background,marginTop:coupon.style.margintop+'px',marginBottom:coupon.style.margintop+'px'}">
-    <div :class="{coupon:true,width33:coupon.params.couponstyle=='3',width50:coupon.params.couponstyle=='2'}" v-for="(item,key) in myCoupon" :key="key" :style="{marginTop:coupon.style.margintop+'px',marginBottom:coupon.style.margintop+'px',marginLeft:coupon.style.marginleft+'px',marginRight:coupon.style.marginleft+'px',background:item.background,borderColor:item.bordercolor,color:item.textcolor}" @click="resCouponDetail(item.couponid)">
+    <div :class="{coupon:true,width3:coupon.params.couponstyle=='3',width2:coupon.params.couponstyle=='2'}" v-for="(item,key) in myCoupon" :key="key" :style="{marginTop:coupon.style.margintop+'px',marginBottom:coupon.style.margintop+'px',marginLeft:coupon.style.marginleft+'px',marginRight:coupon.style.marginleft+'px',background:item.background,borderColor:item.bordercolor,color:item.textcolor}" @click="resCouponDetail(item.couponid)">
       <h6>{{item.name}}</h6>
       <h6>{{item.price}}</h6>
       <span>{{item.desc}}</span>
@@ -61,10 +61,10 @@
     border-radius: 10px;
     padding: 8px 0;
   }
-  #getCoupon .width33{
-    flex: 0 0 33.33%;
+  #getCoupon .width3{
+    flex: 0 0 28%;
   }
-  #getCoupon .width50{
-    flex: 0 0 50%;
+  #getCoupon .width2{
+    flex: 0 0 45%;
   }
 </style>

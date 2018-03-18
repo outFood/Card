@@ -32,10 +32,16 @@
   }
 </script>
 <style>
+  #listmenu .yd-cell-item {
+    padding:.3rem 0 .3rem .24rem
+  }
   #listmenu span{
-    font-size: 0.4375rem !important;
+    font-size: 0.5rem !important;
   }
   #listmenu i{
-    font-size:0.6rem !important;
+    font-size:0.8rem !important;
+  }
+  #listmenu .yd-cell-arrow:after {
+    font-size: .6rem;
   }
 </style>

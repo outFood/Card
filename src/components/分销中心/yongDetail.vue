@@ -12,13 +12,13 @@
       <span :class="{curOrderNav:curSel=='1'}"  @click="lookYongDetail('已付款')">已付款</span>
       <span :class="{curOrderNav:curSel=='3'}" @click="lookYongDetail('已完成')">已完成</span>
     </div>
-    <div class="item">
+    <div class="item" v-for="(item,key) in yongDetail.list" :key="key">
       <div class="left">
-        <p>FSEGFDHTGFTHJY(一级)</p>
-        <span>2017-12-25 10:45</span>
+        <p>{{item.ordersn}}({{item.level}}级)</p>
+        <span>{{item.createtime}}</span>
       </div>
       <div class="right">
-        <span>+0.00已完成</span> <img src="/static/img/more.png" alt="">
+        <span>+{{item.commission}}{{item.status}}</span> <img src="/static/img/more.png" alt="">
       </div>
     </div>
     <footers></footers>

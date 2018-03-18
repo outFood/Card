@@ -15,7 +15,7 @@
       </div>
       <div class="item">
         <span>邀请人ID</span>
-        <div><input placeholder="请填写邀请人ID" v-model="agentid"></div>
+        <div><input placeholder="请填写邀请人ID" v-model="icode"></div>
       </div>
       <div class="item">
         <span>姓名</span>
@@ -70,7 +70,7 @@
         show1: false,
         //注册信息
         isReaded:false,
-        agentid:'639312',
+        icode:'639312',
         realname:'吴巧红',
         mobile:'15658163225',
         weixin:'1741432444',
@@ -116,7 +116,7 @@
           this.$store.dispatch({
             type:'resApply',
             params:{
-              agentid:this.agentid,
+              icode:this.icode,
               realname:this.realname,
               mobile:this.mobile,
               weixin:this.weixin,

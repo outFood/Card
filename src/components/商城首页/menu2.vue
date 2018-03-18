@@ -2,7 +2,7 @@
   <div id="sliderNav2" :style="{background:sliderNavData.style.background}">
     <yd-slider autoplay="5000">
       <yd-slider-item v-for="(item,key) in haha" :key="key">
-          <router-link v-for="(chen,key) in item" :key="key" to="#" :class="['rownum'+sliderNavData.style.rownum]"  @click.native="clickMenu(chen.text)">
+          <router-link v-for="(chen,key) in item" :key="key" to="#" :class="['rownum'+sliderNavData.style.rownum]"  @click.native="clickMenu(chen.type)">
             <img :src="chen.imgurl" alt="" :class="[sliderNavData.style.navstyle]">
             {{chen.text}}
           </router-link>
@@ -30,19 +30,21 @@
       },
     },
     methods:{
-      clickMenu(text){
+      clickMenu(type){
         var openid=localStorage.getItem('openid')
         var mid=localStorage.getItem('userid')
         if(openid!=null&&openid!='undefined'&&mid!=null&&mid!='undefined'){
-          if(text=='分销中心'){
+          if(type==29){
             this.$store.dispatch({
               type:'resFenxiao'
             })
-          }else if(text=='代理中心'){
-            this.$store.dispatch({
-              type:'resAgent'
-            })
-          }else if(text=='E卡商城'){
+          }
+//          else if(text=='代理中心'){
+//            this.$store.dispatch({
+//              type:'resAgent'
+//            })
+//          }
+          else if(type==3){
             this.$store.dispatch({
               type:'resSortData',
               params:{

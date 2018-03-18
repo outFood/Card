@@ -11,7 +11,7 @@
         <yd-flexbox-item>
           <h6>{{fenxiao_headData.data.result.member.nickname}}</h6>
           <i v-if="fenxiao_headData.data.level">{{fenxiao_headData.data.level.levelname?fenxiao_headData.data.level.levelname:'普通等级'}}</i>
-          <span>{{fenxiao_headData.data.result.thisset.texts.up}}: {{!fenxiao_headData.data.result.thisset.texts.up? '总店' :''}}</span>
+          <span>{{fenxiao_headData.data.result.thisset.texts.up}}: {{!fenxiao_headData.data.result.member.agentid? '总店' :fenxiao_headData.data.result.member.agentid}}</span>
           <span>本人ID:{{fenxiao_headData.data.result.member.id}}</span>
         </yd-flexbox-item>
         <router-link to="/distributIndex/xiaodian" class="right"><img src="/static/img/set.png"></router-link>
