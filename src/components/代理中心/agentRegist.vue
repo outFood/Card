@@ -441,8 +441,8 @@ import District from 'ydui-district/dist/jd_province_city_area_id';
           this.tipMsg='手机号格式输入有误!'
           this.openAlert()
         }else if(this.code==''){
-          this.tipMsg='请填写邀请码!'
-          this.openAlert()
+//          this.tipMsg='请填写邀请码!'
+//          this.openAlert()
         }else if(this.weixin==''){
           this.tipMsg='请填写微信号!'
           this.openAlert()

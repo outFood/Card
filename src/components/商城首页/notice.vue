@@ -7,6 +7,7 @@
   </div>
 </template>
 <script>
+  import router from '@/router'
   import config from '../../myConfig'
   export default {
     data(){
@@ -25,7 +26,6 @@
     },
     methods:{
       toSomewhere(item){
-        console.log(item)
         if(item.type==4){
           this.$store.dispatch({
             type:'resNoticeList',
@@ -34,8 +34,17 @@
               t:config.t,
               i:config.i,
               uniacid:config.uniacid,
-              page:1,
-              pagesize:10
+              page:1,pagesize:10
+            }
+          })
+        }else if(item.type==63){
+          router.push({path: '/shopIndex/article'})
+          this.$store.dispatch({
+            type:'resArticle',
+            url:item.linkurl,
+            params:{
+              t:config.t,
+              openid:localStorage.getItem('openid')
             }
           })
         }

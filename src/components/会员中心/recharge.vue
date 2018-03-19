@@ -16,11 +16,25 @@
   </yd-layout>
 </template>
 <script>
+  import config from '../../myConfig'
   export default {
     data(){
       return {
         curBalance:'￥'+0.0
       }
+    },
+    beforeCreate(){
+      console.log('ooooooooooo')
+      this.$store.dispatch({
+        type:'recharge',
+        params:{
+          i:config.i,
+          t:config.t,
+          uniacid:config.uniacid,
+          openid:localStorage.getItem('openid'),
+          mid:localStorage.getItem('userid')
+        }
+      })
     }
   }
 </script>

@@ -18,38 +18,14 @@
         <div>
           <span>￥{{commodity_goods.marketprice}}</span>
           <span>库存{{commodity_goods.total}}件</span>
-          <span>请选择尺码</span>
+          <span>请选择商品规格</span>
         </div>
         <span @click="show2 = false">x</span>
       </div>
-      <span v-if="specs.length>0">
-        <span v-if="specs[0].title=='尺寸'">
-          <div class="colorSize">
-          <p v-if="specs">{{specs[0].title}}</p>
-          <span v-for="(item,key) in specs[0].items" :key="key" @click="selColorSize([specs[0].title,item.id])"
-                :class="{curBg:item.id==size}">{{item.title}}</span>
-        </div>
-        <div class="colorSize" v-if="specs.length>1">
-          <p v-if="specs">{{specs[1].title}}</p>
-          <span v-for="(item,key) in specs[1].items" :key="key" @click="selColorSize([specs[1].title,item.id])"
-                :class="{curBg:item.id==color}">{{item.title}}</span>
-        </div>
-        </span>
-      </span>
-      <span v-if="specs.length>0">
-        <span v-if="specs[0].title=='颜色'">
-          <div class="colorSize">
-          <p v-if="specs">{{specs[0].title}}</p>
-          <span v-for="(item,key) in specs[0].items" :key="key" @click="selColorSize([specs[0].title,item.id])"
-                :class="{curBg:item.id==color}">{{item.title}}</span>
-        </div>
-        <div class="colorSize" v-if="specs.length>1">
-          <p v-if="specs">{{specs[1].title}}</p>
-          <span v-for="(item,key) in specs[1].items" :key="key" @click="selColorSize([specs[1].title,item.id])"
-                :class="{curBg:item.id==size}">{{item.title}}</span>
-        </div>
-        </span>
-      </span>
+      <div class="spec" v-for="(item,key1) in specs" :key="key1">
+        <p>{{item.title}}</p>
+        <span @click="selSpec([key1,chen.id,item.title])" v-for="(chen,key2) in item.items" :key="key2" :class="{curBg:chen.sel}">{{chen.title}}</span>
+      </div>
 
       <div class="payNumber">
         <span>购买数量(限购{{commodity_goods.maxbuy}}件)</span>
@@ -75,6 +51,9 @@
         color: undefined,
         size: undefined,
         likeClick: 0,
+        specArr:[],
+        radio1: '啦啦啦',
+        curSelId:0
       }
     },
     computed: {
@@ -100,8 +79,14 @@
       options() {
         return this.$store.state.commodityColorSizeData.options
       },
-      specs() {
-        return this.$store.state.commodityColorSizeData.specs
+      specs:{
+        get: function () {
+          return this.$store.state.commodityColorSizeData.specs
+        },
+        // setter
+        set: function () {
+          this.$store.state.commodityColorSizeData.specs=newValue
+        }
       },
       cartcount() {
         return this.$store.state.cartcount
@@ -118,104 +103,34 @@
         })
         this.show2 = true
       },
-      selColorSize(arr) {
-        if (arr[0] == '颜色') {
-          this.color = arr[1]
-        } else if (arr[0] == '尺寸') {
-          this.size = arr[1]
+      selSpec(arr) {
+        for(var i=0;i<this.specs.length;i++){//选中规格
+          if(this.specs[i].title==arr[2]){
+            for(var j=0;j<this.specs[i].items.length;j++){
+              if(this.specs[i].items[j].id==arr[1]){
+                this.specs[i].items[j].sel=true
+                console.log(this.specs[i].items[j])
+              }else{
+                this.specs[i].items[j].sel=false
+              }
+            }
+          }
+        }
+        this.curSelId=arr[0]+arr[1]
+        if(this.specArr.length<1){
+          this.specArr[arr[0]]=arr[1]
+        }else{
+          for(var key in this.specArr){
+            if(key==arr[0]){
+              this.specArr[key]=arr[1]
+            }else{
+              this.specArr[arr[0]]=arr[1]
+            }
+          }
         }
       },
       sure() {
-        if (this.options != false && this.specs.length == 1) {//商品有一个规格,要传optionid
-          if(this.specs[0].title=='颜色'&&this.color == undefined){
-            this.$dialog.toast({
-              mes: '请选择颜色！',
-              timeout: 1500
-            });
-          }else if(this.specs[0].title=='尺寸'&&this.size == undefined){
-            this.$dialog.toast({
-              mes: '请选择尺寸！',
-              timeout: 1500
-            });
-          }else if(this.specs[0].title=='颜色'&&this.color != undefined){
-            for (var i = 0; i < this.options.length; i++) {
-              if (this.options[i].specs ==this.color) {
-                this.$store.dispatch({
-                  type: 'cartOrPay',
-                  params: {
-                    total: this.payNumber,
-                    optionid: this.options[i].id,//规格id
-                    id: this.commodity_goods.id,
-                    t: config.t,
-                    i: config.i,
-                    uniacid: config.uniacid,
-                    mid: localStorage.getItem('userid'),
-                    openid: localStorage.getItem('openid'),
-                  }
-                })
-                this.show2 = false
-              }
-            }
-            this.show2 = false
-          }else if(this.specs[0].title=='尺寸'&&this.size != undefined){
-            for (var i = 0; i < this.options.length; i++) {
-              if (this.options[i].specs ==this.size) {
-                this.$store.dispatch({
-                  type: 'cartOrPay',
-                  params: {
-                    total: this.payNumber,
-                    optionid: this.options[i].id,//规格id
-                    id: this.commodity_goods.id,
-                    t: config.t,
-                    i: config.i,
-                    uniacid: config.uniacid,
-                    mid: localStorage.getItem('userid'),
-                    openid: localStorage.getItem('openid'),
-                  }
-                })
-                this.show2 = false
-              }
-            }
-            this.show2 = false
-          }
-        } else if (this.options != false && this.specs.length == 2) {//商品有两个规格,要传optionid
-          if (this.color == undefined) {
-            this.$dialog.toast({
-              mes: '请选择颜色！',
-              timeout: 1500
-            });
-          } else if (this.size == undefined) {
-            this.$dialog.toast({
-              mes: '请选择尺寸！',
-              timeout: 1500
-            });
-          } else {
-            var curSel = '';
-            if (this.specs[0].title == '颜色') {
-              curSel = this.color + '_' + this.size
-            } else {
-              curSel = this.size + '_' + this.color
-            }
-            for (var i = 0; i < this.options.length; i++) {
-              if (this.options[i].specs == curSel) {
-                this.$store.dispatch({
-                  type: 'cartOrPay',
-                  params: {
-                    total: this.payNumber,
-                    optionid: this.options[i].id,//规格id
-                    id: this.commodity_goods.id,
-                    t: config.t,
-                    i: config.i,
-                    uniacid: config.uniacid,
-                    mid: localStorage.getItem('userid'),
-                    openid: localStorage.getItem('openid'),
-                  }
-                })
-                this.show2 = false
-              }
-            }
-          }
-        } else {//商品无规格，不需要传optionid
+        if(!this.specs){//商品没有规格，不传optionid
           this.$store.dispatch({
             type: 'cartOrPay',
             params: {
@@ -229,6 +144,26 @@
             }
           })
           this.show2 = false
+        }else{//商品有规格，传optionid
+          for(var i=0;i<this.options.length;i++){
+            this.options[i].specs.split('_')
+            if(this.options[i].specs.split('_').sort().join('')==this.specArr.sort().join('')){
+              this.$store.dispatch({
+                type: 'cartOrPay',
+                params: {
+                  total: this.payNumber,
+                  optionid: this.options[i].id,//规格id
+                  id: this.commodity_goods.id,
+                  t: config.t,
+                  i: config.i,
+                  uniacid: config.uniacid,
+                  mid: localStorage.getItem('userid'),
+                  openid: localStorage.getItem('openid'),
+                }
+              })
+              this.show2 = false
+            }
+          }
         }
 
       },
@@ -356,14 +291,14 @@
     border-radius: 50%;
   }
 
-  #navbar .sizePop .colorSize {
+  #navbar .sizePop .spec {
     text-align: left;
     line-height: 25px;
     padding: 10px;
     border-bottom: 1px solid #eee;
   }
 
-  #navbar .sizePop .colorSize span {
+  #navbar .sizePop .spec span {
     background: #eee;
     margin-right: 10px;
     padding: 3px 8px;

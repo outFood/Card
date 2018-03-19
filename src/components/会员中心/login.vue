@@ -48,28 +48,6 @@
         return this.$store.state.loginStatus
       }
     },
-    watch:{
-      loginStatus:{
-        handler: function (val, oldVal) {
-          console.log(val)
-          if(val=='登录成功'){
-            this.$dialog.toast({
-              mes: '登录成功！',
-              timeout: 1000,
-              callback(){
-                router.push({path:'/vipIndex'})
-              }
-            });
-          }else{
-            this.$dialog.toast({
-              mes:val,
-              timeout: 1500,
-            });
-          }
-        },
-        deep: true
-      },
-    },
     methods:{
       back:function () {
         this.$router.go(-1)
@@ -83,6 +61,22 @@
             t:config.t
           }
         })
+        setTimeout(()=>{
+          if(this.loginStatus=='登录成功'){
+            this.$dialog.toast({
+              mes: '登录成功！',
+              timeout: 1000,
+              callback(){
+                router.push({path:'/vipIndex'})
+              }
+            });
+          }else{
+            this.$dialog.toast({
+              mes:this.loginStatus,
+              timeout: 1500,
+            });
+          }
+        },500)
       }
     }
   }

@@ -10,8 +10,7 @@
         <span>我的可提现佣金</span>
       </div>
       <div class="item">
-        <!--<b style="font-size:20px;">￥{{okTiXian.commission_ok}}</b>-->
-        <b style="font-size:20px;">￥100</b>
+        <b style="font-size:20px;">￥{{okTiXian.data.commission_ok}}</b>
       </div>
       <div class="item">
         <span>名称</span>
@@ -99,6 +98,9 @@
           return this.$store.state.tixianMsg
         }
       },
+      mounted(){
+         console.log(this.okTiXian)
+      },
       beforeCreate(){
         this.$store.dispatch({
             type:'tixian',
@@ -154,15 +156,15 @@
                         // bankcard1: this.sureCard
                      },
                   })
+                setTimeout(()=>{
+                  if(this.tixianMsg!=''){this.$dialog.toast({
+                    mes:this.tixianMsg,
+                    timeout: 1000,
+                  });
+                  }
+                },500)
               }
             });
-            setTimeout(()=>{
-              if(this.tixianMsg!=''){this.$dialog.toast({
-                mes:this.tixianMsg,
-                timeout: 1000,
-              });
-              }
-            },500)
           }else if(this.bankMethod==true&&this.name!=''&&this.card!=''&&this.sureCard!=''){
             this.$dialog.confirm({
                 title: '提示',
@@ -184,6 +186,14 @@
                           bankcard1: this.sureCard
                        },
                     })
+                  setTimeout(()=>{
+                    if(this.tixianMsg!=''){this.$dialog.toast({
+                      mes:this.tixianMsg,
+                      timeout: 500,
+                    });
+                    console.log(this.tixianMsg)
+                    }
+                  },1000)
                 }
             });
           }
@@ -192,6 +202,16 @@
     }
 </script>
 <style>
+  #tixian header {
+    height: 1.5rem !important;
+    align-items: center;
+  }
+  #tixian header .yd-navbar-center-title{
+    font-size:.5rem !important;
+  }
+  #tixian .yd-back-icon:before, .yd-next-icon:before {
+    font-size: .6rem;
+  }
   #tixian form{
     text-align: left;
     padding: 10px;

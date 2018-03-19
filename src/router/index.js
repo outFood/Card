@@ -9,7 +9,9 @@ import Router from 'vue-router'
     import vip from '@/components/商城首页/vip'
     import vipGrad from '@/components/商城首页/vipGrad'
     import useInstruct from '@/components/商城首页/useInstruct'
+    import noticeList from '@/components/商城首页/noticeList'
     import noticePage from '@/components/商城首页/noticePage'
+    import article from '@/components/商城首页/article'
 
 //全部商品
 import sortHome from '@/components/全部商品/home'
@@ -105,8 +107,14 @@ export default new Router({
           path:'useInstruct',
           component:useInstruct
         },{
+          path:'noticeList',
+          component:noticeList
+        },{
           path:'noticePage',
           component:noticePage
+        },{
+          path:'article',
+          component:article
         },
       ]
     },

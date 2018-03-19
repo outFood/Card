@@ -21,6 +21,16 @@
   </div>
 </template>
 <style>
+  #daili header {
+    height: 1.5rem !important;
+    align-items: center;
+  }
+  #daili header .yd-navbar-center-title{
+    font-size:.5rem !important;
+  }
+  #daili .yd-back-icon:before, .yd-next-icon:before {
+    font-size: .6rem;
+  }
   #daili form{
     text-align: left;
     padding: 10px;

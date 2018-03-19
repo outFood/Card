@@ -7,7 +7,7 @@
         <div @click="screen(['all'])" :class="{cur:curTab==1}">综合</div>
         <div @click="screen(['sail'])" :class="{cur:curTab==2}">销量</div>
         <div @click="screen(['price'])" :class="{cur:curTab==3}">价格 <span class="top" :class="{curtop:curtop}"></span><span class="bottom" :class="{curbottom:curbottom}"></span></div>
-        <div><yd-button @click.native="show4 = true" :class="{cur:curTab==4}">筛选 <img src="/static/img/shaixuan.png" alt="" v-if="curTab!=4"><img src="/static/img/shaixuan_red.png" alt="" v-else></yd-button></div>
+        <div><yd-button @click.native="show4 = true;curTab=4" :class="{cur:curTab==4}">筛选 <img src="/static/img/shaixuan.png" alt="" v-if="curTab!=4"><img src="/static/img/shaixuan_red.png" alt="" v-else></yd-button></div>
       </div>
     </header>
     <yd-infinitescroll :callback="loadList" ref="infinitescrollDemo">
@@ -44,27 +44,11 @@
     <yd-popup v-model="show4" position="right" width="60%" class="shaixuan_pop">
       <div class="head">筛选</div>
       <div class="tabNav">
-        <span v-for="(item,key) in tabNav" :key="key" @click="screen(['筛选',item])" :class="{cur:searchKey==item}">{{item}}</span>
+        <span v-for="(item,key) in tabNav" :key="key" @click="shaixuan(item)" :class="{cur:shaixuanText==item}">{{item}}</span>
       </div>
-      <p>选择分类</p>
-      <yd-scrolltab>
-        <yd-scrolltab-panel label="空调" icon="demo-icons-category1">
-          空调
-        </yd-scrolltab-panel>
-
-        <yd-scrolltab-panel label="冰箱" icon="demo-icons-category2" active>
-          冰箱
-        </yd-scrolltab-panel>
-
-        <yd-scrolltab-panel label="洗衣机" icon="demo-icons-category3">
-          洗衣机
-        </yd-scrolltab-panel>
-
-        <!-- ... -->
-      </yd-scrolltab>
       <div class="footer">
         <span @click="show4=false">取消筛选</span>
-        <span @click="show4=false">确认</span>
+        <span @click="screen(['确认'])">确认</span>
       </div>
     </yd-popup>
     <!--购买弹框-->
@@ -101,7 +85,8 @@
         curGoodsNum:0,
         allSort_h:true,
         searchKey:'',//搜索关键字，
-        tabNav:['推荐商品','新品上市','热卖商品','促销商品','卖家包邮','限时抢购']
+        tabNav:['推荐商品','新品上市','热卖商品','促销商品','卖家包邮','限时抢购'],
+        shaixuanText:''
       }
     },
     computed:{
@@ -191,16 +176,31 @@
             }
           })
           this.show4=false;
-        }else if(parameter[0]=='筛选'){
+        }else if(parameter[0]=='确认'){
+          this.show4=false
+          console.log(this.shaixuanText)
+          if(this.shaixuanText=='推荐商品'){
+            params.isrecommand=1
+          }else if(this.shaixuanText=='新品上市'){
+            params.isnew=1
+          }else if(this.shaixuanText=='热卖商品'){
+            params.ishot=1
+          }else if(this.shaixuanText=='促销商品'){
+            params.isdiscount=1
+          }else if(this.shaixuanText=='卖家包邮'){
+            params.issendfree=1
+          }else if(this.shaixuanText=='限时抢购'){
+            params.istime=1
+
+          }
           this.$store.dispatch({
             type:'resCommodityListData',
-            params:{
-              t:config.t,
-              keywords:parameter[1],
-            }
+            params:params
           })
-          this.show4=false;
         }
+      },
+      shaixuan(item){
+        this.shaixuanText=item
       },
       loadList(){
         console.log('滚动加载')

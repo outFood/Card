@@ -1,5 +1,10 @@
 <template>
-  <yd-layout title="我的优惠券" link="/vipIndex"  id="myQuan">
+  <div id="myQuan">
+    <yd-navbar title="我的优惠券">
+      <router-link to="#" slot="left">
+        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
+      </router-link>
+    </yd-navbar>
     <yd-flexbox>
       <div class="left">
         <div>1.8</div>
@@ -15,7 +20,7 @@
         <span></span>
       </div>
     </yd-flexbox>
-  </yd-layout>
+  </div>
 </template>
 <script>
   import config from '../../myConfig'
@@ -43,6 +48,16 @@
   }
 </script>
 <style scoped>
+  #myQuan header {
+    height: 1.5rem !important;
+    align-items: center;
+  }
+  #myQuan header .yd-navbar-center-title{
+    font-size:.5rem !important;
+  }
+  #myQuan .yd-back-icon:before, .yd-next-icon:before {
+    font-size: .6rem;
+  }
  #myQuan .yd-flexbox{
     font-size:14px;
     background: #fff;

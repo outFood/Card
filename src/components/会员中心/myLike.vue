@@ -41,6 +41,16 @@
   }
 </script>
 <style>
+  #myLike header {
+    height: 1.5rem !important;
+    align-items: center;
+  }
+  #myLike header .yd-navbar-center-title{
+    font-size:.5rem !important;
+  }
+  #myLike .yd-back-icon:before, .yd-next-icon:before {
+    font-size: .6rem;
+  }
   #myLike .noData{
     margin-top:0.625rem;
   }

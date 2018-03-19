@@ -1,10 +1,11 @@
 <template>
-  <div id="noticePage">
-    <h2>{{selNotice.title}}</h2>
+  <div id="article">
+    <h2>{{article.shopshare.title}}</h2>
     <p>
-      <!--<span>E卡系统</span> -->
-      发布时间:{{selNotice.createtime}}</p>
-    <div v-html="selNotice.detail"></div>
+      <span>{{article.article.article_mp}}</span>
+      发布时间:{{article.article.article_date}}</p>
+    <!--<img :src="article.shopshare.imgUrl" alt="">-->
+    <div v-html="article.article.article_content"></div>
   </div>
 </template>
 <script>
@@ -15,30 +16,31 @@
       }
     },
     computed:{
-      selNotice(){
-        return this.$store.state.selNotice
+      article(){
+        return this.$store.state.article
       }
     }
   }
 </script>
 <style>
-  #noticePage{
+  #article{
     position: fixed;
     top:0;right:0;bottom:0;left:0;background: #fff;padding:0.3125rem;text-align: left;
   }
-  #noticePage h2{
+  #article h2{
     font-size:0.6rem;
   }
-  #noticePage p{
+  #article p{
     color:#8a8a8a;
     margin-top:.3125rem;
   }
-  #noticePage p span{
+  #article p span{
     color:blue;
   }
-  #noticePage img{
+  #article img{
     display: block;
     width:90%;
     margin:0.9375rem auto;
   }
 </style>
+

@@ -71,6 +71,16 @@
   }
 </script>
 <style>
+  #yongDetail header {
+    height: 1.5rem !important;
+    align-items: center;
+  }
+  #yongDetail header .yd-navbar-center-title{
+    font-size:.5rem !important;
+  }
+  #yongDetail .yd-back-icon:before, .yd-next-icon:before {
+    font-size: .6rem;
+  }
   #yongDetail .orderNav{
     display: -webkit-box;
     display: -webkit-flex;

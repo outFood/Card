@@ -45,6 +45,9 @@ export default {
       shoukuanMsg: '',
       vipCard: {},
       vipCardMsg: '',
+      noticeList:[],
+      selNotice:{},
+      article:{},
       //分类
       sortData: {},
       keywords: '',//请求商品列表的分类关键字
@@ -190,12 +193,30 @@ export default {
         alert(err)
       })
     },
+    resArticle({commit, state}, data){
+      axios.get(config.baseUrl+data.url,{params:data.params})
+        .then(function (res) {
+          commit({
+            type:'saveArticle',
+            data:res
+          })
+        }).catch(function (err) {alert(err)})
+    },
     resNoticeList({commit, state}, data){
       axios.get(config.baseUrl+data.url,{params:data.params})
         .then(function (res) {
-
+          commit({
+            type:'saveNoticeList',
+            data:res
+          })
         }).catch(function (err) {
         alert(err)
+      })
+    },
+    saveSelNotice({commit, state}, data){
+      commit({
+        type:'saveSelNotice',
+        data:data
       })
     },
     //分类
@@ -684,7 +705,7 @@ export default {
           if(res.data.status==0){
             commit({
               type:'savetixianMsg',
-              data:res.data.result.message
+              data:res.data.result.msg
             })
           }
         }).catch(function (err) {
@@ -871,6 +892,13 @@ export default {
         console.log('请求失败:' + err)
       })
     },
+    recharge({commit, state}, data){
+      axios.get(config.baseUrl + "/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=r=member.recharge.get_main", {params: data.params})
+        .then(function (res) {
+        }).catch(function (err) {
+        console.log('请求失败:' + err)
+      })
+    },
     resVipInfo({commit, state}, data) {
       axios.get(config.baseUrl + "/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.info.get_main", {params: data.params})
         .then(function (res) {
@@ -982,6 +1010,8 @@ export default {
         status = 2
       } else if (data.text == '退换货') {
         status = 4
+      } else if (data.text == '已完成') {
+        status = 3
       }
       commit({
         type: 'saveOrderStatus',
@@ -1268,6 +1298,19 @@ export default {
       if (state.vipCard != {}) {
         router.push({path: '/shopIndex/vip'})
       }
+    },
+    saveNoticeList(state, data){
+      VueSet(state,'noticeList',data.data.data.result.data.list)
+      router.push({path: '/shopIndex/noticeList'})
+    },
+    saveSelNotice(state, data){//selNotice
+      VueSet(state,'selNotice',data.data.params)
+      if(state.selNotice){
+        router.push({path: '/shopIndex/noticePage'})
+      }
+    },
+    saveArticle(state, data){
+      VueSet(state,'article',data.data.data.result.data)
     },
     //分类
     saveSortData(state, data) {

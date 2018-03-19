@@ -72,6 +72,16 @@
   }
 </script>
 <style>
+  #xiaxian header {
+    height: 1.5rem !important;
+    align-items: center;
+  }
+  #xiaxian header .yd-navbar-center-title{
+    font-size:.5rem !important;
+  }
+  #xiaxian .yd-back-icon:before, .yd-next-icon:before {
+    font-size: .6rem;
+  }
   #xiaxian .orderNav{
     display: -webkit-box;
     display: -webkit-flex;

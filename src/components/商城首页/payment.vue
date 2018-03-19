@@ -79,6 +79,8 @@
               params:{
                 uniacid:config.uniacid,
                 t:config.t,
+                i:config.i,
+                mid:localStorage.getItem('userid'),
                 openid:localStorage.getItem('openid'),
               }
             })

@@ -38,12 +38,11 @@
             this.$store.dispatch({
               type:'resFenxiao'
             })
+          }else if(type==63){
+            this.$store.dispatch({
+              type:'resAgent'
+            })
           }
-//          else if(text=='代理中心'){
-//            this.$store.dispatch({
-//              type:'resAgent'
-//            })
-//          }
           else if(type==3){
             this.$store.dispatch({
               type:'resSortData',

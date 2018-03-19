@@ -11,6 +11,7 @@
       <span  :class="{curOrderNav:orderStatus==1}"  @click="lookOrder('待发货')">待发货</span>
       <span  :class="{curOrderNav:orderStatus==2}"  @click="lookOrder('待收货')">待收货</span>
       <span  :class="{curOrderNav:orderStatus==4}"  @click="lookOrder('退换货')">退换货</span>
+      <span  :class="{curOrderNav:orderStatus==3}"  @click="lookOrder('已完成')">已完成</span>
     </div>
     <no-order v-if="myOrder.length==0"></no-order>
 
@@ -307,7 +308,7 @@
   #order .orderNav span{
     display: block;
     height:100%;
-    flex:0 0 20%;
+    flex:0 0 16.6%;
     text-align: center;
   }
   #order .item{
