@@ -11,19 +11,19 @@
       <p>欢迎加入 <i>E卡平台</i>，请填写申请信息</p>
       <div class="item">
         <span>姓名</span>
-        <div><i>*</i><input placeholder="请填写姓名" v-model="realname"></div>
+        <div><i>*</i><input :placeholder="agentPage.member.nickname" disabled class="disabled"></div>
       </div>
       <div class="item">
         <span>手机号</span>
-        <div><i>*</i><input placeholder="请填写手机号" v-model="mobile"></div>
+        <div><i>*</i><input :placeholder="agentPage.member.mobile" disabled class="disabled"></div>
       </div>
       <div class="item">
         <span>邀请码</span>
-        <div><i>*</i><input placeholder="默认邀请码为621666" v-model="code"></div>
+        <div><i>*</i><input :placeholder="agentPage.member.agentid" class="disabled"></div>
       </div>
       <div class="item">
         <span>微信号</span>
-        <div><input placeholder="请填写微信号" v-model="weixin"></div>
+        <div><input :placeholder="agentPage.member.weixin" disabled class="disabled"></div>
       </div>
       <div class="upload">
         上传代理资质
@@ -88,9 +88,9 @@
 #daili form p{
   padding:0.3125rem 0;
 }
-*::-webkit-input-placeholder {
-  color: #b0b0b0;
-  font-size:0.375rem;
+.disabled::-webkit-input-placeholder {
+  color: #000;
+  font-size:0.45rem;
 }
 #daili form i{
   color:red;
@@ -197,10 +197,6 @@ import District from 'ydui-district/dist/jd_province_city_area_id';
         district: District,
         curPlaceholder:'',
         show1: false,
-        realname:'吴巧红',
-        mobile:'15658163225',
-        code:'',
-        weixin:'1741432444',
         aagenttype:0,//0是用户没有选择代理类型时候的默认值
         province:'',
         city:'',
@@ -210,6 +206,9 @@ import District from 'ydui-district/dist/jd_province_city_area_id';
       }
     },
     computed:{
+      agentPage(){
+        return this.$store.state.agentPage
+      },
       registAgentMsg(){
         return this.$store.state.registAgentMsg
       }
@@ -427,26 +426,8 @@ import District from 'ydui-district/dist/jd_province_city_area_id';
         });
       },
       registAgent(){
-        var regMobile = /^((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8}$/;
-        if(this.realname==''){
-          this.tipMsg='请填写姓名!'
-          this.openAlert()
-        }else if(this.mobile==''){
-          this.tipMsg='请填写手机号!'
-          this.openAlert()
-        }else if(this.mobile.length!=11){
-          this.tipMsg='请填写11位手机号!'
-          this.openAlert()
-        }else if(!regMobile.test(this.mobile)){
-          this.tipMsg='手机号格式输入有误!'
-          this.openAlert()
-        }else if(this.code==''){
-//          this.tipMsg='请填写邀请码!'
-//          this.openAlert()
-        }else if(this.weixin==''){
-          this.tipMsg='请填写微信号!'
-          this.openAlert()
-        }else if(this.aagenttype==0){
+        console.log('0000')
+        if(this.aagenttype==0){
           this.tipMsg='请选择代理类型!'
           this.openAlert()
         }else if(this.isReaded==false){
@@ -456,10 +437,10 @@ import District from 'ydui-district/dist/jd_province_city_area_id';
           this.$store.dispatch({
             type:'registAgent',
             params:{
-              realname:this.realname,
-              mobile:this.mobile,
-              code:this.code,
-              weixin:this.weixin,
+              realname:this.agentPage.member.nickname,
+              mobile:this.agentPage.member.mobile,
+              code:this.agentPage.member.agentid,
+              weixin:this.agentPage.member.weixin,
               aagenttype:this.aagenttype,
               province:this.province,
               city:this.city,
@@ -471,7 +452,8 @@ import District from 'ydui-district/dist/jd_province_city_area_id';
               uniacid:config.uniacid,
               i:config.i,
               ispost:1,
-            }
+            },
+            qufen:'yes'
           })
           setTimeout(()=>{
             if(this.registAgentMsg!=''){
@@ -480,9 +462,22 @@ import District from 'ydui-district/dist/jd_province_city_area_id';
                 timeout: 1000
               });
             }
-          },500)
+          },1000)
         }
       }
+    },
+    beforeCreate(){//请求注册页数据和注册用同一个接口，用于把某些用户信息默认上去，除了微信号、邀请人id代理类型、上传资质等可以手动填写，其他的不可修改
+      this.$store.dispatch({
+        type:'registAgent',
+        params:{
+          openid:localStorage.getItem('openid'),
+          mid:localStorage.getItem('userid'),
+          uniacid:config.uniacid,
+          i:config.i,
+          t:config.t
+        },
+        qufen:'no',//用于区分是加载请求还是注册请求，0表示加载请求，yes表示注册请求
+      })
     }
   }
 </script>

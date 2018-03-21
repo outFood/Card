@@ -96,6 +96,7 @@ export default {
       qrcodeText: {},
       qrcodeImg: {},
       //代理中心
+      agentPage:{},
       registAgentMsg:'',
       agentData: {},
       agentPriceData: {},
@@ -379,8 +380,7 @@ export default {
               mid: localStorage.getItem('userid'),
               openid: localStorage.getItem('openid')
             }
-          })
-            .then(function (res2) {
+          }).then(function (res2) {
               if (res.data.status == 0) {
                 commit({
                   type: 'savePayMessage',
@@ -796,15 +796,23 @@ export default {
       })
     },
     registAgent({commit, state}, data) {
-      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=abonus.register.get_main', {params: data.params}).then(function (res) {
-        if(res.data.status==1){
-          router.push({path: '/agentIndex/agentWait'})
-        }else{
-          commit({
-            type:'saveRegistAgentMsg',
-            data:res
-          })
-        }
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=abonus.register.get_main', {params: data.params})
+        .then(function (res) {
+          if(data.qufen=='yes'){//注册请求
+            if(res.data.status==1){
+              router.push({path: '/agentIndex/agentWait'})
+            }else{
+              commit({
+                type:'saveRegistAgentMsg',
+                data:res
+              })
+            }
+          }else{//加载注册页面请求
+            commit({
+              type:'saveAgentPage',
+              data:res.data.result.data
+            })
+          }
       }).catch(function (err) {
         console.log('请求失败：' + err)
       })
@@ -1496,14 +1504,19 @@ export default {
       }
     },
     //代理中心
+    saveAgentPage(state, data){
+      VueSet(state,'agentPage',data.data)
+      console.log(state.agentPage)
+    },
     saveRegistAgentMsg(state, data){
       VueSet(state,'registAgentMsg',data.data.data.result.msg)
     },
     saveAgentData(state, data) {
-      VueSet(state, 'agentData', data.data.data)
+      VueSet(state, 'agentData', data.data.data.result.data)
       if (state.agentData != {}) {
         router.push({path: '/agentIndex/'})
       }
+      console.log(state.agentData)
     },
     saveAgentPriceData(state, data) {
       VueSet(state, 'agentPriceData', data.data.data)

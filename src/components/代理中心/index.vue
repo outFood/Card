@@ -1,5 +1,10 @@
 <template>
-  <yd-layout :title="agentData.set.texts.center" link="/shopIndex" id="agent">
+  <div id="agent">
+    <yd-navbar :title="agentData.set.texts.center">
+      <router-link to="#" slot="left">
+        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
+      </router-link>
+    </yd-navbar>
     <div class='header'>
       <img :src="agentData.member.avatar">
       <div class="headInfo">
@@ -8,16 +13,29 @@
       </div>
       <div class="grade">【创业达人 {{agentData.member.aagenttype==1?'省级':(agentData.member.aagenttype==2?'市级':(agentData.member.aagenttype==3?'区级':'乡镇'))}}】</div>
     </div>
-    <div class="agentMid">
+    <div class="agentMid mid">
       <div class="left" @click="resAgentLine">
-        <img src="/static/img/people_white.png" alt="">
+        <img src="/static/img/people_white.png" alt="" class="people_white">
         <p>我的下线</p>
         {{agentData.bonus.total}}人
       </div>
       <div class="middle">
-        本月预计分红
-        <h5>{{agentData.bonus_wait}}</h5>
-        区级：0.00 乡镇：0.00
+        <span v-if="agentData.set.paytype==2">本周</span> <span v-else>本月</span>预计分红
+        <h5>{{agentData.bonus_wait?agentData.bonus_wait:0.00}}</h5>
+        <div v-if="agentData.member.aagenttype==1">
+          <p>省级：{{agentData.bonus_wait1?agentData.bonus_wait1:0.00}} 市级：{{agentData.bonus_wait2?agentData.bonus_wait2:0.00}}</p>
+          <p>区级：{{agentData.bonus_wait3?agentData.bonus_wait3:0.00}} 乡镇：{{agentData.bonus_wait4?agentData.bonus_wait4:0.00}}</p>
+        </div>
+        <div v-else-if="agentData.member.aagenttype==2">
+          市级：{{agentData.bonus_wait2?agentData.bonus_wait2:0.00}}
+          <p>区级：{{agentData.bonus_wait3?agentData.bonus_wait3:0.00}} 乡镇：{{agentData.bonus_wait4?agentData.bonus_wait4:0.00}}</p>
+        </div>
+        <div v-else-if="agentData.member.aagenttype==3">
+          区级：{{agentData.bonus_wait3?agentData.bonus_wait3:0.00}} 乡镇：{{agentData.bonus_wait4?agentData.bonus_wait4:0.00}}
+        </div>
+        <div v-else>
+          乡镇：{{agentData.bonus_wait4?agentData.bonus_wait4:0.00}}
+        </div>
       </div>
       <div class="right">
         <img src="/static/img/Commission.png" alt="">
@@ -35,22 +53,22 @@
         </router-link>
         <div class="main main1">
           <div>
-            <img src="/static/img/money.png" alt="">
+            <img src="/static/img/province.png" alt="">
             <p>省级</p>
             <span>{{agentData.bonus.total1}}</span>
           </div>
           <div>
-            <img src="/static/img/money.png" alt="">
+            <img src="/static/img/city.png" alt="">
             <p>市级</p>
             <span>{{agentData.bonus.total2}}</span>
           </div>
           <div>
-            <img src="/static/img/money.png" alt="">
+            <img src="/static/img/position_c.png" alt="">
             <p>区级</p>
             <span>{{agentData.bonus.total3}}</span>
           </div>
           <div>
-            <img src="/static/img/money.png" alt="">
+            <img src="/static/img/town.png" alt="">
             <p>乡镇级</p>
             <span>noData</span>
           </div>
@@ -61,22 +79,22 @@
         </router-link>
         <div class="main main1">
           <div>
-            <img src="/static/img/money.png" alt="">
+            <img src="/static/img/province.png" alt="">
             <p>省级</p>
             <span>{{agentData.bonus.lock1}}</span>
           </div>
           <div>
-            <img src="/static/img/money.png" alt="">
+            <img src="/static/img/city.png" alt="">
             <p>市级</p>
             <span>{{agentData.bonus.lock2}}</span>
           </div>
           <div>
-            <img src="/static/img/money.png" alt="">
+            <img src="/static/img/position_c.png" alt="">
             <p>区级</p>
             <span>{{agentData.bonus.lock3}}</span>
           </div>
           <div>
-            <img src="/static/img/money.png" alt="">
+            <img src="/static/img/town.png" alt="">
             <p>乡镇级</p>
             <span>noData</span>
           </div>
@@ -87,22 +105,22 @@
         </router-link>
         <div class="main main1">
           <div>
-            <img src="/static/img/money.png" alt="">
+            <img src="/static/img/province.png" alt="">
             <p>省级</p>
             <span>{{agentData.bonus.ok1}}</span>
           </div>
           <div>
-            <img src="/static/img/money.png" alt="">
+            <img src="/static/img/city.png" alt="">
             <p>市级</p>
             <span>{{agentData.bonus.ok2}}</span>
           </div>
           <div>
-            <img src="/static/img/money.png" alt="">
+            <img src="/static/img/position_c.png" alt="">
             <p>区级</p>
             <span>{{agentData.bonus.ok3}}</span>
           </div>
           <div>
-            <img src="/static/img/money.png" alt="">
+            <img src="/static/img/town.png" alt="">
             <p>乡镇级</p>
             <span>noData</span>
           </div>
@@ -116,12 +134,12 @@
         </router-link>
         <div class="main main1">
           <div>
-            <img src="/static/img/money.png" alt="">
+            <img src="/static/img/position_c.png" alt="">
             <p>区级</p>
             <span>{{agentData.bonus.total3}}</span>
           </div>
           <div>
-            <img src="/static/img/money.png" alt="">
+            <img src="/static/img/town.png" alt="">
             <p>乡镇级</p>
             <span>noData</span>
           </div>
@@ -132,12 +150,12 @@
         </router-link>
         <div class="main main1">
           <div>
-            <img src="/static/img/money.png" alt="">
+            <img src="/static/img/position_c.png" alt="">
             <p>区级</p>
             <span>{{agentData.bonus.lock3}}</span>
           </div>
           <div>
-            <img src="/static/img/money.png" alt="">
+            <img src="/static/img/town.png" alt="">
             <p>乡镇级</p>
             <span>noData</span>
           </div>
@@ -148,12 +166,12 @@
         </router-link>
         <div class="main main1">
           <div>
-            <img src="/static/img/money.png" alt="">
+            <img src="/static/img/position_c.png" alt="">
             <p>区级</p>
             <span>{{agentData.bonus.ok3}}</span>
           </div>
           <div>
-            <img src="/static/img/money.png" alt="">
+            <img src="/static/img/town.png" alt="">
             <p>乡镇级</p>
             <span>noData</span>
           </div>
@@ -167,17 +185,17 @@
         </router-link>
         <div class="main main2">
           <div>
-            <img src="/static/img/money.png" alt="">
+            <img src="/static/img/city.png" alt="">
             <p>市级</p>
             <span>{{agentData.bonus.total2}}</span>
           </div>
           <div>
-            <img src="/static/img/money.png" alt="">
+            <img src="/static/img/position_c.png" alt="">
             <p>区级</p>
             <span>{{agentData.bonus.total3}}</span>
           </div>
           <div>
-            <img src="/static/img/money.png" alt="">
+            <img src="/static/img/town.png" alt="">
             <p>乡镇</p>
             <span>noData</span>
           </div>
@@ -188,17 +206,17 @@
         </router-link>
         <div class="main main2">
           <div>
-            <img src="/static/img/money.png" alt="">
+            <img src="/static/img/city.png" alt="">
             <p>市级</p>
             <span>{{agentData.bonus.lock2}}</span>
           </div>
           <div>
-            <img src="/static/img/money.png" alt="">
+            <img src="/static/img/position_c.png" alt="">
             <p>区级</p>
             <span>{{agentData.bonus.lock3}}</span>
           </div>
           <div>
-            <img src="/static/img/money.png" alt="">
+            <img src="/static/img/town.png" alt="">
             <p>乡镇</p>
             <span>noData</span>
           </div>
@@ -209,17 +227,17 @@
         </router-link>
         <div class="main main2">
           <div>
-            <img src="/static/img/money.png" alt="">
+            <img src="/static/img/city.png" alt="">
             <p>市级</p>
             <span>{{agentData.bonus.ok2}}</span>
           </div>
           <div>
-            <img src="/static/img/money.png" alt="">
+            <img src="/static/img/position_c.png" alt="">
             <p>区级</p>
             <span>{{agentData.bonus.ok3}}</span>
           </div>
           <div>
-            <img src="/static/img/money.png" alt="">
+            <img src="/static/img/town.png" alt="">
             <p>乡镇</p>
             <span>noData</span>
           </div>
@@ -233,7 +251,7 @@
         </router-link>
         <div class="main main3">
           <div>
-            <img src="/static/img/agentPosition.png" alt="">
+            <img src="/static/img/town.png" alt="">
             <p>乡镇</p>
             <span>noData</span>
           </div>
@@ -244,7 +262,7 @@
         </router-link>
         <div class="main main3">
           <div>
-            <img src="/static/img/agentPosition.png" alt="">
+            <img src="/static/img/town.png" alt="">
             <p>乡镇</p>
             <span>noData</span>
           </div>
@@ -255,14 +273,14 @@
         </router-link>
         <div class="main main3">
           <div>
-            <img src="/static/img/agentPosition.png" alt="">
+            <img src="/static/img/town.png" alt="">
             <p>乡镇</p>
             <span>noData</span>
           </div>
         </div>
       </div>
     </div>
-  </yd-layout>
+  </div>
 </template>
 <script>
   import config from '../../myConfig'
@@ -275,9 +293,6 @@
     computed:{
       agentData(){
         return this.$store.state.agentData
-      },
-      prefix(){//轮播图片前缀
-        return this.$store.state.prefix
       },
     },
     methods:{
@@ -321,11 +336,24 @@
           },
           curText:curText
         })
+      },
+      back:function () {
+        this.$router.go(-1)
       }
     }
   }
 </script>
 <style>
+  #agent header {
+    height: 1.5rem !important;
+    align-items: center;
+  }
+  #agent header .yd-navbar-center-title{
+    font-size:.5rem !important;
+  }
+  #agent .yd-back-icon:before, .yd-next-icon:before {
+    font-size: .6rem;
+  }
   #agent .header,.agentMid{
     display: -webkit-box;
     display: -webkit-flex;
@@ -335,9 +363,12 @@
     padding:0.46875rem 0.3125rem;
     background: #fff;
   }
+  #agent .agentMid{
+    background:orange;
+  }
   #agent .header img{
-    width:1.25rem;
-    height:1.25rem;
+    width:1.5rem;
+    height:1.5rem;
     border-radius: 50%;
   }
   #agent .header .headInfo{
@@ -348,21 +379,25 @@
   }
   #agent .header .headInfo h6{
     font-weight: bold;
-    font-size:0.4375rem;
+    font-size:0.5rem;
   }
   #agent .header .grade{
   color:#ff5552;
-  font-size:0.375rem;
+  font-size:0.45rem;
  }
   #agent .mid{
     background: #ff9a00;
     color:#fff;
     justify-content: space-between;
-    font-size:0.375rem;
+    font-size:0.45rem;
   }
   #agent .mid img{
     width:0.78125rem;
     height:0.78125rem;
+  }
+  #agent .mid .people_white{
+    width:1rem;
+    height:1rem;
   }
   #agent .mid .middle h5{
     font-size:0.9375rem;

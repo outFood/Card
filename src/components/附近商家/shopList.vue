@@ -183,7 +183,7 @@
     font-size:0.375rem;
   }
   #shopList section .listItem .top .right{
-    flex: 0 0 10%;
+    flex: 0 0 20%;
     color:red;
     font-size:0.375rem;
   }

@@ -62,7 +62,7 @@
   }
   #sort .yd-scrolltab .yd-scrolltab-content-item .infoItem .infoCon a img{
     width:100%;
-    height:2.5rem;
+    height:3rem;
   }
   #sort .yd-scrolltab .yd-scrolltab-content-item .infoItem .infoCon a h6{
     font-size:0.4rem;
@@ -136,6 +136,9 @@
   }
   .yd-scrolltab-active{
     border-left: 2px solid red;
+  }
+  #sort .yd-scrolltab-title{
+    font-size:.5rem;
   }
   .yd-scrolltab-active .yd-scrolltab-title{
     color:red;

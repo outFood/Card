@@ -223,7 +223,10 @@
   }
   .yd-spinner>input{
     width:30%;
-    font-size:0.5rem
+    font-size:0.8rem
+  }
+  .yd-spinner>a:after{
+    font-size: .5rem;
   }
   .yd-spinner>a{
     width:35%

@@ -293,7 +293,7 @@
     border-bottom:1px solid #eee;
   }
   #someSort header .search>div{
-    flex:0 0 70%
+    flex:0 0 65%
   }
   #someSort header .search .searchBtn{
     display: block;

@@ -95,7 +95,7 @@
 </script>
 <style>
   #listmenu .yd-cell-item {
-    padding:.3rem 0 .3rem .24rem
+    padding:.2rem 0 .2rem .24rem
   }
   #listmenu span{
     font-size: 0.5rem !important;

@@ -71,7 +71,7 @@
     border:1px solid transparent;
    }
   #gonggao img{
-    width:0.625rem;
+    width:0.8rem;
     height:0.625rem;
     margin-right:0.3125rem;
     vertical-align: middle;

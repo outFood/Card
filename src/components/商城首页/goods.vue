@@ -3,7 +3,7 @@
     <div class="showMethod1"  v-if="listStyle==1">
       <div v-for="(item,key) in goodsItem"  @click="resCommodityDetailData(item.gid)">
         <img :src="item.thumb" alt="">
-        <div  class="lastdiv"><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}">{{item.title}}</span></p>
+        <div  class="lastdiv"><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}" v-if="goodsData.params.showtitle">{{item.title}}</span></p>
           <p>
             <span class="price" :style="{color:goodsData.style.pricecolor}">￥{{item.price}}</span>
             <span class="buyBtn1" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-1'"><img src="/static/img/cart.png" alt=""></span>
@@ -15,7 +15,7 @@
     <div class="showMethod2"  v-if="listStyle==2">
       <div v-for="(item,key) in goodsItem"  @click="resCommodityDetailData(item.gid)">
         <img :src="item.thumb" alt="">
-        <div class="lastdiv"><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}">{{item.title}}</span></p>
+        <div class="lastdiv"><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}" v-if="goodsData.params.showtitle">{{item.title}}</span></p>
           <p>
             <span class="price" :style="{color:goodsData.style.pricecolor}">￥{{item.price}}</span>
             <span class="buyBtn1" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-1'"><img src="/static/img/cart.png" alt=""></span>
@@ -27,7 +27,7 @@
     <div class="showMethod3" v-if="listStyle==3">
       <div v-for="(item,key) in goodsItem"  @click="resCommodityDetailData(item.gid)">
         <img :src="item.thumb" alt="">
-        <div class="lastdiv"><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}">{{item.title}}</span></p>
+        <div class="lastdiv"><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}" v-if="goodsData.params.showtitle">{{item.title}}</span></p>
           <p>
             <span class="price" :style="{color:goodsData.style.pricecolor}">￥{{item.price}}</span>
             <span class="buyBtn1" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-1'"><img src="/static/img/cart.png" alt=""></span>
@@ -39,12 +39,12 @@
     <div class="showMethod4" v-if="listStyle==0">
       <div v-for="(item,key) in goodsItem" @click="resCommodityDetailData(item.gid)">
         <img :src="item.thumb" alt="">
-        <div class="lastdiv rightdiv"><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}">{{item.title}}</span></p>
+        <div class="lastdiv rightdiv"><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}" v-if="goodsData.params.showtitle">{{item.title}}</span></p>
           <p>
             <span class="price" :style="{color:goodsData.style.pricecolor}">￥{{item.price}}</span>
             <span class="buyBtn1" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-1'"><img src="/static/img/cart.png" alt=""></span>
             <span class="buyBtn2" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-2'">+</span>
-            <span class="buyBtn3" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-3'">兑换</span></p>
+            <span class="buyBtn3" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-3'">购买</span></p>
           <p><i :class="{linethrough:goodsData.params.productpriceline==1}" :style="{color:goodsData.style.productpricecolor}">{{goodsData.params.productpricetext}}:￥{{item.productprice}}</i><i :style="{color:goodsData.style.salescolor}">{{goodsData.params.salestext}}:{{item.sales}}</i></p></div>
       </div>
     </div>
@@ -73,7 +73,7 @@
   }
   #goods img{
     width:100%;
-    height:2.8125rem;
+    height:5rem;
   }
   #goods .top{
     margin-bottom:0.3125rem;
