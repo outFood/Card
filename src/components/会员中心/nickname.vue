@@ -1,5 +1,6 @@
 <template>
-  <yd-layout title="头像/昵称" link="/vipIndex"  id="nickname">
+  <div id="nickname">
+    <headers title="修改头像和昵称"></headers>
     <div class="upload">
       修改头像
       <img class="picture" :src="headerImage"></img>
@@ -9,15 +10,17 @@
       修改昵称 <span>*</span><input type="text" :placeholder="wodeHeadData.nickname" v-model="nickname">
     </div>
     <yd-button size="large" type="primary" @click.native="updateNickName">保存</yd-button>
-  </yd-layout>
+  </div>
 
 </template>
 <script>
   import router from '@/router'
   import config from '../../myConfig'
   import Exif from 'exif-js'
+  import headers from '@/components/headers'
 
   export default {
+    components:{headers},
     data() {
       return {
         headerImage: '', picValue: '',
@@ -31,22 +34,6 @@
       updateNickNameResult(){
         return this.$store.state.updateNickNameResult
       }
-    },
-    watch:{
-      updateNickNameResult:{
-        handler: function (val, oldVal) {
-          this.$dialog.toast({
-            mes:val.result.msg,
-            timeout: 1500,
-//            callback: () => {
-//              if(val.status==1){
-//                router.push({path: '/vipIndex/vipInfo'})
-//              }
-//            }
-          });
-        },
-        deep: true
-      },
     },
     methods: {
       upload(e) {
@@ -211,7 +198,23 @@
             nickname:this.nickname?this.nickname:this.wodeHeadData.nickname,
             headStr:this.headerImage,
           }
-        })
+        }),
+          setTimeout(()=>{
+            if(this.updateNickNameResult.result.msg=='上传成功'){
+              this.$dialog.toast({
+                mes:'上传成功',
+                timeout: 1500,
+                callback: () => {
+                  this.$router.go(-1)
+                }
+              });
+            }else{
+              this.$dialog.toast({
+                mes:this.updateNickNameResult.result.msg,
+                timeout: 1500,
+              });
+            }
+          },1000)
       }
     },
 

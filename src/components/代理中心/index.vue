@@ -1,10 +1,6 @@
 <template>
   <div id="agent">
-    <yd-navbar :title="agentData.set.texts.center">
-      <router-link to="#" slot="left">
-        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
-      </router-link>
-    </yd-navbar>
+    <headers :title="agentData.set.texts.center"></headers>
     <div class='header'>
       <img :src="agentData.member.avatar">
       <div class="headInfo">
@@ -284,7 +280,9 @@
 </template>
 <script>
   import config from '../../myConfig'
+  import headers from '@/components/headers'
   export default {
+    components:{headers},
     data(){
       return{
         len:2

@@ -1,10 +1,6 @@
 <template>
   <div id="paySuccess">
-    <yd-navbar title="支付成功">
-      <router-link to="#" slot="left">
-        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
-      </router-link>
-    </yd-navbar>
+    <headers title="支付成功"></headers>
     <div class="car">
       <img src="/static/img/car.png" alt="">
       <div>
@@ -99,7 +95,9 @@
 </style>
 <script>
   import config from '../../myConfig'
+  import headers from '@/components/headers'
   export default {
+    components:{headers},
     methods:{
       back:function () {
         this.$router.go(-1)

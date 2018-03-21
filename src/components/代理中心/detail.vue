@@ -1,10 +1,6 @@
 <template>
   <div id="detail">
-    <yd-navbar title="分红明细">
-      <router-link to="#" slot="left">
-        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
-      </router-link>
-    </yd-navbar>
+    <headers title="分红明细"></headers>
     <p class="leiji"><span>累计分红</span><span>+0.00元</span></p>
     <div class="detailNav">
       <span :class="{curText:curText=='累计分红'}" @click="resFenHong('累计分红')">全部</span>
@@ -30,7 +26,9 @@
 </template>
 <script>
   import config from '../../myConfig'
+  import headers from '@/components/headers'
   export default {
+    components:{headers},
     computed:{
       curText(){
         return this.$store.state.curText
@@ -55,9 +53,6 @@
           curText:curText
         })
       },
-      back:function () {
-        this.$router.go(-1)
-      }
     }
   }
 </script>

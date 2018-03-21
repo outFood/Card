@@ -1,5 +1,6 @@
 <template>
-  <yd-layout title="账户充值" link="/vipIndex" id="recharge">
+  <div id="recharge">
+    <headers title="账户充值"></headers>
     <form action="#">
       <div class="item">
         <span>当前余额</span>
@@ -13,11 +14,13 @@
     <!--<yd-button size="large" type="primary" @click.native="saveAddress">下一步</yd-button>-->
     <yd-button size="large" type="primary" @click.native="">微信支付</yd-button>
     <yd-button size="large" type="warning" @click.native="">支付宝支付</yd-button>
-  </yd-layout>
+  </div>
 </template>
 <script>
   import config from '../../myConfig'
+  import headers from '@/components/headers'
   export default {
+    components:{headers},
     data(){
       return {
         curBalance:'￥'+0.0

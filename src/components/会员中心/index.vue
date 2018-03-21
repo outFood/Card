@@ -1,16 +1,12 @@
 <template>
   <div id="vip" v-if="wodeHeadData&&wodeBodyData">
-    <yd-navbar title="会员中心">
-      <router-link to="#" slot="left">
-        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
-      </router-link>
-    </yd-navbar>
+    <headers title="会员中心"></headers>
     <div id="head">
       <p>
-        <router-link to="#"><img src="/static/img/msg.png" alt=""></router-link>
-        <router-link to="#"  @click.native="toWhere('vipIndex/set')"><img src="/static/img/set.png" alt=""></router-link>
-        <router-link to="#" @click.native="toWhere('vipIndex/vipInfo')"><img src="/static/img/personInfo.png" alt=""></router-link>
-        <span>1</span>
+        <!--<router-link to="#"><img src="/static/img/msg.png" alt=""></router-link>-->
+        <router-link to="#"  @click.native="toWhere('vipIndex/vipInfo')"><img src="/static/img/set.png" alt=""></router-link>
+        <!--<router-link to="#" @click.native="toWhere('vipIndex/vipInfo')"><img src="/static/img/personInfo.png" alt=""></router-link>-->
+        <!--<span>1</span>-->
       </p>
       <div class="personInfo">
         <router-link to="#" @click.native="toWhere('/vipIndex/nickname')" class="headPic" tag="div"><img
@@ -63,9 +59,12 @@
 <script>
   import config from '../../myConfig'
   import router from '@/router'
+  import headers from '@/components/headers'
   export default {
+    components:{headers},
     data(){
       return {
+        title:'会员中心',
         openid:localStorage.getItem('openid'),
         id:localStorage.getItem('userid')
       }
@@ -194,19 +193,6 @@
   }
 </script>
 <style>
-  #vip .yd-navbar:after{
-    border:none;
-  }
-  #vip header {
-    height: 1.5rem !important;
-    align-items: center;
-  }
-  #vip header .yd-navbar-center-title{
-    font-size:.5rem !important;
-  }
-  #vip .yd-back-icon:before, .yd-next-icon:before {
-    font-size: .6rem;
-  }
   #vip #head {
     background: #00c2aa;
     padding: 0.3125rem;

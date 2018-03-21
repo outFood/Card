@@ -1,10 +1,6 @@
 <template>
   <div id="price">
-    <yd-navbar title="分销佣金">
-      <router-link to="#" slot="left">
-        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
-      </router-link>
-    </yd-navbar>
+    <headers title="分销佣金"></headers>
     <yd-flexbox class="head">
       <yd-flexbox-item>
         <p>{{priceData.thisset.texts.commission_total}}({{priceData.thisset.texts.yuan}})</p>
@@ -61,7 +57,9 @@
 <script>
   import config from '../../myConfig'
   import router from '@/router'
+  import headers from '@/components/headers'
   export default {
+    components:{headers},
     data(){
       return {
 
@@ -73,9 +71,6 @@
       }
     },
     methods:{
-      back:function () {
-        this.$router.go(-1)
-      },
       tixian(){
         router.push({path: '/distributIndex/tixian'})
       }

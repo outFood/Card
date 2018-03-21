@@ -1,5 +1,6 @@
 <template>
   <div id="regist">
+    <headers title="申请成为分销商"></headers>
     <yd-slider autoplay="3000">
       <yd-slider-item>
         <a href="http://www.ydcss.com">
@@ -9,21 +10,21 @@
     </yd-slider>
     <form action="#">
       <p>欢迎加入 <i>E卡平台</i>，请填写申请信息</p>
-      <div class="item">
-        <span>邀请人</span>
-        <div><i>总店</i>（请核对）</div>
-      </div>
+      <!--<div class="item">-->
+        <!--<span>邀请人</span>-->
+        <!--<div><i>总店</i>（请核对）</div>-->
+      <!--</div>-->
       <div class="item">
         <span>邀请人ID</span>
-        <div><input placeholder="请填写邀请人ID" v-model="icode"></div>
+        <div><input placeholder="请填写邀请人ID" v-model="icode" class="sky"></div>
       </div>
       <div class="item">
         <span>姓名</span>
-        <div><i>*</i><input placeholder="请填写真实姓名，用于结算" v-model="realname"></div>
+        <div><i>*</i><input :placeholder="userInfo.realname?userInfo.realname:'请填写真实姓名，用于结算'" v-model="realname" :class="{sky:!userInfo.realname}"></div>
       </div>
       <div class="item">
         <span>手机号</span>
-        <div><i>*</i><input placeholder="请填写手机号，方便联系" v-model="mobile"></div>
+        <div><i>*</i><input :placeholder="userInfo.mobile?userInfo.mobile:'请填写手机号，用于结算'" v-model="mobile" :class="{sky:!userInfo.mobile}"></div>
       </div>
       <!--<div class="item getCode">-->
         <!--<span>验证码</span>-->
@@ -39,7 +40,7 @@
       <!--</div>-->
       <div class="item">
         <span>微信号</span>
-        <div><input placeholder="请填写微信号" v-model="weixin"></div>
+        <div><input :placeholder="userInfo.weixin?userInfo.weixin:'请填写微信号'" v-model="weixin" :class="{sky:!userInfo.weixin}"></div>
       </div>
       <div class="item">
         <yd-checkbox-group v-model="readed" size="30" class="xieyi">
@@ -61,8 +62,11 @@
   </div>
 </template>
 <script>
+  import axios from 'axios'
   import config from '../../myConfig'
+  import headers from '@/components/headers'
   export default {
+    components:{headers},
     data(){
       return{
         readed: ['3'],
@@ -70,11 +74,12 @@
         show1: false,
         //注册信息
         isReaded:false,
-        icode:'639312',
-        realname:'吴巧红',
-        mobile:'15658163225',
-        weixin:'1741432444',
-        tipMsg:''
+        icode:'',
+        realname:'',
+        mobile:'',
+        weixin:'',
+        tipMsg:'',
+        userInfo:{}
       }
     },
     watch: {
@@ -97,16 +102,19 @@
       },
       toApply(){
         var regMobile = /^((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8}$/;
-        if(this.realname==''){
+        if(this.realname==''&&this.userInfo.realname==''){
           this.tipMsg='请填写姓名!'
           this.openAlert()
-        }else if(this.mobile==''){
+        }else if(this.weixin==''&&this.userInfo.weixin==''){
+          this.tipMsg='请填写微信号!'
+          this.openAlert()
+        }else if(this.mobile==''&&this.userInfo.mobile==''){
           this.tipMsg='请填写手机号!'
           this.openAlert()
-        }else if(this.mobile.length!=11){
+        }else if(this.userInfo.mobile=''&&this.mobile.length!=11){
           this.tipMsg='请填写11位手机号!'
           this.openAlert()
-        }else if(!regMobile.test(this.mobile)){
+        }else if(this.userInfo.mobile=''&&!regMobile.test(this.mobile)){
           this.tipMsg='手机号格式输入有误!'
           this.openAlert()
         }else if(this.isReaded==false){
@@ -117,9 +125,9 @@
             type:'resApply',
             params:{
               icode:this.icode,
-              realname:this.realname,
-              mobile:this.mobile,
-              weixin:this.weixin,
+              realname:this.realname?this.realname:this.userInfo.realname,
+              mobile:this.mobile?this.mobile:this.userInfo.mobile,
+              weixin:this.weixin?this.weixin:this.userInfo.weixin,
               openid:localStorage.getItem('openid'),
               cl:'1',
               t:config.t,
@@ -129,10 +137,33 @@
           })
         }
       }
-    }
+    },
+    beforeCreate(){
+      var params={
+          openid:localStorage.getItem('openid'),
+          mid:localStorage.getItem('userid'),
+          t:config.t,
+          uniacid:config.uniacid,
+          i:config.i
+        }
+      var me=this;
+      axios.get(config.baseUrl + "/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.xcxl", {params:params})
+        .then(function (res) {
+          me.userInfo=res.data.result.data.user
+          console.log(me.userInfo)
+        }).catch(function (err) {console.log(err)})
+    },
   }
 </script>
 <style>
+  #regist ::-webkit-input-placeholder {
+    color: #000 !important;
+    font-size:0.45rem !important;
+  }
+
+  #regist .sky::-webkit-input-placeholder {
+    color: silver !important;
+  }
   #regist form{
     text-align: left;
     padding:0.3125rem;

@@ -172,6 +172,8 @@
             type:'resCommodityListData',
             params:{
               t:config.t,
+              i:config.i,
+              uniacid:config.uniacid,
               keywords:this.searchKey,
             }
           })

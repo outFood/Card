@@ -1,10 +1,6 @@
 <template>
   <div id="xiaxian">
-    <yd-navbar title="我的下线">
-      <router-link to="#" slot="left">
-        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
-      </router-link>
-    </yd-navbar>
+    <headers title="我的下线"></headers>
     <div class="orderNav">
       <span :class="{curOrderNav:curSel==1}" @click="lookXiaXian('一级')">一级({{xiaXian.list.length}})</span>
       <span :class="{curOrderNav:curSel==2}" @click="lookXiaXian('二级')">二级({{xiaXian.list.length}})</span>
@@ -26,7 +22,9 @@
 </template>
 <script>
   import config from '../../myConfig'
+  import headers from '@/components/headers'
   export default {
+    components:{headers},
     data(){
       return{
         curSel:1
@@ -54,9 +52,6 @@
           }
         })
       },
-      back:function () {
-        this.$router.go(-1)
-      }
     },
     beforeCreate(){
       this.$store.dispatch({

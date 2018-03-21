@@ -1,10 +1,6 @@
 <template>
   <div id="daili">
-    <yd-navbar title="小店设置">
-      <router-link to="#" slot="left">
-        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
-      </router-link>
-    </yd-navbar>
+    <headers title="小店设置"></headers>
     <form action="#">
       <div class="item">
         <span>名称</span>
@@ -137,7 +133,9 @@
   import config from '../../myConfig'
   /* 前提是已经安装了 ydui-district */
   import District from 'ydui-district/dist/jd_province_city_area_id';
+  import headers from '@/components/headers'
   export default {
+    components:{headers},
     data(){
       return{
         headerImage:[], picValue: '',
@@ -298,9 +296,6 @@
         console.log('压缩率：' + ~~(100 * (initSize - ndata.length) / initSize) + "%");
         tCanvas.width = tCanvas.height = canvas.width = canvas.height = 0;
         return ndata;
-      },
-      back:function () {
-        this.$router.go(-1)
       },
       setXiaoDian(){
 

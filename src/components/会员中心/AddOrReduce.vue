@@ -1,10 +1,6 @@
 <template>
   <div id="AddOrReduce">
-    <yd-navbar title="资金往来">
-      <router-link to="#" slot="left">
-        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
-      </router-link>
-    </yd-navbar>
+    <headers title="资金往来"></headers>
     <div class="list">
       <div class="list-item">
         <div class="left"><img src="http://static.ydcss.com/uploads/ydui/1.jpg">哈哈</div>
@@ -63,13 +59,10 @@
   }
 </style>
 <script>
+  import headers from '@/components/headers'
   import config from '../../myConfig'
   export default {
-    methods:{
-      back:function () {
-        this.$router.go(-1)
-      }
-    },
+    components:{headers},
     beforeCreate(){
       this.$store.dispatch({
         type:'resAddOrReduce',

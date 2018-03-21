@@ -1,10 +1,6 @@
 <template>
   <div id="tixian">
-    <yd-navbar title="申请体现">
-      <router-link to="#" slot="left">
-        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
-      </router-link>
-    </yd-navbar>
+    <headers title="申请体现"></headers>
     <form action="#">
       <div class="item">
         <span>我的可提现佣金</span>
@@ -73,8 +69,10 @@
   </div>
 </template>
 <script type="text/babel">
+  import headers from '@/components/headers'
   import config from '../../myConfig'
     export default {
+      components:{headers},
         data() {
             return {
                 show1: false,

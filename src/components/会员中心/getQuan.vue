@@ -1,10 +1,6 @@
 <template>
   <div id="getQuan">
-    <yd-navbar title="领取优惠券">
-      <router-link to="#" slot="left">
-        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
-      </router-link>
-    </yd-navbar>
+    <headers title="领取优惠券"></headers>
     <yd-flexbox v-for="(item,key) in getQuan.list" :key="key"  @click.native="resCouponDetail(item.id)">
       <div class="left">
         <div>{{item.title3}}</div>
@@ -25,7 +21,9 @@
 </template>
 <script>
   import config from '../../myConfig'
+  import headers from '@/components/headers'
   export default {
+    components:{headers},
     data(){
       return{
 

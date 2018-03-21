@@ -1,5 +1,6 @@
 <template>
-  <yd-layout title="会员资料" link="/vipIndex" id="vipInfo">
+  <div id="vipInfo">
+    <headers title="会员资料"></headers>
     <router-link to="/vipIndex/nickname" class="updatePic">
       <i v-if="vipInfoData.avatar==''&&vipInfoData.nickname==''">点击设置头像和昵称</i>
       <div v-else>
@@ -14,10 +15,6 @@
       <div>微信号 <span>*</span><input placeholder="请输入微信号" v-model="vipInfoData.weixin"></div>
     </div>
     <yd-cell-group>
-      <!--<yd-cell-item arrow>-->
-        <!--<span slot="left">出生日期：</span>-->
-        <!--<yd-datetime type="date" v-model="birthday" slot="right"></yd-datetime>-->
-      <!--</yd-cell-item>-->
       <yd-cell-item arrow>
         <span slot="left">所在地区：</span>
         <input slot="right" type="text" @click.stop="show1 = true" v-model="areas!=''?areas:vipInfoData.province+' '+vipInfoData.city+' '+vipInfoData.area" readonly placeholder="请选择所在地区">
@@ -25,13 +22,16 @@
     </yd-cell-group>
     <yd-cityselect v-model="show1" :callback="result1" :items="district"></yd-cityselect>
     <yd-button size="large" type="primary" class="sureUpdate" @click.native="sureUpdate">确认修改</yd-button>
-  </yd-layout>
+  </div>
 </template>
 <script>
   /* 前提是已经安装了 ydui-district */
   import District from 'ydui-district/dist/jd_province_city_area_id';
   import config from '../../myConfig'
+  import headers from '@/components/headers'
+  import axios from 'axios'
   export default {
+    components:{headers},
     data(){
       return {
         mobile:'',
@@ -53,18 +53,29 @@
         this.areas = ret.itemName1 + ' ' + ret.itemName2 + ' ' + ret.itemName3;
       },
       sureUpdate(){
-        this.$store.dispatch({
-          type:'updatePersonInfo',
-          params:{
-            mid:localStorage.getItem('userid'),
+        var params={
+          mid:localStorage.getItem('userid'),
             openid:localStorage.getItem('openid'),
             realname:this.realname!=''?this.realname:this.vipInfoData.realname,
             mobile:this.mobile!=''?this.mobile:this.vipInfoData.mobile,
             weixin:this.weixin!=''?this.weixin:this.vipInfoData.weixin,
             areas:this.areas!=''?this.areas:this.vipInfoData.province+' '+this.vipInfoData.city+' '+this.vipInfoData.area,
             t:config.t
-          }
-        })
+        }
+        var me=this;
+        axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.info.submitapp', {params:params})
+          .then(function (res) {
+            me.$dialog.toast({
+              mes:res.data.result.msg,
+              timeout: 1500,
+              callback: () => {
+                this.$router.go(-1)
+              }
+            });
+            if(res.data.status==1){
+              me.$router.go(-1)
+            }
+          }).catch(function (err) {console.log(err)})
       },
     },
     beforeCreate(){

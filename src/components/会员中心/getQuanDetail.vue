@@ -1,10 +1,6 @@
 <template>
   <div id="getQuanDetail">
-    <yd-navbar title="优惠券详情">
-      <router-link to="#" slot="left">
-        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
-      </router-link>
-    </yd-navbar>
+    <headers title="优惠券详情"></headers>
     <div class="quanBody">
       <div class="top">
         <div class="borderDiv">
@@ -227,7 +223,9 @@
 </style>
 <script>
   import config from '../../myConfig'
+  import headers from '@/components/headers'
   export default {
+    components:{headers},
     data(){
       return{
 

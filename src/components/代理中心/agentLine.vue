@@ -1,5 +1,6 @@
 <template>
-  <yd-layout title="我的下线" link="/distributIndex" id="agentLine">
+  <div id="agentLine">
+    <headers title="我的下线"></headers>
     <p class="tip">成员信息 <img src="/static/img/star_hong.png" alt="">为已经成为代理商的下线</p>
     <div class="item" v-for="(item,key) in agentLineData.list" :key="key">
       <img :src="item.avatar">
@@ -13,11 +14,13 @@
       </div>
     </div>
     <footers></footers>
-  </yd-layout>
+  </div>
 </template>
 <script>
   import config from '../../myConfig'
+  import headers from '@/components/headers'
   export default {
+    components:{headers},
     data(){
       return{
 

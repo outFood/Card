@@ -1,14 +1,10 @@
 <template>
-  <div class="login">
-    <yd-navbar title="登录" bgcolor="#0175dc" color="#fff" fontsize="18px" height="50px">
-      <router-link to="#" slot="left">
-        <div @click="back()"><yd-navbar-back-icon color="#fff"></yd-navbar-back-icon></div>
-      </router-link>
-    </yd-navbar>
+  <div id="login">
+    <headers title="会员登录"></headers>
     <form action="#">
       <div class="form-group">
         账号：
-        <input type="number" required  v-model="phone" pattern="^1[3458]{1}[0-9]{9}$" placeholder="请输入手机号">
+        <input type="text" required  v-model="phone" maxlength="11" placeholder="请输入手机号">
       </div>
       <div class="form-group">
         密码：
@@ -32,11 +28,12 @@
     </div>
   </div>
 </template>
-
 <script>
   import config from '../../myConfig'
   import router from '@/router'
+  import headers from '@/components/headers'
   export default {
+    components:{headers},
     data() {
       return {
         phone:'',
@@ -49,33 +46,24 @@
       }
     },
     methods:{
-      back:function () {
-        this.$router.go(-1)
-      },
       toLogin(){
         this.$store.dispatch({
           type:'login',
           params:{
             mobile:this.phone,
-            password:this.pwd,
-            t:config.t
+            pwd:this.pwd,
+            t:config.t,
+            ispost:1
           }
         })
         setTimeout(()=>{
-          if(this.loginStatus=='登录成功'){
-            this.$dialog.toast({
-              mes: '登录成功！',
-              timeout: 1000,
-              callback(){
-                router.push({path:'/vipIndex'})
-              }
-            });
-          }else{
-            this.$dialog.toast({
-              mes:this.loginStatus,
-              timeout: 1500,
-            });
+          if(this.loginStatus.status==1){
+            router.push({path:'/shopIndex'})
           }
+          this.$dialog.toast({
+            mes:this.loginStatus.result.msg,
+            timeout: 1500,
+          });
         },500)
       }
     }
@@ -83,64 +71,63 @@
 </script>
 
 <style scoped>
-
-  .login {
+  #login {
     position: fixed;
     top:0;right:0;bottom: 0;left:0;
     background: #fff;
   }
-  .form-group{
+  #login .form-group{
     display:flex;
     align-items: center;
     font-size:0.5rem;
     padding:0.625rem;
     border-bottom: 1px solid #eee;
   }
-  .form-group input{
+  #login .form-group input{
     border:none
   }
   /**************/
-  .otherDo{
+  #login .otherDo{
     margin:0.78125rem;
     display:flex;
     justify-content: space-between;
     font-size:0.4375rem;
     color:#feae19;
   }
-  .Btn{
+  #login .Btn{
     width:90%;
     height:1.25rem;
     margin:0.625rem auto;
     font-size:0.5rem;
   }
-  .otherLoginMethod{
+  #login .otherLoginMethod{
     font-size: 0.4375rem;
     color:#868686;
     padding-bottom:0.9375rem;
   }
-  .otherLoginMethod .first{
+  #login .otherLoginMethod .first{
     margin-bottom: 0.625rem;
   }
-  .otherLoginMethod .first span{
+  #login .otherLoginMethod .first span{
     display: inline-block;
     height:7px;
     width:25%;
     border-top:1px solid #d4d4d4;
   }
-  .otherLoginMethod .first span:nth-child(1){
+  #login .otherLoginMethod .first span:nth-child(1){
     margin-right:0.3125rem;
   }
-  .otherLoginMethod .first span:nth-child(2){
+  #login .otherLoginMethod .first span:nth-child(2){
     margin-left:0.3125rem;
   }
-  .otherLoginMethod .second img{
+  #login .otherLoginMethod .second img{
     width:1.5625rem;
     height:1.5625rem;
   }
-  .otherLoginMethod .second img:nth-child(1){
+  #login .otherLoginMethod .second img:nth-child(1){
     margin-right:0.625rem;
   }
-  .otherLoginMethod .second img:nth-child(2){
+  #login .otherLoginMethod .second img:nth-child(2){
     margin-left:0.625rem;
   }
 </style>

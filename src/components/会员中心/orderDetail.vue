@@ -1,13 +1,10 @@
 <template>
   <div id="orderDetail">
-    <yd-navbar title="订单详情">
-      <router-link to="#" slot="left">
-        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
-      </router-link>
-    </yd-navbar>
+    <headers title="订单详情"></headers>
     <div class="alreadyPay">
       <p>
-        <span v-if="orderDetail.order.status==2">买家已付款</span>
+        <span v-if="orderDetail.order.status==1">待发货</span>
+        <span v-if="orderDetail.order.status==2">待收货</span>
         <span v-if="orderDetail.order.status==0">待付款</span>
         <span v-if="orderDetail.order.status==3">交易完成</span>
       </p>
@@ -201,7 +198,9 @@
 </style>
 <script>
   import config from '../../myConfig'
+  import headers from '@/components/headers'
   export default {
+    components:{headers},
     data(){
       return{
         isCancelOrder: false,

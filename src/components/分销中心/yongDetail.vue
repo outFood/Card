@@ -1,10 +1,6 @@
 <template>
   <div id="yongDetail">
-    <yd-navbar title="佣金明细">
-      <router-link to="#" slot="left">
-        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
-      </router-link>
-    </yd-navbar>
+    <headers title="佣金明细"></headers>
     <p class="leiji"><span>累计佣金</span><span>+ {{yongDetail.member.commission_total?yongDetail.member.commission_total:0}} 元</span></p>
     <div class="orderNav">
       <span :class="{curOrderNav:curSel==''}" @click="lookYongDetail('所有')">所有</span>
@@ -26,7 +22,9 @@
 </template>
 <script>
   import config from '../../myConfig'
+  import headers from '@/components/headers'
   export default {
+    components:{headers},
     data(){
       return {
         curSel:''
@@ -52,9 +50,6 @@
           }
         })
       },
-      back:function () {
-        this.$router.go(-1)
-      }
     },
     beforeCreate(){
       this.$store.dispatch({

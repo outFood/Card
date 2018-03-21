@@ -1,5 +1,6 @@
 <template>
   <div id="editAddress">
+    <headers title="编辑地址"></headers>
     <form action="#">
       <div class="item">
         <span>收件人</span>
@@ -26,7 +27,9 @@
   /* 前提是已经安装了 ydui-district */
   import District from 'ydui-district/dist/jd_province_city_area_id';
   import config from '../../myConfig'
+  import headers from '@/components/headers'
   export default {
+    components:{headers},
     data(){
       return{
         show1: false,

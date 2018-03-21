@@ -1,5 +1,6 @@
 <template>
   <div id="fujin">
+    <!--<headers title="附近商家"></headers>-->
     <yd-infinitescroll :callback="loadList" ref="infinitescrollDemo">
       <yd-list theme="1" slot="list">
         <!----------------------------------------------------------->
@@ -32,6 +33,7 @@
   import sortSlide from '@/components/附近商家/sortSlide'
   import youxuan from '@/components/附近商家/youxuan'
   import shopList from '@/components/附近商家/shopList'
+  import headers from '@/components/headers'
   export default {
     data() {
       return {
@@ -54,6 +56,6 @@
         console.log('下拉刷新')
       },
     },
-    components: {position,search,banner,sortSlide,youxuan,shopList},
+    components: {headers,position,search,banner,sortSlide,youxuan,shopList},
   }
 </script>

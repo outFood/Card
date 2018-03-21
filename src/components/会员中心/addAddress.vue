@@ -1,5 +1,6 @@
 <template>
-  <div id="regist">
+  <div id="addAddress">
+    <headers title="添加地址"></headers>
     <form action="#">
       <div class="item">
         <span>收件人</span>
@@ -25,8 +26,10 @@
 <script>
   import config from '../../myConfig'
   /* 前提是已经安装了 ydui-district */
-  import District from 'ydui-district/dist/jd_province_city_area_id';
+  import District from 'ydui-district/dist/jd_province_city_area_id'
+  import headers from '@/components/headers'
   export default {
+    components:{headers},
     data(){
       return{
         realname:'哈哈',
@@ -60,15 +63,15 @@
   }
 </script>
 <style>
-  #regist form{
+  #addAddress form{
     text-align: left;
     padding: 0.3125rem;
     background: #fff;
   }
-  #regist form i{
+  #addAddress form i{
     color:red;
   }
-  #regist form .item{
+  #addAddress form .item{
     padding: 0.3125rem 0;
     display: -webkit-box;
     display: -webkit-flex;
@@ -77,13 +80,13 @@
     align-items: center;
     border-bottom: 1px solid #eee;
   }
-  #regist form .item span{
+  #addAddress form .item span{
     flex:0 0 25% ;
   }
-  #regist form .item>div{
+  #addAddress form .item>div{
     flex:0 0 70%;
   }
-  #regist form .item input{
+  #addAddress form .item input{
     border: none;
     padding-left: 5px;
     width:95%;
@@ -92,7 +95,7 @@
     color: #b0b0b0;
     font-size:0.375rem;
   }
-  #regist button{
+  #addAddress button{
     position: fixed !important;
     bottom: 0 !important;
     border-radius: 0 !important;

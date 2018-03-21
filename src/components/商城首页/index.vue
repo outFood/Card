@@ -22,6 +22,7 @@
   }
 </style>
 <script>
+  import config from '../../myConfig'
   import router from '@/router'
   import fixedsearch from '@/components/商城首页/fixedsearch'
   import payment from '@/components/商城首页/payment'
@@ -74,7 +75,15 @@
       },1000)
     },
     beforeCreate(){
-
+      this.$store.dispatch({
+        type:'resHomeData',
+        params:{
+          id:config.homeid,
+          t:config.t,
+          i:config.i,
+          uniacid:config.uniacid
+        }
+      })
     }
   }
 </script>

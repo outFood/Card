@@ -1,5 +1,6 @@
 <template>
-  <yd-layout title="自选商品" link="/distributIndex" id="zixuan">
+  <div id="zixuan">
+    <headers title="自选商品"></headers>
     <div class="switch">
       <div class="open"><span>开启自选</span><yd-switch v-model="openZixuan"></yd-switch></div>
       <p>开启自选后，您的小店里只显示您选择的产品</p>
@@ -13,7 +14,7 @@
 
 
     <footers></footers>
-  </yd-layout>
+  </div>
 </template>
 <style>
   #zixuan .switch{
@@ -47,7 +48,9 @@
   }
 </style>
 <script>
+  import headers from '@/components/headers'
   export default {
+    components:{headers},
     data(){
       return {
         openZixuan:false,

@@ -1,14 +1,10 @@
 <template>
   <div id="wodeRegist">
-    <yd-navbar title="注册" bgcolor="#0175dc" color="#fff" fontsize="18px" height="40px">
-      <router-link to="#" slot="left">
-        <div @click="back()"><yd-navbar-back-icon color="#fff"></yd-navbar-back-icon></div>
-      </router-link>
-    </yd-navbar>
+    <headers title="注册会员"></headers>
     <form action="#">
       <div class="form-group">
         账号：
-        <input type="number" required  v-model="phone" maxlength="11" pattern="^1[3458]{1}[0-9]{9}$" placeholder="请输入手机号">
+        <input type="text" required  v-model="phone" maxlength="11" placeholder="请输入手机号">
       </div>
       <!--<div class="form-group">-->
         <!--验证码：-->
@@ -52,7 +48,9 @@
 <script>
   import router from '@/router'
   import config from '../../myConfig'
+  import headers from '@/components/headers'
   export default {
+    components:{headers},
     data() {
       return {
         isReaded:false,
@@ -69,27 +67,6 @@
         return this.$store.state.registStatus
       }
     },
-    watch:{
-      registStatus:{
-        handler: function (val, oldVal) {
-          if(val=='注册成功'){
-            this.$dialog.toast({
-              mes:val,
-              timeout: 1000,
-              callback(){
-                router.push({path:'/vipIndex/login'})
-              }
-            });
-          }else{
-            this.$dialog.toast({
-              mes:val,
-              timeout: 1500,
-            });
-          }
-        },
-        deep: true
-      },
-    },
     methods:{
       openAlert() {
       this.$dialog.alert({
@@ -97,7 +74,7 @@
       });
     },
       toRegist(){
-        var regMobile = /^((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8}$/;
+        var regMobile =/^[1][3,4,5,7,8][0-9]{9}$/;
         var regPwd=/^[a-zA-Z0-9]{6,10}$/
         if(this.phone==''){
           this.tipMsg='请填写手机号!'
@@ -128,13 +105,24 @@
             type:'regist',
             params:{
               mobile:this.phone,
-              password:this.pwd,
-              confirm_password:this.surePwd,
-              t:config.t
+              verifycode:'098768',
+              pwd:this.pwd,
+//              confirm_password:this.surePwd,
+              t:config.t,
+              ispost:1
             }
           })
+          setTimeout(()=>{
+            if(this.registStatus.status==1){
+              router.push({path:'/vipIndex/login'})
+            }
+            this.$dialog.toast({
+              mes:this.registStatus.result.msg,
+              timeout: 1000,
+            });
+          },500)
         }
-      }
+      },
     }
   }
 </script>

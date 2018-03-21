@@ -107,8 +107,8 @@ export default {
       wodeHeadData: {},
       wodeBodyData: {},
       updateNickNameResult: {},
-      loginStatus: '',
-      registStatus: '',
+      loginStatus:{},
+      registStatus: {},
       vipInfoData: {},
       myAddressData: {},
       wantEditAddress: [],
@@ -875,22 +875,22 @@ export default {
         }))
     },
     regist({commit, state}, data) {
-      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.user.register', {params: data.params})
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=account.index.get_register', {params: data.params})
         .then(function (res) {
           commit({
             type: 'saveRegistStatus',
-            data: res.data.result.msg
+            data: res.data
           })
         }).catch(function (err) {
         console.log('请求失败:' + err)
       })
     },
     login({commit, state}, data) {
-      axios.get(config.baseUrl + "/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.user.passwordlogin", {params: data.params})
+      axios.get(config.baseUrl + "/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=account.index.get_login", {params: data.params})
         .then(function (res) {
           if (res.data.status == 1) {
-            localStorage.setItem('openid', res.data.result.data.openid)
-            localStorage.setItem('userid', res.data.result.data.mid)
+            localStorage.setItem('openid', res.data.result.data.member.openid)
+            localStorage.setItem('userid', res.data.result.data.member.id)
           }
           commit({
             type: 'saveLoginInfo',
@@ -916,14 +916,6 @@ export default {
           })
         }).catch(function (err) {
         console.log('请求失败:' + err)
-      })
-    },
-    updatePersonInfo({commit, state}, data) {
-      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.info.submitapp', {params: data.params})
-        .then(function (res) {
-          // router.push({path: '/vipIndex'})
-        }).catch(function (err) {
-        alert(err)
       })
     },
     updateNickName({commit, state}, data) {
@@ -1459,7 +1451,6 @@ export default {
     //分销
     saveFenxiaoHead(state, data) {
       VueSet(state, 'fenxiao_headData', data.data.data.result.data)
-      console.log(state.fenxiao_headData)
       //在分销中心里,status为0表示未审核，1代表审核通过；register为0代表没注册过，1注册过
       if (state.fenxiao_headData.register == 0) {//没注册过
         router.push({path: '/distributIndex/apply'})
@@ -1549,11 +1540,11 @@ export default {
       VueSet(state, 'updateNickNameResult', data.data.data)
     },
     saveLoginInfo(state, data) {
-      VueSet(state, 'loginStatus', data.res.data.result.msg)
+      VueSet(state, 'loginStatus', data.res.data)
+      console.log(state.loginStatus)
     },
     saveRegistStatus(state, data) {
       VueSet(state, 'registStatus', data.data)
-      console.log(state.registStatus)
     },
     saveVipInfoData(state, data) {
       VueSet(state, 'vipInfoData', data.data.data.result.data.member)
@@ -1584,6 +1575,7 @@ export default {
     },
     saveOrderDetail(state, data) {
       VueSet(state, 'orderDetail', data.data.data.result.data)
+      console.log(state.orderDetail)
       if (state.orderDetail != {}) {
         router.push({path: '/vipIndex/orderDetail'})
       }

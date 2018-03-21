@@ -1,5 +1,6 @@
 <template>
-  <yd-layout title="我的足迹" link="/vipIndex" id="zuji">
+  <div id="zuji">
+    <headers title="我的足迹"></headers>
     <div v-if="list.length==0" class="noData"><span></span> 没有数据 <span></span></div>
     <div v-else>
       <div class="item" v-for="(item,key) in list" :key="key">
@@ -10,11 +11,13 @@
         </div>
       </div>
     </div>
-  </yd-layout>
+  </div>
 </template>
 <script>
   import config from '../../myConfig'
+  import headers from '@/components/headers'
   export default {
+    components:{headers},
     data(){
       return{
 

@@ -1,5 +1,6 @@
 <template>
   <div id="tuiguang">
+    <headers title="推广二维码"></headers>
     <yd-slider autoplay="3000">
       <yd-slider-item>
         <a href="#">
@@ -31,7 +32,9 @@
 </template>
 <script>
   import config from '../../myConfig'
+  import headers from '@/components/headers'
   export default {
+    components:{headers},
     data(){
       return {
 
@@ -61,6 +64,16 @@
   }
 </script>
 <style>
+  #tuiguang header {
+    height: 1.5rem !important;
+    align-items: center;
+  }
+  #tuiguang header .yd-navbar-center-title{
+    font-size:.5rem !important;
+  }
+  #tuiguang .yd-back-icon:before, .yd-next-icon:before {
+    font-size: .6rem;
+  }
   #tuiguang{
     text-align: left;
     background: #fff;

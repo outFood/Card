@@ -1,10 +1,6 @@
 <template>
   <div id="order">
-    <yd-navbar title="订单">
-      <router-link to="#" slot="left">
-        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
-      </router-link>
-    </yd-navbar>
+    <headers title="我的订单"></headers>
     <div class="orderNav">
       <span  :class="{curOrderNav:orderStatus==6}"  @click="lookOrder('全部')">全部</span>
       <span  :class="{curOrderNav:orderStatus==0}"  @click="lookOrder('待付款')">待付款</span>
@@ -79,7 +75,9 @@
   import router from '@/router'
   import config from '../../myConfig'
   import noOrder from '@/components/会员中心/noOrder'
+  import headers from '@/components/headers'
   export default {
+    components:{headers,noOrder},
     data() {
       return {
         isCancelOrder: false,
@@ -272,7 +270,6 @@
         this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.finishLoad');
       },
     },
-    components:{noOrder}
   }
 </script>
 <style>

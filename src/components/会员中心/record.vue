@@ -1,10 +1,6 @@
 <template>
   <div id="AddOrReduce">
-    <yd-navbar title="积分返还记录">
-      <router-link to="#" slot="left">
-        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
-      </router-link>
-    </yd-navbar>
+    <headers title="返还记录"></headers>
     <no-order v-if=" recordData.list.length==0"></no-order>
     <div class="list" v-else>
       <div class="list-item" v-for="(item,key) in recordData.list" :key="key">
@@ -41,16 +37,12 @@
 <script>
   import config from '../../myConfig'
   import noOrder from '@/components/会员中心/noOrder'
+  import headers from '@/components/headers'
   export default {
+    components:{headers,noOrder},
     computed:{
       recordData(){
         return this.$store.state.recordData
-      }
-    },
-    components:{noOrder},
-    methods:{
-      back:function () {
-        this.$router.go(-1)
       }
     },
     beforeCreate(){

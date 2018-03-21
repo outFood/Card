@@ -1,10 +1,6 @@
 <template>
   <div id="price">
-    <yd-navbar title="代理佣金">
-      <router-link to="#" slot="left">
-        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
-      </router-link>
-    </yd-navbar>
+    <headers title="代理佣金"></headers>
     <yd-flexbox class="head">
       <yd-flexbox-item>
         <p>累计佣金(元)</p>
@@ -44,7 +40,9 @@
   </div>
 </template>
 <script>
+  import headers from '@/components/headers'
   export default {
+    components:{headers},
     data(){
       return {
 

@@ -12,7 +12,7 @@
       </div>
       <div class="item">
         <span>代理区域</span>
-        <div><i style="visibility: hidden">*</i><input :placeholder="agentPage.member.aagentprovinces" disabled class="disabled"></div>
+        <div><i style="visibility: hidden">*</i><input :placeholder="agentPage.member.aagentprovinces+agentPage.member.aagentcitys" disabled class="disabled"></div>
       </div>
       <div class="item">
         <span>状态1</span>

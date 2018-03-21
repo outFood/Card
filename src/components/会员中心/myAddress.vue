@@ -1,10 +1,6 @@
 <template>
   <div id="myAddress">
-    <yd-navbar title="收货地址">
-      <router-link to="#" slot="left">
-        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
-      </router-link>
-    </yd-navbar>
+    <headers title="收货地址"></headers>
     <div class="address-item" v-for="(item,key) in myAddressData" :key="key">
       <div @click="selAddress(item)">
         <yd-flexbox>
@@ -33,7 +29,9 @@
 </template>
 <script>
   import config from '../../myConfig'
+  import headers from '@/components/headers'
   export default {
+    components:{headers},
     data() {
       return {
         defaultAddress:''

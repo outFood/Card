@@ -1,5 +1,6 @@
 <template>
-  <yd-layout title="提现明細(0)" link="/distributIndex" id="tixianDetail">
+  <div id="tixianDetail">
+    <headers title="提现明細"></headers>
     <p class="leiji"><span>预计佣金</span><span>+{{tixianData.commissioncount}}元</span></p>
     <div class="orderNav">
       <span  :class="{curOrderNav:curSel==''}" @click="lookTiXian('所有')">所有</span>
@@ -19,11 +20,13 @@
       </div>
     </div>
     <footers></footers>
-  </yd-layout>
+  </div>
 </template>
 <script>
   import config from '../../myConfig'
+  import headers from '@/components/headers'
   export default {
+    components:{headers},
     data(){
       return{
         curSel:''

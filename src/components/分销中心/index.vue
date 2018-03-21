@@ -1,10 +1,6 @@
 <template>
   <div id="distribut">
-    <yd-navbar title="分销中心">
-      <router-link to="#" slot="left">
-        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
-      </router-link>
-    </yd-navbar>
+    <headers title="分销中心"></headers>
     <div class="head">
       <yd-flexbox class="line1">
         <div class="left"><img :src="fenxiao_headData.result.result.member.avatar"></div>
@@ -50,7 +46,9 @@
 </template>
 <script>
   import router from '@/router'
+  import headers from '@/components/headers'
   export default {
+    components:{headers},
     data(){
       return{
         paths:[
@@ -117,9 +115,6 @@
       },
     },
     methods:{
-      back:function () {
-        this.$router.go(-1)
-      },
       tixian(){
         if(this.fenxiao_headData.result.result.member.commission_ok<this.fenxiao_headData.result.result.thisset.withdraw){
                 this.$dialog.toast({
@@ -131,11 +126,6 @@
         }
       }
 
-    },
-    beforeCreate(){
-//      this.$store.dispatch({
-//        type:'resFenxiao'
-//      })
     },
   }
 </script>

@@ -1,10 +1,6 @@
 <template>
   <div id="map">
-    <yd-navbar title="商户地图">
-      <router-link to="#" slot="left">
-        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
-      </router-link>
-    </yd-navbar>
+    <headers title="商户地图"></headers>
     <div id="mapContainer"></div>
     <div class="contact">
       <img :src="curSelShop.logo">
@@ -14,7 +10,9 @@
   </div>
 </template>
 <script>
+  import headers from '@/components/headers'
   export default {
+    components:{headers},
     computed:{
       curSelShop(){
         return this.$store.state.curSelShop

@@ -11,19 +11,19 @@
       <p>欢迎加入 <i>E卡平台</i>，请填写申请信息</p>
       <div class="item">
         <span>姓名</span>
-        <div><i>*</i><input :placeholder="agentPage.member.nickname" disabled class="disabled"></div>
+        <div><i>*</i><input :placeholder="agentPage.member.nickname" v-model="nickname" class="placeholder"></div>
       </div>
       <div class="item">
         <span>手机号</span>
-        <div><i>*</i><input :placeholder="agentPage.member.mobile" disabled class="disabled"></div>
+        <div><i>*</i><input :placeholder="agentPage.member.mobile" v-model="mobile" class="placeholder"></div>
       </div>
       <div class="item">
         <span>邀请码</span>
-        <div><i>*</i><input :placeholder="agentPage.member.agentid" class="disabled"></div>
+        <div><i>*</i><input :placeholder="agentPage.member.agentid" v-model="agentid" class="placeholder"></div>
       </div>
       <div class="item">
         <span>微信号</span>
-        <div><input :placeholder="agentPage.member.weixin" disabled class="disabled"></div>
+        <div><input :placeholder="agentPage.member.weixin" v-model="weixin" class="placeholder"></div>
       </div>
       <div class="upload">
         上传代理资质
@@ -45,12 +45,12 @@
       </div>
       <div class="item" v-if="sort.length>0">
         <span><u v-if="sort=='省级'">代理省份</u><u v-else-if="sort=='市级'">代理城市</u><u v-else-if="sort=='区级'">代理地区</u><u v-else-if="sort=='乡镇'">代理地区</u></span>
-        <div><input slot="right" type="text" @click.stop="curShow = true" v-model="curSel" readonly :placeholder="curPlaceholder"></div>
+        <div><input slot="right" type="text" @click.stop="curShow = true" v-model="curSel" readonly :placeholder="curPlaceholder"  class="sky"></div>
         <yd-cityselect v-model="curShow" :callback="result" :items="district"></yd-cityselect>
       </div>
       <div class="item" v-if="sort=='乡镇'">
         <span>乡镇</span>
-        <div><input placeholder="请填写乡镇" v-model="township"></div>
+        <div><input placeholder="请填写乡镇" v-model="township" class="sky"></div>
       </div>
       <div class="item">
         <yd-checkbox-group v-model="readed" size="30" class="xieyi">
@@ -88,9 +88,12 @@
 #daili form p{
   padding:0.3125rem 0;
 }
-.disabled::-webkit-input-placeholder {
-  color: #000;
-  font-size:0.45rem;
+#daili ::-webkit-input-placeholder {
+  color: #000 !important;
+  font-size:0.45rem !important;
+}
+#daili .sky::-webkit-input-placeholder {
+  color: silver !important;
 }
 #daili form i{
   color:red;
@@ -191,6 +194,9 @@ import District from 'ydui-district/dist/jd_province_city_area_id';
         isReaded:false,
         headerImage:[], picValue: '',
         nickname:'',
+        mobile:'',
+        agentid:'',
+        weixin:'',
         //选择省
         curShow: false,
         curSel: '',
@@ -437,10 +443,10 @@ import District from 'ydui-district/dist/jd_province_city_area_id';
           this.$store.dispatch({
             type:'registAgent',
             params:{
-              realname:this.agentPage.member.nickname,
-              mobile:this.agentPage.member.mobile,
-              code:this.agentPage.member.agentid,
-              weixin:this.agentPage.member.weixin,
+              realname:this.realname?this.realname:this.agentPage.member.nickname,
+              mobile:this.mobile?this.mobile:this.agentPage.member.mobile,
+              code:this.agentid?this.agentid:this.agentPage.member.agentid,
+              weixin:this.weixin?this.weixin:this.agentPage.member.weixin,
               aagenttype:this.aagenttype,
               province:this.province,
               city:this.city,

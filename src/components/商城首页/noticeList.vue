@@ -1,6 +1,6 @@
 <template>
   <div id="noticeList">
-    <yd-navbar title="公告">
+    <yd-navbar title="公告列表">
       <router-link to="#" slot="left">
         <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
       </router-link>
@@ -32,20 +32,23 @@
           type:'saveSelNotice',
           params:item
         })
+      },
+      back:function () {
+        this.$router.go(-1)
       }
     }
   }
 </script>
 <style>
-  #noticeList .yd-navbar:after{
-    border:none;
-  }
   #noticeList header {
     height: 1.5rem !important;
     align-items: center;
   }
   #noticeList header .yd-navbar-center-title{
     font-size:.5rem !important;
+  }
+  #noticeList .yd-back-icon:before, .yd-next-icon:before {
+    font-size: .6rem;
   }
   #noticeList .list{
     background: #fff;

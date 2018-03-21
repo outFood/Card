@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import axios from 'axios'
 import config from './myConfig'
 import Vuex from 'vuex'
 //挂在数据中心组件

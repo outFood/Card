@@ -1,13 +1,6 @@
 <template>
   <div id="cart" v-if="cartData">
-    <yd-navbar title="我的购物车">
-      <router-link to="#" slot="left">
-        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
-      </router-link>
-      <router-link to="#" slot="right" @click.native="delShow=!delShow">
-        <span v-if="delShow==false">编辑</span><span v-else>完成</span>
-      </router-link>
-    </yd-navbar>
+    <headers title="我的购物车"></headers>
     <div class="shop" v-if="cartData.list.length>0">
       <div class="shop-item"v-for="(item,key) in cartData.list" :key="key">
         <div class="check">
@@ -53,8 +46,9 @@
 <script type="text/babel">
   import config from '../../myConfig'
   import noData from '@/components/购物车/noData'
+  import headers from '@/components/headers'
   export default {
-    components:{noData},
+    components:{noData,headers},
     data() {
       return {
         cartList: [],
@@ -171,9 +165,6 @@
           }
         })
       },
-      back:function () {
-        this.$router.go(-1)
-      }
     },
   }
 </script>

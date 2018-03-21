@@ -1,10 +1,6 @@
 <template>
   <div id="myQuan">
-    <yd-navbar title="我的优惠券">
-      <router-link to="#" slot="left">
-        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
-      </router-link>
-    </yd-navbar>
+    <headers title="我的优惠券"></headers>
     <yd-flexbox>
       <div class="left">
         <div>1.8</div>
@@ -24,7 +20,9 @@
 </template>
 <script>
   import config from '../../myConfig'
+  import headers from '@/components/headers'
   export default {
+    components:{headers},
     data(){
       return{
 

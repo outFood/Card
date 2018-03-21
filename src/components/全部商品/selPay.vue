@@ -4,7 +4,7 @@
       <router-link to="#" slot="left">
         <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
       </router-link>
-      <router-link to="#" slot="right">
+      <router-link to="#" slot="right" @click.native="lookOrder('全部')">
         订单
       </router-link>
     </yd-navbar>
@@ -116,6 +116,12 @@
             })
           },
         });
+      },
+      lookOrder(text){
+        this.$store.dispatch({
+          type:'resMyOrder',
+          text:text
+        })
       },
       back:function () {
         this.$router.go(-1)

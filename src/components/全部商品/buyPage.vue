@@ -1,10 +1,6 @@
 <template>
   <div id="buyPage">
-    <yd-navbar title="确认订单">
-      <router-link to="#" slot="left">
-        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
-      </router-link>
-    </yd-navbar>
+    <headers title="确认订单"></headers>
     <router-link to="#" @click.native="changeAddress" class="address" v-if="curSelAddress.realname">
       <img src="/static/img/position.png" alt="">
       <div>
@@ -179,7 +175,9 @@
 <script>
   import router from '@/router'
   import config from '../../myConfig'
+  import headers from '@/components/headers'
   export default {
+    components:{headers},
     data(){
       return {
         buyNumber:'1',
@@ -256,9 +254,6 @@
           type:'changeAddress',
         })
       },
-      back:function () {
-        this.$router.go(-1)
-      }
     }
   }
 </script>
