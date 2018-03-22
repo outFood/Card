@@ -10,9 +10,9 @@
       <img src="/static/img/more.png" alt="" class="more">
     </router-link>
     <div class="detailInfo">
-      <div>姓名 <span>*</span><input placeholder="请输入姓名" v-model="vipInfoData.realname"></div>
-      <div>手机号 <span>*</span><input placeholder="请输入手机号" v-model="vipInfoData.mobile"></div>
-      <div>微信号 <span>*</span><input placeholder="请输入微信号" v-model="vipInfoData.weixin"></div>
+      <div>姓名 <span>*</span><input :placeholder="vipInfoData.realname?vipInfoData.realname:'请输入姓名'" v-model="realname" :class="{sky:!vipInfoData.realname}"></div>
+      <div>手机号 <span>*</span><input :placeholder="vipInfoData.mobile?vipInfoData.mobile:'请输入手机号'" v-model="mobile" :class="{sky:!vipInfoData.mobile}" maxlength="11"></div>
+      <div>微信号 <span>*</span><input :placeholder="vipInfoData.weixin?vipInfoData.weixin:'请输入微信号'" v-model="weixin" :class="{sky:!vipInfoData.weixin}"></div>
     </div>
     <yd-cell-group>
       <yd-cell-item arrow>
@@ -53,29 +53,54 @@
         this.areas = ret.itemName1 + ' ' + ret.itemName2 + ' ' + ret.itemName3;
       },
       sureUpdate(){
-        var params={
-          mid:localStorage.getItem('userid'),
+        var regMobile =/^[1][3,4,5,7,8][0-9]{9}$/;
+        if(this.vipInfoData.realname==''&&this.realname==''){
+          this.$dialog.toast({
+            mes:'请输入姓名!',
+            timeout: 500
+          });
+        }else if(this.vipInfoData.mobile==''&&this.mobile==''){
+          this.$dialog.toast({
+            mes:'请输入手机号!',
+            timeout: 500
+          });
+        }else if(this.mobile!=''&&!regMobile.test(this.mobile)){
+          this.$dialog.toast({
+            mes:'手机号格式输入有误!',
+            timeout: 500
+          });
+        }else if(this.vipInfoData.weixin==''&&this.weixin==''){
+          this.$dialog.toast({
+            mes:'请输入微信号!',
+            timeout: 500
+          });
+        }else if(this.vipInfoData.province==''&&this.vipInfoData.city==''&&this.vipInfoData.area==''&&this.areas==''){
+          this.$dialog.toast({
+            mes:'请选择所在地区!',
+            timeout: 500
+          });
+        }else {
+          var me=this;
+          var params={
+            mid:localStorage.getItem('userid'),
             openid:localStorage.getItem('openid'),
             realname:this.realname!=''?this.realname:this.vipInfoData.realname,
             mobile:this.mobile!=''?this.mobile:this.vipInfoData.mobile,
             weixin:this.weixin!=''?this.weixin:this.vipInfoData.weixin,
             areas:this.areas!=''?this.areas:this.vipInfoData.province+' '+this.vipInfoData.city+' '+this.vipInfoData.area,
             t:config.t
-        }
-        var me=this;
-        axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.info.submitapp', {params:params})
-          .then(function (res) {
-            me.$dialog.toast({
-              mes:res.data.result.msg,
-              timeout: 1500,
-              callback: () => {
-                this.$router.go(-1)
+          }
+          axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.info.submitapp', {params:params})
+            .then(function (res) {
+              me.$dialog.toast({
+                mes:res.data.result.msg,
+                timeout: 1500,
+              });
+              if(res.data.status==1){
+                me.$router.go(-1)
               }
-            });
-            if(res.data.status==1){
-              me.$router.go(-1)
-            }
-          }).catch(function (err) {console.log(err)})
+            }).catch(function (err) {console.log(err)})
+        }
       },
     },
     beforeCreate(){
@@ -91,15 +116,12 @@
   }
 </script>
 <style>
-  #vipInfo header{
-    height:1.5rem !important;
-    align-items: center;
+  #vipInfo ::-webkit-input-placeholder {
+    color: #000 !important;
+    font-size:0.45rem !important;
   }
-  #vipInfo header .yd-navbar-center-title{
-    font-size:.5rem !important;
-  }
-  #vipInfo .yd-back-icon:before, .yd-next-icon:before {
-    font-size: .6rem;
+  #vipInfo .sky::-webkit-input-placeholder {
+    color: silver !important;
   }
   #vipInfo .updatePic{
     display: -webkit-box;

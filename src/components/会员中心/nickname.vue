@@ -3,11 +3,11 @@
     <headers title="修改头像和昵称"></headers>
     <div class="upload">
       修改头像
-      <img class="picture" :src="headerImage"></img>
+      <img class="picture" :src="headerImage?headerImage:wodeHeadData.avatar"></img>
       <input type="file" id="upload" accept="image/*" @change="upload" onchange="var formdata = new FormData();formdata=this.files;console.log(formdata);">
     </div>
     <div class="setNickName">
-      修改昵称 <span>*</span><input type="text" :placeholder="wodeHeadData.nickname" v-model="nickname">
+      修改昵称 <span>*</span><input type="text" :placeholder="wodeHeadData.nickname" v-model="nickname" maxlength="8" minlength="1">
     </div>
     <yd-button size="large" type="primary" @click.native="updateNickName">保存</yd-button>
   </div>
@@ -196,24 +196,18 @@
             mid:localStorage.getItem('userid'),
             openid:localStorage.getItem('openid'),
             nickname:this.nickname?this.nickname:this.wodeHeadData.nickname,
-            headStr:this.headerImage,
+            headStr:this.headerImage?this.headerImage:this.wodeHeadData.avatar,
+            type:this.headerImage?0:1
           }
         }),
           setTimeout(()=>{
-            if(this.updateNickNameResult.result.msg=='上传成功'){
-              this.$dialog.toast({
-                mes:'上传成功',
-                timeout: 1500,
-                callback: () => {
-                  this.$router.go(-1)
-                }
-              });
-            }else{
-              this.$dialog.toast({
-                mes:this.updateNickNameResult.result.msg,
-                timeout: 1500,
-              });
+            if(this.updateNickNameResult.status==1){
+              this.$router.go(-1)
             }
+            this.$dialog.toast({
+              mes:this.updateNickNameResult.result.msg,
+              timeout: 1500,
+            });
           },1000)
       }
     },

@@ -22,13 +22,14 @@
         </div>
       </div>
     </div>
-    <router-link to="/vipIndex/addAddress">
+    <router-link to="#" @click.native="addAddress">
       <yd-button size="large" type="primary">添加新地址</yd-button>
     </router-link>
   </div>
 </template>
 <script>
   import config from '../../myConfig'
+  import router from '@/router'
   import headers from '@/components/headers'
   export default {
     components:{headers},
@@ -43,6 +44,16 @@
       }
     },
     methods:{
+      addAddress(){
+        if(this.myAddressData.length<20){
+          router.push({path: '/vipIndex/addAddress'})
+        }else{
+          this.$dialog.toast({
+            mes: '单个用户最多可添加20个收货地址！',
+            timeout: 1500
+          });
+        }
+      },
       delAddress(id){
         this.$dialog.confirm({
           mes: '删除后无法恢复，确定要删除吗！',
@@ -101,6 +112,9 @@
   }
 </script>
 <style scoped>
+  #myAddress{
+    margin-bottom: 60px;
+  }
   #myAddress header{
     height:1.5rem !important;
     align-items: center;

@@ -169,6 +169,10 @@
   }
 </script>
 <style>
+  #cart .yd-navbar-item>a {
+    font-size: .45rem;
+    visibility: hidden;
+  }
   #cart header{
     height:1.5rem !important;
     align-items: center;

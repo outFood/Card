@@ -1,7 +1,7 @@
 <template>
   <div id="sort" v-if="sortData">
     <header>
-      <img src="/static/img/back_black.png" alt="" @click="back()"><yd-search @click.native="toSomeSort"></yd-search>
+      <yd-search @click.native="toSomeSort"></yd-search>
     </header>
     <yd-scrolltab>
       <yd-scrolltab-panel v-for="(item,key) in parent" :label="item.name" icon="demo-icons-category1" :key="key">
@@ -92,7 +92,7 @@
     border-bottom:1px solid #eee;
   }
   #sort header>div{
-    flex:0 0 90%
+    flex:0 0 100%
   }
   #sort header form{
     background: #eee;

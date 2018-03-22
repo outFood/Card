@@ -4,8 +4,8 @@
     <div id="head">
       <p>
         <!--<router-link to="#"><img src="/static/img/msg.png" alt=""></router-link>-->
-        <router-link to="#"  @click.native="toWhere('vipIndex/vipInfo')"><img src="/static/img/set.png" alt=""></router-link>
-        <!--<router-link to="#" @click.native="toWhere('vipIndex/vipInfo')"><img src="/static/img/personInfo.png" alt=""></router-link>-->
+        <router-link to="#"  @click.native="toWhere('vipIndex/set')"><img src="/static/img/set.png" alt=""></router-link>
+        <router-link to="#" @click.native="toWhere('vipIndex/vipInfo')"><img src="/static/img/personInfo.png" alt=""></router-link>
         <!--<span>1</span>-->
       </p>
       <div class="personInfo">
@@ -80,7 +80,7 @@
         var menuData=this.$store.state.wodeBodyData.data.module.listmenu.data
         for(var i=0;i<menuData.length;i++){
           if(menuData[i].text=='全部订单'){
-            menuData.splice(i,1)
+            menuData[i].iconSrc='/static/img/footmark.png'
           }else if(menuData[i].text=='我的关注'){
             menuData[i].iconSrc='/static/img/black-heart.png'
           }else if(menuData[i].text=='我的足迹'){
@@ -110,8 +110,6 @@
         }
         return orderData
       },
-    },
-    mounted(){
     },
     methods: {
       lookOrder(text){
@@ -188,11 +186,13 @@
         }
       })
     },
-    mounted(){
-    }
   }
 </script>
 <style>
+  #vip .yd-navbar-item>a {
+    font-size: .45rem;
+    visibility: hidden;
+  }
   #vip #head {
     background: #00c2aa;
     padding: 0.3125rem;
@@ -341,6 +341,9 @@
   #vip .other .other-content > a {
     flex: 0 0 25%;
     padding:0.3125rem 0;
+  }
+  #vip .other .other-content > a:first-child{
+    display: none;
   }
   #vip .other .other-content > a:not(:nth-child(4n)) {
     border-right: 1px solid #eee;

@@ -8,7 +8,7 @@
       </div>
       <div class="form-group">
         密码：
-        <input type="password" required  v-model="pwd" pattern="^(\w){6,20}$"  placeholder="请输入密码">
+        <input type="password" required  v-model="pwd" maxlength="10" pattern="^(\w){6,10}$"  placeholder="6-10位数字、字母">
       </div>
     </form>
     <div class="otherDo">
@@ -21,7 +21,7 @@
       <div class="first">
         <span></span>第三方账号登录<span></span>
       </div>
-      <div class="second">
+      <div class="second" @click="otherLogin">
         <img src="/static/img/prod/weixin.png" alt="">
         <img src="/static/img/prod/qq.png" alt="">
       </div>
@@ -65,6 +65,12 @@
             timeout: 1500,
           });
         },500)
+      },
+      otherLogin(){
+        this.$dialog.toast({
+          mes:'此功能暂未开放！',
+          timeout: 500
+        });
       }
     }
   }

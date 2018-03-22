@@ -9,6 +9,7 @@
   header {
     height: 1.5rem !important;
     align-items: center;
+    z-index: 100;
   }
     header .yd-navbar-center-title{
     font-size:.5rem !important;

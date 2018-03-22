@@ -11,9 +11,15 @@
     components:{headers},
     methods:{
       signOut(){
-        localStorage.setItem('openid','')
-        localStorage.setItem('userid','')
-        router.push({path: '/vipIndex/login'})
+        this.$dialog.confirm({
+          title: '提示',
+          mes: '确认要退出登录?',
+          opts: () => {
+            localStorage.setItem('openid','')
+            localStorage.setItem('userid','')
+            router.push({path: '/vipIndex/login'})
+          }
+        });
       }
     }
   }
