@@ -1026,7 +1026,8 @@ export default {
             type: 'saveMyOrder',
             res: res,
             orderStatus: status,
-            curOrderStausPage: 1
+            curOrderStausPage: 1,
+            start:'yes'
           })
         }).catch(function (err) {
         alert(err)
@@ -1046,7 +1047,8 @@ export default {
             type: 'saveMyOrder',
             res: res,
             orderStatus: state.orderStatus,
-            curOrderStausPage: state.curOrderStausPage + 1
+            curOrderStausPage: state.curOrderStausPage + 1,
+            start:'no'
           })
         }).catch(function (err) {
         alert(err)
@@ -1071,7 +1073,7 @@ export default {
             mid: localStorage.getItem('userid'),
             openid: localStorage.getItem('openid'),
             page: 1,
-            t: config.t
+            t: config.t,
           }
           axios.get(config.baseUrl + "/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.index.get_list", {params: params})
             .then(function (res) {
@@ -1079,7 +1081,8 @@ export default {
                 type: 'saveMyOrder',
                 res: res,
                 orderStatus: state.orderStatus,
-                curOrderStausPage: state.curOrderStausPage
+                curOrderStausPage: state.curOrderStausPage,
+                start:'yes'
               })
             }).catch(function (err) {
             alert(err)
@@ -1104,7 +1107,8 @@ export default {
                 type: 'saveMyOrder',
                 res: res,
                 orderStatus: state.orderStatus,
-                curOrderStausPage: state.curOrderStausPage
+                curOrderStausPage: state.curOrderStausPage,
+                start:'yes'
               })
             }).catch(function (err) {
             alert(err)
@@ -1133,7 +1137,8 @@ export default {
                 type: 'saveMyOrder',
                 res: res,
                 orderStatus: state.orderStatus,
-                curOrderStausPage: state.curOrderStausPage
+                curOrderStausPage: state.curOrderStausPage,
+                start:'yes'
               })
             }).catch(function (err) {
             alert(err)
@@ -1367,7 +1372,7 @@ export default {
 
     },
     savePayMessage(state, data) {
-      VueSet(state, 'payMessage', data.data.data.result.msg)
+      VueSet(state, 'payMessage', data.data.data)
     },
     saveSelPay(state, data) {
       VueSet(state, 'selPay', data.data.data.result.data.result)
@@ -1562,7 +1567,11 @@ export default {
       VueSet(state, 'changeAddress', false)
     },
     saveMyOrder(state, data) {
-      VueSet(state, 'myOrder', [...state.myOrder, ...data.res.data.result.data.list])
+      if(data.start=='yes'){//start用来决定数组是否要进行拼接
+        VueSet(state, 'myOrder',data.res.data.result.data.list)
+      }else{
+        VueSet(state, 'myOrder', [...state.myOrder, ...data.res.data.result.data.list])
+      }
       VueSet(state, 'orderStatus', data.orderStatus)
       VueSet(state, 'curOrderStausPage', data.curOrderStausPage)
       if (state.myOrder != [] && state.orderStatus != null) {

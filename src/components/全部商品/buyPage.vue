@@ -34,7 +34,7 @@
       </yd-cell-item>
       <yd-cell-item>
         <span slot="left">运费</span>
-        <span slot="right">￥{{buyPageData.other.dispatch_price}}</span>
+        <span slot="right">￥{{buyPageData.dispatchprice}}</span>
       </yd-cell-item>
     </yd-cell-group>
     <div class="toPay">

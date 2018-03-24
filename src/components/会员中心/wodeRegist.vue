@@ -8,7 +8,7 @@
       </div>
       <div class="form-group">
         验证码：
-        <input  type="number" v-model="code" id="ma" maxlength="6" placeholder="五位数字">
+        <input  type="number" v-model="code" id="ma" maxlength="5" placeholder="五位数字">
         <div>
           <yd-sendcode
             v-model="start3"
@@ -146,10 +146,8 @@
             if(this.registStatus.status==1){
               router.push({path:'/vipIndex/login'})
             }
-            this.$dialog.toast({
-              mes:this.registStatus.result.msg,
-              timeout: 1000,
-            });
+            this.tipMsg=this.registStatus.result.msg
+            this.openAlert()
           },500)
         }
       },

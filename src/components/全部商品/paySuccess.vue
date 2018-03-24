@@ -18,7 +18,7 @@
     </div>
     <div class="price">
       <span>实付金额</span>
-      <span>16.00</span>
+      <span>￥{{selPay.order.price}}</span>
     </div>
     <div class="btn-two">
       <router-link to="#" @click.native="resOrderDetail()">订单详情</router-link>
@@ -119,6 +119,9 @@
     computed:{
       curSelAddress(){
         return this.$store.state.curSelAddress
+      },
+      selPay(){
+        return this.$store.state.selPay
       },
     }
   }

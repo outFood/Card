@@ -30,9 +30,9 @@
       </div>
     </div>
     <div class="zijin">
-      <div><span>我的资金:0.00</span></div>
+      <div><span @click="toWhere('/vipIndex/myPrice')">我的资金:0.00</span></div>
       <div @click="toWhere('/vipIndex/AddOrReduce')"><span>资金来往</span></div>
-      <div><span>授权登录</span></div>
+      <div><span @click="toWhere('/vipIndex/replaceLogin')">授权登录</span></div>
       <div @click="toWhere('/vipIndex/record')"><span>返还记录</span></div>
     </div>
     <div class="dingdan">
@@ -159,7 +159,14 @@
          var openid=localStorage.getItem('openid')
          var mid=localStorage.getItem('userid')
          if(openid!=null&&openid!='undefined'&&mid!=null&&mid!='undefined'){
-           router.push({path:toStr})
+           if(toStr=='/vipIndex/myPrice'||toStr=='/vipIndex/replaceLogin'){
+             this.$dialog.toast({
+               mes:'此功能暂未开放！',
+               timeout: 500,
+             });
+           }else{
+             router.push({path:toStr})
+           }
          }else{
            this.$dialog.confirm({
              title: '提示',

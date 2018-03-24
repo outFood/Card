@@ -1,6 +1,10 @@
 <template>
   <div id="myAddress">
-    <headers title="收货地址"></headers>
+    <yd-navbar title="收货地址">
+      <router-link to="/vipIndex" slot="left">
+        <yd-navbar-back-icon></yd-navbar-back-icon>
+      </router-link>
+    </yd-navbar>
     <div class="address-item" v-for="(item,key) in myAddressData" :key="key">
       <div @click="selAddress(item)">
         <yd-flexbox>
@@ -98,6 +102,9 @@
       },
       back:function () {
         this.$router.go(-1)
+      },
+      back(){
+
       }
     },
     beforeCreate(){

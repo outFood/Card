@@ -46,25 +46,52 @@
       }
     },
     methods:{
+      openAlert() {
+        this.$dialog.alert({
+          mes:this.tipMsg
+        });
+      },
       toLogin(){
-        this.$store.dispatch({
-          type:'login',
-          params:{
-            mobile:this.phone,
-            pwd:this.pwd,
-            t:config.t,
-            ispost:1
-          }
-        })
-        setTimeout(()=>{
-          if(this.loginStatus.status==1){
-            router.push({path:'/shopIndex'})
-          }
-          this.$dialog.toast({
-            mes:this.loginStatus.result.msg,
-            timeout: 1500,
-          });
-        },500)
+        var regMobile =/^[1][3,4,5,7,8][0-9]{9}$/;
+        var regPwd=/^[a-zA-Z0-9]{6,10}$/
+        if(this.phone==''){
+          this.tipMsg='请填写手机号!'
+          this.openAlert()
+        }else if(this.phone.length!=11){
+          this.tipMsg='请填写11位手机号!'
+          this.openAlert()
+        }else if(!regMobile.test(this.phone)){
+          this.tipMsg='手机号格式输入有误!'
+          this.openAlert()
+        }else if(this.pwd==''){
+          this.tipMsg='请输入密码!'
+          this.openAlert()
+        }else if(!regPwd.test(this.pwd)){
+          this.tipMsg='密码必须由6到10位的数字或字母组成!'
+          this.openAlert()
+        }else{
+          this.$store.dispatch({
+            type:'login',
+            params:{
+              mobile:this.phone,
+              pwd:this.pwd,
+              t:config.t,
+              ispost:1
+            }
+          })
+          setTimeout(()=>{
+            if(this.loginStatus.status==1){
+              router.push({path:'/shopIndex'})
+              this.$dialog.toast({
+                mes:'登录成功！',
+                timeout: 1500,
+              });
+            }else if(this.loginStatus.status==0){
+              this.tipMsg='用户名或密码错误，请核对后再试！'
+              this.openAlert()
+            }
+          },500)
+        }
       },
       otherLogin(){
         this.$dialog.toast({

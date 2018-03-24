@@ -12,7 +12,7 @@
     <div class="detailInfo">
       <div>姓名 <span>*</span><input :placeholder="vipInfoData.realname?vipInfoData.realname:'请输入姓名'" v-model="realname" :class="{sky:!vipInfoData.realname}"></div>
       <div>手机号 <span>*</span><input :placeholder="vipInfoData.mobile?vipInfoData.mobile:'请输入手机号'" v-model="mobile" :class="{sky:!vipInfoData.mobile}" maxlength="11"></div>
-      <div>微信号 <span>*</span><input :placeholder="vipInfoData.weixin?vipInfoData.weixin:'请输入微信号'" v-model="weixin" :class="{sky:!vipInfoData.weixin}"></div>
+      <div>微信号 <span style="visibility: hidden">*</span><input :placeholder="vipInfoData.weixin?vipInfoData.weixin:'请输入微信号'" v-model="weixin" :class="{sky:!vipInfoData.weixin}"></div>
     </div>
     <yd-cell-group>
       <yd-cell-item arrow>
@@ -54,9 +54,16 @@
       },
       sureUpdate(){
         var regMobile =/^[1][3,4,5,7,8][0-9]{9}$/;
+        var regRealname = /^[\u4E00-\u9FA5]{2,4}$/;
+        var regWeixin=/^[a-z_\d]+$/;
         if(this.vipInfoData.realname==''&&this.realname==''){
           this.$dialog.toast({
             mes:'请输入姓名!',
+            timeout: 500
+          });
+        }else if(this.realname!=''&&!regRealname.test(this.realname)){
+          this.$dialog.toast({
+            mes:'用户名只能是汉子并且在2-4位之间!',
             timeout: 500
           });
         }else if(this.vipInfoData.mobile==''&&this.mobile==''){
@@ -72,6 +79,11 @@
         }else if(this.vipInfoData.weixin==''&&this.weixin==''){
           this.$dialog.toast({
             mes:'请输入微信号!',
+            timeout: 500
+          });
+        }else if(this.weixin!=''&&!regWeixin.test(this.weixin)){
+          this.$dialog.toast({
+            mes:'微信号格式有误!',
             timeout: 500
           });
         }else if(this.vipInfoData.province==''&&this.vipInfoData.city==''&&this.vipInfoData.area==''&&this.areas==''){
