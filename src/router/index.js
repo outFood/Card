@@ -81,7 +81,7 @@ import getQuanDetail from '@/components/会员中心/getQuanDetail'
 Vue.use(Router)
 
 export default new Router({
-  mode: "history",
+  mode: 'history',
   exact:false,
   routes: [
     {

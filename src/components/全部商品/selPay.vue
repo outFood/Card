@@ -15,7 +15,7 @@
       </p>
       <p class="price">
         <span>订单金额</span>
-        <span>￥{{selPay.order.price}}</span>
+        <span>￥{{selPay.order.oldprice}}</span>
       </p>
     </div>
     <p class="notes">

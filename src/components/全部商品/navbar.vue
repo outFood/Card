@@ -109,6 +109,7 @@
             for(var j=0;j<this.specs[i].items.length;j++){
               if(this.specs[i].items[j].id==arr[1]){
                 this.specs[i].items[j].sel=true
+                console.log(this.specs[i].items[j])
               }else{
                 this.specs[i].items[j].sel=false
               }

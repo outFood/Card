@@ -223,6 +223,7 @@
 </style>
 <script>
   import config from '../../myConfig'
+  import axios from 'axios'
   import headers from '@/components/headers'
   export default {
     components:{headers},
@@ -245,25 +246,41 @@
           title: '提示',
           mes: '确认要'+gettypestr+'吗？',
           opts: () => {
-            this.$store.dispatch({
-                type:'couponGetOrPay',
-                params:{
-                  id:id,
-                  t:config.t,
-                  i:config.i,
-                  uniacid:config.uniacid,
-                  openid:localStorage.getItem('openid'),
-                  mid:localStorage.getItem('userid')
+            var me=this,params={
+              id:id,
+              t:config.t,
+              i:config.i,
+              uniacid:config.uniacid,
+              openid:localStorage.getItem('openid'),
+              mid:localStorage.getItem('userid')
+            }
+            axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=sale.coupon.detail.pay', {params:params})
+              .then(function (res) {
+                if(res.data.status==1){
+                  me.$dialog.toast({
+                    mes:gettypestr+res.data.result.msg,
+                    timeout: 1500
+                  });
+                  var resultPrams={
+                    id:id,
+                    logid:res.data.result.data.logid,
+                    t:config.t,
+                    mid:localStorage.getItem('userid'),
+                    openid:localStorage.getItem('openid')
+                  }
+                  axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=sale.coupon.detail.payresult', {params:resultPrams})
+                    .then(function (res) {
+
+                    }).catch(function (err) {console.log(err)})
+                }else{
+                  me.$dialog.toast({
+                    mes:res.data.result.msg,
+                    timeout: 1500
+                  });
                 }
-              })
-            setTimeout(()=>{
-              if(this.couponMessage!=''){
-                this.$dialog.toast({
-                  mes:this.couponMessage,
-                  timeout: 1500
-                });
-              }
-            },1000)
+              }).catch(function (err) {
+              console.log('领取或购买失败')
+            })
           }
         });
       },

@@ -24,6 +24,7 @@ export default {
         '/vipIndex/record': '积分返还记录',
         '/vipIndex/order': '我的订单',
         '/vipIndex/orderDetail': '订单详情',
+        '/vipIndex/evaluate': '评价',
         '/vipIndex/myLike': '我的关注',
         '/vipIndex/zuji': '我的关注',
         '/vipIndex/myAddress': '我的地址',
@@ -121,7 +122,6 @@ export default {
       zuJiData: {},
       getQuan: {},//领券列表
       couponDetail: {},
-      couponMessage: '',//点击领券或购买券返回的消息
       getCoupon: {},//领券结果
       addOrOrder: {},
       recordData: {},
@@ -1158,18 +1158,6 @@ export default {
         console.log('请求失败:' + err)
       })
     },
-    submitEvaluate({commit, state}, data) {
-      axios.post(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.comment.submit', data.params, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      })
-        .then(function (res) {
-
-        }).catch(function (err) {
-        console.log('请求失败:' + err)
-      })
-    },
     resMyLike({commit, state}, data) {
       console.log(data.params)
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.favorite.get_list', {params: data.params})
@@ -1211,25 +1199,6 @@ export default {
             type: 'saveCouponDetail',
             data: res
           })
-        }).catch(function (err) {
-        console.log('请求失败')
-      })
-    },
-    couponGetOrPay({commit, state}, data) {
-      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=sale.coupon.detail.pay', {params: data.params})
-        .then(function (res) {
-          commit({
-            type: 'saveCouponMessage',
-            data: res
-          })
-        }).catch(function (err) {
-        console.log('领取或购买失败')
-      })
-    },
-    resMyQuan({commit, state}, data) {
-      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=sale.coupon.my.getlist', {params: data.params})
-        .then(function (res) {
-
         }).catch(function (err) {
         console.log('请求失败')
       })
@@ -1336,6 +1305,7 @@ export default {
       }
     },
     saveCommodityDetailData(state, data) {
+      console.log(data)
       VueSet(state, 'commodityDetailData', data.data.commodityDetailData.data.result.data)
       VueSet(state, 'commodityColorSizeData', data.data.commodityColorSizeData.data.result.data)
       VueSet(state, 'commodityPingjiaData', data.data.commodityPingjiaData.data.result.data)
@@ -1343,13 +1313,14 @@ export default {
       VueSet(state, 'evaluteTotal', data.data.commodityPingjiaSortData.data.result.data.total)
       VueSet(state, 'curEvalutePage', data.data.page)
       VueSet(state, 'isFavorite', data.data.commodityDetailData.data.result.data.result.goods_other.isFavorite)
-      console.log(state.commodityColorSizeData)
+      console.log(state.commodityDetailData)
       if (state.commodityDetailData != {}) {
         router.push({path: '/sortIndex/detail'})
       }
     },
     saveEvaluteFilter(state, data) {
-      VueSet(state, 'commodityPingjiaSortData', data.data.data.result.list)
+      console.log(data)
+      VueSet(state, 'commodityPingjiaSortData', data.data.data.result.data.list)
       VueSet(state, 'curEvalutePage', data.page)
       VueSet(state, 'curLevel', data.level)
     },
@@ -1358,7 +1329,8 @@ export default {
       VueSet(state, 'curEvalutePage', state.curEvalutePage + 1)
     },
     saveLike(state, data) {
-      VueSet(state, 'isFavorite', data.data.data.result.isfavorite)
+      console.log(data)
+      VueSet(state, 'isFavorite', data.data.data.result.data.isfavorite)
     },
     changePayStaus(state, data) {
       VueSet(state, 'payStatus', data.payStatus)
@@ -1609,13 +1581,6 @@ export default {
       VueSet(state, 'couponDetail', data.data.data.result.data.result)
       if (state.couponDetail != {}) {
         router.push({path: '/vipIndex/getQuanDetail'})
-      }
-    },
-    saveCouponMessage(state, data) {
-      if (data.data.data.status == -1) {
-        VueSet(state, 'couponMessage', data.data.data.result.message)
-      } else if (data.data.data.status == 1) {
-        VueSet(state, 'couponMessage', state.couponDetail.coupon.gettypestr + '成功')
       }
     },
     saveAddOrReduce(state, data) {

@@ -28,7 +28,7 @@
                   <div><h6>￥{{goodsItem.price}}</h6><span>X{{goodsItem.total}}</span></div>
                 </div>
                 <p class="evalute">
-                  <span v-if="item.status == 3 && item.iscomment == 1">追加评价</span>
+                  <span v-if="item.status == 3 && item.iscomment == 1" @click="evaluate(item.id,goodsItem.goodsid)">追加评价</span>
                   <span v-if="item.status == 3 && item.iscomment == 0" @click="evaluate(item.id,goodsItem.goodsid)">评价</span>
                 </p>
               </div>

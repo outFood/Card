@@ -1,18 +1,24 @@
 <template>
   <div id="myQuan">
     <headers title="我的优惠券"></headers>
-    <yd-flexbox>
+    <div class="orderNav">
+      <span>未使用</span>
+      <span>已使用</span>
+      <span>已过期</span>
+    </div>
+    <yd-flexbox v-for="(item,key) in list" :key="key">
       <div class="left">
-        <div>1.8</div>
-        满29元可用
+        <div>￥{{item.deduct}}</div>
+        {{item.title2}}
         <span></span>
       </div>
       <yd-flexbox-item>
-        <div>一只蟹蟹煲饭</div>
-        2017.10.30 至<br> 2017.11.1可用
+        <div>{{item.tagtitle}}</div>
+        <p v-if="item.t>'0'">剩余{{item.t}}/{{item.last}}</p>
+        {{item.title4}}
       </yd-flexbox-item>
       <div class="right">
-        平台发放代金券
+        立即使用
         <span></span>
       </div>
     </yd-flexbox>
@@ -20,41 +26,53 @@
 </template>
 <script>
   import config from '../../myConfig'
+  import axios from 'axios'
   import headers from '@/components/headers'
   export default {
     components:{headers},
     data(){
       return{
-
+        list:[]
       }
     },
     beforeCreate(){
-      this.$store.dispatch({
-        type:'resMyQuan',
-        params:{
-          t:config.t,
-          uniacid:config.uniacid,
-          i:config.i,
-          mid:localStorage.getItem('userid'),
-          openid:localStorage.getItem('openid'),
-          page:1,
-          pagesize:10,
-          cateid:0,
-        }
-      })
+      var me=this,params={
+        t:config.t,
+        uniacid:config.uniacid,
+        i:config.i,
+        mid:localStorage.getItem('userid'),
+        openid:localStorage.getItem('openid'),
+        page:1,
+        pagesize:10,
+        cateid:0,
+      }
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=sale.coupon.my.getlist', {params:params})
+        .then(function (res) {
+          me.list=res.data.result.data.list;
+        }).catch(function (err) { console.log('请求失败')})
     }
   }
 </script>
 <style scoped>
-  #myQuan header {
-    height: 1.5rem !important;
+  #myQuan .orderNav{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
     align-items: center;
+    background: #fff;
+    height:1.5625rem;
+    line-height:1.5625rem;
   }
-  #myQuan header .yd-navbar-center-title{
-    font-size:.5rem !important;
+  #myQuan .curOrderNav{
+    color:red;
+    border-bottom:2px solid red;
   }
-  #myQuan .yd-back-icon:before, .yd-next-icon:before {
-    font-size: .6rem;
+  #myQuan .orderNav span{
+    display: block;
+    height:100%;
+    flex:0 0 33.33%;
+    text-align: center;
   }
  #myQuan .yd-flexbox{
     font-size:14px;

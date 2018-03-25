@@ -24,6 +24,18 @@
                 <img :src="imgItem" v-for="(imgItem,key) in item.images[0]">
               </p>
             </div>
+            <div class="bottom">
+              首次回复：{{item.reply_content}}
+              <p><img :src="replyImg" alt="" v-for="(replyImg,key) in item.reply_images" :key="key"></p>
+            </div>
+            <div class="bottom">
+              追加评价：{{item.append_content}}
+              <p><img :src="appendImgs" alt="" v-for="(appendImgs,key) in item.append_images" :key="key"></p>
+            </div>
+            <div class="bottom">
+              追加回复：{{item.append_reply_content}}
+              <p><img :src="appendImg" alt="" v-for="(appendImg,key) in item.append_reply_images" :key="key"></p>
+            </div>
           </div>
         </yd-list>
         <!-- 数据全部加载完毕显示 -->
@@ -146,5 +158,17 @@
   #pingjia .list .list-item .middle .imgs img{
     width:32%;
     height:2.3125rem;
+  }
+  #pingjia .list .list-item .bottom{
+    background: #fafafa;
+    padding:10px;
+  }
+  #pingjia .list .list-item .bottom img{
+    width:32%;
+    height:2.3125rem;
+    margin-top:10px;
+  }
+  #pingjia .list .list-item .bottom img:not(:last-child){
+    margin-right:5px;
   }
 </style>

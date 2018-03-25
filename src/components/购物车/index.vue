@@ -1,6 +1,13 @@
 <template>
-  <div id="cart" v-if="cartData">
-    <headers title="我的购物车"></headers>
+    <div id="cart" v-if="cartData">
+    <yd-navbar title="购物车">
+      <router-link to="#" slot="right" v-if="delShow" @click.native="delShow=false">
+        完成
+      </router-link>
+      <router-link to="#" slot="right" v-else @click.native="delShow=true">
+        编辑
+      </router-link>
+    </yd-navbar>
     <div class="shop" v-if="cartData.list.length>0">
       <div class="shop-item"v-for="(item,key) in cartData.list" :key="key">
         <div class="check">
@@ -46,9 +53,8 @@
 <script type="text/babel">
   import config from '../../myConfig'
   import noData from '@/components/购物车/noData'
-  import headers from '@/components/headers'
   export default {
-    components:{noData,headers},
+    components:{noData},
     data() {
       return {
         cartList: [],
@@ -169,19 +175,12 @@
   }
 </script>
 <style>
-  #cart .yd-navbar-item>a {
-    font-size: .45rem;
-    visibility: hidden;
-  }
   #cart header{
     height:1.5rem !important;
     align-items: center;
   }
   .yd-navbar-center-title{
-    font-size:.5rem !important;
-  }
-  .yd-back-icon:before, .yd-next-icon:before {
-    font-size: .6rem;
+    font-size: .5rem !important;
   }
   .yd-navbar-item>a{
     font-size: .45rem;

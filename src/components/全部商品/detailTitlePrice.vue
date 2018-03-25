@@ -2,7 +2,7 @@
   <div id="titlePrice" v-if="detail_info" :style="{marginTop:detail_info.style.margintop+'px',marginBottom:detail_info.style.marginbottom+'px',background:detail_info.style.background,color:detail_info.style.textcolor}">
     <div class="titleShare">
       <h5 :style="{color:detail_info.style.titlecolor}">{{result.goods.title}}</h5>
-      <div v-if="detail_info.params.hideshare==0"><img src="/static/img/share.png" alt="">{{detail_info.params.share}}</div>
+      <div v-if="detail_info.params.hideshare==0"><img src="/static/img/share.png" alt="" @click="share('')">{{detail_info.params.share}}</div>
     </div>
     <h6 :style="{color:detail_info.style.subtitlecolor}">{{result.goods.isdiscount_title}}</h6>
     <p class="price" :style="{color:detail_info.style.pricecolor}">￥{{result.goods.marketprice}} <span :style="{color:detail_info.style.textcolor}">￥{{result.goods.productprice}}</span></p>
@@ -20,9 +20,11 @@
       <span>销量:{{result.goods.sales}}</span>
       <span>{{result.goods.province}} {{result.goods.city}}</span>
     </div>
+
   </div>
 </template>
 <script>
+  import NativeShare from '../../../static/NativeShare'
   export default {
     data(){
       return {
@@ -47,8 +49,33 @@
         return new Date(reduceResult).toLocaleString()
       },
     },
-    mounted(){
-    }
+    methods:{
+      share(command){
+        var nativeShare = new NativeShare()
+        var shareData = {
+          title:this.result.goods.isdiscount_title,
+          desc: '',
+          // 如果是微信该link的域名必须要在微信后台配置的安全域名之内的。
+          link: 'http://cscs.ylhhyk.com/shopIndex',
+          icon:this.result.goods.thumb,
+          // 不要过于依赖以下两个回调，很多浏览器是不支持的
+          success: function() {
+            alert('success')
+          },
+          fail: function() {
+            alert('fail')
+          }
+        }
+        nativeShare.setShareData(shareData)
+
+        try {
+          nativeShare.call(command)
+        } catch (err) {
+          // 如果不支持，你可以在这里做降级处理
+          alert('对不起，你的浏览器不支持此分享功能')
+        }
+      }
+    },
   }
 </script>
 <style>

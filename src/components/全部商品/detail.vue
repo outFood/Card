@@ -6,6 +6,7 @@
       <yd-tab-panel label="商品">
         <detail-slider></detail-slider>
         <detailTitlePrice></detailTitlePrice>
+        <quanAndActive></quanAndActive>
       </yd-tab-panel>
       <yd-tab-panel label="详情"><detail-pic></detail-pic></yd-tab-panel>
       <yd-tab-panel label="参数"><detailParams></detailParams></yd-tab-panel>
@@ -18,6 +19,7 @@
   import detailSlider from '@/components/全部商品/detailSlider'
   import navbar from '@/components/全部商品/navbar'
   import detailTitlePrice from '@/components/全部商品/detailTitlePrice'
+  import quanAndActive from '@/components/全部商品/quanAndActive'
   import detailParams from '@/components/全部商品/detailParams'
   import detailPic from '@/components/全部商品/detailPic'
   import pingjia from '@/components/全部商品/pingjia'
@@ -27,7 +29,7 @@
 
       }
     },
-    components:{detailSlider,detailTitlePrice,navbar,detailParams,detailPic,pingjia}
+    components:{detailSlider,detailTitlePrice,quanAndActive,navbar,detailParams,detailPic,pingjia}
   }
 </script>
 <style>
