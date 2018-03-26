@@ -398,6 +398,18 @@ export default {
           }).catch(function (err) {
             console.log('请求失败:' + err)
           })
+          axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.pay.get_main',{params:{
+            t:config.t,
+            openid:config.openid,
+            id: res.data.result.data.orderid,
+            peerpaymessage:'',
+            peerprice:'',
+            jie:''
+          }}).then(function (res) {
+
+          }).catch(function (err) {
+            console.log('请求失败:' + err)
+          })
         }).catch(function (err) {
         console.log('请求失败:' + err)
       })
