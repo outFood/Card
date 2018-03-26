@@ -4,7 +4,7 @@
       <yd-search @click.native="toSomeSort"></yd-search>
     </header>
     <yd-scrolltab>
-      <yd-scrolltab-panel v-for="(item,key) in parent" :label="item.name" icon="demo-icons-category1" :key="key">
+      <yd-scrolltab-panel v-for="(item,key) in parent" :label="item.name" icon="demo-icons-category1" :key="key" :style="{height:screenHeight+'px'}">
         <!---->
         <span v-if="item.isSecondSort==true" class="secondSort">
           <img :src="item.advimg" v-if="item.advimg">
@@ -34,6 +34,9 @@
 <style>
   .yd-search-input{
     background: #fff !important;
+  }
+  .yd-scrolltab-content{
+    overflow-y: hidden;
   }
   .yd-scrolltab-content-title{
     display: none !important;
@@ -148,6 +151,11 @@
   import router from '@/router'
   import config from '../../myConfig'
   export default {
+    data(){
+      return{
+        screenHeight:window.screen.height
+      }
+    },
     methods:{
       toSomeSort(){
         router.push({path: '/sortIndex/someSort'})

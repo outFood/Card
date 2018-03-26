@@ -18,7 +18,7 @@
     </div>
     <div class="price">
       <span>实付金额</span>
-      <span>￥{{selPay.order.price}}</span>
+      <span>￥{{selPay.order.oldprice}}</span>
     </div>
     <div class="btn-two">
       <router-link to="#" @click.native="resOrderDetail()">订单详情</router-link>

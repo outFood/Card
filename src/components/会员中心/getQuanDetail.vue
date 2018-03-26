@@ -109,109 +109,126 @@
   </div>
 </template>
 <style scoped>
-  #getQuanDetail header {
-    height: 1.5rem !important;
-    align-items: center;
+  #getQuanDetail .quanBody {
+    width: 100%;
+    margin-bottom: 100px;
   }
-  #getQuanDetail header .yd-navbar-center-title{
-    font-size:.5rem !important;
-  }
-  .yd-back-icon:before, .yd-next-icon:before {
-    font-size: .6rem !important;
-  }
-  #getQuanDetail .quanBody{
-    width:100%;
-    margin-bottom:100px;
-  }
-  #getQuanDetail .quanBody .top{
+
+  #getQuanDetail .quanBody .top {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
     background: #52b6ff;
-    margin:15px 15px 0 15px;
+    margin: 0.5rem 0.5rem 0 0.5rem;
     border-radius: 5px 5px 0 0;
-    color:#fff;
-    padding:20px;
+    color: #fff;
+    padding: 0.625rem;
   }
-  #getQuanDetail .quanBody .borderDiv{
-    width:100%;
-    border:1px solid #fff;
+
+  #getQuanDetail .quanBody .borderDiv {
+    width: 100%;
+    border: 1px solid #fff;
     position: relative;
-    height:120px;
+    padding:.4rem 0 0.9rem 0
   }
-  #getQuanDetail .quanBody .borderDiv>p:first-child{
+
+  #getQuanDetail .quanBody .borderDiv > p:first-child {
     background: #52b6ff;
-    padding:0 5px;
+    padding: 0 5px;
     position: absolute;
-    top:-10px;
+    top: -0.3125rem;
     left: 50%;
-    transform: translate(-50%,-10%);
+    transform: translate(-50%, -10%);
   }
-  #getQuanDetail .quanBody .borderDiv>p:last-child{
+
+  #getQuanDetail .quanBody .borderDiv > p:last-child {
     background: #52b6ff;
-    padding:0 5px;
+    padding: 0 5px;
     position: absolute;
-    bottom:-10px;
-    left:50%;
-    transform: translate(-50%,20%);
+    bottom: -0.3125rem;
+    left: 50%;
+    transform: translate(-50%, 20%);
   }
-  #getQuanDetail .quanBody .borderDiv  .main1{
+
+  #getQuanDetail .quanBody .borderDiv .main1 {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
     align-items: center;
-    margin-top:10px;
+    margin-top: 0.3125rem;
   }
-  #getQuanDetail .quanBody .borderDiv  .main1 .left{
-    flex:0 0 50%;
+
+  #getQuanDetail .quanBody .borderDiv .main1 .left {
+    flex: 0 0 50%;
   }
-  #getQuanDetail .quanBody .borderDiv  .main1 .left span{
-    font-size: 30px;
+
+  #getQuanDetail .quanBody .borderDiv .main1 .left span {
+    font-size:0.9375rem;
   }
-  #getQuanDetail .quanBody .borderDiv  .main1 .right{
-    flex:0 0 50%;
+
+  #getQuanDetail .quanBody .borderDiv .main1 .right {
+    flex: 0 0 50%;
   }
-  #getQuanDetail .quanBody .borderDiv  .main2{
-    margin-top: 15px;
+
+  #getQuanDetail .quanBody .borderDiv .main2 {
+    margin-top: 0.5rem;
+    font-size:.6rem;line-height: 1rem;
   }
-  #getQuanDetail .quanBody .bottom{
-    background:#fff;
-    margin:0px 15px 15px 15px;
+
+  #getQuanDetail .quanBody .bottom {
+    background: #fff;
+    margin: 0px 0.5rem 0.5rem 0.5rem;
     text-align: left;
-    padding:0 10px;
-    border-radius:0 0 5px 5px;
+    padding: 0 0.3125rem;
+    border-radius: 0 0 5px 5px;
     border-top: 4px dashed #52b6ff;
     position: relative;
   }
-  #getQuanDetail .quanBody .bottom .leftCircle,.rightCircle{
+
+  #getQuanDetail .quanBody .bottom .leftCircle, .rightCircle {
     display: inline-block;
-    width:20px;height:20px;background: #fafafa;border-radius: 50%;
+    width: 0.625rem;
+    height: 0.625rem;
+    background: #fafafa;
+    border-radius: 50%;
     position: absolute;
   }
-  #getQuanDetail .quanBody .bottom .leftCircle{
-    top:-10px;left:-10px;
+
+  #getQuanDetail .quanBody .bottom .leftCircle {
+    top: -0.3125rem;
+    left: -0.3125rem;
   }
-  #getQuanDetail .quanBody .bottom .rightCircle{
-    top:-10px;right:-10px;
+
+  #getQuanDetail .quanBody .bottom .rightCircle {
+    top: -0.3125rem;
+    right: -0.3125rem;
   }
-  #getQuanDetail .quanBody .bottom>div{
-    padding:20px 0;
+
+  #getQuanDetail .quanBody .bottom > div {
+    padding: 0.625rem 0;
   }
-  #getQuanDetail .quanBody .bottom>div:not(:last-child){
+
+  #getQuanDetail .quanBody .bottom > div:not(:last-child) {
     border-bottom: 1px dashed #d6d3d6;
   }
-  #getQuanDetail .quanBody .bottom>div h6{
-    color:#9c9a9c;
-    font-size: 18px;
+
+  #getQuanDetail .quanBody .bottom > div h6 {
+    color: #9c9a9c;
+    font-size: 0.5625rem;
   }
-  #getQuanDetail .quanBody .bottom>div p:before{
-    content:'';
+
+  #getQuanDetail .quanBody .bottom > div p:before {
+    content: '';
     display: inline-block;
-    width:6px;height:6px;background: #52b6ff;border-radius: 10px;
-    margin-right:10px;
+    width: 6px;
+    height: 6px;
+    background: #52b6ff;
+    border-radius: 0.3125rem;
+    margin-right: 0.3125rem;
   }
+
   #getQuanDetail button {
     position: fixed !important;
     bottom: 0 !important;
@@ -227,18 +244,13 @@
   import headers from '@/components/headers'
   export default {
     components:{headers},
-    data(){
-      return{
-
-      }
-    },
     computed:{
       couponDetail(){
         return this.$store.state.couponDetail
       },
       couponMessage(){
         return this.$store.state.couponMessage
-      }
+      },
     },
     methods:{
       toGet(id,gettypestr){
@@ -287,6 +299,6 @@
       back:function () {
         this.$router.go(-1)
       }
-    }
+    },
   }
 </script>

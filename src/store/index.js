@@ -122,6 +122,7 @@ export default {
       zuJiData: {},
       getQuan: {},//领券列表
       couponDetail: {},
+      myCouponDetail:{},
       getCoupon: {},//领券结果
       addOrOrder: {},
       recordData: {},
@@ -1197,11 +1198,22 @@ export default {
         .then(function (res) {
           commit({
             type: 'saveCouponDetail',
-            data: res
+            data: res,
           })
         }).catch(function (err) {
         console.log('请求失败')
       })
+    },
+    myCouponDetail({commit, state}, data){
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=sale.coupon.my.get_detail', {params: data.params})
+        .then(function (res) {
+          if(res.data.status==1){
+            commit({
+              type:'myCouponDetail',
+              data:res
+            })
+          }
+        }).catch(function (err) {console.log(err)})
     },
     resAddOrReduce({commit, state}, data) {
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.capital.get_contactsMoney', {params: data.params})
@@ -1313,13 +1325,12 @@ export default {
       VueSet(state, 'evaluteTotal', data.data.commodityPingjiaSortData.data.result.data.total)
       VueSet(state, 'curEvalutePage', data.data.page)
       VueSet(state, 'isFavorite', data.data.commodityDetailData.data.result.data.result.goods_other.isFavorite)
-      console.log(state.commodityDetailData)
+      console.log(state.commodityColorSizeData)
       if (state.commodityDetailData != {}) {
         router.push({path: '/sortIndex/detail'})
       }
     },
     saveEvaluteFilter(state, data) {
-      console.log(data)
       VueSet(state, 'commodityPingjiaSortData', data.data.data.result.data.list)
       VueSet(state, 'curEvalutePage', data.page)
       VueSet(state, 'curLevel', data.level)
@@ -1581,6 +1592,12 @@ export default {
       VueSet(state, 'couponDetail', data.data.data.result.data.result)
       if (state.couponDetail != {}) {
         router.push({path: '/vipIndex/getQuanDetail'})
+      }
+    },
+    myCouponDetail(state, data){
+      VueSet(state,'myCouponDetail',data.data.data.result.data)
+      if(state.myCouponDetail!={}){
+        router.push({path: '/vipIndex/myQuanDetail'})
       }
     },
     saveAddOrReduce(state, data) {

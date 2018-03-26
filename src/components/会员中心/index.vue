@@ -352,11 +352,11 @@
   #vip .other .other-content > a:first-child{
     display: none;
   }
-  #vip .other .other-content > a:not(:nth-child(4n)) {
+  #vip .other .other-content > a:not(:nth-child(5n)) {
     border-right: 1px solid #eee;
     border-bottom: 1px solid #eee;
   }
-  #vip .other .other-content > a:nth-child(4n) {
+  #vip .other .other-content > a:nth-child(5n) {
     border-bottom: 1px solid #eee;
   }
   #vip .other .other-content > a img {

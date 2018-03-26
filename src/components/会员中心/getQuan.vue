@@ -43,12 +43,9 @@
             t:config.t,
             i:config.i,
             uniacid:config.uniacid
-          }
+          },
         })
       },
-      back:function () {
-        this.$router.go(-1)
-      }
     },
     beforeCreate(){
       this.$store.dispatch({
@@ -66,16 +63,6 @@
   }
 </script>
 <style scoped>
-  #getQuan header {
-    height: 1.5rem !important;
-    align-items: center;
-  }
-  #getQuan header .yd-navbar-center-title{
-    font-size:.5rem !important;
-  }
-.yd-back-icon:before, .yd-next-icon:before {
-    font-size: .6rem;
-  }
   #getQuan .yd-flexbox{
     font-size:14px;
     background: #fff;

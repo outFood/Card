@@ -2,20 +2,19 @@
   <div id="myQuan">
     <headers title="我的优惠券"></headers>
     <div class="orderNav">
-      <span>未使用</span>
-      <span>已使用</span>
-      <span>已过期</span>
+      <span @click="filter('')" :class="{curOrderNav:filtreStr==''}">未使用</span>
+      <span @click="filter('used')" :class="{curOrderNav:filtreStr=='used'}">已使用</span>
+      <span @click="filter('expire')" :class="{curOrderNav:filtreStr=='expire'}">已过期</span>
     </div>
-    <yd-flexbox v-for="(item,key) in list" :key="key">
+    <yd-flexbox v-for="(item,key) in list" :key="key"  @click.native="myCouponDetail(item.id)">
       <div class="left">
         <div>￥{{item.deduct}}</div>
         {{item.title2}}
         <span></span>
       </div>
       <yd-flexbox-item>
-        <div>{{item.tagtitle}}</div>
-        <p v-if="item.t>'0'">剩余{{item.t}}/{{item.last}}</p>
-        {{item.title4}}
+        <div>{{item.couponname}}</div>
+        <p>{{item.timestart}}-{{item.timeend}}</p>
       </yd-flexbox-item>
       <div class="right">
         立即使用
@@ -32,8 +31,39 @@
     components:{headers},
     data(){
       return{
-        list:[]
+        list:[],
+        filtreStr:''
       }
+    },
+    methods:{
+      filter(filtreStr){
+        this.filtreStr=filtreStr
+        var me=this,params={
+          t:config.t,
+          uniacid:config.uniacid,
+          i:config.i,
+          mid:localStorage.getItem('userid'),
+          openid:localStorage.getItem('openid'),
+          page:1,
+          pagesize:10,
+          cateid:0,
+          cate:filtreStr
+        }
+        axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=sale.coupon.my.getlist', {params:params})
+          .then(function (res) {
+            me.list=res.data.result.data.list;
+          }).catch(function (err) { console.log('请求失败')})
+      },
+      myCouponDetail(id){
+        this.$store.dispatch({
+          type:'myCouponDetail',
+          params:{
+            id:id,
+            t:config.t,
+            openid:localStorage.getItem('openid')
+          }
+        })
+      },
     },
     beforeCreate(){
       var me=this,params={
@@ -45,6 +75,7 @@
         page:1,
         pagesize:10,
         cateid:0,
+        cate:''
       }
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=sale.coupon.my.getlist', {params:params})
         .then(function (res) {
@@ -79,7 +110,7 @@
     background: #fff;
     padding:0.625rem;
     margin:0.625rem;
-    line-height: 0.625rem;
+    line-height: 1rem;
     position: relative;
   }
  #myQuan .yd-flexbox .left{
