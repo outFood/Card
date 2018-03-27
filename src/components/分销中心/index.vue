@@ -10,7 +10,7 @@
           <span>{{fenxiao_headData.result.result.thisset.texts.up}}: {{!fenxiao_headData.result.result.member.agentid? '总店' :fenxiao_headData.result.result.member.agentid}}</span>
           <span>本人ID:{{fenxiao_headData.result.result.member.id}}</span>
         </yd-flexbox-item>
-        <router-link to="/distributIndex/xiaodian" class="right"><img src="/static/img/set.png"></router-link>
+        <router-link to="#" class="right"><img src="/static/img/set.png"></router-link>
       </yd-flexbox>
       <yd-flexbox class="line2">
         <yd-flexbox-item>
@@ -73,17 +73,10 @@
             imgSrc:'/static/img/ma.png'
           },
           {
-            path:'/distributIndex/xiaodian',
+//            path:'/distributIndex/xiaodian',
+            path:'#',
             imgSrc:'/static/img/shop.png'
           }
-//          '/distributIndex/price',
-//          '/distributIndex/yongDetail',
-//          '/distributIndex/tixianDetail',
-//          '/distributIndex/xiaxian',
-//          '/distributIndex/tuiguang',
-//          '/distributIndex/xiaodian',
-//          '/distributIndex/daili',
-//          '/distributIndex/zixuan'
         ],
         imgs:[
           '/static/img/money.png'
@@ -118,14 +111,13 @@
       tixian(){
         if(this.fenxiao_headData.result.result.member.commission_ok<this.fenxiao_headData.result.result.thisset.withdraw){
                 this.$dialog.toast({
-                    mes: '一个没有任何图标的提示！',
+                    mes: '没有可提现金额！',
                     timeout: 1500
                 });
         }else{
           router.push({path: '/distributIndex/tixian'})
         }
       }
-
     },
   }
 </script>

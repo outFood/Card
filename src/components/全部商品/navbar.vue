@@ -36,7 +36,6 @@
       </div>
       <yd-button size="large" type="danger" position="bottom" @click.native="sure">确定</yd-button>
     </yd-popup>
-
   </div>
 </template>
 <script>
@@ -225,7 +224,9 @@
     background: red !important;
     color: #fff
   }
-
+  #navbar{
+    z-index: 100;
+  }
   #navbar .cartcount {
     display: block;
     color: #fff;

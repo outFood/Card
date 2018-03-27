@@ -57,7 +57,6 @@
     components:{noData},
     data() {
       return {
-        cartList: [],
         delShow:false,
         select:0,
         goodsId:''
@@ -160,18 +159,49 @@
         })
       },
       subMitCart(){
+        if(this.checkedArr.length>0){
+          this.$store.dispatch({
+            type:'subMitCart',
+            params:{
+              t:config.t,
+              i:config.i,
+              uniacid:config.uniacid,
+              mid:localStorage.getItem('userid'),
+              openid:localStorage.getItem('openid'),
+            }
+          })
+        }else{
+          this.$dialog.toast({
+            mes:'请选择商品！',
+            timeout: 1500,
+          });
+        }
+      },
+    },
+    beforeCreate(){
+      var openid=localStorage.getItem('openid')
+      var mid=localStorage.getItem('userid')
+      if(openid!=null&&openid!='undefined'&&mid!=null&&mid!='undefined'){
         this.$store.dispatch({
-          type:'subMitCart',
+          type:'lookCart',
           params:{
             t:config.t,
             i:config.i,
             uniacid:config.uniacid,
             mid:localStorage.getItem('userid'),
-            openid:localStorage.getItem('openid'),
+            openid:localStorage.getItem('openid')
           }
         })
-      },
-    },
+      }else{
+        this.$dialog.confirm({
+          title: '提示',
+          mes: '请先登录！',
+          opts: () => {
+            router.push({path: '/vipIndex/login'})
+          }
+        });
+      }
+    }
   }
 </script>
 <style>
@@ -243,9 +273,9 @@
   }
   #cart .shop .checkAll{
     position: fixed;
-    bottom:1.875rem;
+    bottom:2rem;
     width:100%;
-    height:1.5625rem;
+    height:1.8rem;
     background: #fff;
     z-index: 1;
 

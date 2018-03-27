@@ -1,6 +1,10 @@
 <template>
   <div id="buyPage">
-    <headers title="确认订单"></headers>
+    <yd-navbar title="确认订单">
+      <router-link to="/sortIndex/detail" slot="left">
+        <yd-navbar-back-icon></yd-navbar-back-icon>
+      </router-link>
+    </yd-navbar>
     <router-link to="#" @click.native="changeAddress" class="address" v-if="curSelAddress.realname">
       <img src="/static/img/position.png" alt="">
       <div>
@@ -34,7 +38,11 @@
       </yd-cell-item>
       <yd-cell-item>
         <span slot="left">运费</span>
-        <span slot="right">￥{{buyPageData.dispatchprice}}</span>
+        <span slot="right">
+          <span v-if="buyPageData.exchangeOrder">{{buyPageData.other.exchangepostage}}</span>
+          <span v-else-if="buyPageData.taskgoodsprice">{{buyPageData.other.taskgoodsprice}}</span>
+          <span v-else>{{buyPageData.other.dispatch_price}}</span>
+        </span>
       </yd-cell-item>
     </yd-cell-group>
     <div class="toPay">
@@ -43,6 +51,89 @@
     </div>
   </div>
 </template>
+<script>
+  import router from '@/router'
+  import config from '../../myConfig'
+  import headers from '@/components/headers'
+  export default {
+    components:{headers},
+    data(){
+      return {
+        buyNumber:'1',
+        remark:'',
+        goodsIds:''
+      }
+    },
+    computed:{
+      buyPageData(){
+        return this.$store.state.buyPageData
+      },
+      curSelAddress(){
+        return this.$store.state.curSelAddress
+      },
+      payMessage(){
+        return this.$store.state.payMessage
+      }
+    },
+    mounted(){
+      for(var i=0,myArr=[];i<this.buyPageData.list.length;i++){
+        myArr.push(this.buyPageData.list[i].goodsid)
+        myArr.push(this.buyPageData.list[i].optionid)
+        myArr.push(this.buyPageData.list[i].total)
+      }
+      this.goodsIds=myArr.join(',')
+    },
+    methods:{
+      createOrder(){
+        this.$store.dispatch({
+          type:'createOrder',
+          params:{
+            orderid:0,
+            id:0,
+            goods:this.goodsIds,
+            giftid:'',//赠品id
+            gdid:'',
+            diydata:'',
+            dispatchtype:0,
+            fromcart:1,
+            carrierid:0,
+            addressid:this.curSelAddress.id,
+            carriers:'',
+            remark:this.remark,
+            time:'',
+            deduct:0,
+            deduct2:0,
+            couponid:0,
+            contype:2,
+            invoicename:'',//发货单名字
+            packageid:0,//套餐id
+            app:1,
+            t:config.t,
+            i:config.i,
+            uniacid:config.uniacid,
+            mid:localStorage.getItem('userid'),
+            openid:localStorage.getItem('openid')
+          }
+        })
+        setTimeout(()=>{
+          if(this.payMessage!=''){
+            this.$dialog.toast({
+              mes: this.payMessage,
+              timeout: 1500
+            });
+          }
+        },1000)
+      },
+      changeAddress(){
+        router.push({path: '/vipIndex/myAddress'})
+        this.$store.dispatch({
+          type:'changeAddress',
+        })
+      },
+    }
+  }
+</script>
+
 <style>
   #buyPage{
     margin-bottom:2.5rem;
@@ -172,88 +263,3 @@
     height:100%;
   }
 </style>
-<script>
-  import router from '@/router'
-  import config from '../../myConfig'
-  import headers from '@/components/headers'
-  export default {
-    components:{headers},
-    data(){
-      return {
-        buyNumber:'1',
-        remark:'',
-        goodsIds:''
-      }
-    },
-    computed:{
-      buyPageData(){
-        return this.$store.state.buyPageData
-      },
-      curSelAddress(){
-        return this.$store.state.curSelAddress
-      },
-      prefix(){
-        return this.$store.state.prefix
-      },
-      payMessage(){
-        return this.$store.state.payMessage
-      }
-    },
-    mounted(){
-      for(var i=0,myArr=[];i<this.buyPageData.list.length;i++){
-        myArr.push(this.buyPageData.list[i].goodsid)
-        myArr.push(this.buyPageData.list[i].optionid)
-        myArr.push(this.buyPageData.list[i].total)
-      }
-      this.goodsIds=myArr.join(',')
-    },
-    methods:{
-      createOrder(){
-        this.$store.dispatch({
-          type:'createOrder',
-          params:{
-            orderid:0,
-            id:0,
-            goods:this.goodsIds,
-            giftid:'',//赠品id
-            gdid:'',
-            diydata:'',
-            dispatchtype:0,
-            fromcart:1,
-            carrierid:0,
-            addressid:this.curSelAddress.id,
-            carriers:'',
-            remark:this.remark,
-            time:'',
-            deduct:0,
-            deduct2:0,
-            couponid:0,
-            contype:2,
-            invoicename:'',//发货单名字
-            packageid:0,//套餐id
-            app:1,
-            t:config.t,
-            i:config.i,
-            uniacid:config.uniacid,
-            mid:localStorage.getItem('userid'),
-            openid:localStorage.getItem('openid')
-          }
-        })
-        setTimeout(()=>{
-          if(this.payMessage!=''){
-            this.$dialog.toast({
-              mes: this.payMessage,
-              timeout: 2000
-            });
-          }
-        },1000)
-      },
-      changeAddress(){
-        router.push({path: '/vipIndex/myAddress'})
-        this.$store.dispatch({
-          type:'changeAddress',
-        })
-      },
-    }
-  }
-</script>

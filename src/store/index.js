@@ -1329,7 +1329,6 @@ export default {
       }
     },
     saveCommodityDetailData(state, data) {
-      console.log(data)
       VueSet(state, 'commodityDetailData', data.data.commodityDetailData.data.result.data)
       VueSet(state, 'commodityColorSizeData', data.data.commodityColorSizeData.data.result.data)
       VueSet(state, 'commodityPingjiaData', data.data.commodityPingjiaData.data.result.data)
@@ -1337,7 +1336,6 @@ export default {
       VueSet(state, 'evaluteTotal', data.data.commodityPingjiaSortData.data.result.data.total)
       VueSet(state, 'curEvalutePage', data.data.page)
       VueSet(state, 'isFavorite', data.data.commodityDetailData.data.result.data.result.goods_other.isFavorite)
-      console.log(state.commodityColorSizeData)
       if (state.commodityDetailData != {}) {
         router.push({path: '/sortIndex/detail'})
       }
