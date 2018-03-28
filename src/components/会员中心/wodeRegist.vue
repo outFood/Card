@@ -146,8 +146,10 @@
             if(this.registStatus.status==1){
               router.push({path:'/vipIndex/login'})
             }
-            this.tipMsg=this.registStatus.result.msg
-            this.openAlert()
+            this.$dialog.toast({
+              mes:this.registStatus.result.msg,
+              timeout: 1500,
+            });
           },500)
         }
       },

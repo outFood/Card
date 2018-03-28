@@ -14,11 +14,11 @@
     </div>
     <yd-popup v-model="show2" position="bottom" height="80%" class="sizePop">
       <div class="pic">
-        <img src="http://img4.imgtn.bdimg.com/it/u=2747541684,870511306&fm=27&gp=0.jpg" alt="">
+        <img :src="commodity_goods.thumb" alt="">
         <div>
-          <span>￥{{commodity_goods.marketprice}}</span>
-          <span>库存{{commodity_goods.total}}件</span>
-          <span>请选择商品规格</span>
+          <span>￥{{curPrice?curPrice:commodity_goods.minprice+'-'+commodity_goods.maxprice}}</span>
+          <span>库存{{curStock?curStock:commodity_goods.total}}件</span>
+          <span>已选：{{curTitle?curTitle:'请选择商品规格'}}</span>
         </div>
         <span @click="show2 = false">x</span>
       </div>
@@ -52,7 +52,10 @@
         likeClick: 0,
         specArr:[],
         radio1: '啦啦啦',
-        curSelId:0
+        curSelId:0,
+        curPrice:0,//当前选中的商品规格对应的价格
+        curTitle:'',//当前选中的规格
+        curStock:0//当前选中商品规格的库存
       }
     },
     computed: {
@@ -106,6 +109,17 @@
         this.specArr[key1] = id
         this.specArr = this.specArr.concat([])
         console.log(this.specArr)
+        for(var i=0;i<this.options.length;i++){
+          this.options[i].specs.split('_')
+          if(this.options[i].specs.split('_').sort().join('')==this.specArr.sort().join('')){
+            this.curPrice=this.options[i].marketprice
+            this.curTitle=this.options[i].title
+            this.curStock=this.options[i].stock
+            console.log(this.curPrice)
+            console.log(this.curTitle)
+            console.log(this.curStock)
+          }
+        }
       },
       sure() {
         if(!this.specs){//商品没有规格，不传optionid

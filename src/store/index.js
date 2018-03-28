@@ -1539,6 +1539,7 @@ export default {
     },
     saveRegistStatus(state, data) {
       VueSet(state, 'registStatus', data.data)
+      console.log(state.registStatus)
     },
     saveVipInfoData(state, data) {
       VueSet(state, 'vipInfoData', data.data.data.result.data.member)
