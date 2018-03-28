@@ -143,8 +143,8 @@
     font-size:0.43rem;
   }
   #shopList nav .yd-accordion .yd-accordion-content p{
-    padding: 0.3125rem 0;
-    padding-right:8px;
+    padding:0.3125rem 8px;
+    text-align: left;
   }
   #shopList nav .yd-accordion .yd-accordion-content p:not(:last-child){
     border-bottom: 1px solid #eee;
@@ -158,11 +158,11 @@
   }
   #shopList section .listItem{
     background: #fff;
-    margin-top:10px;
+    margin-bottom:8px;
   }
-  #shopList section .listItem:last-child{
+  /*#shopList section .listItem:last-child{
     margin-bottom:100px;
-  }
+  }*/
   #shopList section .listItem .top{
     display: -webkit-box;
     display: -webkit-flex;
@@ -210,7 +210,7 @@
   #shopList section .listItem .bottom>div:nth-child(1){
     border-right:1px solid #d9d9d9;
   }
-  #shopList section .listItem:last-child{
+  /*#shopList section .listItem:last-child{
     margin-bottom:2.5rem;
-  }
+  }*/
 </style>
