@@ -71,7 +71,8 @@
     watch:{
       exclusiveShopData:{
         handler: function (val, oldVal) {
-          window.location.href=val
+          console.log('val:' + val + ' - oldVal: ' + oldVal);
+          // window.location.href=val
         },
         deep: true
       },
