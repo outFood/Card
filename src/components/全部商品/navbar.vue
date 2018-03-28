@@ -24,7 +24,7 @@
       </div>
       <div class="spec" v-for="(item,key1) in specs" :key="key1">
         <p>{{item.title}}</p>
-        <span @click="selSpec([key1,chen.id,item.title])" v-for="(chen,key2) in item.items" :key="key2" :class="{curBg:chen.sel}">{{chen.title}}</span>
+        <span @click="selSpec(key1,chen.id)" v-for="(chen,key2) in item.items" :key="key2" :class="{curBg:specArr[key1]===chen.id}">{{chen.title}}</span>
       </div>
 
       <div class="payNumber">
@@ -102,6 +102,7 @@
         })
         this.show2 = true
       },
+<<<<<<< HEAD
       selSpec(arr) {
         for(var i=0;i<this.specs.length;i++){//选中规格
           if(this.specs[i].title==arr[2]){
@@ -126,6 +127,37 @@
             }
           }
         }
+=======
+      selSpec(key1, id) {
+    
+        this.specArr[key1] = id
+        this.specArr = this.specArr.concat([])
+        console.log(this.specArr)
+        // for(var i=0;i<this.specs.length;i++){//选中规格
+        //   if(this.specs[i].title==arr[2]){
+        //     for(var j=0;j<this.specs[i].items.length;j++){
+        //       if(this.specs[i].items[j].id==arr[1]){
+        //         this.specs[i].items[j].sel=true
+        //         console.log(this.specs[i].items[j])
+        //       }else{
+        //         this.specs[i].items[j].sel=false
+        //       }
+        //     }
+        //   }
+        // }
+        // this.curSelId=arr[0]+arr[1]
+        // if(this.specArr.length<1){
+        //   this.specArr[arr[0]]=arr[1]
+        // }else{
+        //   for(var key in this.specArr){
+        //     if(key==arr[0]){
+        //       this.specArr[key]=arr[1]
+        //     }else{
+        //       this.specArr[arr[0]]=arr[1]
+        //     }
+        //   }
+        // }
+>>>>>>> a71400ad3774fb441872c07c1eba37d3fdb7964d
       },
       sure() {
         if(!this.specs){//商品没有规格，不传optionid
