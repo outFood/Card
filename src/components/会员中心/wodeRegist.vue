@@ -175,7 +175,7 @@
     display: flex;
     align-items: center;
     font-size:16px;
-    padding:20px;
+    padding:20px 10px;
     border-bottom: 1px solid #eee;
   }
   .form-group input{
