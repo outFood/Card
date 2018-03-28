@@ -71,8 +71,8 @@
       <div v-if="commodityDetailData.result.goods.repair==1">
         <img src="/static/img/have.png" alt="">保修
       </div>
-      <div v-if="commodityDetailData.result.goods.seven==1">
-        <img src="/static/img/have.png" alt="">七天无理由退货
+      <div v-if="commodityDetailData.result.goods.isverify==1">
+        <img src="/static/img/have.png" alt="">七天退换
       </div>
     </div>
     <div class="noSend" @click="show4=true">
