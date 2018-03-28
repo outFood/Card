@@ -1,7 +1,7 @@
 <template>
   <div v-if="headData" id="headers" :style="{background:headData.style.background,opacity:headData.style.opacity}">
     <img src="/static/img/shop-white.png" alt="" @click="toSort">
-    <input type="text" :placeholder="headData.params.placeholder" v-bind:class="[headData.params.searchstyle]" :style="{background:headData.style.searchbackground,color:headData.style.searchtextcolor,opacity:headData.style.opacityinput}" @keyup.enter='toSearch'>
+    <input type="text" :placeholder="headData.params.placeholder" v-bind:class="[headData.params.searchstyle]" :style="{background:headData.style.searchbackground,color:headData.style.searchtextcolor,opacity:headData.style.opacityinput}" @click='toSearch'>
     <img src="/static/img/cart.png" alt="" @click="toCart">
   </div>
 </template>
@@ -61,7 +61,7 @@
     },
     methods:{
       toSearch(){
-
+        router.push({path: '/sortIndex/someSort'})
       },
       toSort(){
         this.$store.dispatch({
