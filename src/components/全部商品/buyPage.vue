@@ -1,19 +1,19 @@
 <template>
   <div id="buyPage">
     <yd-navbar title="确认订单">
-      <router-link to="/sortIndex/detail" slot="left">
+      <div  slot="left" @click.stop="replaceRoute('/sortIndex/detail')">
         <yd-navbar-back-icon></yd-navbar-back-icon>
-      </router-link>
+      </div>
     </yd-navbar>
-    <router-link to="#" @click.native="changeAddress" class="address" v-if="curSelAddress.realname">
+    <div  @click="changeAddress" class="address" v-if="curSelAddress.realname">
       <img src="/static/img/position.png" alt="">
       <div>
         <h6>收货人：{{curSelAddress.realname}}&nbsp;&nbsp;&nbsp;&nbsp;{{curSelAddress.mobile}}</h6>
         <p>{{curSelAddress.province}}  {{curSelAddress.city}} {{curSelAddress.area}} {{curSelAddress.address}}</p>
       </div>
       <img src="/static/img/more.png" alt="">
-    </router-link>
-    <router-link to="#" @click.native="changeAddress" class="noAddress" v-else><span>请选择收货地址</span><img src="/static/img/more.png" alt=""></router-link>
+    </div>
+    <div  @click="changeAddress" class="noAddress" v-else><span>请选择收货地址</span><img src="/static/img/more.png" alt=""></div>
     <div class="list">
       <div class="item" v-for="(item,key) in buyPageData.goods_list">
         <div class="top">
@@ -130,6 +130,12 @@
           type:'changeAddress',
         })
       },
+      //replace路由
+      replaceRoute(path){
+        console.log('11')
+        // this.$router.replace(path);
+        this.$router.go(-1);
+      }
     }
   }
 </script>

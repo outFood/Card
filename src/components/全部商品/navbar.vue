@@ -10,7 +10,7 @@
       </div>
       <span class="cartcount">{{cartcount}}</span>
       <div class="addCart" @click="changePayStaus('加入购物车')">加入购物车</div>
-      <router-link to="#" class="pay" @click.native="changePayStaus('购买')">购买</router-link>
+      <div  class="pay" @click="changePayStaus('购买')">购买</div>
     </div>
     <yd-popup v-model="show2" position="bottom" height="80%" class="sizePop">
       <div class="pic">

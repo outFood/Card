@@ -1,7 +1,7 @@
 <template>
   <div id="myAddress">
     <yd-navbar title="收货地址">
-      <router-link :to="toPath" slot="left">
+      <router-link :to="toPath" slot="left" replace>
         <yd-navbar-back-icon></yd-navbar-back-icon>
       </router-link>
     </yd-navbar>
