@@ -103,34 +103,9 @@
         this.show2 = true
       },
       selSpec(key1, id) {
-    
         this.specArr[key1] = id
         this.specArr = this.specArr.concat([])
         console.log(this.specArr)
-        // for(var i=0;i<this.specs.length;i++){//选中规格
-        //   if(this.specs[i].title==arr[2]){
-        //     for(var j=0;j<this.specs[i].items.length;j++){
-        //       if(this.specs[i].items[j].id==arr[1]){
-        //         this.specs[i].items[j].sel=true
-        //         console.log(this.specs[i].items[j])
-        //       }else{
-        //         this.specs[i].items[j].sel=false
-        //       }
-        //     }
-        //   }
-        // }
-        // this.curSelId=arr[0]+arr[1]
-        // if(this.specArr.length<1){
-        //   this.specArr[arr[0]]=arr[1]
-        // }else{
-        //   for(var key in this.specArr){
-        //     if(key==arr[0]){
-        //       this.specArr[key]=arr[1]
-        //     }else{
-        //       this.specArr[arr[0]]=arr[1]
-        //     }
-        //   }
-        // }
       },
       sure() {
         if(!this.specs){//商品没有规格，不传optionid

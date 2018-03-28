@@ -59,7 +59,7 @@
   }
   #homeVip .vipInfo .card{
     width:100%;
-    height:5.25rem;
+    height:6rem;
     background: url(https://authorize.ylhhyk.com/Template/HongYi/new/images/membershipCard.png);
     background-size: 100% 100%;
     padding:0.3125rem 0.46875rem;
@@ -81,7 +81,6 @@
     bottom:0.3125rem;left:0.46875rem;
     color:#fff;
   }
-
   #homeVip .vipInfo .vipOtherInfo{
     display: -webkit-box;
     display: -webkit-flex;
@@ -93,7 +92,7 @@
   }
   #homeVip .vipInfo .vipOtherInfo>div{
     flex: 0 0 33%;
-    padding:0.3125rem 0;
+    font-size:0.45rem;
   }
   #homeVip .vipInfo .vipOtherInfo>div:not(:last-child){
     border-right:2px solid #f1aa4e
@@ -132,4 +131,10 @@
   #homeVip .foot .yd-cell-item:nth-child(1) {
     border-top: 1px solid #d9d9d9;
   }
+  #homeVip .foot a{
+    padding:10px;
+  }
+  #homeVip .foot .yd-cell-left{
+     font-size:0.45rem !important;
+   }
 </style>

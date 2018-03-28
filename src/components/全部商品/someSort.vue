@@ -4,10 +4,10 @@
       <div class="search"><img src="/static/img/back_black.png" alt="" @click="back()"><yd-search v-model="searchKey"></yd-search><i class="searchBtn" @click="screen(['搜索'])">搜索</i><span @click="allSort_h=!allSort_h"><img src="/static/img/allSort_h.png" v-if="allSort_h"><img src="/static/img/allSort_v.png" v-else></span></div>
       <!--tab-->
       <div class="tab">
-        <div @click="screen(['all'])" :class="{cur:curTab==1}">综合</div>
-        <div @click="screen(['sail'])" :class="{cur:curTab==2}">销量</div>
-        <div @click="screen(['price'])" :class="{cur:curTab==3}">价格 <span class="top" :class="{curtop:curtop}"></span><span class="bottom" :class="{curbottom:curbottom}"></span></div>
-        <div><yd-button @click.native="show4 = true;curTab=4" :class="{cur:curTab==4}">筛选 <img src="/static/img/shaixuan.png" alt="" v-if="curTab!=4"><img src="/static/img/shaixuan_red.png" alt="" v-else></yd-button></div>
+        <div @click="screen(['all'])" :class="{cur1:curTab==1}">综合</div>
+        <div @click="screen(['sail'])" :class="{cur1:curTab==2}">销量</div>
+        <div @click="screen(['price'])" :class="{cur1:curTab==3}">价格 <span class="top" :class="{curtop:curtop}"></span><span class="bottom" :class="{curbottom:curbottom}"></span></div>
+        <div><yd-button @click.native="show4 = true;curTab=4;curtop=false;curbottom=false" :class="{cur1:curTab==4}">筛选 <img src="/static/img/shaixuan.png" alt="" v-if="curTab!=4"><img src="/static/img/shaixuan_red.png" alt="" v-else></yd-button></div>
       </div>
     </header>
     <yd-infinitescroll :callback="loadList" ref="infinitescrollDemo">
@@ -44,7 +44,7 @@
     <yd-popup v-model="show4" position="right" width="60%" class="shaixuan_pop">
       <div class="head">筛选</div>
       <div class="tabNav">
-        <span v-for="(item,key) in tabNav" :key="key" @click="shaixuan(item)" :class="{cur:shaixuanText==item}">{{item}}</span>
+        <span v-for="(item,key) in tabNav" :key="key" @click="shaixuan(item)" :class="{cur2:shaixuanText==item}">{{item}}</span>
       </div>
       <div class="footer">
         <span @click="show4=false">取消筛选</span>
@@ -126,13 +126,11 @@
             type:'resCommodityListData',
             params:params
           })
-          console.log('销量筛选')
         }else if(parameter[0]=='price'){
           this.curTab=3
           this.clickNum++;
           params.order='minprice'
           if(this.clickNum%2==0){
-            console.log('第偶数次点击,降序')
             this.curbottom=true
             this.curtop=false
             params.by='desc'
@@ -150,7 +148,6 @@
             })
           }
         }else if(parameter[0]=='搜索'&&parameter.length==1){//点击的是搜索
-          console.log('关键字搜索')
           this.$store.dispatch({
             type:'resCommodityListData',
             params:{
@@ -163,7 +160,6 @@
           this.show4=false;
         }else if(parameter[0]=='确认'){
           this.show4=false
-          console.log(this.shaixuanText)
           if(this.shaixuanText=='推荐商品'){
             params.isrecommand=1
           }else if(this.shaixuanText=='新品上市'){
@@ -188,7 +184,6 @@
         this.shaixuanText=item
       },
       loadList(){
-        console.log('滚动加载')
         this.$store.dispatch({
           type:'resCommodityListData',
           params:{
@@ -293,7 +288,7 @@
   }
   #someSort header .search img{
     width:1rem;
-    height:0.78125rem;
+    height:1rem;
   }
   #someSort header .tab{
     display: -webkit-box;
@@ -335,7 +330,8 @@
   }
   #someSort header .tab>div .yd-btn-primary{
     background: #fff;
-    color:#000
+    color:#000;
+    font-size: 14px;
   }
   .curtop{
     border-bottom:5px solid red !important;
@@ -343,8 +339,12 @@
   .curbottom{
     border-top:5px solid red !important;
   }
-  .cur{
+  .cur1{
     color:red !important;
+  }
+  .cur2{
+    color:red !important;
+    border:1px solid red !important;
   }
   #someSort .content .con-h{
     display: -webkit-box;

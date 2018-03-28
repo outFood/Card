@@ -116,7 +116,7 @@
     border-top:0.41rem solid #f5f5f5;
     position: absolute;
     top: -0.625rem;
-    left: 40%;
+    left: 42%;
   }
   #vipGrad .tabPage{
     text-align: left;
