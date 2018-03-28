@@ -118,7 +118,7 @@
         setTimeout(()=>{
           if(this.payMessage!=''){
             this.$dialog.toast({
-              mes: this.payMessage,
+              mes: this.payMessage.result.msg,
               timeout: 1500
             });
           }

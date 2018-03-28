@@ -56,7 +56,7 @@
           title:this.result.goods.isdiscount_title,
           desc: '',
           // 如果是微信该link的域名必须要在微信后台配置的安全域名之内的。
-          link: 'http://cscs.ylhhyk.com/shopIndex',
+          link: 'http://cscs.ylhhyk.com/card/index.html',
           icon:this.result.goods.thumb,
           // 不要过于依赖以下两个回调，很多浏览器是不支持的
           success: function() {
@@ -67,12 +67,11 @@
           }
         }
         nativeShare.setShareData(shareData)
-
         try {
           nativeShare.call(command)
         } catch (err) {
           // 如果不支持，你可以在这里做降级处理
-          alert('对不起，你的浏览器不支持此分享功能')
+          alert('对不起，你的浏览器不支持此分享功能,请尝试浏览器自带分享功能')
         }
       }
     },
