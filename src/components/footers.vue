@@ -147,7 +147,7 @@
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding:0.25rem;
+  padding: 0.1rem 0.20rem 0.20rem;
   width:100%;
   background: #fff;
   box-shadow:    0px -3px 0px 0px rgba(0,0,0,0.01)  /*设置上阴影*/
@@ -159,14 +159,16 @@
 }
 #footers a{
   color:#707070;
-  font-size:0.45rem;
+  font-size:0.4rem;
 }
 #footers a img{
-  width:0.79rem;
-  height:0.79rem;
+  width:0.72rem;
+  height:0.72rem;
+  display: block;
+  margin: 0 auto 2px;
 }
 #footers div:nth-child(3) img{
-  width:1rem !important;
+  width:0.9rem !important;
 }
 </style>
 

@@ -196,6 +196,9 @@
   }
 </script>
 <style>
+  #vip{
+    overflow-y: scroll;
+  }
   #vip .yd-navbar-item>a {
     font-size: .45rem;
     visibility: hidden;
