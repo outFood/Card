@@ -2,11 +2,11 @@
   <div id="pingjia">
     <div class="nav">
       <p>宝贝评价({{evaluteTotal}})</p>
-      <span @click="evaluteFilter('')">全部({{commodityPingjiaData.count.all}})</span>
-      <span @click="evaluteFilter('good')">好评({{commodityPingjiaData.count.good}})</span>
-      <span @click="evaluteFilter('normal')">中评({{commodityPingjiaData.count.normal}})</span>
-      <span @click="evaluteFilter('bad')">差评({{commodityPingjiaData.count.bad}})</span>
-      <span @click="evaluteFilter('pic')">晒图({{commodityPingjiaData.count.pic}})</span>
+      <span @click="evaluteFilter('')" :class="{curColor:level==''}">全部({{commodityPingjiaData.count.all}})</span>
+      <span @click="evaluteFilter('good')" :class="{curColor:level=='good'}">好评({{commodityPingjiaData.count.good}})</span>
+      <span @click="evaluteFilter('normal')" :class="{curColor:level=='normal'}">中评({{commodityPingjiaData.count.normal}})</span>
+      <span @click="evaluteFilter('bad')" :class="{curColor:level=='bad'}">差评({{commodityPingjiaData.count.bad}})</span>
+      <span @click="evaluteFilter('pic')" :class="{curColor:level=='pic'}">晒图({{commodityPingjiaData.count.pic}})</span>
     </div>
     <div class="list">
       <yd-infinitescroll :callback="loadMoreList" ref="infinitescrollDemo">
@@ -23,6 +23,18 @@
               <p class="imgs">
                 <img :src="imgItem" v-for="(imgItem,key) in item.images[0]">
               </p>
+            </div>
+            <div class="bottom" v-if="item.reply_content!=''||item.reply_images.length>0">
+              首次回复：{{item.reply_content}}
+              <p><img :src="replyImg" alt="" v-for="(replyImg,key) in item.reply_images" :key="key"></p>
+            </div>
+            <div class="bottom" v-if="item.append_content!=''||item.append_images.length>0">
+              追加评价：{{item.append_content}}
+              <p><img :src="appendImgs" alt="" v-for="(appendImgs,key) in item.append_images" :key="key"></p>
+            </div>
+            <div class="bottom" v-if="item.append_reply_content!=''||item.append_reply_images.length>0">
+              追加回复：{{item.append_reply_content}}
+              <p><img :src="appendImg" alt="" v-for="(appendImg,key) in item.append_reply_images" :key="key"></p>
             </div>
           </div>
         </yd-list>
@@ -41,7 +53,7 @@
   export default {
     data(){
       return{
-
+        level:''
       }
     },
     computed:{
@@ -73,8 +85,8 @@
         /* 单次请求数据完毕 */
         this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.finishLoad');
       },
-      evaluteFilter(level,goodsid){
-        console.log(level)
+      evaluteFilter(level){
+        this.level=level
         this.$store.dispatch({
           type:'evaluteFilter',
           params:{
@@ -90,6 +102,9 @@
   }
 </script>
 <style>
+  .curColor{
+    background: red !important;color:#fff !important;
+  }
   #pingjia{
     text-align:left;
   }
@@ -146,5 +161,17 @@
   #pingjia .list .list-item .middle .imgs img{
     width:32%;
     height:2.3125rem;
+  }
+  #pingjia .list .list-item .bottom{
+    background: #fafafa;
+    padding:10px;
+  }
+  #pingjia .list .list-item .bottom img{
+    width:32%;
+    height:2.3125rem;
+    margin-top:10px;
+  }
+  #pingjia .list .list-item .bottom img:not(:last-child){
+    margin-right:5px;
   }
 </style>

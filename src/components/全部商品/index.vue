@@ -4,12 +4,12 @@
       <yd-search @click.native="toSomeSort"></yd-search>
     </header>
     <yd-scrolltab>
-      <yd-scrolltab-panel v-for="(item,key) in parent" :label="item.name" icon="demo-icons-category1" :key="key">
+      <yd-scrolltab-panel v-for="(item,key) in parent" :label="item.name" icon="demo-icons-category1" :key="key" :style="{height:screenHeight+'px'}">
         <!---->
         <span v-if="item.isSecondSort==true" class="secondSort">
           <img :src="item.advimg" v-if="item.advimg">
           <router-link to="#" class="sortItem"  v-for="(secondSort,key) in item.curSort" :key="key">
-            <img :src="secondSort.thumb"  @click="resCommodityListData(secondSort.id)">{{secondSort.name}}
+            <img :src="secondSort.thumb"  @click="resCommodityListData(secondSort)">{{secondSort.name}}
           </router-link>
         </span>
         <!---->
@@ -34,6 +34,9 @@
 <style>
   .yd-search-input{
     background: #fff !important;
+  }
+  .yd-scrolltab-content{
+    overflow-y: hidden;
   }
   .yd-scrolltab-content-title{
     display: none !important;
@@ -148,17 +151,25 @@
   import router from '@/router'
   import config from '../../myConfig'
   export default {
+    data(){
+      return{
+        screenHeight:window.screen.height
+      }
+    },
     methods:{
       toSomeSort(){
         router.push({path: '/sortIndex/someSort'})
       },
-      resCommodityListData(sortid){
+      resCommodityListData(secondSort){
+        if(secondSort.name=='全部商品'){
+          secondSort.id=0
+        }
         this.$store.dispatch({
           type:'resCommodityListData',
           params:{
             page:1,
             pagesize:10,
-            cate:sortid,
+            cate:secondSort.id,
             t:config.t,
             openid:localStorage.getItem('openid'),
             order:'',

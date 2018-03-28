@@ -3,7 +3,7 @@
     <headers title="申请成为分销商"></headers>
     <yd-slider autoplay="3000">
       <yd-slider-item>
-        <a href="http://www.ydcss.com">
+        <a href="#">
           <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
         </a>
       </yd-slider-item>
@@ -94,6 +94,21 @@
         deep: true
       },
     },
+    beforeCreate(){
+      var params={
+        openid:localStorage.getItem('openid'),
+        mid:localStorage.getItem('userid'),
+        t:config.t,
+        uniacid:config.uniacid,
+        i:config.i
+      }
+      var me=this;
+      axios.get(config.baseUrl + "/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.xcxl", {params:params})
+        .then(function (res) {
+          me.userInfo=res.data.result.data.user
+          console.log(me.userInfo)
+        }).catch(function (err) {console.log(err)})
+    },
     methods:{
       openAlert() {
         this.$dialog.alert({
@@ -111,10 +126,7 @@
         }else if(this.mobile==''&&this.userInfo.mobile==''){
           this.tipMsg='请填写手机号!'
           this.openAlert()
-        }else if(this.userInfo.mobile=''&&this.mobile.length!=11){
-          this.tipMsg='请填写11位手机号!'
-          this.openAlert()
-        }else if(this.userInfo.mobile=''&&!regMobile.test(this.mobile)){
+        }else if(this.mobile!=''&&!regMobile.test(this.mobile)){
           this.tipMsg='手机号格式输入有误!'
           this.openAlert()
         }else if(this.isReaded==false){
@@ -137,21 +149,6 @@
           })
         }
       }
-    },
-    beforeCreate(){
-      var params={
-          openid:localStorage.getItem('openid'),
-          mid:localStorage.getItem('userid'),
-          t:config.t,
-          uniacid:config.uniacid,
-          i:config.i
-        }
-      var me=this;
-      axios.get(config.baseUrl + "/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.xcxl", {params:params})
-        .then(function (res) {
-          me.userInfo=res.data.result.data.user
-          console.log(me.userInfo)
-        }).catch(function (err) {console.log(err)})
     },
   }
 </script>

@@ -19,7 +19,7 @@
               <img :src="item.thumb" alt="">
               <div>
                 <p>{{item.title}}</p>
-                <span class="price">￥{{item.marketprice}}</span><span class="goPay"  @click="show2 = true">购买</span>
+                <span class="price">￥{{item.marketprice}}</span><span class="goPay">购买</span>
               </div>
             </div>
           </div>
@@ -28,7 +28,7 @@
               <img :src="item.thumb" alt="">
               <div class="right">
                 <p>{{item.title}}</p>
-                <span class="price">￥{{item.marketprice}}</span><span class="goPay"  @click="show2 = true">购买</span>
+                <span class="price">￥{{item.marketprice}}</span><span class="goPay">购买</span>
               </div>
             </div>
           </div>
@@ -51,22 +51,6 @@
         <span @click="screen(['确认'])">确认</span>
       </div>
     </yd-popup>
-    <!--购买弹框-->
-    <yd-popup v-model="show2" position="bottom" height="60%" class="pay_pop">
-      <div class="top">
-        <div><img src="http://img1.3lian.com/2015/a1/95/d/105.jpg" alt=""></div>
-        <span class="price">￥19.9</span>
-        <div class="close" @click="show2=false"><span>x</span></div>
-      </div>
-      <div class="middle">
-        <span>数量</span>
-        <yd-spinner unit="1" min='1' v-model="curGoodsNum"></yd-spinner>
-      </div>
-      <div class="bottom">
-        <div>加入购物车</div>
-        <div>立即购买</div>
-      </div>
-    </yd-popup>
     <footers></footers>
   </div>
 </template>
@@ -80,7 +64,6 @@
         curbottom:false,
         clickNum:0,
         show4: false,
-        show2: false,
         curTab:1,
         curGoodsNum:0,
         allSort_h:true,

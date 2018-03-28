@@ -15,7 +15,7 @@
       </p>
       <p class="price">
         <span>订单金额</span>
-        <span>￥{{selPay.order.price}}</span>
+        <span>￥{{selPay.order.oldprice}}</span>
       </p>
     </div>
     <p class="notes">
@@ -67,21 +67,6 @@
         return this.$store.state.payMessage
       }
     },
-    watch:{
-      payMessage:{
-        handler: function (val, oldVal) {
-
-          this.$dialog.confirm({
-            title: '提示',
-            mes: '余额不足，去充值？',
-            opts: () => {
-              router.push({path: '/vipIndex/recharge'})
-            }
-          });
-        },
-        deep: true
-      },
-    },
     methods:{
       weixinPay(){
         wx.config({
@@ -114,6 +99,17 @@
                 ordersn:this.selPay.order.ordersn
               }
             })
+            setTimeout(()=>{
+              if(this.payMessage.status==0){
+                this.$dialog.confirm({
+                  title: '提示',
+                  mes: this.payMessage.result.msg,
+                  opts: () => {
+                    router.push({path: '/vipIndex/recharge'})
+                  }
+                });
+              }
+            },500)
           },
         });
       },

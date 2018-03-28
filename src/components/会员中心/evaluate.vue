@@ -35,6 +35,8 @@
 <script>
   import Exif from 'exif-js'
   import config from '../../myConfig'
+  import axios from 'axios'
+  import router from '@/router'
   /* 前提是已经安装了 ydui-district */
   import District from 'ydui-district/dist/jd_province_city_area_id';
   import headers from '@/components/headers'
@@ -214,26 +216,41 @@
         return ndata;
       },
       submitEvaluate(){
-        this.$store.dispatch({
-          type:'submitEvaluate',
-          params:{
-            uniacid:config.uniacid,
-            t:config.t,
-            i:config.i,
-            openid:localStorage.getItem('openid'),
-            mid:localStorage.getItem('userid'),
-            goodsid:this.goodsidArr,
-            level:this.star,
-            content:this.leaveWord,
-            orderid:this.evaluatPage.order.id,
-            images:this.headerImage,
+        var me=this,params={
+          uniacid:config.uniacid,
+          t:config.t,
+          i:config.i,
+          openid:localStorage.getItem('openid'),
+          mid:localStorage.getItem('userid'),
+          goodsid:this.goodsidArr,
+          level:this.star,
+          content:this.leaveWord,
+          orderid:this.evaluatPage.order.id,
+          images:this.headerImage,
+        }
+        axios.post(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.comment.submit',params, {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
           }
+        })
+          .then(function (res) {
+            if(res.data.status==1){
+              me.$store.dispatch({
+                type:'resMyOrder',
+                text:'全部'
+              })
+            }
+          }).catch(function (err) {
+          console.log('请求失败:' + err)
         })
       }
     }
   }
 </script>
 <style>
+  #evaluate{
+    padding-bottom: 50px;
+  }
   #evaluate header {
     height: 1.5rem !important;
     align-items: center;

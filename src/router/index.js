@@ -70,6 +70,7 @@ import login from '@/components/会员中心/login'
 import myLike from '@/components/会员中心/myLike'
 import zuji from '@/components/会员中心/zuji'
 import myQuan from '@/components/会员中心/myQuan'
+import myQuanDetail from '@/components/会员中心/myQuanDetail'
 import getQuan from '@/components/会员中心/getQuan'
 import recharge from '@/components/会员中心/recharge'
 import AddOrReduce from '@/components/会员中心/AddOrReduce'
@@ -81,7 +82,6 @@ import getQuanDetail from '@/components/会员中心/getQuanDetail'
 Vue.use(Router)
 
 export default new Router({
-  mode: "history",
   exact:false,
   routes: [
     {
@@ -299,6 +299,9 @@ export default new Router({
         },{
           path:'myQuan',
           component:myQuan
+        },{
+          path:'myQuanDetail',
+          component:myQuanDetail
         },{
           path:'getQuan',
           component:getQuan

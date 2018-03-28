@@ -1,10 +1,6 @@
 <template>
   <div id="article">
-    <yd-navbar title="文章">
-      <router-link to="#" slot="left">
-        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
-      </router-link>
-    </yd-navbar>
+    <headers title="文章"></headers>
     <section>
       <h2>{{article.shopshare.title}}</h2>
       <p>
@@ -16,7 +12,9 @@
   </div>
 </template>
 <script>
+  import headers from '@/components/headers'
   export default {
+    components:{headers},
     data(){
       return{
 
@@ -35,16 +33,6 @@
   }
 </script>
 <style>
-  #article header {
-    height: 1.5rem !important;
-    align-items: center;
-  }
-  #article header .yd-navbar-center-title{
-    font-size:.5rem !important;
-  }
-  #article .yd-back-icon:before, .yd-next-icon:before {
-    font-size: .6rem;
-  }
   #article section{
     background: #fff;padding:0.3125rem;text-align: left;
   }

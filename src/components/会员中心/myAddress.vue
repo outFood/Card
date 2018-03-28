@@ -1,6 +1,10 @@
 <template>
   <div id="myAddress">
-    <headers title="收货地址"></headers>
+    <yd-navbar title="收货地址">
+      <router-link :to="toPath" slot="left">
+        <yd-navbar-back-icon></yd-navbar-back-icon>
+      </router-link>
+    </yd-navbar>
     <div class="address-item" v-for="(item,key) in myAddressData" :key="key">
       <div @click="selAddress(item)">
         <yd-flexbox>
@@ -35,12 +39,16 @@
     components:{headers},
     data() {
       return {
-        defaultAddress:''
+        defaultAddress:'',
+        toPath:'/sortIndex/detail',//用来记录应该回退的地址
       }
     },
     computed:{
       myAddressData(){
         return this.$store.state.myAddressData
+      },
+      changeAddress(){
+        return this.$store.state.changeAddress
       }
     },
     methods:{
@@ -98,6 +106,9 @@
       },
       back:function () {
         this.$router.go(-1)
+      },
+      back(){
+
       }
     },
     beforeCreate(){
@@ -108,16 +119,19 @@
           mid:localStorage.getItem('userid')
         }
       })
+    },
+    mounted(){
+      if(this.changeAddress==true){//当用户是从下单页进入地址列表页的时候，点击回退按钮就回退到下单页，否则就回退到会员中心页
+        this.toPath='/sortIndex/buyPage'
+      }else{
+        this.toPath='/vipIndex'
+      }
     }
   }
 </script>
 <style scoped>
   #myAddress{
     margin-bottom: 60px;
-  }
-  #myAddress header{
-    height:1.5rem !important;
-    align-items: center;
   }
   #myAddress .address-item {
     background: #fff;

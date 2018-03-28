@@ -36,7 +36,6 @@
       </div>
       <yd-button size="large" type="danger" position="bottom" @click.native="sure">确定</yd-button>
     </yd-popup>
-
   </div>
 </template>
 <script>
@@ -84,7 +83,7 @@
           return this.$store.state.commodityColorSizeData.specs
         },
         // setter
-        set: function () {
+        set: function (newValue) {
           this.$store.state.commodityColorSizeData.specs=newValue
         }
       },
@@ -145,23 +144,30 @@
           })
           this.show2 = false
         }else{//商品有规格，传optionid
-          for(var i=0;i<this.options.length;i++){
-            this.options[i].specs.split('_')
-            if(this.options[i].specs.split('_').sort().join('')==this.specArr.sort().join('')){
-              this.$store.dispatch({
-                type: 'cartOrPay',
-                params: {
-                  total: this.payNumber,
-                  optionid: this.options[i].id,//规格id
-                  id: this.commodity_goods.id,
-                  t: config.t,
-                  i: config.i,
-                  uniacid: config.uniacid,
-                  mid: localStorage.getItem('userid'),
-                  openid: localStorage.getItem('openid'),
-                }
-              })
-              this.show2 = false
+          if(this.specArr.length<this.specs.length){
+            this.$dialog.toast({
+              mes:'请选择规格！',
+              timeout: 1000,
+            });
+          }else{
+            for(var i=0;i<this.options.length;i++){
+              this.options[i].specs.split('_')
+              if(this.options[i].specs.split('_').sort().join('')==this.specArr.sort().join('')){
+                this.$store.dispatch({
+                  type: 'cartOrPay',
+                  params: {
+                    total: this.payNumber,
+                    optionid: this.options[i].id,//规格id
+                    id: this.commodity_goods.id,
+                    t: config.t,
+                    i: config.i,
+                    uniacid: config.uniacid,
+                    mid: localStorage.getItem('userid'),
+                    openid: localStorage.getItem('openid'),
+                  }
+                })
+                this.show2 = false
+              }
             }
           }
         }
@@ -218,7 +224,9 @@
     background: red !important;
     color: #fff
   }
-
+  #navbar{
+    z-index: 100;
+  }
   #navbar .cartcount {
     display: block;
     color: #fff;

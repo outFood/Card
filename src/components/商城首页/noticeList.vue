@@ -1,10 +1,6 @@
 <template>
   <div id="noticeList">
-    <yd-navbar title="公告列表">
-      <router-link to="#" slot="left">
-        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
-      </router-link>
-    </yd-navbar>
+    <headers title="公告列表"></headers>
     <div class="list">
       <div class="listItem" v-for="(item,key) in noticeList" :key="key" @click="saveSelNotice(item)">
         <img :src="item.thumb" alt="">
@@ -15,7 +11,9 @@
   </div>
 </template>
 <script>
+  import headers from '@/components/headers'
   export default {
+    components:{headers},
     data(){
       return {
 
@@ -40,16 +38,6 @@
   }
 </script>
 <style>
-  #noticeList header {
-    height: 1.5rem !important;
-    align-items: center;
-  }
-  #noticeList header .yd-navbar-center-title{
-    font-size:.5rem !important;
-  }
-  #noticeList .yd-back-icon:before, .yd-next-icon:before {
-    font-size: .6rem;
-  }
   #noticeList .list{
     background: #fff;
   }

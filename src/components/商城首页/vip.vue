@@ -1,5 +1,5 @@
 <template>
-  <yd-layout title="E卡会员" link="#" id="homeVip">
+  <yd-layout title="E卡会员" link="/shopIndex" id="homeVip">
     <div class='vipInfo'>
       <div class="card">
           <img src="https://authorize.ylhhyk.com/Template/HongYi/new/images/membershipCard-logo.png" alt="">

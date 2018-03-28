@@ -1,10 +1,6 @@
 <template>
   <div id="noticePage">
-    <yd-navbar title="公告">
-      <router-link to="#" slot="left">
-        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
-      </router-link>
-    </yd-navbar>
+    <headers title="公告"></headers>
     <section>
       <h2>{{selNotice.title}}</h2>
       <p>
@@ -15,7 +11,9 @@
   </div>
 </template>
 <script>
+  import headers from '@/components/headers'
   export default {
+    components:{headers},
     data(){
       return{
 
@@ -34,16 +32,6 @@
   }
 </script>
 <style>
-  #noticePage header {
-    height: 1.5rem !important;
-    align-items: center;
-  }
-  #noticePage header .yd-navbar-center-title{
-    font-size:.5rem !important;
-  }
-  #noticePage .yd-back-icon:before, .yd-next-icon:before {
-    font-size: .6rem;
-  }
   #noticePage section{
     background: #fff;text-align: left;padding: 0.3125rem;
   }

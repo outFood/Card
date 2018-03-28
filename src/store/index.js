@@ -24,6 +24,7 @@ export default {
         '/vipIndex/record': '积分返还记录',
         '/vipIndex/order': '我的订单',
         '/vipIndex/orderDetail': '订单详情',
+        '/vipIndex/evaluate': '评价',
         '/vipIndex/myLike': '我的关注',
         '/vipIndex/zuji': '我的关注',
         '/vipIndex/myAddress': '我的地址',
@@ -121,7 +122,7 @@ export default {
       zuJiData: {},
       getQuan: {},//领券列表
       couponDetail: {},
-      couponMessage: '',//点击领券或购买券返回的消息
+      myCouponDetail:{},
       getCoupon: {},//领券结果
       addOrOrder: {},
       recordData: {},
@@ -394,6 +395,18 @@ export default {
                 data: res2
               })
             }
+          }).catch(function (err) {
+            console.log('请求失败:' + err)
+          })
+          axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.pay.get_main',{params:{
+            t:config.t,
+            openid:config.openid,
+            id: res.data.result.data.orderid,
+            peerpaymessage:'',
+            peerprice:'',
+            jie:''
+          }}).then(function (res) {
+
           }).catch(function (err) {
             console.log('请求失败:' + err)
           })
@@ -1026,7 +1039,8 @@ export default {
             type: 'saveMyOrder',
             res: res,
             orderStatus: status,
-            curOrderStausPage: 1
+            curOrderStausPage: 1,
+            start:'yes'
           })
         }).catch(function (err) {
         alert(err)
@@ -1046,7 +1060,8 @@ export default {
             type: 'saveMyOrder',
             res: res,
             orderStatus: state.orderStatus,
-            curOrderStausPage: state.curOrderStausPage + 1
+            curOrderStausPage: state.curOrderStausPage + 1,
+            start:'no'
           })
         }).catch(function (err) {
         alert(err)
@@ -1071,7 +1086,7 @@ export default {
             mid: localStorage.getItem('userid'),
             openid: localStorage.getItem('openid'),
             page: 1,
-            t: config.t
+            t: config.t,
           }
           axios.get(config.baseUrl + "/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.index.get_list", {params: params})
             .then(function (res) {
@@ -1079,7 +1094,8 @@ export default {
                 type: 'saveMyOrder',
                 res: res,
                 orderStatus: state.orderStatus,
-                curOrderStausPage: state.curOrderStausPage
+                curOrderStausPage: state.curOrderStausPage,
+                start:'yes'
               })
             }).catch(function (err) {
             alert(err)
@@ -1104,7 +1120,8 @@ export default {
                 type: 'saveMyOrder',
                 res: res,
                 orderStatus: state.orderStatus,
-                curOrderStausPage: state.curOrderStausPage
+                curOrderStausPage: state.curOrderStausPage,
+                start:'yes'
               })
             }).catch(function (err) {
             alert(err)
@@ -1133,7 +1150,8 @@ export default {
                 type: 'saveMyOrder',
                 res: res,
                 orderStatus: state.orderStatus,
-                curOrderStausPage: state.curOrderStausPage
+                curOrderStausPage: state.curOrderStausPage,
+                start:'yes'
               })
             }).catch(function (err) {
             alert(err)
@@ -1149,18 +1167,6 @@ export default {
             type: 'saveEvalutePage',
             data: res
           })
-        }).catch(function (err) {
-        console.log('请求失败:' + err)
-      })
-    },
-    submitEvaluate({commit, state}, data) {
-      axios.post(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.comment.submit', data.params, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      })
-        .then(function (res) {
-
         }).catch(function (err) {
         console.log('请求失败:' + err)
       })
@@ -1204,30 +1210,22 @@ export default {
         .then(function (res) {
           commit({
             type: 'saveCouponDetail',
-            data: res
+            data: res,
           })
         }).catch(function (err) {
         console.log('请求失败')
       })
     },
-    couponGetOrPay({commit, state}, data) {
-      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=sale.coupon.detail.pay', {params: data.params})
+    myCouponDetail({commit, state}, data){
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=sale.coupon.my.get_detail', {params: data.params})
         .then(function (res) {
-          commit({
-            type: 'saveCouponMessage',
-            data: res
-          })
-        }).catch(function (err) {
-        console.log('领取或购买失败')
-      })
-    },
-    resMyQuan({commit, state}, data) {
-      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=sale.coupon.my.getlist', {params: data.params})
-        .then(function (res) {
-
-        }).catch(function (err) {
-        console.log('请求失败')
-      })
+          if(res.data.status==1){
+            commit({
+              type:'myCouponDetail',
+              data:res
+            })
+          }
+        }).catch(function (err) {console.log(err)})
     },
     resAddOrReduce({commit, state}, data) {
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.capital.get_contactsMoney', {params: data.params})
@@ -1338,13 +1336,12 @@ export default {
       VueSet(state, 'evaluteTotal', data.data.commodityPingjiaSortData.data.result.data.total)
       VueSet(state, 'curEvalutePage', data.data.page)
       VueSet(state, 'isFavorite', data.data.commodityDetailData.data.result.data.result.goods_other.isFavorite)
-      console.log(state.commodityColorSizeData)
       if (state.commodityDetailData != {}) {
         router.push({path: '/sortIndex/detail'})
       }
     },
     saveEvaluteFilter(state, data) {
-      VueSet(state, 'commodityPingjiaSortData', data.data.data.result.list)
+      VueSet(state, 'commodityPingjiaSortData', data.data.data.result.data.list)
       VueSet(state, 'curEvalutePage', data.page)
       VueSet(state, 'curLevel', data.level)
     },
@@ -1353,7 +1350,8 @@ export default {
       VueSet(state, 'curEvalutePage', state.curEvalutePage + 1)
     },
     saveLike(state, data) {
-      VueSet(state, 'isFavorite', data.data.data.result.isfavorite)
+      console.log(data)
+      VueSet(state, 'isFavorite', data.data.data.result.data.isfavorite)
     },
     changePayStaus(state, data) {
       VueSet(state, 'payStatus', data.payStatus)
@@ -1367,7 +1365,7 @@ export default {
 
     },
     savePayMessage(state, data) {
-      VueSet(state, 'payMessage', data.data.data.result.msg)
+      VueSet(state, 'payMessage', data.data.data)
     },
     saveSelPay(state, data) {
       VueSet(state, 'selPay', data.data.data.result.data.result)
@@ -1562,7 +1560,11 @@ export default {
       VueSet(state, 'changeAddress', false)
     },
     saveMyOrder(state, data) {
-      VueSet(state, 'myOrder', [...state.myOrder, ...data.res.data.result.data.list])
+      if(data.start=='yes'){//start用来决定数组是否要进行拼接
+        VueSet(state, 'myOrder',data.res.data.result.data.list)
+      }else{
+        VueSet(state, 'myOrder', [...state.myOrder, ...data.res.data.result.data.list])
+      }
       VueSet(state, 'orderStatus', data.orderStatus)
       VueSet(state, 'curOrderStausPage', data.curOrderStausPage)
       if (state.myOrder != [] && state.orderStatus != null) {
@@ -1602,11 +1604,10 @@ export default {
         router.push({path: '/vipIndex/getQuanDetail'})
       }
     },
-    saveCouponMessage(state, data) {
-      if (data.data.data.status == -1) {
-        VueSet(state, 'couponMessage', data.data.data.result.message)
-      } else if (data.data.data.status == 1) {
-        VueSet(state, 'couponMessage', state.couponDetail.coupon.gettypestr + '成功')
+    myCouponDetail(state, data){
+      VueSet(state,'myCouponDetail',data.data.data.result.data)
+      if(state.myCouponDetail!={}){
+        router.push({path: '/vipIndex/myQuanDetail'})
       }
     },
     saveAddOrReduce(state, data) {
