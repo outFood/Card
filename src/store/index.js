@@ -13,7 +13,6 @@ export default {
         '/shopIndex/': '商城首页',
         '/sortIndex/': '全部商品',
         '/sortIndex/detail': '商品详情',
-        '/eChart/': 'E聊',
         '/fujin/': '附近商家',
         '/cart/': '购物车',
         '/vipIndex': '会员中心',
@@ -1350,7 +1349,6 @@ export default {
       VueSet(state, 'curEvalutePage', state.curEvalutePage + 1)
     },
     saveLike(state, data) {
-      console.log(data)
       VueSet(state, 'isFavorite', data.data.data.result.data.isfavorite)
     },
     changePayStaus(state, data) {

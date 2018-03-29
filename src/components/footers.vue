@@ -26,13 +26,7 @@
           name:'全部商品',
           path: '/sortIndex/',
           ico: '/static/img/sort.png'
-        },
-//          {
-//          name: 'E聊',
-//          ico: '/static/img/eChart.png',
-//          path: '/eChart/'
-//        },
-          {
+        },{
           name:'附近商家',
           ico: '/static/img/fujin.png',
           path: '/fujin/'

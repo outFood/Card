@@ -1,82 +1,79 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 //首页路由
-    import shopHome from '@/components/商城首页/home'
+    const shopHome=()=>import('@/view/商城首页/home')
     //首页子路由
-    import shopIndex from '@/components/商城首页/index'
-    import fukuan from '@/components/商城首页/fukuan'
-    import shoukuan from '@/components/商城首页/shoukuan'
-    import vip from '@/components/商城首页/vip'
-    import vipGrad from '@/components/商城首页/vipGrad'
-    import useInstruct from '@/components/商城首页/useInstruct'
-    import noticeList from '@/components/商城首页/noticeList'
-    import noticePage from '@/components/商城首页/noticePage'
-    import article from '@/components/商城首页/article'
+    const shopIndex=()=>import('@/view/商城首页/index')
+    const fukuan=()=>import('@/view/商城首页/fukuan')
+    const shoukuan=()=>import('@/view/商城首页/shoukuan')
+    const vip=()=>import('@/view/商城首页/vip')
+    const vipGrad=()=>import('@/view/商城首页/vipGrad')
+    const useInstruct=()=>import('@/view/商城首页/useInstruct')
+    const noticeList=()=>import('@/view/商城首页/noticeList')
+    const noticePage=()=>import('@/view/商城首页/noticePage')
+    const article=()=>import('@/view/商城首页/article')
 
 //全部商品
-import sortHome from '@/components/全部商品/home'
-import sortIndex from '@/components/全部商品/index'
-import someSort from '@/components/全部商品/someSort'
-import detail from '@/components/全部商品/detail'
-import buyPage from '@/components/全部商品/buyPage'
-import selPay from '@/components/全部商品/selPay'
-import paySuccess from '@/components/全部商品/paySuccess'
+    const sortHome=()=>import('@/view/全部商品/home')
+    const sortIndex=()=>import('@/view/全部商品/index')
+    const someSort=()=>import('@/view/全部商品/someSort')
+    const detail=()=>import('@/view/全部商品/detail')
+    const buyPage=()=>import('@/view/全部商品/buyPage')
+    const selPay=()=>import('@/view/全部商品/selPay')
+    const paySuccess=()=>import('@/view/全部商品/paySuccess')
 //分销中心
-import distributHome from '@/components/分销中心/home'
-import distributIndex from '@/components/分销中心/index'
-import price from '@/components/分销中心/price'
-import tuiguang from '@/components/分销中心/tuiguang'
-import xiaodian from '@/components/分销中心/xiaodian'
-import zixuan from '@/components/分销中心/zixuan'
-import yongDetail from '@/components/分销中心/yongDetail'
-import xiaxian from '@/components/分销中心/xiaxian'
-import tixianDetail from '@/components/分销中心/tixianDetail'
-import wait from '@/components/分销中心/wait'
-import apply from '@/components/分销中心/apply'
-import tixian from '@/components/分销中心/tixian'
+    const distributHome=()=>import('@/view/分销中心/home')
+    const distributIndex=()=>import('@/view/分销中心/index')
+    const price=()=>import('@/view/分销中心/price')
+    const tuiguang=()=>import('@/view/分销中心/tuiguang')
+    const xiaodian=()=>import('@/view/分销中心/xiaodian')
+    const zixuan=()=>import('@/view/分销中心/zixuan')
+    const yongDetail=()=>import('@/view/分销中心/yongDetail')
+    const xiaxian=()=>import('@/view/分销中心/xiaxian')
+    const tixianDetail=()=>import('@/view/分销中心/tixianDetail')
+    const wait=()=>import('@/view/分销中心/wait')
+    const apply=()=>import('@/view/分销中心/apply')
+    const tixian=()=>import('@/view/分销中心/tixian')
 //代理中心
-import agentIndex from '@/components/代理中心/index'
-import agentPrice from '@/components/代理中心/agentPrice'
-import agentHome from '@/components/代理中心/home'
-import agentDetail from '@/components/代理中心/detail'
-import photo from '@/components/代理中心/photo'
-import agentRegist from '@/components/代理中心/agentRegist'
-import agentWait from '@/components/代理中心/agentWait'
-import goPay from '@/components/代理中心/goPay'
-import agentLine from '@/components/代理中心/agentLine'
-
-//E聊
-import eChart from '@/components/E聊/index'
+    const agentIndex=()=>import('@/view/代理中心/index')
+    const agentPrice=()=>import('@/view/代理中心/agentPrice')
+    const agentHome=()=>import('@/view/代理中心/home')
+    const agentDetail=()=>import('@/view/代理中心/detail')
+    const photo=()=>import('@/view/代理中心/photo')
+    const agentRegist=()=>import('@/view/代理中心/agentRegist')
+    const agentWait=()=>import('@/view/代理中心/agentWait')
+    const goPay=()=>import('@/view/代理中心/goPay')
+    const agentLine=()=>import('@/view/代理中心/agentLine')
 //附近商家
-import fujinHome from '@/components/附近商家/home'
-import fujinIndex from '@/components/附近商家/index'
-import exclusiveShop from '@/components/附近商家/exclusiveShop'
-import map from '@/components/附近商家/map'
+    const fujinHome=()=>import('@/view/附近商家/home')
+    const fujinIndex=()=>import('@/view/附近商家/index')
+    const exclusiveShop=()=>import('@/view/附近商家/exclusiveShop')
+    const map=()=>import('@/view/附近商家/map')
 //购物车
-import cart from '@/components/购物车/index'
+    const cart=()=>import('@/view/购物车/index')
 //会员中心
-import vipHome from '@/components/会员中心/home'
-import vipIndex from '@/components/会员中心/index'
-import vipInfo from '@/components/会员中心/vipInfo'
-import nickname from '@/components/会员中心/nickname'
-import order from '@/components/会员中心/order'
-import orderDetail from '@/components/会员中心/orderDetail'
-import myAddress from '@/components/会员中心/myAddress'
-import addAddress from '@/components/会员中心/addAddress'
-import editAddress from '@/components/会员中心/editAddress'
-import set from '@/components/会员中心/set'
-import wodeRegist from '@/components/会员中心/wodeRegist'
-import login from '@/components/会员中心/login'
-import myLike from '@/components/会员中心/myLike'
-import zuji from '@/components/会员中心/zuji'
-import myQuan from '@/components/会员中心/myQuan'
-import myQuanDetail from '@/components/会员中心/myQuanDetail'
-import getQuan from '@/components/会员中心/getQuan'
-import recharge from '@/components/会员中心/recharge'
-import AddOrReduce from '@/components/会员中心/AddOrReduce'
-import record from '@/components/会员中心/record'
-import evaluate from '@/components/会员中心/evaluate'
-import getQuanDetail from '@/components/会员中心/getQuanDetail'
+const vipHome=()=>import('@/view/会员中心/home')
+const vipIndex=()=>import('@/view/会员中心/index')
+const vipInfo=()=>import('@/view/会员中心/vipInfo')
+const nickname=()=>import('@/view/会员中心/nickname')
+const order=()=>import('@/view/会员中心/order')
+const orderDetail=()=>import('@/view/会员中心/orderDetail')
+const myAddress=()=>import('@/view/会员中心/myAddress')
+const addAddress=()=>import('@/view/会员中心/addAddress')
+const editAddress=()=>import('@/view/会员中心/editAddress')
+const set=()=>import('@/view/会员中心/set')
+const wodeRegist=()=>import('@/view/会员中心/wodeRegist')
+const login=()=>import('@/view/会员中心/login')
+const myLike=()=>import('@/view/会员中心/myLike')
+const zuji=()=>import('@/view/会员中心/zuji')
+const myQuan=()=>import('@/view/会员中心/myQuan')
+const myQuanDetail=()=>import('@/view/会员中心/myQuanDetail')
+const getQuan=()=>import('@/view/会员中心/getQuan')
+const recharge=()=>import('@/view/会员中心/recharge')
+const AddOrReduce=()=>import('@/view/会员中心/AddOrReduce')
+const record=()=>import('@/view/会员中心/record')
+const evaluate=()=>import('@/view/会员中心/evaluate')
+const getQuanDetail=()=>import('@/view/会员中心/getQuanDetail')
 
 
 Vue.use(Router)
@@ -225,10 +222,6 @@ export default new Router({
           component:agentLine
         },
       ]
-    },
-    {
-      path: '/eChart',
-      component: eChart
     },
     {
       path: '/fujin',
