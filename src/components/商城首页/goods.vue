@@ -63,7 +63,7 @@
     display: -ms-flexbox;
     display: flex;
     flex-wrap: wrap;
-    padding:0.3125rem 0.3125rem 0 0.3125rem;
+    padding: 0 8px;
     text-align: left;
   }
   #goods>div>div{
@@ -122,11 +122,11 @@
     float: right;
   }
   #goods .showMethod2>div{
-    width:48.5%;
+    width:49%;
     margin-bottom:0.3125rem;
   }
   #goods .showMethod2>div:nth-child(2n-1){
-    margin-right:3%
+    margin-right:2%
   }
   #goods .showMethod3>div{
     width:32%;

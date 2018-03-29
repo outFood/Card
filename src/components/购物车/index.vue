@@ -206,7 +206,7 @@
 </script>
 <style>
   #cart header{
-    height:1.5rem !important;
+    height:1.4rem !important;
     align-items: center;
   }
   .yd-navbar-center-title{
@@ -247,13 +247,13 @@
   }
   .yd-spinner>input{
     width:30%;
-    font-size:0.8rem
+    font-size:0.7rem;display: inline-block;
   }
   .yd-spinner>a:after{
-    font-size: .5rem;
+    font-size: 0.45rem;
   }
   .yd-spinner>a{
-    width:35%
+    width:35%;display: inline-block;
   }
   #cart .shop  .shop-item .right h6{
     text-overflow: -o-ellipsis-lastline;
@@ -267,13 +267,15 @@
   }
   #cart .shop  .shop-item .right p{
     margin:0.3125rem 0;
+    color: #777;
   }
   #cart .shop  .shop-item .right .price{
     color:red;
+    font-size: 0.45rem
   }
   #cart .shop .checkAll{
     position: fixed;
-    bottom:2rem;
+    bottom:1.8rem;
     width:100%;
     height:1.8rem;
     background: #fff;
