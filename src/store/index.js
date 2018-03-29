@@ -1556,7 +1556,8 @@ export default {
     saveSelAddress(state, data) {
       VueSet(state, 'curSelAddress', data.data.item)
       if (state.curSelAddress != {} && state.changeAddress != false) {
-        router.push({path: '/sortIndex/buyPage'})
+        // router.replace('/sortIndex/buyPage')
+        router.go(-1)
       }
       VueSet(state, 'changeAddress', false)
     },
