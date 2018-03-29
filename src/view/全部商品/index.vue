@@ -127,12 +127,12 @@
   }
   #sort .yd-scrolltab .yd-scrolltab-content-item .secondSort .sortItem{
     flex: 0 0 33%;
-    padding: 0.3125rem 0;
+    padding-top: 0.5rem;
   }
   #sort .yd-scrolltab .yd-scrolltab-content-item .secondSort .sortItem img{
     display: block;
-    width:1.25rem;
-    height:1.25rem;
+    width:1.55rem;
+    height:1.55rem;
     border-radius: 50%;
     margin: 0 auto;
     margin-bottom:0.15rem;
