@@ -1,12 +1,12 @@
 <template>
   <div id="selPay">
     <yd-navbar title="收银台">
-      <router-link to="#" slot="left">
-        <yd-navbar-back-icon @click.native="back"></yd-navbar-back-icon>
-      </router-link>
-      <router-link to="#" slot="right" @click.native="lookOrder('全部')">
+      <div slot="left" @click="back">
+        <yd-navbar-back-icon ></yd-navbar-back-icon>
+      </div>
+      <div  slot="right" @click="lookOrder('全部')">
         订单
-      </router-link>
+      </div>
     </yd-navbar>
     <div class="order">
       <p class="number">
