@@ -1,6 +1,9 @@
 <template>
     <div id="cart" v-if="cartData">
     <yd-navbar title="购物车">
+      <div  v-if="source==1" slot="left" @click.stop="goBack">
+        <yd-navbar-back-icon></yd-navbar-back-icon>
+      </div>
       <router-link to="#" slot="right" v-if="delShow" @click.native="delShow=false">
         完成
       </router-link>
@@ -9,7 +12,7 @@
       </router-link>
     </yd-navbar>
     <div class="shop" v-if="cartData.list.length>0">
-      <div class="shop-item"v-for="(item,key) in cartData.list" :key="key">
+      <div class="shop-item" v-for="(item,key) in cartData.list" :key="key">
         <div class="check">
           <img src="/static/img/check.png" alt="" v-if="item.selected==1" @click='selOrNo(item.id,0)'>
           <img src="/static/img/no-check.png" alt="" v-else @click='selOrNo(item.id,1)'>
@@ -59,7 +62,8 @@
       return {
         delShow:false,
         select:0,
-        goodsId:''
+        goodsId:'',
+        source:'',//判断来源
       }
     },
     computed:{
@@ -177,21 +181,25 @@
           });
         }
       },
+      goBack(){
+        this.$router.go(-1);
+      }
     },
     beforeCreate(){
       var openid=localStorage.getItem('openid')
       var mid=localStorage.getItem('userid')
       if(openid!=null&&openid!='undefined'&&mid!=null&&mid!='undefined'){
-        this.$store.dispatch({
-          type:'lookCart',
-          params:{
-            t:config.t,
-            i:config.i,
-            uniacid:config.uniacid,
-            mid:localStorage.getItem('userid'),
-            openid:localStorage.getItem('openid')
-          }
-        })
+        //暂时不需要这个,重复请求了
+        // this.$store.dispatch({
+        //   type:'lookCart',
+        //   params:{
+        //     t:config.t,
+        //     i:config.i,
+        //     uniacid:config.uniacid,
+        //     mid:localStorage.getItem('userid'),
+        //     openid:localStorage.getItem('openid')
+        //   }
+        // })
       }else{
         this.$dialog.confirm({
           title: '提示',
@@ -200,6 +208,11 @@
             router.push({path: '/vipIndex/login'})
           }
         });
+      }
+    },
+    created(){
+      if(this.$route.query){
+        this.source=this.$route.query.source
       }
     }
   }

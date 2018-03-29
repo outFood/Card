@@ -1,5 +1,5 @@
 <template>
-  <div id="getCoupon" :style="{background:coupon.style.background,marginTop:coupon.style.margintop+'px',marginBottom:coupon.style.margintop+'px'}">
+  <div v-if="coupon" id="getCoupon" :style="{background:coupon.style.background,marginTop:coupon.style.margintop+'px',marginBottom:coupon.style.margintop+'px'}">
     <div :class="{coupon:true,width3:coupon.params.couponstyle=='3',width2:coupon.params.couponstyle=='2'}" v-for="(item,key) in myCoupon" :key="key" :style="{marginTop:coupon.style.margintop+'px',marginBottom:coupon.style.margintop+'px',marginLeft:coupon.style.marginleft+'px',marginRight:coupon.style.marginleft+'px',background:item.background,borderColor:item.bordercolor,color:item.textcolor}" @click="resCouponDetail(item.couponid)">
       <h6>{{item.name}}</h6>
       <h6>{{item.price}}</h6>

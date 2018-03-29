@@ -170,7 +170,8 @@
               t: config.t,
               uniacid: config.uniacid,
               mid: localStorage.getItem('userid'),
-              openid: localStorage.getItem('openid')
+              openid: localStorage.getItem('openid'),
+              source:1
             }
           })
         } else if (icontext == '关注') {

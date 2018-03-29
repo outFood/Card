@@ -449,11 +449,14 @@ export default {
     },
     //查看购物车
     lookCart({commit, state}, data) {
+      let source=data.params.source;
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.get_list', {params: data.params})
         .then(function (res) {
+          res.source=source
+          // console.log(res,'source')
           commit({
             type: 'saveCartData',
-            res: res
+            res: res,
           })
         }).catch(function (err) {
         console.log('请求失败：' + err)
@@ -1377,6 +1380,8 @@ export default {
     },
     //  购物车
     saveCartData(state, data) {
+      console.log(data,'dsadas')
+      let source=data.res.source
       VueSet(state, 'cartData', data.res.data.result.data)
       var selArr = []
       for (var i = 0; i < data.res.data.result.data.list.length; i++) {
@@ -1391,7 +1396,13 @@ export default {
         VueSet(state, 'isCheckAll', false)
       }
       if (state.cartData != {}) {
-        router.push({path: '/cart/'})
+        if(source==1){
+          //详情页跳转去购物车时的返回按钮
+          router.push({path: '/cart/',query:{source:1}});
+        }else{
+          router.push({path: '/cart/'});
+        }
+        
       }
     },
     saveAddCartStatus(state, data) {

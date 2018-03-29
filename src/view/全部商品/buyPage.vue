@@ -48,7 +48,7 @@
     </yd-cell-group>
     <div class="toPay">
       <div class="left">需付：<span>￥{{buyPageData.allprice}}</span></div>
-      <router-link to="#" class="right" @click.native="createOrder">立即支付</router-link>
+      <div class="right" @click="createOrder">立即支付</div>
     </div>
   </div>
 </template>
