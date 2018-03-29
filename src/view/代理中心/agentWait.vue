@@ -1,3 +1,4 @@
+<!--代理商审核中页面-->
 <template>
   <div id="agentWait">
     <img src="http://static.ydcss.com/uploads/ydui/1.jpg">

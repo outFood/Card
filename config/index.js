@@ -9,7 +9,7 @@ module.exports = {
 
     // Paths
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath:'/card/',
     proxyTable: {
       '/api':{//使用‘/api’来代替
         target:'http://cscs.ylhhyk.com/',//源地址
@@ -63,7 +63,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath:'/card/',
 
     /**
      * Source Maps

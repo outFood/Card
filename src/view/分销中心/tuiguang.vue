@@ -8,7 +8,7 @@
         </a>
       </yd-slider-item>
     </yd-slider>
-    <div class="smile"><img src="/static/img/Smile.png" alt="">如何赚钱</div>
+    <div class="smile"><img :src="Smile" alt="">如何赚钱</div>
     <div class="buzhou">
       <div class="item">
         <span>第一步</span>
@@ -32,12 +32,13 @@
 </template>
 <script>
   import config from '../../myConfig'
+  import Smile from '@/../static/img/Smile.png'
   import headers from '@/components/headers'
   export default {
     components:{headers},
     data(){
       return {
-
+        Smile:Smile
       }
     },
     computed:{

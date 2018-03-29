@@ -1,8 +1,8 @@
 <template>
   <div v-if="headData" id="headers" :style="{background:headData.style.background,opacity:headData.style.opacity}">
-    <img src="/static/img/shop-white.png" alt="" @click="toSort">
+    <img :src="shopWhite" alt="" @click="toSort">
     <input type="text" :placeholder="headData.params.placeholder" v-bind:class="[headData.params.searchstyle]" :style="{background:headData.style.searchbackground,color:headData.style.searchtextcolor,opacity:headData.style.opacityinput}" @click='toSearch'>
-    <img src="/static/img/cart.png" alt="" @click="toCart">
+    <img :src="cart" alt="" @click="toCart">
   </div>
 </template>
 <style>
@@ -42,12 +42,15 @@
   }
 </style>
 <script>
+  import shopWhite from '@/../static/img/shop-white.png'
+  import cart from '@/../static/img/cart.png'
   import router from '@/router'
   import config from '../../myConfig'
   export default {
     data(){
       return {
-
+        shopWhite:shopWhite,
+        cart:cart
       }
     },
     computed:{

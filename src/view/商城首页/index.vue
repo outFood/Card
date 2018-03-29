@@ -5,7 +5,7 @@
     <banner></banner>
     <notice></notice>
     <!--<searchinput></searchinput>-->
-    <menu1></menu1>
+    <!--<menu1></menu1>-->
     <menu2></menu2>
     <goods></goods>
     <picturew></picturew>

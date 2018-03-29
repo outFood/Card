@@ -1,19 +1,19 @@
 <template>
   <div id="payment">
     <router-link to="#" @click.native="resPayItem('tuijian')">
-      <img src="/static/img/tuijianma.png" alt="">
+      <img :src="tuijianma" alt="">
       推荐码
     </router-link>
     <router-link to="#" @click.native="resPayItem('fukuan')">
-      <img src="/static/img/fukuan.png" alt="">
+      <img :src="fukuan" alt="">
       我要付款
     </router-link>
     <router-link to="#" @click.native="resPayItem('shoukuan')">
-      <img src="/static/img/shoukuan.png" alt="">
+      <img :src="shoukuan" alt="">
       我要收款
     </router-link>
     <router-link to="#" @click.native="resPayItem('vipcard')">
-      <img src="/static/img/vip_card2.png" alt="">
+      <img :src="vip_card2" alt="">
       会员卡
     </router-link>
   </div>
@@ -21,7 +21,19 @@
 <script>
   import router from '@/router'
   import config from '../../myConfig'
+  import tuijianma from '@/../static/img/tuijianma.png'
+  import fukuan from '@/../static/img/fukuan.png'
+  import shoukuan from '@/../static/img/shoukuan.png'
+  import vip_card2 from '@/../static/img/vip_card2.png'
   export default {
+    data(){
+      return{
+        tuijianma:tuijianma,
+        fukuan:fukuan,
+        shoukuan:shoukuan,
+        vip_card2:vip_card2,
+      }
+    },
     computed:{
       shoukuanMsg(){
         return this.$store.state.shoukuanMsg

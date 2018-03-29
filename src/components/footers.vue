@@ -15,28 +15,33 @@
 <script>
   import router from '@/router'
   import config from '../myConfig'
+  import shop from '@/../static/img/shopIndex.png'
+  import sort from '@/../static/img/sort.png'
+  import fujin from '@/../static/img/fujin.png'
+  import cart from '@/../static/img/cart_black.png'
+  import vip from '@/../static/img/vip.png'
   export default {
     data() {
       return {
         footerMsg: [{
           name: '商城首页',
-          ico: '/static/img/shopIndex.png',
+          ico:shop,
           path: '/shopIndex/'
         }, {
           name:'全部商品',
+          ico:sort,
           path: '/sortIndex/',
-          ico: '/static/img/sort.png'
         },{
           name:'附近商家',
-          ico: '/static/img/fujin.png',
+          ico:fujin,
           path: '/fujin/'
         }, {
           name:'购物车',
-          ico: '/static/img/cart_black.png',
+          ico:cart,
           path: '/cart/'
         }, {
           name: '会员中心',
-          ico: '/static/img/vip.png',
+          ico:vip,
           path: '/vipIndex/'
         }],
       tipBoxShow:false
