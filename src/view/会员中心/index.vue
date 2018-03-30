@@ -4,8 +4,8 @@
     <div id="head">
       <p>
         <!--<router-link to="#"><img src="/static/img/msg.png" alt=""></router-link>-->
-        <router-link to="#"  @click.native="toWhere('vipIndex/set')"><img src="/static/img/set.png" alt=""></router-link>
-        <router-link to="#" @click.native="toWhere('vipIndex/vipInfo')"><img src="/static/img/personInfo.png" alt=""></router-link>
+        <router-link to="#"  @click.native="toWhere('vipIndex/set')"><img :src="require('@/assets/set.png')" alt=""></router-link>
+        <router-link to="#" @click.native="toWhere('vipIndex/vipInfo')"><img :src="require('@/assets/personInfo.png')" alt=""></router-link>
         <!--<span>1</span>-->
       </p>
       <div class="personInfo">
@@ -38,7 +38,7 @@
     <div class="dingdan">
       <router-link to="#" class="top" @click.native="lookOrder('全部')">
         <span>我的订单</span>
-        <div>查看全部订单 <img src="/static/img/more.png" alt=""></div>
+        <div>查看全部订单 <img :src="require('@/assets/more.png')" alt=""></div>
       </router-link>
       <div class="bottom">
         <router-link to="#" v-for="(item,key) in orderData" :key="key"  @click.native="lookOrder(item.text)"><img :src="item.iconSrc">{{item.text}}</router-link>
@@ -80,17 +80,17 @@
         var menuData=this.$store.state.wodeBodyData.data.module.listmenu.data
         for(var i=0;i<menuData.length;i++){
           if(menuData[i].text=='全部订单'){
-            menuData[i].iconSrc='/static/img/footmark.png'
+            menuData[i].iconSrc=require('@/assets/footmark.png')
           }else if(menuData[i].text=='我的关注'){
-            menuData[i].iconSrc='/static/img/black-heart.png'
+            menuData[i].iconSrc=require('@/assets/black-heart.png')
           }else if(menuData[i].text=='我的足迹'){
-            menuData[i].iconSrc='/static/img/footmark.png'
+            menuData[i].iconSrc=require('@/assets/footmark.png')
           }else if(menuData[i].text=='我的地址'){
-            menuData[i].iconSrc='/static/img/position.png'
+            menuData[i].iconSrc=require('@/assets/position.png')
           }else if(menuData[i].text=='领取优惠券'){
-            menuData[i].iconSrc='/static/img/get.png'
+            menuData[i].iconSrc=require('@/assets/get.png')
           }else if(menuData[i].text=='我的优惠券'){
-            menuData[i].iconSrc='/static/img/quan.png'
+            menuData[i].iconSrc=require('@/assets/quan.png')
           }
         }
         return menuData
@@ -99,13 +99,13 @@
         var orderData=this.$store.state.wodeBodyData.data.module.menu.data
         for(var i=0;i<orderData.length;i++){
           if(i==0){
-            orderData[0].iconSrc='/static/img/waitPay.png'
+            orderData[0].iconSrc=require('@/assets/waitPay.png')
           }else if(i==1){
-            orderData[1].iconSrc='/static/img/waitSend.png'
+            orderData[1].iconSrc=require('@/assets/waitSend.png')
           }else if(i==2){
-            orderData[2].iconSrc='/static/img/waitGet.png'
+            orderData[2].iconSrc=require('@/assets/waitGet.png')
           }else if(i==3){
-            orderData[3].iconSrc='/static/img/waitBack.png'
+            orderData[3].iconSrc=require('@/assets/waitBack.png')
           }
         }
         return orderData

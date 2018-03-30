@@ -11,7 +11,7 @@
       <div class="item">
         <span>名称</span>
         <div @click="show1 = true">{{tixianMethod}}</div>
-        <img src="/static/img/more.png" alt="">
+        <img :src="require('@/assets/more.png')" alt="">
         <yd-popup v-model="show1" position="center" width="90%">
           <yd-radio-group v-model="tixianMethod">
             <yd-radio val="提现到支付宝" @click.native="show1 = false;alipayMethod=true;bankMethod=false"></yd-radio>
@@ -35,7 +35,7 @@
       <div class="item" v-if="bankMethod">
         <span>选择银行</span>
         <div @click="show2 = true">{{bank}}</div>
-        <img src="/static/img/more.png" alt="">
+        <img :src="require('@/assets/more.png')" alt="">
         <yd-popup v-model="show2" position="center" width="90%">
           <yd-radio-group v-model="bank">
             <yd-radio val="中国工商银行" @click.native="show2 = false"></yd-radio>

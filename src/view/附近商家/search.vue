@@ -1,7 +1,7 @@
 <template>
   <div id="searchShopList">
     <input type="text" placeholder="请输入商家名称" v-model="keyword">
-    <span @click="searchShop"><img src="/static/img/search-white.png" alt=""></span>
+    <span @click="searchShop"><img :src="require('@/assets/search-white.png')" alt=""></span>
   </div>
 </template>
 <script>

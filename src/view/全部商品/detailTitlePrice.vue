@@ -2,7 +2,7 @@
   <div id="titlePrice" v-if="detail_info" :style="{marginTop:detail_info.style.margintop+'px',marginBottom:detail_info.style.marginbottom+'px',background:detail_info.style.background,color:detail_info.style.textcolor}">
     <div class="titleShare">
       <h5 :style="{color:detail_info.style.titlecolor}">{{result.goods.title}}</h5>
-      <div v-if="detail_info.params.hideshare==0"><img src="/static/img/share.png" alt="" @click="share('')">{{detail_info.params.share}}</div>
+      <div v-if="detail_info.params.hideshare==0"><img :src="require('@/assets/share.png')" alt="" @click="share('')">{{detail_info.params.share}}</div>
     </div>
     <h6 :style="{color:detail_info.style.subtitlecolor}">{{result.goods.isdiscount_title}}</h6>
     <p class="price" :style="{color:detail_info.style.pricecolor}">￥{{result.goods.marketprice}} <span :style="{color:detail_info.style.textcolor}">￥{{result.goods.productprice}}</span></p>

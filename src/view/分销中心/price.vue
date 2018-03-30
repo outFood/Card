@@ -12,35 +12,35 @@
     </yd-flexbox>
     <div class="body">
       <div class="listItem">
-        <div class="left"><img src="/static/img/price_block.png">{{priceData.thisset.texts.commission_ok}}</div>
+        <div class="left"><img :src="require('@/assets/price_block.png')">{{priceData.thisset.texts.commission_ok}}</div>
         <div class="right">{{priceData.member.commission_ok?priceData.member.commission_ok:0.00}} {{priceData.thisset.texts.yuan}}</div>
       </div>
       <div class="listItem">
-        <div class="left"><img src="/static/img/clock_sky.png">{{priceData.thisset.texts.commission_apply}}</div>
+        <div class="left"><img :src="require('@/assets/clock_sky.png')">{{priceData.thisset.texts.commission_apply}}</div>
         <div class="right">{{priceData.member.commission_apply?priceData.member.commission_apply:0.00}} {{priceData.thisset.texts.yuan}}</div>
       </div>
       <div class="listItem">
-        <div class="left"><img src="/static/img/coffe.png">{{priceData.thisset.texts.commission_check}}</div>
+        <div class="left"><img :src="require('@/assets/coffe.png')">{{priceData.thisset.texts.commission_check}}</div>
         <div class="right">{{priceData.member.commission_check?priceData.member.commission_check:0.00}} {{priceData.thisset.texts.yuan}}</div>
       </div>
       <div class="listItem">
-        <div class="left"><img src="/static/img/coffe.png">{{priceData.thisset.texts.commission_fail}}</div>
+        <div class="left"><img :src="require('@/assets/coffe.png')">{{priceData.thisset.texts.commission_fail}}</div>
         <div class="right">{{priceData.member.commission_fail?priceData.member.commission_fail:0.00}} {{priceData.thisset.texts.yuan}}</div>
       </div>
       <div class="listItem">
-        <div class="left"><img src="/static/img/tixian.png">{{priceData.thisset.texts.commission_pay}}</div>
+        <div class="left"><img :src="require('@/assets/tixian.png')">{{priceData.thisset.texts.commission_pay}}</div>
         <div class="right">{{priceData.member.commission_pay?priceData.member.commission_pay:0.00}} {{priceData.thisset.texts.yuan}}</div>
       </div>
       <div class="listItem">
-        <div class="left"><img src="/static/img/shui.png">{{priceData.thisset.texts.commission_charge}}</div>
+        <div class="left"><img :src="require('@/assets/shui.png')">{{priceData.thisset.texts.commission_charge}}</div>
         <div class="right">{{priceData.member.commission_charge?priceData.member.commission_charge:0.00}} {{priceData.thisset.texts.yuan}}</div>
       </div>
       <div class="listItem">
-        <div class="left"><img src="/static/img/daishouhuo.png">{{priceData.thisset.texts.commission_wait}}</div>
+        <div class="left"><img :src="require('@/assets/daishouhuo.png')">{{priceData.thisset.texts.commission_wait}}</div>
         <div class="right">{{priceData.member.commission_wait?priceData.member.commission_wait:0.00}} {{priceData.thisset.texts.yuan}}</div>
       </div>
       <div class="listItem">
-        <div class="left"><img src="/static/img/suo.png">{{priceData.thisset.texts.commission_lock}}</div>
+        <div class="left"><img :src="require('@/assets/suo.png')">{{priceData.thisset.texts.commission_lock}}</div>
         <div class="right">{{priceData.member.commission_lock?priceData.member.commission_lock:0.00}} {{priceData.thisset.texts.yuan}}</div>
       </div>
     </div>

@@ -7,18 +7,18 @@
       </div>
     </yd-navbar>
     <div  @click="changeAddress" class="address" v-if="curSelAddress.realname">
-      <img src="/static/img/position.png" alt="">
+      <img :src="require('@/assets/position.png')" alt="">
       <div>
         <h6>收货人：{{curSelAddress.realname}}&nbsp;&nbsp;&nbsp;&nbsp;{{curSelAddress.mobile}}</h6>
         <p>{{curSelAddress.province}}  {{curSelAddress.city}} {{curSelAddress.area}} {{curSelAddress.address}}</p>
       </div>
-      <img src="/static/img/more.png" alt="">
+      <img :src="require('@/assets/more.png')" alt="">
     </div>
-    <div  @click="changeAddress" class="noAddress" v-else><span>请选择收货地址</span><img src="/static/img/more.png" alt=""></div>
+    <div  @click="changeAddress" class="noAddress" v-else><span>请选择收货地址</span><img :src="require('@/assets/more.png')" alt=""></div>
     <div class="list">
       <div class="item" v-for="(item,key) in buyPageData.goods_list">
         <div class="top">
-          <p><img src="/static/img/shop_black.png" alt="">{{item.shopname?item.shopname:'官方演示'}}</p>
+          <p><img :src="require('@/assets/shop_black.png')" alt="">{{item.shopname?item.shopname:'官方演示'}}</p>
           <div class="shopInfo" v-for="(infoItem,key) in item.goods" :key="key">
             <img :src="infoItem.thumb">
             <h6>{{infoItem.title}} <p class="optiontitle">{{infoItem.optiontitle}}</p></h6>

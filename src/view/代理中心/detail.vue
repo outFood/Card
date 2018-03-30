@@ -14,12 +14,12 @@
           <!--<span>2017-12-25 10:45</span>-->
         <!--</div>-->
         <!--<div class="right">-->
-          <!--<span>+0.00已完成</span> <img src="/static/img/more.png" alt="">-->
+          <!--<span>+0.00已完成</span> <img :src="require('@/assets/more.png')" alt="">-->
         <!--</div>-->
       <!--</div>-->
     </div>
     <div class="noData">
-      <img src="/static/img/Commission_sky.png" alt="">暂时没有任何数据
+      <img :src="require('@/assets/Commission_sky.png')" alt="">暂时没有任何数据
     </div>
     <footers></footers>
   </div>

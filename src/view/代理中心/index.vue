@@ -11,7 +11,7 @@
     </div>
     <div class="agentMid mid">
       <div class="left" @click="resAgentLine">
-        <img src="/static/img/people_white.png" alt="" class="people_white">
+        <img :src="require('@/assets/people_white.png')" alt="" class="people_white">
         <p>我的下线</p>
         {{agentData.bonus.total}}人
       </div>
@@ -34,7 +34,7 @@
         </div>
       </div>
       <div class="right">
-        <img src="/static/img/Commission.png" alt="">
+        <img :src="require('@/assets/Commission.png')" alt="">
         <p>可提现佣金</p>
         0元
         <router-link to="#" class="withdrawals" @click.native="resAgentPrice">佣金提现</router-link>
@@ -45,78 +45,78 @@
       <div v-if="agentData.member.aagenttype==1">
         <router-link to="#" class="head" @click.native="resFenHong('累计分红')">
           <div>{{agentData.set.texts.bonus_total}}：<span>{{agentData.bonus.total}}</span></div>
-          <img src="/static/img/more.png" alt="">
+          <img :src="require('@/assets/more.png')" alt="">
         </router-link>
         <div class="main main1">
           <div>
-            <img src="/static/img/province.png" alt="">
+            <img :src="require('@/assets/province.png')" alt="">
             <p>省级</p>
             <span>{{agentData.bonus.total1}}</span>
           </div>
           <div>
-            <img src="/static/img/city.png" alt="">
+            <img :src="require('@/assets/city.png')" alt="">
             <p>市级</p>
             <span>{{agentData.bonus.total2}}</span>
           </div>
           <div>
-            <img src="/static/img/position_c.png" alt="">
+            <img :src="require('@/assets/position_c.png')" alt="">
             <p>区级</p>
             <span>{{agentData.bonus.total3}}</span>
           </div>
           <div>
-            <img src="/static/img/town.png" alt="">
+            <img :src="require('@/assets/town.png')" alt="">
             <p>乡镇级</p>
             <span>noData</span>
           </div>
         </div>
         <router-link to="#" class="head" @click.native="resFenHong('待结算分红')">
           <div>{{agentData.set.texts.bonus_lock}}：<span>{{agentData.bonus.lock}}</span></div>
-          <img src="/static/img/more.png" alt="">
+          <img :src="require('@/assets/more.png')" alt="">
         </router-link>
         <div class="main main1">
           <div>
-            <img src="/static/img/province.png" alt="">
+            <img :src="require('@/assets/province.png')" alt="">
             <p>省级</p>
             <span>{{agentData.bonus.lock1}}</span>
           </div>
           <div>
-            <img src="/static/img/city.png" alt="">
+            <img :src="require('@/assets/city.png')" alt="">
             <p>市级</p>
             <span>{{agentData.bonus.lock2}}</span>
           </div>
           <div>
-            <img src="/static/img/position_c.png" alt="">
+            <img :src="require('@/assets/position_c.png')" alt="">
             <p>区级</p>
             <span>{{agentData.bonus.lock3}}</span>
           </div>
           <div>
-            <img src="/static/img/town.png" alt="">
+            <img :src="require('@/assets/town.png')" alt="">
             <p>乡镇级</p>
             <span>noData</span>
           </div>
         </div>
         <router-link to="#" class="head" @click.native="resFenHong('已结算分红')">
           <div>{{agentData.set.texts.bonus_pay}}：<span>{{agentData.bonus.ok}}</span></div>
-          <img src="/static/img/more.png" alt="">
+          <img :src="require('@/assets/more.png')" alt="">
         </router-link>
         <div class="main main1">
           <div>
-            <img src="/static/img/province.png" alt="">
+            <img :src="require('@/assets/province.png')" alt="">
             <p>省级</p>
             <span>{{agentData.bonus.ok1}}</span>
           </div>
           <div>
-            <img src="/static/img/city.png" alt="">
+            <img :src="require('@/assets/city.png')" alt="">
             <p>市级</p>
             <span>{{agentData.bonus.ok2}}</span>
           </div>
           <div>
-            <img src="/static/img/position_c.png" alt="">
+            <img :src="require('@/assets/position_c.png')" alt="">
             <p>区级</p>
             <span>{{agentData.bonus.ok3}}</span>
           </div>
           <div>
-            <img src="/static/img/town.png" alt="">
+            <img :src="require('@/assets/town.png')" alt="">
             <p>乡镇级</p>
             <span>noData</span>
           </div>
@@ -126,48 +126,48 @@
       <div v-if="agentData.member.aagenttype==3">
         <router-link to="/agentIndex/agentDetail" @click.native="resFenHong('累计分红')" class="head">
           <div>{{agentData.set.texts.bonus_total}}：<span>{{agentData.bonus.total}}</span></div>
-          <img src="/static/img/more.png" alt="">
+          <img :src="require('@/assets/more.png')" alt="">
         </router-link>
         <div class="main main1">
           <div>
-            <img src="/static/img/position_c.png" alt="">
+            <img :src="require('@/assets/position_c.png')" alt="">
             <p>区级</p>
             <span>{{agentData.bonus.total3}}</span>
           </div>
           <div>
-            <img src="/static/img/town.png" alt="">
+            <img :src="require('@/assets/town.png')" alt="">
             <p>乡镇级</p>
             <span>noData</span>
           </div>
         </div>
         <router-link to="/agentIndex/agentDetail" @click.native="resFenHong('待结算分红')" class="head">
           <div>{{agentData.set.texts.bonus_lock}}：<span>{{agentData.bonus.lock}}</span></div>
-          <img src="/static/img/more.png" alt="">
+          <img :src="require('@/assets/more.png')" alt="">
         </router-link>
         <div class="main main1">
           <div>
-            <img src="/static/img/position_c.png" alt="">
+            <img :src="require('@/assets/position_c.png')" alt="">
             <p>区级</p>
             <span>{{agentData.bonus.lock3}}</span>
           </div>
           <div>
-            <img src="/static/img/town.png" alt="">
+            <img :src="require('@/assets/town.png')" alt="">
             <p>乡镇级</p>
             <span>noData</span>
           </div>
         </div>
         <router-link to="/agentIndex/agentDetail" @click.native="resFenHong('已结算分红')" class="head">
           <div>{{agentData.set.texts.bonus_pay}}：<span>{{agentData.bonus.ok}}</span></div>
-          <img src="/static/img/more.png" alt="">
+          <img :src="require('@/assets/more.png')" alt="">
         </router-link>
         <div class="main main1">
           <div>
-            <img src="/static/img/position_c.png" alt="">
+            <img :src="require('@/assets/position_c.png')" alt="">
             <p>区级</p>
             <span>{{agentData.bonus.ok3}}</span>
           </div>
           <div>
-            <img src="/static/img/town.png" alt="">
+            <img :src="require('@/assets/town.png')" alt="">
             <p>乡镇级</p>
             <span>noData</span>
           </div>
@@ -177,63 +177,63 @@
       <div v-if="agentData.member.aagenttype==2">
         <router-link to="/agentIndex/agentDetail" @click.native="resFenHong('累计分红')" class="head">
           <div>{{agentData.set.texts.bonus_total}}：<span>{{agentData.bonus.total}}</span></div>
-          <img src="/static/img/more.png" alt="">
+          <img :src="require('@/assets/more.png')" alt="">
         </router-link>
         <div class="main main2">
           <div>
-            <img src="/static/img/city.png" alt="">
+            <img :src="require('@/assets/city.png')" alt="">
             <p>市级</p>
             <span>{{agentData.bonus.total2}}</span>
           </div>
           <div>
-            <img src="/static/img/position_c.png" alt="">
+            <img :src="require('@/assets/position_c.png')" alt="">
             <p>区级</p>
             <span>{{agentData.bonus.total3}}</span>
           </div>
           <div>
-            <img src="/static/img/town.png" alt="">
+            <img :src="require('@/assets/town.png')" alt="">
             <p>乡镇</p>
             <span>noData</span>
           </div>
         </div>
         <router-link to="/agentIndex/agentDetail" @click.native="resFenHong('待结算分红')" class="head">
           <div>{{agentData.set.texts.bonus_lock}}：<span>{{agentData.bonus.lock}}</span></div>
-          <img src="/static/img/more.png" alt="">
+          <img :src="require('@/assets/more.png')" alt="">
         </router-link>
         <div class="main main2">
           <div>
-            <img src="/static/img/city.png" alt="">
+            <img :src="require('@/assets/city.png')" alt="">
             <p>市级</p>
             <span>{{agentData.bonus.lock2}}</span>
           </div>
           <div>
-            <img src="/static/img/position_c.png" alt="">
+            <img :src="require('@/assets/position_c.png')" alt="">
             <p>区级</p>
             <span>{{agentData.bonus.lock3}}</span>
           </div>
           <div>
-            <img src="/static/img/town.png" alt="">
+            <img :src="require('@/assets/town.png')" alt="">
             <p>乡镇</p>
             <span>noData</span>
           </div>
         </div>
         <router-link to="/agentIndex/agentDetail" @click.native="resFenHong('已结算分红')" class="head">
           <div>{{agentData.set.texts.bonus_pay}}：<span>{{agentData.bonus.ok}}</span></div>
-          <img src="/static/img/more.png" alt="">
+          <img :src="require('@/assets/more.png')" alt="">
         </router-link>
         <div class="main main2">
           <div>
-            <img src="/static/img/city.png" alt="">
+            <img :src="require('@/assets/city.png')" alt="">
             <p>市级</p>
             <span>{{agentData.bonus.ok2}}</span>
           </div>
           <div>
-            <img src="/static/img/position_c.png" alt="">
+            <img :src="require('@/assets/position_c.png')" alt="">
             <p>区级</p>
             <span>{{agentData.bonus.ok3}}</span>
           </div>
           <div>
-            <img src="/static/img/town.png" alt="">
+            <img :src="require('@/assets/town.png')" alt="">
             <p>乡镇</p>
             <span>noData</span>
           </div>
@@ -243,33 +243,33 @@
       <div v-if="agentData.member.aagenttype==4">
         <router-link to="/agentIndex/agentDetail" @click.native="resFenHong('累计分红')" class="head">
           <div>{{agentData.set.texts.bonus_total}}：<span>{{agentData.bonus.total}}</span></div>
-          <img src="/static/img/more.png" alt="">
+          <img :src="require('@/assets/more.png')" alt="">
         </router-link>
         <div class="main main3">
           <div>
-            <img src="/static/img/town.png" alt="">
+            <img :src="require('@/assets/town.png')" alt="">
             <p>乡镇</p>
             <span>noData</span>
           </div>
         </div>
         <router-link to="/agentIndex/agentDetail" @click.native="resFenHong('待结算分红')" class="head">
           <div>{{agentData.set.texts.bonus_lock}}：<span>{{agentData.bonus.lock}}</span></div>
-          <img src="/static/img/more.png" alt="">
+          <img :src="require('@/assets/more.png')" alt="">
         </router-link>
         <div class="main main3">
           <div>
-            <img src="/static/img/town.png" alt="">
+            <img :src="require('@/assets/town.png')" alt="">
             <p>乡镇</p>
             <span>noData</span>
           </div>
         </div>
         <router-link to="/agentIndex/agentDetail" @click.native="resFenHong('已结算分红')" class="head">
           <div>{{agentData.set.texts.bonus_pay}}：<span>{{agentData.bonus.ok}}</span></div>
-          <img src="/static/img/more.png" alt="">
+          <img :src="require('@/assets/more.png')" alt="">
         </router-link>
         <div class="main main3">
           <div>
-            <img src="/static/img/town.png" alt="">
+            <img :src="require('@/assets/town.png')" alt="">
             <p>乡镇</p>
             <span>noData</span>
           </div>

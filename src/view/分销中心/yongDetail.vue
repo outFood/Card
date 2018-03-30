@@ -14,7 +14,7 @@
         <span>{{item.createtime}}</span>
       </div>
       <div class="right">
-        <span>+{{item.commission}}{{item.status}}</span> <img src="/static/img/more.png" alt="">
+        <span>+{{item.commission}}{{item.status}}</span> <img :src="require('@/assets/more.png')" alt="">
       </div>
     </div>
     <footers></footers>

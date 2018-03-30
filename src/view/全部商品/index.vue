@@ -142,7 +142,7 @@
   }
   #sort .yd-scrolltab-title{
     font-size:.5rem;
-    max-width: 2.5rem;
+    max-width: 2rem;
   }
   .yd-scrolltab-active .yd-scrolltab-title{
     color:red;

@@ -2,7 +2,7 @@
   <div id="shoukuan">
     <h5>收钱</h5>
     <div class="shoukuanma">
-      <p class="biaoshi"><img src="/static/img/phone-sky.png" alt="">普通会员</p>
+      <p class="biaoshi"><img :src="require('@/assets/phone-sky.png')" alt="">普通会员</p>
       <h6>扫一扫 ，向我收钱</h6>
       <img :src="shouKuanCode.code" alt="">
       <div>长按图片可保存二维码</div>

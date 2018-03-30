@@ -1,8 +1,8 @@
 <template>
   <div id="footers">
     <div v-for="(item,key) in footerMsg" :key="key">
-      <router-link  to="#">
-        <img :src="item.ico" alt="" @click="resData(item.path)">
+      <router-link  to="#" @click.native="resData(item.path)">
+        <img :src="item.ico" alt="">
         <div>
           {{item.name}}
         </div>
@@ -15,33 +15,28 @@
 <script>
   import router from '@/router'
   import config from '../myConfig'
-  import shop from '@/../static/img/shopIndex.png'
-  import sort from '@/../static/img/sort.png'
-  import fujin from '@/../static/img/fujin.png'
-  import cart from '@/../static/img/cart_black.png'
-  import vip from '@/../static/img/vip.png'
   export default {
     data() {
       return {
         footerMsg: [{
           name: '商城首页',
-          ico:shop,
+          ico:require('@/assets/shopIndex.png'),
           path: '/shopIndex/'
         }, {
           name:'全部商品',
-          ico:sort,
+          ico:require('@/assets/sort.png'),
           path: '/sortIndex/',
         },{
           name:'附近商家',
-          ico:fujin,
+          ico:require('@/assets/fujin.png'),
           path: '/fujin/'
         }, {
           name:'购物车',
-          ico:cart,
+          ico:require('@/assets/cart_black.png'),
           path: '/cart/'
         }, {
           name: '会员中心',
-          ico:vip,
+          ico:require('@/assets/vip.png'),
           path: '/vipIndex/'
         }],
       tipBoxShow:false

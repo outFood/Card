@@ -7,7 +7,7 @@
         <img :src="vipInfoData.avatar" alt="">
         <span>{{vipInfoData.nickname}}</span>
       </div>
-      <img src="/static/img/more.png" alt="" class="more">
+      <img :src="require('@/assets/more.png')" alt="" class="more">
     </router-link>
     <div class="detailInfo">
       <div>姓名 <span>*</span><input :placeholder="vipInfoData.realname?vipInfoData.realname:'请输入姓名'" v-model="realname" :class="{sky:!vipInfoData.realname}"></div>

@@ -5,7 +5,7 @@
       <div class="listItem" v-for="(item,key) in noticeList" :key="key" @click="saveSelNotice(item)">
         <img :src="item.thumb" alt="">
         <h3>{{item.title}}</h3>
-        <img src="/static/img/more.png" alt="" class="more">
+        <img :src="require('@/assets/more.png')" alt="" class="more">
       </div>
     </div>
   </div>

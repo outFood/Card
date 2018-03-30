@@ -1,11 +1,11 @@
 <template>
   <div id="navbar" v-if="diynavbar">
     <div class="navbar1">
-      <div class="icon" @click="clickIcon('关注')"><img src="/static/img/heart.png" alt="" v-if="isFavorite"><img
-        src="/static/img/heart-kong.png" alt="" v-else>关注
+      <div class="icon" @click="clickIcon('关注')"><img :src="require('@/assets/heart.png')" alt="" v-if="isFavorite"><img
+        :src="require('@/assets/heart-kong.png')" alt="" v-else>关注
       </div>
-      <div class="icon" @click="clickIcon('店铺')"><img src="/static/img/shop_black.png" alt="" class="shop">店铺</div>
-      <div class="icon" @click="clickIcon('购物车')"><img src="/static/img/cart_black.png" alt=""
+      <div class="icon" @click="clickIcon('店铺')"><img :src="require('@/assets/shop_black.png')" alt="" class="shop">店铺</div>
+      <div class="icon" @click="clickIcon('购物车')"><img :src="require('@/assets/cart_black.png')" alt=""
                                                        style="position: relative !important;">购物车
       </div>
       <span class="cartcount">{{cartcount}}</span>
@@ -62,12 +62,12 @@
       diynavbar() {
         for (var i = 0; i < this.$store.state.commodityDetailData.diypage.diynavbar.length; i++) {
           if (this.$store.state.commodityDetailData.diypage.diynavbar[i].icontext == '关注') {
-            this.$store.state.commodityDetailData.diypage.diynavbar[i].imgSrc_red = '../../static/img/heart.png'
-            this.$store.state.commodityDetailData.diypage.diynavbar[i].imgSrc_white = '../../static/img/heart-kong.png'
+            this.$store.state.commodityDetailData.diypage.diynavbar[i].imgSrc_red =require('@/assets/heart.png')
+            this.$store.state.commodityDetailData.diypage.diynavbar[i].imgSrc_white =require('@/assets/heart-kong.png')
           } else if (this.$store.state.commodityDetailData.diypage.diynavbar[i].icontext == '购物车') {
-            this.$store.state.commodityDetailData.diypage.diynavbar[i].imgSrc = '../../static/img/cart_black.png'
+            this.$store.state.commodityDetailData.diypage.diynavbar[i].imgSrc =require('@/assets/cart_black.png')
           } else if (this.$store.state.commodityDetailData.diypage.diynavbar[i].icontext == '店铺') {
-            this.$store.state.commodityDetailData.diypage.diynavbar[i].imgSrc = '../../static/img/shop_black.png'
+            this.$store.state.commodityDetailData.diypage.diynavbar[i].imgSrc =require('@/assets/shop_black.png')
           }
         }
         return this.$store.state.commodityDetailData.diypage.diynavbar

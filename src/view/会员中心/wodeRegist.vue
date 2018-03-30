@@ -28,7 +28,7 @@
         <input type="password" required  maxlength="10" v-model="surePwd" pattern="^(\w){6,10}$"  placeholder="6-10位数字、字母">
       </div>
       <div class="xieyi">
-        <img src="/static/img/checked.png" alt="" @click="isReaded=false" v-if="isReaded"><img src="/static/img/no_checked.png" @click="isReaded=true" alt="" v-else>我已经阅读并了解了 <i @click="show1=true">【注册协议】</i>
+        <img :src="require('@/assets/checked.png')" alt="" @click="isReaded=false" v-if="isReaded"><img :src="require('@/assets/no_checked.png')" @click="isReaded=true" alt="" v-else>我已经阅读并了解了 <i @click="show1=true">【注册协议】</i>
       </div>
     </form>
     <yd-popup v-model="show1" position="center" width="90%">

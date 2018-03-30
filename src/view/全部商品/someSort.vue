@@ -1,13 +1,13 @@
 <template>
   <div id="someSort">
     <header style="position: fixed;width:100%;top:0;">
-      <div class="search"><img src="/static/img/back_black.png" alt="" @click="back()"><yd-search v-model="searchKey"></yd-search><i class="searchBtn" @click="screen(['搜索'])">搜索</i><span @click="allSort_h=!allSort_h"><img src="/static/img/allSort_h.png" v-if="allSort_h"><img src="/static/img/allSort_v.png" v-else></span></div>
+      <div class="search"><img :src="require('@/assets/back_black.png')" alt="" @click="back()"><yd-search v-model="searchKey"></yd-search><i class="searchBtn" @click="screen(['搜索'])">搜索</i><span @click="allSort_h=!allSort_h"><img :src="require('@/assets/allSort_h.png')" v-if="allSort_h"><img :src="require('@/assets/allSort_v.png')" v-else></span></div>
       <!--tab-->
       <div class="tab">
         <div @click="screen(['all'])" :class="{cur1:curTab==1}">综合</div>
         <div @click="screen(['sail'])" :class="{cur1:curTab==2}">销量</div>
         <div @click="screen(['price'])" :class="{cur1:curTab==3}">价格 <span class="top" :class="{curtop:curtop}"></span><span class="bottom" :class="{curbottom:curbottom}"></span></div>
-        <div><yd-button @click.native="show4 = true;curTab=4;curtop=false;curbottom=false" :class="{cur1:curTab==4}">筛选 <img src="/static/img/shaixuan.png" alt="" v-if="curTab!=4"><img src="/static/img/shaixuan_red.png" alt="" v-else></yd-button></div>
+        <div><yd-button @click.native="show4 = true;curTab=4;curtop=false;curbottom=false" :class="{cur1:curTab==4}">筛选 <img :src="require('@/assets/shaixuan.png')" alt="" v-if="curTab!=4"><img :src="require('@/assets/shaixuan_red.png')" alt="" v-else></yd-button></div>
       </div>
     </header>
     <yd-infinitescroll :callback="loadList" ref="infinitescrollDemo">

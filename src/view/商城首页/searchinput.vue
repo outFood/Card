@@ -1,7 +1,7 @@
 <template>
 	<div id="searchinput">
 		<div class="wrapinput">
-			<img src="/static/img/search.png" alt="">
+			<img :src="require('@/assets/search.png')" alt="">
 			<input type="text">
 		</div>
 	</div>

@@ -14,7 +14,7 @@
         <div class="address">{{item.province}} {{item.city}} {{item.area}} {{item.address}}</div>
       </div>
       <div class="use">
-        <div class="setDefault" @click="setDefaultAddress(item.id)"><img src="/static/img/selected.png" alt="" v-if="item.isdefault==1"><img src="/static/img/circle.png" alt="" v-else>设为默认地址</div>
+        <div class="setDefault" @click="setDefaultAddress(item.id)"><img :src="require('@/assets/selected.png')" alt="" v-if="item.isdefault==1"><img :src="require('@/assets/circle.png')" alt="" v-else>设为默认地址</div>
         <div>
           <div @click="delAddress(item.id)">
             <yd-icon name="delete"></yd-icon>

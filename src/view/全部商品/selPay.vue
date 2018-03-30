@@ -23,28 +23,28 @@
     </p>
     <div class="payMethods">
       <div @click="weixinPay">
-        <img src="/static/img/wechat.png" alt="">
+        <img :src="require('@/assets/wechat.png')" alt="">
         <div>
           <p>微信支付</p>
           <span>微信安全支付</span>
         </div>
-        <img src="/static/img/more.png" class="more">
+        <img :src="require('@/assets/more.png')" class="more">
       </div>
       <div>
-        <img src="/static/img/alipay.png" alt="">
+        <img :src="require('@/assets/alipay.png')"alt="">
         <div>
           <p>支付宝支付</p>
           <span>使用支付宝进行支付</span>
         </div>
-        <img src="/static/img/more.png" class="more">
+        <img :src="require('@/assets/more.png')" class="more">
       </div>
       <div @click="balancePay">
-        <img src="/static/img/balance.png" alt="">
+        <img :src="require('@/assets/balance.png')" alt="">
         <div>
           <p>余额支付</p>
           <span>当前约: <i>￥{{selPay.money}}</i></span>
         </div>
-        <img src="/static/img/more.png" class="more">
+        <img :src="require('@/assets/more.png')" class="more">
       </div>
     </div>
   </div>

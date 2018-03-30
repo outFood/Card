@@ -10,7 +10,7 @@
           <span>{{fenxiao_headData.result.result.thisset.texts.up}}: {{!fenxiao_headData.result.result.member.agentid? '总店' :fenxiao_headData.result.result.member.agentid}}</span>
           <span>本人ID:{{fenxiao_headData.result.result.member.id}}</span>
         </yd-flexbox-item>
-        <router-link to="#" class="right"><img src="/static/img/set.png"></router-link>
+        <router-link to="#" class="right"><img :src="require('@/assets/set.png')"></router-link>
       </yd-flexbox>
       <yd-flexbox class="line2">
         <yd-flexbox-item>
@@ -54,32 +54,32 @@
         paths:[
           {
             path:'/distributIndex/price',
-            imgSrc:'/static/img/money.png'
+            imgSrc:require('@/assets/money.png')
           },
           {
             path:'/distributIndex/yongDetail',
-            imgSrc:'/static/img/sort_blue.png'
+            imgSrc:require('@/assets/sort_blue.png')
           },
           {
             path:'/distributIndex/tixianDetail',
-            imgSrc:'/static/img/mingxi.png'
+            imgSrc:require('@/assets/mingxi.png')
           },
           {
             path:'/distributIndex/xiaxian',
-            imgSrc:'/static/img/peples.png'
+            imgSrc:require('@/assets/peples.png')
           },
           {
             path:'/distributIndex/tuiguang',
-            imgSrc:'/static/img/ma.png'
+            imgSrc:require('@/assets/ma.png')
           },
           {
 //            path:'/distributIndex/xiaodian',
             path:'#',
-            imgSrc:'/static/img/shop.png'
+            imgSrc:require('@/assets/shop.png')
           }
         ],
         imgs:[
-          '/static/img/money.png'
+          require('@/assets/money.png')
         ]
       }
     },

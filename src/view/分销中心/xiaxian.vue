@@ -5,11 +5,11 @@
       <span :class="{curOrderNav:curSel==1}" @click="lookXiaXian('一级')">一级({{xiaXian.list.length}})</span>
       <span :class="{curOrderNav:curSel==2}" @click="lookXiaXian('二级')">二级({{xiaXian.list.length}})</span>
     </div>
-    <p class="tip">成员信息 <img src="/static/img/star_hong.png" alt="">为已经成为分销商的下线</p>
+    <p class="tip">成员信息 <img :src="require('@/assets/star_hong.png')" alt="">为已经成为分销商的下线</p>
     <div class="item" v-for="(item,key) in xiaXian.list" :key="key">
       <img :src="item.avatar">
       <div class="middle">
-        <h6><img src="/static/img/star_hong.png" alt="">{{item.realname}}</h6>
+        <h6><img :src="require('@/assets/star_hong.png')" alt="">{{item.realname}}</h6>
         <span>成为分销商时间:{{item.agenttime}}</span>
       </div>
       <div class="right">

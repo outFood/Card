@@ -2,10 +2,10 @@
   <div id="map">
     <headers title="商户地图"></headers>
     <div id="mapContainer"></div>
-    <div class="contact">
+    <div class="contact">phone
       <img :src="curSelShop.logo">
       <div><h6>{{curSelShop.merchname}}</h6><span>联系电话：{{curSelShop.tel}}</span></div>
-      <a :href="'tel:'+curSelShop.tel"><img src="/static/img/phone.png" alt="" class="phone"></a>
+      <a :href="'tel:'+curSelShop.tel"><img :src="require('@/assets/phone.png')" alt="" class="phone"></a>
     </div>
   </div>
 </template>

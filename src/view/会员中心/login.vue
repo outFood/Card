@@ -22,8 +22,8 @@
         <span></span>第三方账号登录<span></span>
       </div>
       <div class="second" @click="otherLogin">
-        <img src="/static/img/prod/weixin.png" alt="">
-        <img src="/static/img/prod/qq.png" alt="">
+        <img :src="require('@/assets/weixin.png')" alt="">
+        <img :src="require('@/assets/qq.png')" alt="">
       </div>
     </div>
   </div>

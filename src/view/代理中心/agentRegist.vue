@@ -66,11 +66,11 @@
       </yd-popup>
       <yd-button size="large" type="warning" @click.native="registAgent">申请成为</yd-button>
       <div class="item">
-        <span class="img"><img src="/static/img/tequan.png" alt=""></span>
+        <span class="img"><img :src="require('@/assets/tequan.png')" alt=""></span>
         <div>特权</div>
       </div>
       <div class="item">
-        <span class="img"><img src="/static/img/hebei.png" alt=""></span>
+        <span class="img"><img :src="require('@/assets/hebei.png')" alt=""></span>
         <div>坐享分红 <br>成为后，您可以享受您代理的区域营业额的分红收益</div>
       </div>
     </form>

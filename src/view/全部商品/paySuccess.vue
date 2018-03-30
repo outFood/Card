@@ -2,14 +2,14 @@
   <div id="paySuccess">
     <headers title="支付成功"></headers>
     <div class="car">
-      <img src="/static/img/car.png" alt="">
+      <img :src="require('@/assets/cart.png')" alt="">
       <div>
         <h3>订单支付成功</h3>
         <span>您的包裹整装待发</span>
       </div>
     </div>
     <div class="address">
-      <img src="/static/img/position-o.png" alt="">
+      <img :src="require('@/assets/position-o.png')" alt="">
       <div class="right">
         <p>联系人：{{curSelAddress.realname}}</p>
         <p>联系电话：{{curSelAddress.mobile}}</p>

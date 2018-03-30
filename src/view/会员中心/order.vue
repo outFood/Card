@@ -17,10 +17,10 @@
           <div class="item" v-for="(item,key) in myOrder" :key="key">
             <div class="top" @click="resOrderDetail(item.id)">
               <span>订单号：{{item.ordersn}}</span>
-              <div>{{item.statusstr}} <img src="/static/img/more.png" alt=""></div>
+              <div>{{item.statusstr}} <img :src="require('@/assets/more.png')" alt=""></div>
             </div>
             <div class="middle" v-for="(goods,key) in item.goods" :key="key">
-              <p v-if="goods.shopname"><img src="/static/img/shop_black.png" alt="">{{goods.shopname}}</p>
+              <p v-if="goods.shopname"><img :src="require('@/assets/shop_black.png')" alt="">{{goods.shopname}}</p>
               <div v-for="(goodsItem,key) in goods.goods">
                 <div class="shopInfo" @click="resCommodityDetailData(goodsItem.goodsid)">
                   <img :src="goodsItem.thumb">

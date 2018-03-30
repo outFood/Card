@@ -2,7 +2,7 @@
   <div id="gonggao" v-if="gonggaoData&&gonggaoItem" :style="{background:gonggaoData.style.background,borderColor:gonggaoData.style.bordercolor}">
     <img :src="gonggaoData.params.iconurl" alt="">
     <yd-rollnotice :speed="gonggaoData.params.speed+'00'">
-      <yd-rollnotice-item v-for="(item,key) in gonggaoItem" :key="key"><router-link to="#" :style="{color:gonggaoData.style.color,}" @click.native="toSomewhere(item)"><img src="/static/img/tongzhi.png" alt="">{{item.title}}</router-link></yd-rollnotice-item>
+      <yd-rollnotice-item v-for="(item,key) in gonggaoItem" :key="key"><router-link to="#" :style="{color:gonggaoData.style.color,}" @click.native="toSomewhere(item)"><img :src="require('@/assets/tongzhi.png')" alt="">{{item.title}}</router-link></yd-rollnotice-item>
     </yd-rollnotice>
   </div>
 </template>
@@ -72,7 +72,7 @@
    }
   #gonggao img{
     width:0.8rem;
-    height:0.625rem;
+    height:0.8rem;
     margin-right:0.3125rem;
     vertical-align: middle;
   }

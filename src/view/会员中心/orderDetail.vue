@@ -11,7 +11,7 @@
       <span>订单金额:￥{{orderDetail.order.price}}</span>
     </div>
     <div class="address">
-      <img src="/static/img/position-o.png" alt="">
+      <img :src="require('@/assets/position-o.png')" alt="">
       <div class="right">
         <p>{{orderDetail.address.realname}} {{orderDetail.address.mobile}}</p>
         <span>{{orderDetail.address.province}} {{orderDetail.address.city}} {{orderDetail.address.area}} {{orderDetail.address.address}}</span>
@@ -19,7 +19,7 @@
     </div>
     <div class="item">
         <div class="middle">
-          <p><img src="/static/img/shop_black.png" alt="">E卡系统</p>
+          <p><img :src="require('@/assets/shop_black.png')" alt="">E卡系统</p>
           <div class="shopInfo" v-for="(item,key) in orderDetail.goods" :key="key">
             <img :src="item.thumb">
             <div class="mid"><h6>{{item.title}}</h6><span>{{item.optiontitle}}</span></div>

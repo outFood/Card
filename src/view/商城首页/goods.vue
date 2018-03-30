@@ -6,7 +6,7 @@
         <div  class="lastdiv"><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}" v-if="goodsData.params.showtitle">{{item.title}}</span></p>
           <p>
             <span class="price" :style="{color:goodsData.style.pricecolor}">￥{{item.price}}</span>
-            <span class="buyBtn1" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-1'"><img src="/static/img/cart.png" alt=""></span>
+            <span class="buyBtn1" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-1'"><img :src="require('@/assets/cart.png')" alt=""></span>
             <span class="buyBtn2" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-2'">+</span>
             <span class="buyBtn3" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-3'">兑换</span></p>
           <p><i :class="{linethrough:goodsData.params.productpriceline==1}" :style="{color:goodsData.style.productpricecolor}">{{goodsData.params.productpricetext}}:￥{{item.productprice}}</i><i :style="{color:goodsData.style.salescolor}">{{goodsData.params.salestext}}:{{item.sales}}</i></p></div>
@@ -18,7 +18,7 @@
         <div class="lastdiv"><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}" v-if="goodsData.params.showtitle">{{item.title}}</span></p>
           <p>
             <span class="price" :style="{color:goodsData.style.pricecolor}">￥{{item.price}}</span>
-            <span class="buyBtn1" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-1'"><img src="/static/img/cart.png" alt=""></span>
+            <span class="buyBtn1" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-1'"><img :src="require('@/assets/cart.png')" alt=""></span>
             <span class="buyBtn2" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-2'">+</span>
             <span class="buyBtn3" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-3'">兑换</span></p>
           <p><i :class="{linethrough:goodsData.params.productpriceline==1}" :style="{color:goodsData.style.productpricecolor}">{{goodsData.params.productpricetext}}:￥{{item.productprice}}</i><i :style="{color:goodsData.style.salescolor}">{{goodsData.params.salestext}}:{{item.sales}}</i></p></div>
@@ -30,7 +30,7 @@
         <div class="lastdiv"><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}" v-if="goodsData.params.showtitle">{{item.title}}</span></p>
           <p>
             <span class="price" :style="{color:goodsData.style.pricecolor}">￥{{item.price}}</span>
-            <span class="buyBtn1" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-1'"><img src="/static/img/cart.png" alt=""></span>
+            <span class="buyBtn1" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-1'"><img :src="require('@/assets/cart.png')" alt=""></span>
             <span class="buyBtn2" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-2'">+</span>
             <span class="buyBtn3" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-3'">兑换</span></p>
           <p><i :class="{linethrough:goodsData.params.productpriceline==1}" :style="{color:goodsData.style.productpricecolor}">{{goodsData.params.productpricetext}}:￥{{item.productprice}}</i><i :style="{color:goodsData.style.salescolor}">{{goodsData.params.salestext}}:{{item.sales}}</i></p></div>
@@ -42,7 +42,7 @@
         <div class="lastdiv rightdiv"><p class="top"><span class="biaoqian" :style="{background:goodsData.style.tagbackground}">标签</span><span class="title" :style="{color:goodsData.style.titlecolor}" v-if="goodsData.params.showtitle">{{item.title}}</span></p>
           <p>
             <span class="price" :style="{color:goodsData.style.pricecolor}">￥{{item.price}}</span>
-            <span class="buyBtn1" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-1'"><img src="/static/img/cart.png" alt=""></span>
+            <span class="buyBtn1" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-1'"><img :src="require('@/assets/cart.png')" alt=""></span>
             <span class="buyBtn2" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-2'">+</span>
             <span class="buyBtn3" :style="{background:goodsData.style.buybtncolor}" v-if="goodsData.style.buystyle=='buybtn-3'">购买</span></p>
           <p><i :class="{linethrough:goodsData.params.productpriceline==1}" :style="{color:goodsData.style.productpricecolor}">{{goodsData.params.productpricetext}}:￥{{item.productprice}}</i><i :style="{color:goodsData.style.salescolor}">{{goodsData.params.salestext}}:{{item.sales}}</i></p></div>

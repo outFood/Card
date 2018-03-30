@@ -9,23 +9,23 @@
     </yd-flexbox>
     <div class="body">
       <div class="listItem">
-        <div class="left"><img src="/static/img/price_block.png">可提现佣金</div>
+        <div class="left"><img :src="require('@/assets/price_block.png')">可提现佣金</div>
         <div class="right">{{agentPriceData.abonus_ok?agentPriceData.abonus_ok:0.00}} 元</div>
       </div>
       <div class="listItem">
-        <div class="left"><img src="/static/img/price_block.png">已申佣金</div>
+        <div class="left"><img :src="require('@/assets/price_block.png')">已申佣金</div>
         <div class="right">{{agentPriceData.abonus_apply?agentPriceData.abonus_apply:0.00}} 元</div>
       </div>
       <div class="listItem">
-        <div class="left"><img src="/static/img/price_block.png">待打款佣金</div>
+        <div class="left"><img :src="require('@/assets/price_block.png')">待打款佣金</div>
         <div class="right">{{agentPriceData.abonus_check?agentPriceData.abonus_check:0.00}} 元</div>
       </div>
       <div class="listItem">
-        <div class="left"><img src="/static/img/price_block.png">无效佣金</div>
+        <div class="left"><img :src="require('@/assets/price_block.png')">无效佣金</div>
         <div class="right">{{agentPriceData.abonus_fail?agentPriceData.abonus_fail:0.00}} 元</div>
       </div>
       <div class="listItem">
-        <div class="left"><img src="/static/img/price_block.png">成功提现佣金</div>
+        <div class="left"><img :src="require('@/assets/price_block.png')">成功提现佣金</div>
         <div class="right">{{agentPriceData.abonus_pa?agentPriceData.abonus_pay:0.00}} 元</div>
       </div>
     </div>

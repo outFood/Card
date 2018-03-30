@@ -14,8 +14,8 @@
     <div class="shop" v-if="cartData.list.length>0">
       <div class="shop-item" v-for="(item,key) in cartData.list" :key="key">
         <div class="check">
-          <img src="/static/img/check.png" alt="" v-if="item.selected==1" @click='selOrNo(item.id,0)'>
-          <img src="/static/img/no-check.png" alt="" v-else @click='selOrNo(item.id,1)'>
+          <img :src="require('@/assets/check.png')" alt="" v-if="item.selected==1" @click='selOrNo(item.id,0)'>
+          <img :src="require('@/assets/no-check.png')" alt="" v-else @click='selOrNo(item.id,1)'>
         </div>
         <img :src="item.thumb" class="shopImg">
         <div class="right" @click="resCommodityDetailData(item.goodsid)">
@@ -33,8 +33,8 @@
       <div class="checkAll" v-if="delShow==false">
         <div class="left">
           <div class="check">
-            <img src="/static/img/check.png" alt="" v-if="isCheckAll" @click='selOrNo("",0)'>
-            <img src="/static/img/no-check.png" alt="" v-else @click='selOrNo("",1)'>
+            <img :src="require('@/assets/check.png')" alt="" v-if="isCheckAll" @click='selOrNo("",0)'>
+            <img :src="require('@/assets/no-check.png')" alt="" v-else @click='selOrNo("",1)'>
           </div>
           <div class="rit">合计：<span>￥{{cartData.totalprice}}</span> <p>不含运费</p></div>
         </div>
@@ -43,8 +43,8 @@
       <!--编辑删除-->
       <div class="edit" v-else>
         <div class="check">
-          <img src="/static/img/check.png" alt="" v-if="isCheckAll" @click='selOrNo("",0)'>
-          <img src="/static/img/no-check.png" alt="" v-else @click='selOrNo("",1)'>
+          <img :src="require('@/assets/check.png')" alt="" v-if="isCheckAll" @click='selOrNo("",0)'>
+          <img :src="require('@/assets/no-check.png')" alt="" v-else @click='selOrNo("",1)'>
         </div>
         <div class="delete" :class="{redDelete:checkedArr.length}" @click="addOrReduceOrDel(['删除'])">删除</div>
       </div>

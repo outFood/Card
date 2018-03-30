@@ -15,7 +15,7 @@
             <p class="top">
               <img :src="item.headimgurl" class="headImg">
               {{item.nickname}}
-              <img src="/static/img/two-heart.png" alt="" class="two-heart"/>
+              <!--<img :src="require('@/assets/two-heart.png')" alt="" class="two-heart"/>-->
             </p>
             <div class="middle">
               <p class="colorsize">{{item.createtime}}</p>

@@ -2,7 +2,7 @@
   <div id="position">
     <yd-cell-group>
       <yd-cell-item arrow>
-        <span slot="left"><img src="/static/img/position_white.png" alt=""></span>
+        <span slot="left"><img :src="require('@/assets/position_white.png')" alt=""></span>
         <input slot="right" type="text" @click.stop="show1 = true" v-model="formattedAddress" readonly id="allmap">
         <!--<span slot="right"><img src="/static/img/triangle.png" alt=""></span>-->
       </yd-cell-item>

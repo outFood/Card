@@ -1,11 +1,11 @@
 <template>
   <div id="agentLine">
     <headers title="我的下线"></headers>
-    <p class="tip">成员信息 <img src="/static/img/star_hong.png" alt="">为已经成为代理商的下线</p>
+    <p class="tip">成员信息 <img :src="require('@/assets/star_hong.png')" alt="">为已经成为代理商的下线</p>
     <div class="item" v-for="(item,key) in agentLineData.list" :key="key">
       <img :src="item.avatar">
       <div class="middle">
-        <h6><img src="/static/img/star_hong.png" alt="">{{item.realname}}</h6>
+        <h6><img :src="require('@/assets/star_hong.png')" alt="">{{item.realname}}</h6>
         <span>成为分销商时间:{{item.aagenttime}}</span>
       </div>
       <div class="right">

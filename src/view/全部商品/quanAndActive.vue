@@ -3,12 +3,12 @@
     <div class="listItem" @click="show2 = true">
       <div class="left">领券</div>
       <div class="mid"><span>店铺优惠券</span></div>
-      <img src="/static/img/more.png" alt="" class="more">
+      <img :src="require('@/assets/more.png')" alt="" class="more">
     </div>
     <div class="listItem" @click="show3 = true">
       <div class="left">活动</div>
       <div class="mid"><span>包邮</span>本品满99包邮</div>
-      <img src="/static/img/more.png" alt="" class="more">
+      <img :src="require('@/assets/more.png')" alt="" class="more">
     </div>
     <yd-popup v-model="show2" position="bottom" height="60%" class="sizePop" id="quanPop">
       <yd-flexbox>
@@ -51,32 +51,32 @@
     </yd-popup>
     <div class="goodsProperty">
       <div v-if="commodityDetailData.result.goods.ishot==1">
-        <img src="/static/img/have.png" alt="">热卖
+        <img :src="require('@/assets/have.png')" alt="">热卖
       </div>
       <div v-if="commodityDetailData.result.goods.isnew==1">
-        <img src="/static/img/have.png" alt="">新品
+        <img :src="require('@/assets/have.png')" alt="">新品
       </div>
       <div v-if="commodityDetailData.result.goods.isrecommand==1">
-        <img src="/static/img/have.png" alt="">推荐
+        <img :src="require('@/assets/have.png')" alt="">推荐
       </div>
       <div v-if="commodityDetailData.result.goods.issendfree==1">
-        <img src="/static/img/have.png" alt="">包邮
+        <img :src="require('@/assets/have.png')" alt="">包邮
       </div>
       <div v-if="commodityDetailData.result.goods.isnodiscount==1">
-        <img src="/static/img/have.png" alt="">不参与会员折扣
+        <img :src="require('@/assets/have.png')" alt="">不参与会员折扣
       </div>
       <div v-if="commodityDetailData.result.goods.quality==1">
-        <img src="/static/img/have.png" alt="">正品保证
+        <img :src="require('@/assets/have.png')" alt="">正品保证
       </div>
       <div v-if="commodityDetailData.result.goods.repair==1">
-        <img src="/static/img/have.png" alt="">保修
+        <img :src="require('@/assets/have.png')" alt="">保修
       </div>
       <div v-if="commodityDetailData.result.goods.isverify==1">
-        <img src="/static/img/have.png" alt="">七天退换
+        <img :src="require('@/assets/have.png')" alt="">七天退换
       </div>
     </div>
     <div class="noSend" @click="show4=true">
-      <span>不配送区域：广东、广西、海南、深圳、四川、香港、澳门、钓鱼岛</span><img src="/static/img/more.png" alt="">
+      <span>不配送区域：广东、广西、海南、深圳、四川、香港、澳门、钓鱼岛</span><img :src="require('@/assets/more.png')" alt="">
     </div>
     <yd-popup v-model="show4" position="bottom" height="60%" class="sizePop" id="noSendPop">
       <h6>不配送区域</h6>
@@ -93,7 +93,7 @@
       <yd-button size="large" type="danger" class="close" @click.native="show4=false">确定</yd-button>
     </yd-popup>
     <div class="toShop">
-      <div class="left"><img src="/static/img/LOGO.png" alt="">哈哈哈哈哈哈哈哈</div>
+      <div class="left"><img :src="require('@/assets/LOGO.png')" alt="">哈哈哈哈哈哈哈哈</div>
       <span>进店逛逛</span>
     </div>
   </div>
@@ -122,15 +122,15 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    padding:0 10px;
+    padding:0 0.3125rem;
   }
   #quanAndActive .goodsProperty>div{
     flex: 0 0 25%;
-    margin-top: 20px;
+    margin-top: 0.625rem;
     text-align: left;
   }
   #quanAndActive .goodsProperty>div img{
-    width:20px;height:20px;vertical-align: middle;margin-right: 5px;
+    width:0.625rem;height:0.625rem;vertical-align: middle;margin-right: 5px;
   }
   #quanAndActive .noSend{
     display: -webkit-box;
@@ -139,7 +139,7 @@
     display: flex;
     align-items: center;
     background: #fff;
-    margin-top: 20px;padding:15px  10px;
+    margin-top: 0.625rem;padding:0.47rem  0.3125rem;
   }
   #quanAndActive .noSend span{
     flex: 0 0 95%;
@@ -148,7 +148,7 @@
     text-overflow:ellipsis;
   }
   #quanAndActive .noSend img{
-    width:20px;height:20px;
+    width:0.625rem;height:0.625rem;
   }
   #quanAndActive #noSendPop .city{
     display: -webkit-box;
@@ -159,7 +159,7 @@
     flex-wrap: wrap;
   }
   #quanAndActive #noSendPop .city span{
-    border:1px solid #eee;padding: 4px 15px;margin:0 0 10px 10px;border-radius: 3px;
+    border:1px solid #eee;padding: 4px 0.47rem;margin:0 0 0.3125rem 0.3125rem;border-radius: 3px;
   }
   #quanAndActive .toShop{
     display: -webkit-box;
@@ -168,21 +168,21 @@
     display: flex;
     align-items: center;
     background:#fff;
-    margin-top: 10px;
-    padding:10px;
+    margin-top: 0.3125rem;
+    padding:0.3125rem;
   }
   #quanAndActive .toShop .left{
-    flex:0 0 75%;text-align: left;
+    flex:0 0 70%;text-align: left;
   }
   #quanAndActive .toShop .left img{
-    width:60px;height:60px;vertical-align: middle;
+    width:1.56rem;height:1.56rem;vertical-align: middle;
   }
   #quanAndActive .toShop span{
-    padding: 5px 15px;border:1px solid #b2b2b2;border-radius: 20px;
+    padding: 5px 0.47rem;border:1px solid #b2b2b2;border-radius: 0.625rem;
   }
 
   #quanAndActive{
-    margin:10px 0;
+    margin:0.3125rem 0;
   }
   #quanAndActive .listItem{
     display: -webkit-box;
@@ -190,7 +190,7 @@
     display: -ms-flexbox;
     display: flex;
     justify-content: space-between;
-    padding: 10px 10px 20px 10px;
+    padding: 0.3125rem 0.3125rem 0.625rem 0.3125rem;
     background: #fff;
   }
   #quanAndActive .listItem .left{
@@ -199,20 +199,20 @@
   #quanAndActive .listItem .mid{
     flex: 0 0 70%;
     text-align: left;
-    font-size:12px;
+    font-size:0.375rem;
   }
   #quanAndActive .listItem .mid span{
     color:orangered;
-    background:blanchedalmond;padding:2px 6px;border-radius: 10px;
+    background:blanchedalmond;padding:2px 6px;border-radius: 0.3125rem;
   }
   #quanAndActive .listItem .more{
-    width:20px;height:20px;
+    width:0.625rem;height:0.625rem;
   }
   #quanAndActive #quanPop .yd-popup-content{
     background:#fafafa !important;
   }
   #quanAndActive #quanPop .yd-flexbox{
-    font-size:14px;
+    font-size:0.44rem;
     background: #fff;
     padding:0.625rem;
     margin:0.625rem;
@@ -228,13 +228,13 @@
     color:red;
   }
   #quanAndActive #quanPop .yd-flexbox .yd-flexbox-item{
-    font-size:12px;
+    font-size:0.375rem;
     color:#999;
   }
   #quanAndActive #quanPop .yd-flexbox .yd-flexbox-item div{
     color:#000;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 0.4375rem;
   }
   #quanAndActive #quanPop .yd-flexbox .yd-flexbox-item p{
     color:#52b6ff
@@ -268,17 +268,17 @@
   }
   #quanAndActive .close{
     border-radius: 0;
-    position: fixed;bottom: 0;left:0;right:0;height:50px;line-height: 50px;
+    position: fixed;bottom: 0;left:0;right:0;height:1.5625rem;line-height:1.5625rem;
   }
   #quanAndActive #activePop{
 
   }
   #quanAndActive .content{
-    padding:10px 0;
+    padding:0.3125rem 0;
   }
   #quanAndActive h6{
-    font-size:18px;
-    margin:15px 0;
+    font-size:0.5625rem;
+    margin:0.47rem 0;
   }
   #quanAndActive #activePop .content .activeItem{
     display: -webkit-box;
@@ -286,7 +286,7 @@
     display: -ms-flexbox;
     display: flex;
     align-items: center;
-    margin-bottom:10px;
+    margin-bottom:0.3125rem;
   }
   #quanAndActive #activePop .content .activeItem .left{
     flex: 0 0 15%;
@@ -294,7 +294,7 @@
   #quanAndActive #activePop .content .activeItem .left span{
     padding:2px 5px;border: 1px solid red;
     color:red;border-radius: 3px;
-    font-size:12px;
+    font-size:0.375rem;
   }
   #quanAndActive #activePop .content .activeItem .right{
     text-align: left;

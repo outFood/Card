@@ -2,7 +2,7 @@
   <div id="youxuan">
     <router-link  to="#" class="head">
       为您优选
-      <img src="/static/img/more.png" alt="">
+      <img :src="require('@/assets/more.png')" alt="">
       <span>更多</span>
     </router-link>
     <div class="list">
