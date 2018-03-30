@@ -15,7 +15,7 @@
       </p>
       <p class="price">
         <span>订单金额</span>
-        <span>￥{{selPay.order.oldprice}}</span>
+        <span>￥{{!selPay.ispeerpay?selPay.order.price:selPay.peerprice}}</span>
       </p>
     </div>
     <p class="notes">
@@ -42,7 +42,7 @@
         <img :src="require('@/assets/balance.png')" alt="">
         <div>
           <p>余额支付</p>
-          <span>当前约: <i>￥{{selPay.money}}</i></span>
+          <span>当前约: <i>￥{{selPay.member.credit2}}</i></span>
         </div>
         <img :src="require('@/assets/more.png')" class="more">
       </div>
@@ -66,6 +66,9 @@
       payMessage(){
         return this.$store.state.payMessage
       }
+    },
+    mounted(){
+      console.log(this.selPay)
     },
     methods:{
       weixinPay(){

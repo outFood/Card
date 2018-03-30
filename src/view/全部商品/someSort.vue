@@ -271,6 +271,7 @@
     align-items: center;
     background: #fff;
     border-bottom:1px solid #eee;
+    padding:5px;
   }
   #someSort header .search>div{
     flex:0 0 65%

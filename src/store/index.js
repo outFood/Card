@@ -373,16 +373,14 @@ export default {
     createOrder({commit, state}, data) {
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.create.submit', {params: data.params})
         .then(function (res) {
-          axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.pay.get_order', {
-            params: {
-              id: res.data.result.data.orderid,
-              t: config.t,
-              i: config.i,
-              uniacid: config.uniacid,
-              mid: localStorage.getItem('userid'),
-              openid: localStorage.getItem('openid')
-            }
-          }).then(function (res2) {
+          axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.pay.get_main',{params:{
+            t:config.t,
+            openid:config.openid,
+            id: res.data.result.data.orderid,
+            peerpaymessage:'',
+            peerprice:'',
+            jie:''
+          }}).then(function (res2) {
             if (res.data.status == 0) {
               commit({
                 type: 'savePayMessage',
@@ -397,30 +395,24 @@ export default {
           }).catch(function (err) {
             console.log('请求失败:' + err)
           })
-          axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.pay.get_main',{params:{
-            t:config.t,
-            openid:config.openid,
-            id: res.data.result.data.orderid,
-            peerpaymessage:'',
-            peerprice:'',
-            jie:''
-          }}).then(function (res) {
-
-          }).catch(function (err) {
-            console.log('请求失败:' + err)
-          })
         }).catch(function (err) {
         console.log('请求失败:' + err)
       })
     },
     nowPay({commit, state}, data) {
-      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.pay.get_order', {params: data.params})
-        .then(function (res) {
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.pay.get_main',{params:data.params}).then(function (res) {
+        if (res.data.status == 0) {
+          commit({
+            type: 'savePayMessage',
+            data: res
+          })
+        } else {
           commit({
             type: 'saveSelPay',
             data: res
           })
-        }).catch(function (err) {
+        }
+      }).catch(function (err) {
         console.log('请求失败:' + err)
       })
     },
@@ -1369,7 +1361,7 @@ export default {
       VueSet(state, 'payMessage', data.data.data)
     },
     saveSelPay(state, data) {
-      VueSet(state, 'selPay', data.data.data.result.data.result)
+      VueSet(state, 'selPay', data.data.data.result.data)
       VueSet(state, 'payMessage', '')
       if (state.selPay != {}) {
         router.push({path: '/sortIndex/selPay'})
@@ -1402,7 +1394,7 @@ export default {
         }else{
           router.push({path: '/cart/'});
         }
-        
+
       }
     },
     saveAddCartStatus(state, data) {
