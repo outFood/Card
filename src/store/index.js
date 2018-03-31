@@ -34,7 +34,7 @@ export default {
         '/vipIndex/login': '登录',
         '/vipIndex/wodeRegist': '注册'
       },
-      userCity: '',
+      formattedAddress: '',
       lat: '',
       lng: '',
       homeData: {},

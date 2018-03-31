@@ -32,6 +32,28 @@
     </div>
   </div>
 </template>
+
+<script>
+import config from '../../myConfig'
+export default{
+  data (){
+    return {
+
+    }
+  },
+
+  created(){
+    this.$http.get(config.baseUrl+'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.list.get_category&t=4&i=4&uniacid=4')
+    .then(res =>{
+       console.log(res)
+    })
+    .catch(error =>{
+          console.log(error)
+    });
+  }
+}
+</script>
+
 <style>
 #youxuan{
     background: #fff;

@@ -3,6 +3,9 @@ import App from './App'
 import router from './router'
 import config from './myConfig'
 import Vuex from 'vuex'
+import axios from 'axios'
+
+Vue.prototype.$http = axios
 //挂在数据中心组件
 Vue.use(Vuex)
 //数据中心对象引入

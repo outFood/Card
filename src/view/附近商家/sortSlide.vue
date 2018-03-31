@@ -1,6 +1,6 @@
 <template>
   <div id="sortSlide">
-    <yd-slider loop=false>
+    <yd-slider>
       <yd-slider-item v-for="(item,key) in haha" :key="key">
         <router-link v-for="(chen,key) in item" :key="key" to="#" @click.native="changeCateid(chen.id)">
           <img :src="chen.thumb" alt="">
