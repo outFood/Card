@@ -1,5 +1,5 @@
 <template>
-  <div id="shopList" :style="{height:191*Fujin_ListData.length+'px'}">
+  <div id="shopList" :style="{height:103*Fujin_ListData.length+70 +'px'}">
     <nav>
       <yd-accordion>
         <yd-accordion-item title="综合排序">
@@ -25,24 +25,33 @@
           <div class="listItem" v-for="(item,key) in Fujin_ListData" :key="key">
             <div class="top">
               <img :src="item.logo">
+              <span class="distance">
+                    <yd-icon name="location" size=".4rem" color="#999"></yd-icon>
+                    <i>{{item.distance}}</i>
+              </span>
               <div class="center">
-                <h6>{{item.merchname}}</h6>
-                <p>地址:{{item.address}}</p>
-                <p>电话:{{item.tel}}</p>
-              </div>
-              <div class="right">
-                <router-link to="#" @click.native="resExclusiveShopData(item.id)">进店</router-link>
-                1389394m
-              </div>
+                <h6>{{item.merchname}}
+                  
+                </h6>
+                <div class="classify">{{item.catename}} |</div>
+                <div class="sale">
+                    <span class="starbox">
+                        <yd-icon name="star" size=".4rem" color="rgb(255, 104, 93)"></yd-icon>
+                        <yd-icon name="star" size=".4rem" color="rgb(255, 104, 93)"></yd-icon>
+                        <yd-icon name="star" size=".4rem" color="rgb(255, 104, 93)"></yd-icon>
+                        <yd-icon name="star" size=".4rem" color="rgb(255, 104, 93)"></yd-icon>
+                        <yd-icon name="star" size=".4rem" color="rgb(255, 104, 93)"></yd-icon>
+                    </span>
+                    <span>{{item.score}}分</span>
+                    <span>已成交{{item.orderTatle}}单</span>
+                </div>
+              </div> 
             </div>
-            <div class="bottom">
-              <div @click="openMap(item)">打开地图</div>
-              <div><a :href="'tel:'+item.tel">联系商家</a></div>
-            </div>
+            
           </div>
         </yd-list>
         <!-- 数据全部加载完毕显示 -->
-        <span slot="doneTip">啦啦啦，啦啦啦，没有数据啦~~</span>
+        <span slot="doneTip">已加载全部~~</span>
         <!-- 加载中提示，不指定，将显示默认加载中图标 -->
         <img slot="loadingTip" src="http://static.ydcss.com/uploads/ydui/loading/loading10.svg"/>
 
@@ -121,6 +130,7 @@
 </script>
 <style>
   #shopList{
+    margin-top: 0.3125rem;
     font-size:0.4375rem;
     position: relative;
     /*padding-bottom: 61rem;*/
@@ -129,16 +139,36 @@
   #shopList nav .yd-accordion .yd-accordion-head{
     width:33.3%;
     float:left;
-    padding:0.1875rem 0.625rem;
+    padding:0.1rem 0;
     background: #fff;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #999;
+  }
+
+  .yd-accordion-head-content {
+      -webkit-box-flex: none;
+      -ms-flex: none;
+      flex: none;
+      margin-right: 5px;
   }
   #shopList nav .yd-accordion-content{
     background: #fff;
     z-index: 1000;
     width:100%;
     position: absolute;
-    top:1.625rem;
+    top:1.25rem;
+    flex: none;
   }
+  #shopList .yd-accordion-title-full {
+    -webkit-box-flex: none;
+    -ms-flex: none;
+    flex: none;
+}
   #shopList nav .yd-accordion-head-content .yd-accordion-title{
     font-size:0.43rem;
   }
@@ -151,14 +181,14 @@
   }
   #shopList section{
     position: absolute;
-    top:1.4rem;
+    top:1.25rem;
     bottom:0;
     left:0;
     right:0;
   }
   #shopList section .listItem{
     background: #fff;
-    margin-bottom:8px;
+    margin-bottom:5px;
   }
   /*#shopList section .listItem:last-child{
     margin-bottom:100px;
@@ -170,31 +200,49 @@
     display: flex;
     padding:10px;
     align-items: center;
+    position: relative;
   }
   #shopList section .listItem .top img{
-    width:2.8rem;
-    height:1.875rem;
+    width:2.4rem;
+    height:2.4rem;
+    background: #F2F2F2;
   }
+   #shopList section .listItem .top .distance{
+    font-size: 0.42rem;
+    display: block;
+    position: absolute;
+    right: 10px;
+    top: 12px;
+    color: #999;
+  }
+
   #shopList section .listItem .top .center{
     text-align: left;
-    flex: 0 0 53%;
-    padding-left:5px;
+    padding-left:10px;
+    width: 100%;
   }
-  #shopList section .listItem .top .center p{
-    font-size:0.375rem;
+
+  #shopList section .listItem .top .center h6{
+    font-weight: bold;
+    font-size: 0.52rem;
+    
   }
-  #shopList section .listItem .top .right{
-    flex: 0 0 20%;
-    color:red;
-    font-size:0.375rem;
+
+ 
+  #shopList section .listItem .top .center .classify{
+    color: #888;
+    margin-top: 0.05rem
   }
-  #shopList section .listItem .top .right a{
-    display: block;
-    padding:2px 6px;
-    border:1px solid red;
-    border-radius: 3px;
-    margin-bottom:10px
+  #shopList section .listItem .top .center .sale{
+    margin-top: 0.3rem;
   }
+
+  #shopList section .listItem .top .center .sale span{
+    display: inline-block;
+    margin-right: 4px;
+    color: #666;
+  }
+ 
   #shopList section .listItem .bottom{
     border-top:1px solid #d9d9d9;
     display: -webkit-box;

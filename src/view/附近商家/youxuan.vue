@@ -1,26 +1,33 @@
 <template>
   <div id="youxuan">
     <router-link  to="#" class="head">
-      为您优选
-      <img :src="require('@/assets/more.png')" alt="">
-      <span>更多</span>
+        
+        <yd-icon name="star" size=".45rem" color="rgb(255, 104, 93)"></yd-icon>
+        为您优选
+        <yd-icon name="star" size=".45rem" color="rgb(255, 104, 93)"></yd-icon>
+        
     </router-link>
     <div class="list">
       <router-link to="#">
         <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
-        哈哈
+        <div class="desc">
+           <h5>高级考拉</h5>
+           <span><b>¥20.4</b><s>¥40</s></span>
+        </div>
       </router-link>
       <router-link to="#">
         <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
-        哈哈
+        <div class="desc">
+           <h5>高级考拉巴拿马哈哈</h5>
+           <span><b>¥20.4</b><s>¥40</s></span>
+        </div>
       </router-link>
       <router-link to="#">
         <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
-        哈哈
-      </router-link>
-      <router-link to="#">
-        <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
-        哈哈
+        <div class="desc">
+           <h5>高级考拉</h5>
+           <span><b>¥20.4</b><s>¥40</s></span>
+        </div>
       </router-link>
     </div>
   </div>
@@ -28,11 +35,13 @@
 <style>
 #youxuan{
     background: #fff;
+    padding-bottom: 8px;
 }
 #youxuan .head{
   display: block;
-  padding:10px;
+  padding:10px 0 8px;
   font-weight: bold;
+  font-size: 0.48rem;
 }
 #youxuan .head span{
   float: right;
@@ -51,15 +60,48 @@
   display: flex;
   flex-wrap: wrap;
   font-size:12px;
+  align-items: center;
+  justify-content: center;
 }
 #youxuan .list a{
   display: block;
-  flex:0 0 33%;
+  width: 30%;
   margin-bottom: 10px;
+  margin: 0 1%;
 }
 #youxuan .list img{
   display: block;
-  width:80%;
-  margin:5px auto;
+  width:100%;
+  height: 100px;
+}
+
+#youxuan .list .desc{
+  font-size: 0.44rem;
+  background: #F8F8F8;
+  padding-bottom: 8px;
+}
+
+#youxuan .list .desc h5{
+  padding-top: 4px;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#youxuan .list .desc span{
+  font-size: 0.42rem;
+  display: inline-block;
+}
+
+#youxuan .list .desc span b{
+  display: inline-block;
+  margin-right: 2px;
+  color: rgb(255, 104, 93);
+}
+
+#youxuan .list .desc span s{
+  font-size: 0.38rem;
+  color: #999;
 }
 </style>

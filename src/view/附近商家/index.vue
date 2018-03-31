@@ -4,7 +4,6 @@
     <yd-infinitescroll :callback="loadList" ref="infinitescrollDemo">
       <yd-list theme="1" slot="list">
         <!----------------------------------------------------------->
-        <position></position>
         <search></search>
         <banner></banner>
         <sort-slide></sort-slide>
@@ -23,11 +22,15 @@
 <style>
   #fujin{
     padding-bottom: 80px;
+    background: #F2F2F2
+  }
+  #fujin .yd-list,.yd-list-theme1{
+    padding: 0;
   }
 </style>
 <script type="text/babel">
   import config from '../../myConfig'
-  import position from '@/view/附近商家/position'
+  // import position from '@/view/附近商家/position'
   import search from '@/view/附近商家/search'
   import banner from '@/view/附近商家/banner'
   import sortSlide from '@/view/附近商家/sortSlide'
@@ -55,6 +58,6 @@
         console.log('下拉刷新')
       },
     },
-    components: {headers,position,search,banner,sortSlide,youxuan,shopList},
+    components: {headers,search,banner,sortSlide,youxuan,shopList},
   }
 </script>

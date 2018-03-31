@@ -9,7 +9,23 @@
 </template>
 <style>
   #banner img{
-    height:150px;
+    height:130px;
+  }
+
+  #banner .yd-slider-pagination{
+    bottom: 0.3rem;
+  }
+  .yd-slider-pagination .yd-slider-pagination-item{
+    width: 13px;
+    height: 13px;
+    background: #FFF;
+    opacity: 0.7;
+    margin: 0.08rem
+  }
+
+  .yd-slider-pagination .yd-slider-pagination-item-active{
+    background: #FFF;
+    opacity: 1
   }
 </style>
 <script>

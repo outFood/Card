@@ -34,7 +34,7 @@ export default {
         '/vipIndex/login': '登录',
         '/vipIndex/wodeRegist': '注册'
       },
-      formattedAddress: '',
+      userCity: '',
       lat: '',
       lng: '',
       homeData: {},
@@ -1251,7 +1251,7 @@ export default {
     },
     //首页
     savePositionInfo(state, data) {//
-      VueSet(state, 'formattedAddress', data.data.formattedAddress)
+      VueSet(state, 'userCity', data.data.addressComponent.city)
       VueSet(state, 'lat', data.data.position.lat)
       VueSet(state, 'lng', data.data.position.lng)
     },
