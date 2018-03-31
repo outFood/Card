@@ -36,7 +36,7 @@
             <img :src="require('@/assets/check.png')" alt="" v-if="isCheckAll" @click='selOrNo("",0)'>
             <img :src="require('@/assets/no-check.png')" alt="" v-else @click='selOrNo("",1)'>
           </div>
-          <div class="rit">合计：<span>￥{{cartData.totalprice}}</span> <p>不含运费</p></div>
+          <div class="rit">合计：<span>￥{{cartData.totalprice}}</span><p>不含运费</p></div>
         </div>
         <div class="right" @click="subMitCart">结算({{cartNum}})</div>
       </div>
