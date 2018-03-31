@@ -25,7 +25,7 @@
         </div>
         <span class="yd-spinner" style="height: 0.6rem; width: 2rem;">
           <a  @click="addOrReduceOrDel(['减',item.total,item.id,item.optionid,item.minbuy])"></a>
-          <input type="number" @input="inputChange(key)" pattern="[0-9]*" v-model="item.total" class="yd-spinner-input">
+          <input type="number" @change="inputChange(key)" pattern="[0-9]*" v-model="item.total" class="yd-spinner-input">
           <a  @click="addOrReduceOrDel(['加',item.total,item.id,item.optionid])"></a>
          </span>
       </div>
@@ -191,8 +191,12 @@
       inputChange(index){
         //数量超过库存 直接等于库存
         let item=this.cartData.list[index]
-        if(item.total>item.stock){
-          item.total=item.stock
+        if(item.total>item.maxbuy){
+          if(item.total>item.stock){
+            item.total=item.stock
+          }else{
+            item.total=item.maxbuy
+          }
           console.log(item.total,item.stock)
         }
       }

@@ -1390,8 +1390,17 @@ export default {
       let source=data.res.source
       //进行库存查询，如果total大于库存那么他的值等于库存
       data.res.data.result.data.list.map(item=>{
-        if(Number(item.total)>Number(item.stock)){
-          item.total=item.stock;
+        // if(item.total>item.maxbuy){
+        //   item.total=item.maxbuy
+        // }else{
+        //   item.total=item.stock
+        // }
+        if(Number(item.total)>Number(item.maxbuy)){
+          if(Number(item.total)>Number(item.stock)){
+            item.total=item.stock;
+          }else{
+            item.total=item.maxbuy;
+          }
           // console.log(1112,item.total,item.stock)
         }
       })
