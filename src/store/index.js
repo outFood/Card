@@ -144,8 +144,13 @@ export default {
       })
     },
     resHomeData({commit, state}, data) {
+      // if(data.params.goIndex==0){
+      //   router.push({path:'/shopIndex/'})
+      // }
+      console.log(data.params.goIndex,'data.params.goIndex')
       axios.get(config.baseUrl + '/app/index.php?c=wxapp&a=module&do=main', {params: data.params})
         .then(function (res) {
+          res.goIndex=data.params.goIndex
           commit({
             type: 'saveHomeData',
             data: res
@@ -173,7 +178,8 @@ export default {
             data: res
           })
         }).catch(function (err) {
-        alert(err)
+        // // alert(err)
+        console.log(err,'数据加载出错')
       })
     },
     resVipCard({commit, state}, data) {
@@ -191,7 +197,7 @@ export default {
             })
           }
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     resArticle({commit, state}, data) {
@@ -202,7 +208,7 @@ export default {
             data: res
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     resNoticeList({commit, state}, data) {
@@ -213,7 +219,7 @@ export default {
             data: res
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     saveSelNotice({commit, state}, data) {
@@ -244,7 +250,7 @@ export default {
             myText: data.myText
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
 
     },
@@ -331,7 +337,7 @@ export default {
             data: res
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     changePayStaus({commit, state}, data) {
@@ -356,7 +362,7 @@ export default {
               })
             }
           }).catch(function (err) {
-          alert(err)
+          // alert(err)
         })
       } else {
         axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.create.get_main', {params: data.params})
@@ -366,7 +372,7 @@ export default {
               res: res
             })
           }).catch(function (err) {
-          alert(err)
+          // alert(err)
         })
       }
     },
@@ -381,6 +387,7 @@ export default {
             peerprice:'',
             jie:''
           }}).then(function (res2) {
+            console.log('购买订单信息',res2)
             if (res.data.status == 0) {
               commit({
                 type: 'savePayMessage',
@@ -454,23 +461,34 @@ export default {
         console.log('请求失败：' + err)
       })
     },
+
     cartUpdate({commit, state}, data) {
+      let source=data.params.source;
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.update', {params: data.params})
         .then(function (res) {
           axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.get_list', {params: data.params})
             .then(function (res) {
+              res.source=source
+              console.log('source',res)
               commit({
                 type: 'saveCartData',
                 res: res
               })
+              //更改全局的数量
+              // res.data.data.erws.cartcount=11
+              // commit({
+              //   type: 'saveCartcount',
+              //   data: res
+              // })
             }).catch(function (err) {
             console.log('请求失败：' + err)
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     cartDelete({commit, state}, data) {
+      let source=data.params.source;
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.remove', {params: data.params})
         .then(function (res) {
           commit({
@@ -479,6 +497,7 @@ export default {
           })
           axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.get_list', {params: data.params})
             .then(function (res) {
+              res.source=source
               commit({
                 type: 'saveCartData',
                 res: res
@@ -493,9 +512,10 @@ export default {
         .then(function (res) {
           axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.get_list', {params: data.params})
             .then(function (res) {
+              res.source=2
               commit({
                 type: 'saveCartData',
-                res: res
+                res: res,
               })
             }).catch(function (err) {
             console.log('请求失败：' + err)
@@ -521,10 +541,10 @@ export default {
                 res: res2
               })
             }).catch(function (err) {
-            alert(err)
+            // alert(err)
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     //附近商家
@@ -565,7 +585,7 @@ export default {
             res: res
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     saveCurSelShop({commit, state}, data) {
@@ -590,7 +610,7 @@ export default {
             data: res
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     changeCateid({commit, state}, data) {
@@ -613,7 +633,7 @@ export default {
             data: res
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     //分销中心
@@ -671,7 +691,7 @@ export default {
             res: res
           })
         }).catch(function (res) {
-        alert(err)
+        // alert(err)
       })
     },
     resYongDetail({commit, state}, data) {
@@ -682,7 +702,7 @@ export default {
             data: res
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     resTiXian({commit, state}, data) {
@@ -952,7 +972,7 @@ export default {
             res: res
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     resDelAddress({commit, state}, data) {
@@ -966,10 +986,10 @@ export default {
                 res: res
               })
             }).catch(function (err) {
-            alert(err)
+            // alert(err)
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     saveWantEditAddress({commit, state}, data) {
@@ -989,10 +1009,10 @@ export default {
                 res: res
               })
             }).catch(function (err) {
-            alert(err)
+            // alert(err)
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     saveSelAddress({commit, state}, data) {
@@ -1037,7 +1057,7 @@ export default {
             start:'yes'
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     loadMoreList({commit, state}, data) {
@@ -1058,7 +1078,7 @@ export default {
             start:'no'
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     resOrderDetail({commit, state}, data) {
@@ -1092,10 +1112,10 @@ export default {
                 start:'yes'
               })
             }).catch(function (err) {
-            alert(err)
+            // alert(err)
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     delOrder({commit, state}, data) {
@@ -1118,10 +1138,10 @@ export default {
                 start:'yes'
               })
             }).catch(function (err) {
-            alert(err)
+            // alert(err)
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     sureGet({commit, state}, data) {
@@ -1148,7 +1168,7 @@ export default {
                 start:'yes'
               })
             }).catch(function (err) {
-            alert(err)
+            // alert(err)
           })
         }).catch(function (err) {
         console.log('请求失败:' + err)
@@ -1257,8 +1277,17 @@ export default {
     },
     saveHomeData(state, data) {
       VueSet(state, 'homeData', data.data.data.result.data.result)
+      // console.log(state.homeData,'212aaaa')
       if (state.homeData != {}) {
+        // if(data.goIndex==0){
+        //   router.push({path:'/shopIndex/'})
+        // }else{
+        //   router.push({path: '/shopIndex/'})
+        // }
         router.push({path: '/shopIndex/'})
+        
+      }else{
+        // router.push({path: '/shopIndex/'})
       }
     },
     saveFuKuanCode(state, data) {
@@ -1372,9 +1401,31 @@ export default {
     },
     //  购物车
     saveCartData(state, data) {
-      console.log(data,'dsadas')
+      // console.log(data,'dsadas')
       let source=data.res.source
-      VueSet(state, 'cartData', data.res.data.result.data)
+      //进行库存查询，如果total大于库存那么他的值等于库存
+      data.res.data.result.data.list.map(item=>{
+        if(Number(item.total)>Number(item.maxbuy)&&Number(item.maxbuy)!=0){
+          if(Number(item.total)>Number(item.stock)){
+            item.total=item.stock;
+          }else{
+            item.total=item.maxbuy;
+          }
+          // console.log(1112,item.total,item.stock)
+        }else{
+          if(Number(item.total)>Number(item.stock)){
+            item.total=item.stock;
+          }
+        }
+      })
+      VueSet(state, 'cartData', data.res.data.result.data);
+      //根据购物车的数据，进行总数量的赋值
+      let  sum = 0;
+      for (let i = 0; i < data.res.data.result.data.list.length; i++) {
+        sum += parseInt(data.res.data.result.data.list[i].total)
+      }
+      VueSet(state, 'cartcount', sum);
+  
       var selArr = []
       for (var i = 0; i < data.res.data.result.data.list.length; i++) {
         if (data.res.data.result.data.list[i].selected == 1) {
@@ -1391,6 +1442,8 @@ export default {
         if(source==1){
           //详情页跳转去购物车时的返回按钮
           router.push({path: '/cart/',query:{source:1}});
+        }else if(source==2){
+
         }else{
           router.push({path: '/cart/'});
         }
@@ -1401,6 +1454,7 @@ export default {
       VueSet(state, 'addCartStatus', data.data)
     },
     saveCartcount(state, data) {
+      console.log(data,'carcount')
       if (data.data == 0) {
         VueSet(state, 'cartcount', 0)
       } else {
@@ -1527,8 +1581,9 @@ export default {
     saveWodeData(state, data) {
       VueSet(state, 'wodeHeadData', data.data.wodeHeadData.data.result.data.user)
       VueSet(state, 'wodeBodyData', data.data.wodeBodyData.data.result)
+      // console.log(state.wodeBodyData,state.wodeHeadData,'geren')
       if (state.wodeHeadData != {} && state.wodeBodyData != {}) {
-        router.push({path: '/vipIndex'})
+        // router.push({path: '/vipIndex'})
       }
     },
     saveUpdateNickNameResult(state, data) {

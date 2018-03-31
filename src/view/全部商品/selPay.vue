@@ -31,7 +31,7 @@
         <img :src="require('@/assets/more.png')" class="more">
       </div>
       <div>
-        <img :src="require('@/assets/alipay.png')"alt="">
+        <img :src="require('@/assets/alipay.png')" alt="">
         <div>
           <p>支付宝支付</p>
           <span>使用支付宝进行支付</span>
@@ -68,7 +68,18 @@
       }
     },
     mounted(){
-      console.log(this.selPay)
+      // console.log(this.selPay)
+    },
+    created:function(){
+      if(!this.selPay.order){
+          this.$dialog.toast({
+            mes: '该笔订单存在异常,请联系客服',
+            timeout: 2000
+          });
+          setTimeout(()=>{
+            this.$router.go(-1)
+          },1500)
+        }
     },
     methods:{
       weixinPay(){

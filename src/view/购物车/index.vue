@@ -4,12 +4,12 @@
       <div  v-if="source==1" slot="left" @click.stop="goBack">
         <yd-navbar-back-icon></yd-navbar-back-icon>
       </div>
-      <router-link to="#" slot="right" v-if="delShow" @click.native="delShow=false">
+      <div to="#" slot="right" v-if="delShow" @click="delShow=false">
         完成
-      </router-link>
-      <router-link to="#" slot="right" v-else @click.native="delShow=true">
+      </div>
+      <div to="#" slot="right" v-else @click="delShow=true">
         编辑
-      </router-link>
+      </div>
     </yd-navbar>
     <div class="shop" v-if="cartData.list.length>0">
       <div class="shop-item" v-for="(item,key) in cartData.list" :key="key">
@@ -24,9 +24,9 @@
           <span class="price">￥{{item.marketprice}}</span>
         </div>
         <span class="yd-spinner" style="height: 0.6rem; width: 2rem;">
-          <a href="#" @click="addOrReduceOrDel(['减',item.total,item.id,item.optionid,item.minbuy])"></a>
-          <input type="number" pattern="[0-9]*" v-model="item.total" class="yd-spinner-input">
-          <a href="#" @click="addOrReduceOrDel(['加',item.total,item.id,item.optionid])"></a>
+          <a  @click="addOrReduceOrDel(['减',item.total,item.id,item.optionid,item.minbuy])"></a>
+          <input type="number" @change="inputChange(key)" pattern="[0-9]*" v-model="item.total" class="yd-spinner-input">
+          <a  @click="addOrReduceOrDel(['加',item.total,item.id,item.optionid])"></a>
          </span>
       </div>
       <!--选择购买-->
@@ -36,7 +36,7 @@
             <img :src="require('@/assets/check.png')" alt="" v-if="isCheckAll" @click='selOrNo("",0)'>
             <img :src="require('@/assets/no-check.png')" alt="" v-else @click='selOrNo("",1)'>
           </div>
-          <div class="rit">合计：<span>￥{{cartData.totalprice}}</span> <p>不含运费</p></div>
+          <div class="rit">合计：<span>￥{{cartData.totalprice}}</span><p>不含运费</p></div>
         </div>
         <div class="right" @click="subMitCart">结算({{cartNum}})</div>
       </div>
@@ -99,7 +99,8 @@
               i:config.i,
               uniacid:config.uniacid,
               mid:localStorage.getItem('userid'),
-              openid:localStorage.getItem('openid')
+              openid:localStorage.getItem('openid'),
+              source:2
             }
           })
         }else if(arr[0]=='减'){
@@ -112,7 +113,8 @@
                 id:arr[2],
                 t:config.t,
                 mid:localStorage.getItem('userid'),
-                openid:localStorage.getItem('openid')
+                openid:localStorage.getItem('openid'),
+                source:2
               }
             })
           }else{
@@ -132,6 +134,7 @@
                 i:config.i,
                 uniacid:config.uniacid,
                 ids:this.checkedArr.join(','),
+                source:2
               }
             })
           }
@@ -183,6 +186,23 @@
       },
       goBack(){
         this.$router.go(-1);
+      },
+      //输入input数量
+      inputChange(index){
+        //数量超过库存 直接等于库存
+        let item=this.cartData.list[index]
+        if(item.total>item.maxbuy&&Number(item.maxbuy)!=0){
+          if(item.total>item.stock){
+            item.total=item.stock
+          }else{
+            item.total=item.maxbuy
+          }
+          console.log(item.total,item.stock)
+        }else{
+          if(item.total>item.stock){
+            item.total=item.stock
+          }
+        }
       }
     },
     beforeCreate(){

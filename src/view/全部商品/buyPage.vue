@@ -2,7 +2,7 @@
 <template>
   <div id="buyPage">
     <yd-navbar title="确认订单">
-      <div  slot="left" @click.stop="replaceRoute('/sortIndex/detail')">
+      <div  slot="left" @click.stop="backRoute">
         <yd-navbar-back-icon></yd-navbar-back-icon>
       </div>
     </yd-navbar>
@@ -35,19 +35,19 @@
     <yd-cell-group>
       <yd-cell-item>
         <span slot="left">商品小计</span>
-        <span slot="right">￥{{buyPageData.other.goodsprice}}</span>
+        <span slot="right">￥{{buyPageData.other.goodsprice||0}}</span>
       </yd-cell-item>
       <yd-cell-item>
         <span slot="left">运费</span>
         <span slot="right">
-          <span v-if="buyPageData.exchangeOrder">{{buyPageData.other.exchangepostage}}</span>
-          <span v-else-if="buyPageData.taskgoodsprice">{{buyPageData.other.taskgoodsprice}}</span>
-          <span v-else>{{buyPageData.other.dispatch_price}}</span>
+          <span v-if="buyPageData.exchangeOrder">{{buyPageData.other.exchangepostage||0}}</span>
+          <span v-else-if="buyPageData.taskgoodsprice">{{buyPageData.other.taskgoodsprice||0}}</span>
+          <span v-else>{{buyPageData.other.dispatch_price||0}}</span>
         </span>
       </yd-cell-item>
     </yd-cell-group>
     <div class="toPay">
-      <div class="left">需付：<span>￥{{buyPageData.allprice}}</span></div>
+      <div class="left">需付：<span>￥{{buyPageData.allprice||0}}</span></div>
       <div class="right" @click="createOrder">立即支付</div>
     </div>
   </div>
@@ -132,9 +132,7 @@
         })
       },
       //replace路由
-      replaceRoute(path){
-        console.log('11')
-        // this.$router.replace(path);
+      backRoute(path){
         this.$router.go(-1);
       }
     }
