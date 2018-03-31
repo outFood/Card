@@ -1,12 +1,12 @@
 <template>
   <div id="footers">
     <div v-for="(item,key) in footerMsg" :key="key">
-      <router-link  to="#" @click.native="resData(item.path)">
+      <div  class="nav-bar-item"  @click="resData(item.path)">
         <img :src="item.ico" alt="">
         <div>
           {{item.name}}
         </div>
-      </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -21,7 +21,7 @@
         footerMsg: [{
           name: '商城首页',
           ico:require('@/assets/shopIndex.png'),
-          path: '/shopIndex/'
+          path: '/shopIndex'
         }, {
           name:'全部商品',
           ico:require('@/assets/sort.png'),
@@ -58,6 +58,7 @@
         var type='',
         path=path.replace('/','')//去掉前面的
         path=path.replace('/','')//去掉后面的
+        console.log(path)
         if(path=='shopIndex'){//请求首页
           this.$store.dispatch({
             type:'resHomeData',
@@ -65,7 +66,8 @@
               id:config.homeid,
               t:config.t,
               i:config.i,
-              uniacid:config.uniacid
+              uniacid:config.uniacid,
+              goIndex:0
             }
           })
         }else if(path=='sortIndex'){//请求分类
@@ -74,7 +76,8 @@
             params:{
               i:config.i,
               t:config.t,
-              uniacid:config.uniacid
+              uniacid:config.uniacid,
+              goIndex:0
             }
           })
         }else if(path=='eChart'){//请求E聊
@@ -90,6 +93,7 @@
               uniacid:config.t,
               t:config.t,
               i:config.i,
+              goIndex:0
             },
           })
         }else if(path=='cart'){
@@ -103,7 +107,8 @@
                 i:config.i,
                 uniacid:config.uniacid,
                 mid:localStorage.getItem('userid'),
-                openid:localStorage.getItem('openid')
+                openid:localStorage.getItem('openid'),
+                goIndex:0
               }
             })
           }else{
@@ -116,6 +121,7 @@
             });
           }
         }else{//请求个人中心
+          this.$router.push({path: '/vipIndex'})
           this.$store.dispatch({
             type: 'resWode',
             params:{
@@ -123,7 +129,8 @@
               mid:localStorage.getItem('userid'),
               t:config.t,
               uniacid:config.uniacid,
-              i:config.i
+              i:config.i,
+              goIndex:0
             }
           })
         }
@@ -151,11 +158,11 @@
   -ms-flex: 0 0 14.2%;
   flex: 0 0 20%;
 }
-#footers a{
+#footers .nav-bar-item{
   color:#707070;
   font-size:0.4rem;
 }
-#footers a img{
+#footers .nav-bar-item img{
   width:0.72rem;
   height:0.72rem;
   display: block;

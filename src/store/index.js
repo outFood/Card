@@ -144,8 +144,13 @@ export default {
       })
     },
     resHomeData({commit, state}, data) {
+      // if(data.params.goIndex==0){
+      //   router.push({path:'/shopIndex/'})
+      // }
+      console.log(data.params.goIndex,'data.params.goIndex')
       axios.get(config.baseUrl + '/app/index.php?c=wxapp&a=module&do=main', {params: data.params})
         .then(function (res) {
+          res.goIndex=data.params.goIndex
           commit({
             type: 'saveHomeData',
             data: res
@@ -1272,8 +1277,17 @@ export default {
     },
     saveHomeData(state, data) {
       VueSet(state, 'homeData', data.data.data.result.data.result)
+      // console.log(state.homeData,'212aaaa')
       if (state.homeData != {}) {
+        // if(data.goIndex==0){
+        //   router.push({path:'/shopIndex/'})
+        // }else{
+        //   router.push({path: '/shopIndex/'})
+        // }
         router.push({path: '/shopIndex/'})
+        
+      }else{
+        // router.push({path: '/shopIndex/'})
       }
     },
     saveFuKuanCode(state, data) {
@@ -1567,8 +1581,9 @@ export default {
     saveWodeData(state, data) {
       VueSet(state, 'wodeHeadData', data.data.wodeHeadData.data.result.data.user)
       VueSet(state, 'wodeBodyData', data.data.wodeBodyData.data.result)
+      // console.log(state.wodeBodyData,state.wodeHeadData,'geren')
       if (state.wodeHeadData != {} && state.wodeBodyData != {}) {
-        router.push({path: '/vipIndex'})
+        // router.push({path: '/vipIndex'})
       }
     },
     saveUpdateNickNameResult(state, data) {

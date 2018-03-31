@@ -79,14 +79,19 @@ const getQuanDetail=()=>import('@/view/会员中心/getQuanDetail')
 Vue.use(Router)
 
 export default new Router({
+  mode:'history',
   exact:false,
   routes: [
     {
-      path: '/shopIndex',
+      path: '/',
       component: shopHome,
       children:[
         {
-          path:'',
+          path:'/',
+          redirect:'/shopIndex'
+        },
+        {
+          path:'/shopIndex',
           component:shopIndex
         },{
           path:'fukuan',
