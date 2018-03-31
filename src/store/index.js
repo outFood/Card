@@ -441,6 +441,14 @@ export default {
         console.log('请求失败:' + err)
       })
     },
+    //成功的订单信息更新方法
+    paySuccessDetail({commit, state}, data) {
+      //更新支付成功的订单信息
+      commit({
+        type: 'savePayMessage',
+        data: data.params
+      })
+    },
     changeAddress({commit, state}, data) {
       commit({
         type: 'changeAddress'
