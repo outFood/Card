@@ -373,7 +373,7 @@ export default {
     createOrder({commit, state}, data) {
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.create.submit', {params: data.params})
         .then(function (res) {
-          axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.pay.get_main',{params:{
+          axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.create.get_main',{params:{
             t:config.t,
             openid:config.openid,
             id: res.data.result.data.orderid,
@@ -381,6 +381,7 @@ export default {
             peerprice:'',
             jie:''
           }}).then(function (res2) {
+            console.log('购买订单信息',res2)
             if (res.data.status == 0) {
               commit({
                 type: 'savePayMessage',
@@ -454,15 +455,25 @@ export default {
         console.log('请求失败：' + err)
       })
     },
+
     cartUpdate({commit, state}, data) {
+      let source=data.params.source;
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.update', {params: data.params})
         .then(function (res) {
           axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.get_list', {params: data.params})
             .then(function (res) {
+              res.source=source
+              console.log('source',res)
               commit({
                 type: 'saveCartData',
                 res: res
               })
+              //更改全局的数量
+              // res.data.data.erws.cartcount=11
+              // commit({
+              //   type: 'saveCartcount',
+              //   data: res
+              // })
             }).catch(function (err) {
             console.log('请求失败：' + err)
           })
@@ -471,6 +482,7 @@ export default {
       })
     },
     cartDelete({commit, state}, data) {
+      let source=data.params.source;
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.remove', {params: data.params})
         .then(function (res) {
           commit({
@@ -479,6 +491,7 @@ export default {
           })
           axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.get_list', {params: data.params})
             .then(function (res) {
+              res.source=source
               commit({
                 type: 'saveCartData',
                 res: res
@@ -493,9 +506,10 @@ export default {
         .then(function (res) {
           axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.cart.get_list', {params: data.params})
             .then(function (res) {
+              res.source=2
               commit({
                 type: 'saveCartData',
-                res: res
+                res: res,
               })
             }).catch(function (err) {
             console.log('请求失败：' + err)
@@ -1372,8 +1386,15 @@ export default {
     },
     //  购物车
     saveCartData(state, data) {
-      console.log(data,'dsadas')
+      // console.log(data,'dsadas')
       let source=data.res.source
+      //进行库存查询，如果total大于库存那么他的值等于库存
+      data.res.data.result.data.list.map(item=>{
+        if(Number(item.total)>Number(item.stock)){
+          item.total=item.stock;
+          // console.log(1112,item.total,item.stock)
+        }
+      })
       VueSet(state, 'cartData', data.res.data.result.data)
       var selArr = []
       for (var i = 0; i < data.res.data.result.data.list.length; i++) {
@@ -1391,6 +1412,8 @@ export default {
         if(source==1){
           //详情页跳转去购物车时的返回按钮
           router.push({path: '/cart/',query:{source:1}});
+        }else if(source==2){
+
         }else{
           router.push({path: '/cart/'});
         }
@@ -1401,6 +1424,7 @@ export default {
       VueSet(state, 'addCartStatus', data.data)
     },
     saveCartcount(state, data) {
+      console.log(data,'carcount')
       if (data.data == 0) {
         VueSet(state, 'cartcount', 0)
       } else {

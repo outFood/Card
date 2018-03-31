@@ -2,7 +2,7 @@
 <template>
   <div id="buyPage">
     <yd-navbar title="确认订单">
-      <div  slot="left" @click.stop="replaceRoute('/sortIndex/detail')">
+      <div  slot="left" @click.stop="backRoute">
         <yd-navbar-back-icon></yd-navbar-back-icon>
       </div>
     </yd-navbar>
@@ -132,9 +132,7 @@
         })
       },
       //replace路由
-      replaceRoute(path){
-        console.log('11')
-        // this.$router.replace(path);
+      backRoute(path){
         this.$router.go(-1);
       }
     }

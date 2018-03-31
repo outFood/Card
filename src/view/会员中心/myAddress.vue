@@ -1,9 +1,9 @@
 <template>
   <div id="myAddress">
     <yd-navbar title="收货地址">
-      <router-link :to="toPath" slot="left" replace>
+      <div :to="toPath" slot="left" @click="back">
         <yd-navbar-back-icon></yd-navbar-back-icon>
-      </router-link>
+      </div>
     </yd-navbar>
     <div class="address-item" v-for="(item,key) in myAddressData" :key="key">
       <div @click="selAddress(item)">
@@ -107,9 +107,6 @@
       back:function () {
         this.$router.go(-1)
       },
-      back(){
-
-      }
     },
     beforeCreate(){
       this.$store.dispatch({

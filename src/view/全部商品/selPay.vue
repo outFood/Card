@@ -31,7 +31,7 @@
         <img :src="require('@/assets/more.png')" class="more">
       </div>
       <div>
-        <img :src="require('@/assets/alipay.png')"alt="">
+        <img :src="require('@/assets/alipay.png')" alt="">
         <div>
           <p>支付宝支付</p>
           <span>使用支付宝进行支付</span>

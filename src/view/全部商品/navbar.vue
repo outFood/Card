@@ -30,7 +30,7 @@
       <div class="payNumber">
         <span>购买数量(限购{{commodity_goods.maxbuy}}件)</span>
         <div>
-          <yd-spinner max="75" :min="commodity_goods.minbuy" width="100px" height="30px"
+          <yd-spinner :max="commodity_goods.maxbuy" :min="commodity_goods.minbuy" width="100px" height="30px"
                       v-model="payNumber"></yd-spinner>
         </div>
       </div>

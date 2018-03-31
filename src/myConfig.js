@@ -5,8 +5,8 @@
   homeid:30,//首页id
   mid:localStorage.getItem('userid'),
   openid:localStorage.getItem('openid'),
-  baseUrl:'',
-  // baseUrl:'/api',
+  // baseUrl:'',
+  baseUrl:'/api',
   acid: '2004',
   multiid: '2004',
   siteroot: 'http://cscs.ylhhyk.com/app/index.php',
