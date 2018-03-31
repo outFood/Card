@@ -1,5 +1,8 @@
 <template>
   <div id="shoukuan">
+    <div  slot="left" @click="back" class="go-back-arrow">
+      <yd-navbar-back-icon></yd-navbar-back-icon>
+    </div>
     <h5>收钱</h5>
     <div class="shoukuanma">
       <p class="biaoshi"><img :src="require('@/assets/phone-sky.png')" alt="">普通会员</p>
@@ -20,6 +23,11 @@
     computed:{
       shouKuanCode(){
         return this.$store.state.shouKuanCode
+      }
+    },
+    methods:{
+      back(){
+        this.$router.go(-1)
       }
     }
   }
@@ -60,5 +68,15 @@
   #shoukuan .errTip{
     color:#fff8cb;
     font-size:0.375rem;
+  }
+  .go-back-arrow{
+    width: 1rem;
+    position: fixed;
+    left:.3rem;
+    top:.2rem;
+  }
+  .go-back-arrow .yd-back-icon:before, .yd-next-icon:before{
+    font-size: .7rem;
+    color:#fff;
   }
 </style>

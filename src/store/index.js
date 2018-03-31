@@ -1390,21 +1390,27 @@ export default {
       let source=data.res.source
       //进行库存查询，如果total大于库存那么他的值等于库存
       data.res.data.result.data.list.map(item=>{
-        // if(item.total>item.maxbuy){
-        //   item.total=item.maxbuy
-        // }else{
-        //   item.total=item.stock
-        // }
-        if(Number(item.total)>Number(item.maxbuy)){
+        if(Number(item.total)>Number(item.maxbuy)&&Number(item.maxbuy)!=0){
           if(Number(item.total)>Number(item.stock)){
             item.total=item.stock;
           }else{
             item.total=item.maxbuy;
           }
           // console.log(1112,item.total,item.stock)
+        }else{
+          if(Number(item.total)>Number(item.stock)){
+            item.total=item.stock;
+          }
         }
       })
-      VueSet(state, 'cartData', data.res.data.result.data)
+      VueSet(state, 'cartData', data.res.data.result.data);
+      //根据购物车的数据，进行总数量的赋值
+      let  sum = 0;
+      for (let i = 0; i < data.res.data.result.data.list.length; i++) {
+        sum += parseInt(data.res.data.result.data.list[i].total)
+      }
+      VueSet(state, 'cartcount', sum);
+  
       var selArr = []
       for (var i = 0; i < data.res.data.result.data.list.length; i++) {
         if (data.res.data.result.data.list[i].selected == 1) {

@@ -191,13 +191,17 @@
       inputChange(index){
         //数量超过库存 直接等于库存
         let item=this.cartData.list[index]
-        if(item.total>item.maxbuy){
+        if(item.total>item.maxbuy&&Number(item.maxbuy)!=0){
           if(item.total>item.stock){
             item.total=item.stock
           }else{
             item.total=item.maxbuy
           }
           console.log(item.total,item.stock)
+        }else{
+          if(item.total>item.stock){
+            item.total=item.stock
+          }
         }
       }
     },

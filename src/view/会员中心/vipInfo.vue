@@ -11,7 +11,7 @@
     </router-link>
     <div class="detailInfo">
       <div>姓名 <span>*</span><input :placeholder="vipInfoData.realname?vipInfoData.realname:'请输入姓名'" v-model="realname" :class="{sky:!vipInfoData.realname}"></div>
-      <div>手机号 <span>*</span><input :placeholder="vipInfoData.mobile?vipInfoData.mobile:'请输入手机号'" v-model="mobile" :class="{sky:!vipInfoData.mobile}" maxlength="11"></div>
+      <div>手机号 <span>*</span><input readonly :placeholder="vipInfoData.mobile?vipInfoData.mobile:'请输入手机号'" v-model="mobile" :class="{sky:!vipInfoData.mobile}" maxlength="11"></div>
       <div>微信号 <span style="visibility: hidden">*</span><input :placeholder="vipInfoData.weixin?vipInfoData.weixin:'请输入微信号'" v-model="weixin" :class="{sky:!vipInfoData.weixin}"></div>
     </div>
     <yd-cell-group>
