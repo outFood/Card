@@ -173,7 +173,8 @@ export default {
             data: res
           })
         }).catch(function (err) {
-        alert(err)
+        // // alert(err)
+        console.log(err,'数据加载出错')
       })
     },
     resVipCard({commit, state}, data) {
@@ -191,7 +192,7 @@ export default {
             })
           }
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     resArticle({commit, state}, data) {
@@ -202,7 +203,7 @@ export default {
             data: res
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     resNoticeList({commit, state}, data) {
@@ -213,7 +214,7 @@ export default {
             data: res
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     saveSelNotice({commit, state}, data) {
@@ -244,7 +245,7 @@ export default {
             myText: data.myText
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
 
     },
@@ -331,7 +332,7 @@ export default {
             data: res
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     changePayStaus({commit, state}, data) {
@@ -356,7 +357,7 @@ export default {
               })
             }
           }).catch(function (err) {
-          alert(err)
+          // alert(err)
         })
       } else {
         axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.create.get_main', {params: data.params})
@@ -366,7 +367,7 @@ export default {
               res: res
             })
           }).catch(function (err) {
-          alert(err)
+          // alert(err)
         })
       }
     },
@@ -478,7 +479,7 @@ export default {
             console.log('请求失败：' + err)
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     cartDelete({commit, state}, data) {
@@ -535,10 +536,10 @@ export default {
                 res: res2
               })
             }).catch(function (err) {
-            alert(err)
+            // alert(err)
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     //附近商家
@@ -579,7 +580,7 @@ export default {
             res: res
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     saveCurSelShop({commit, state}, data) {
@@ -604,7 +605,7 @@ export default {
             data: res
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     changeCateid({commit, state}, data) {
@@ -627,7 +628,7 @@ export default {
             data: res
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     //分销中心
@@ -685,7 +686,7 @@ export default {
             res: res
           })
         }).catch(function (res) {
-        alert(err)
+        // alert(err)
       })
     },
     resYongDetail({commit, state}, data) {
@@ -696,7 +697,7 @@ export default {
             data: res
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     resTiXian({commit, state}, data) {
@@ -966,7 +967,7 @@ export default {
             res: res
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     resDelAddress({commit, state}, data) {
@@ -980,10 +981,10 @@ export default {
                 res: res
               })
             }).catch(function (err) {
-            alert(err)
+            // alert(err)
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     saveWantEditAddress({commit, state}, data) {
@@ -1003,10 +1004,10 @@ export default {
                 res: res
               })
             }).catch(function (err) {
-            alert(err)
+            // alert(err)
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     saveSelAddress({commit, state}, data) {
@@ -1051,7 +1052,7 @@ export default {
             start:'yes'
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     loadMoreList({commit, state}, data) {
@@ -1072,7 +1073,7 @@ export default {
             start:'no'
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     resOrderDetail({commit, state}, data) {
@@ -1106,10 +1107,10 @@ export default {
                 start:'yes'
               })
             }).catch(function (err) {
-            alert(err)
+            // alert(err)
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     delOrder({commit, state}, data) {
@@ -1132,10 +1133,10 @@ export default {
                 start:'yes'
               })
             }).catch(function (err) {
-            alert(err)
+            // alert(err)
           })
         }).catch(function (err) {
-        alert(err)
+        // alert(err)
       })
     },
     sureGet({commit, state}, data) {
@@ -1162,7 +1163,7 @@ export default {
                 start:'yes'
               })
             }).catch(function (err) {
-            alert(err)
+            // alert(err)
           })
         }).catch(function (err) {
         console.log('请求失败:' + err)
