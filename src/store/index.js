@@ -373,7 +373,7 @@ export default {
     createOrder({commit, state}, data) {
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.create.submit', {params: data.params})
         .then(function (res) {
-          axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.create.get_main',{params:{
+          axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.pay.get_main',{params:{
             t:config.t,
             openid:config.openid,
             id: res.data.result.data.orderid,
