@@ -11,29 +11,43 @@
   </div>
 </template>
 <script>
+  import axios from 'axios'
+  import router from '@/router'
+  import config from '../../myConfig'
   import headers from '@/components/headers'
   export default {
     components:{headers},
     data(){
       return {
-
-      }
-    },
-    computed:{
-      noticeList(){
-        return this.$store.state.noticeList
+        noticeList:[],
       }
     },
     methods:{
       saveSelNotice(item){
-        this.$store.dispatch({
-          type:'saveSelNotice',
-          params:item
+        this.$router.push({
+          path: '/noticePage',
+          query: {
+            item: JSON.stringify(item)
+          }
         })
       },
       back:function () {
         this.$router.go(-1)
       }
+    },
+    beforeCreate(){
+      var me=this,params={
+        t:config.t,
+        i:config.i,
+        uniacid:config.uniacid,
+        page:1,pagesize:10
+      }
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=shop.notice.get_list', {params:params})
+        .then(function (res) {
+          me.noticeList=res.data.result.data.list
+        }).catch(function (err) {
+          console.log('数据请求出错')
+      })
     }
   }
 </script>

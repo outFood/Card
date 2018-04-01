@@ -1,7 +1,7 @@
 <template>
   <div id="myAddress">
     <yd-navbar title="收货地址">
-      <div :to="toPath" slot="left" @click="back">
+      <div :to="toPath" slot="left">
         <yd-navbar-back-icon></yd-navbar-back-icon>
       </div>
     </yd-navbar>
@@ -103,9 +103,6 @@
           type:'saveSelAddress',
           item:item
         })
-      },
-      back:function () {
-        this.$router.go(-1)
       },
     },
     beforeCreate(){

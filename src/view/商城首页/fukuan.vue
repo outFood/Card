@@ -12,18 +12,29 @@
   </div>
 </template>
 <script>
+  import axios from 'axios'
+  import config from '../../myConfig'
   import headers from '@/components/headers'
   export default {
     components:{headers},
     data(){
       return {
-
+        fuKuanCode:{}
       }
     },
-    computed:{
-      fuKuanCode(){
-        return this.$store.state.fuKuanCode
+    beforeCreate(){
+      var me=this,params={
+          uniacid:config.uniacid,
+          t:config.t,
+          openid:localStorage.getItem('openid'),
+          money:''
       }
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.branch.get_payment', {params:params})
+        .then(function (res) {
+          me.fuKuanCode=res.data.result.data
+        }).catch(function (err) {
+        console.log('请求失败：' + err)
+      })
     }
   }
 </script>

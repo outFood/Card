@@ -29,6 +29,18 @@
       back(){
         this.$router.go(-1)
       }
+    },
+    beforeCreate(){
+      this.$store.dispatch({
+        type:'resShouKuan',
+        params:{
+          uniacid:config.uniacid,
+          t:config.t,
+          i:config.i,
+          openid:localStorage.getItem('openid'),
+          amount:''
+        }
+      })
     }
   }
 </script>

@@ -1,6 +1,10 @@
 <template>
   <div id="distribut">
-    <headers title="分销中心"></headers>
+    <yd-navbar title="分销中心">
+      <router-link to="/shopIndex" slot="left">
+        <yd-navbar-back-icon></yd-navbar-back-icon>
+      </router-link>
+    </yd-navbar>
     <div class="head">
       <yd-flexbox class="line1">
         <div class="left"><img :src="fenxiao_headData.result.result.member.avatar"></div>
@@ -119,6 +123,11 @@
         }
       }
     },
+    beforeCreate(){
+      this.$store.dispatch({
+        type:'resFenxiao'
+      })
+    }
   }
 </script>
 <style>

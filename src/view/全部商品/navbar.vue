@@ -34,7 +34,7 @@
                       v-model="payNumber"></yd-spinner>
           <yd-spinner v-if="!curStock&&commodity_goods.maxbuy!=0" :max="commodity_goods.maxbuy>commodity_goods.total&&commodity_goods.maxbuy!=0?commodity_goods.total:commodity_goods.maxbuy" :min="commodity_goods.minbuy" width="100px" height="30px"
                       v-model="payNumber"></yd-spinner>
-         <yd-spinner v-if="commodity_goods.maxbuy==0" :max="curStock?curStock:commodity_goods.total" :min="commodity_goods.minbuy" width="100px" height="30px"
+          <yd-spinner v-if="commodity_goods.maxbuy==0" :max="curStock?curStock:commodity_goods.total" :min="commodity_goods.minbuy" width="100px" height="30px"
                       v-model="payNumber"></yd-spinner>
         </div>
       </div>

@@ -18,18 +18,30 @@
 </template>
 <script>
   import config from '../../myConfig'
+  import axios from 'axios'
   import headers from '@/components/headers'
   export default {
     components:{headers},
     data(){
       return{
-
+        agentLineData:{}
       }
     },
-    computed:{
-      agentLineData(){
-        return this.$store.state.agentLineData
+    beforeCreate(){
+      var me=this,params={
+        openid:localStorage.getItem('openid'),
+          mid:localStorage.getItem('userid'),
+          uniacid:config.uniacid,
+          t:config.t,
+          i:config.i
       }
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=abonus.down.get_main', {params:params})
+        .then(function (res) {
+          me.agentLineData=res.data.result.data
+        }).catch(function (err) {
+        console.log('请求失败:' + err)
+      })
+
     }
   }
 </script>

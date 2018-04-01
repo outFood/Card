@@ -21,13 +21,14 @@
   import detailPic from '@/view/全部商品/detailPic'
   import pingjia from '@/view/全部商品/pingjia'
   import headers from '@/components/headers'
+  import config from '../../myConfig'
   export default {
     data(){
       return {
 
       }
     },
-    components:{detailSlider,detailTitlePrice,quanAndActive,navbar,detailParams,detailPic,pingjia,headers}
+    components:{detailSlider,detailTitlePrice,quanAndActive,navbar,detailParams,detailPic,pingjia,headers},
   }
 </script>
 <style>

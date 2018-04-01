@@ -2,26 +2,23 @@
   <div id="noticePage">
     <headers title="公告"></headers>
     <section>
-      <h2>{{selNotice.title}}</h2>
+      <h2>{{curNotice.title}}</h2>
       <p>
         <!--<span>E卡系统</span> -->
-        发布时间:{{selNotice.createtime}}</p>
-      <div v-html="selNotice.detail"></div>
+        发布时间:{{curNotice.createtime}}</p>
+      <div v-html="curNotice.detail"></div>
+      <img :src="curNotice.thumb" alt="">
     </section>
   </div>
 </template>
 <script>
+  import router from '@/router'
   import headers from '@/components/headers'
   export default {
     components:{headers},
     data(){
       return{
-
-      }
-    },
-    computed:{
-      selNotice(){
-        return this.$store.state.selNotice
+        curNotice:JSON.parse(this.$route.query.item)
       }
     },
     methods:{

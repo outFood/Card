@@ -59,14 +59,8 @@ window.app = new Vue({
   beforeCreate(){
     var openid=localStorage.getItem('openid')
     var mid=localStorage.getItem('userid')
-    if(openid!=null&&openid!='undefined'&&mid!=null&&mid!='undefined'){this.$store.dispatch({
-      type:'resHomeData',
-      params:{
-        id:config.homeid,
-        t:config.t,
-        uniacid:config.uniacid
-      }
-      })
+    if(openid!=null&&openid!='undefined'&&mid!=null&&mid!='undefined'){
+      return
     }else{
       router.push({path: '/vipIndex/login'})
     }
