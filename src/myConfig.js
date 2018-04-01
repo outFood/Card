@@ -5,7 +5,6 @@
   homeid:30,//首页id
   mid:localStorage.getItem('userid'),
   openid:localStorage.getItem('openid'),
- 
   baseUrl:'/api',
   acid: '2004',
   multiid: '2004',
