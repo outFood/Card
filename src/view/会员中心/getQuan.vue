@@ -1,7 +1,7 @@
 <template>
   <div id="getQuan">
     <headers title="领取优惠券"></headers>
-    <yd-flexbox v-for="(item,key) in getQuan.list" :key="key"  @click.native="resCouponDetail(item.id)">
+    <yd-flexbox v-for="(item,key) in list" :key="key"  @click.native="resCouponDetail(item.id)">
       <div class="left">
         <div>{{item.title3}}</div>
         {{item.title2}}
@@ -21,43 +21,39 @@
 </template>
 <script>
   import config from '../../myConfig'
+  import axios from 'axios'
   import headers from '@/components/headers'
   export default {
     components:{headers},
     data(){
       return{
-
+        list:[]
       }
-    },
-    computed:{
-      getQuan(){
-        return this.$store.state.getQuan
-      },
     },
     methods:{
       resCouponDetail(id){
-        this.$store.dispatch({
-          type:'resCouponDetail',
-          params:{
-            id:id,
-            t:config.t,
-            i:config.i,
-            uniacid:config.uniacid
-          },
+        this.$router.push({
+          path: '/vipIndex/getQuanDetail',
+          query: {
+            id:id
+          }
         })
       },
     },
     beforeCreate(){
-      this.$store.dispatch({
-        type:'resGetQuan',
-        params:{
-          page:1,
-          pagesize:10,
-          t:config.t,
-          i:config.i,
-          uniacid:config.uniacid,
-          cateid:0,
-        }
+      var me=this,params={
+        page:1,
+        pagesize:10,
+        t:config.t,
+        i:config.i,
+        uniacid:config.uniacid,
+        cateid:0,
+      }
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=sale.coupon.index.getlist', {params:params})
+        .then(function (res) {
+          me.list=res.data.result.data.list
+        }).catch(function (err) {
+        console.log('请求失败')
       })
     }
   }

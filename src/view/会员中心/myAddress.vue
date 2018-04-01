@@ -80,9 +80,11 @@
         });
       },
       saveWantEditAddress(item){
-        this.$store.dispatch({
-          type:'saveWantEditAddress',
-          params:item
+        this.$router.push({
+          path: '/vipIndex/editAddress',
+          query: {
+            item: JSON.stringify(item)
+          }
         })
       },
       setDefaultAddress(id){

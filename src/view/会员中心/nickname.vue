@@ -15,6 +15,7 @@
 </template>
 <script>
   import router from '@/router'
+  import axios from 'axios'
   import config from '../../myConfig'
   import Exif from 'exif-js'
   import headers from '@/components/headers'
@@ -31,9 +32,6 @@
       wodeHeadData(){
         return this.$store.state.wodeHeadData
       },
-      updateNickNameResult(){
-        return this.$store.state.updateNickNameResult
-      }
     },
     methods: {
       upload(e) {
@@ -189,26 +187,29 @@
         return ndata;
       },
       updateNickName(){
-        this.$store.dispatch({
-          type:'updateNickName',
-          params:{
-            t:config.t,
-            mid:localStorage.getItem('userid'),
-            openid:localStorage.getItem('openid'),
-            nickname:this.nickname?this.nickname:this.wodeHeadData.nickname,
-            headStr:this.headerImage?this.headerImage:this.wodeHeadData.avatar,
-            type:this.headerImage?0:1
+        var me=this,params={
+          t:config.t,
+          mid:localStorage.getItem('userid'),
+          openid:localStorage.getItem('openid'),
+          nickname:this.nickname?this.nickname:this.wodeHeadData.nickname,
+          headStr:this.headerImage?this.headerImage:this.wodeHeadData.avatar,
+          type:this.headerImage?0:1
+        }
+        axios.post(config.baseUrl + "/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.xcxl.alteravatar", params, {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
           }
-        }),
-          setTimeout(()=>{
-            if(this.updateNickNameResult.status==1){
-              this.$router.go(-1)
-            }
-            this.$dialog.toast({
-              mes:this.updateNickNameResult.result.msg,
-              timeout: 1500,
-            });
-          },1000)
+        }).then(function (res) {
+          if(res.data.status==1){
+            me.$router.go(-1)
+          }
+          me.$dialog.toast({
+            mes:res.data.result.msg,
+            timeout: 1500,
+          });
+        }).catch(function (err) {
+          console.log('请求失败:' + err)
+        })
       }
     },
 

@@ -40,23 +40,30 @@
   </div>
 </template>
 <script>
+  import config from '../../myConfig'
+  import axios from 'axios'
   import headers from '@/components/headers'
   export default {
     components:{headers},
     data(){
       return {
-
+        agentPriceData:{}
       }
     },
-    computed:{
-      agentPriceData(){
-        return this.$store.state.agentPriceData
-      },
-    },
-    methods:{
-      back:function () {
-        this.$router.go(-1)
+    beforeCreate(){
+      var me=this,params={
+        t:config.t,
+        uniacid:config.uniacid,
+        i:config.i,
+        mid:localStorage.getItem('userid'),
+        openid:localStorage.getItem('openid'),
       }
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=abonus.withdraw.get_main', {params:params})
+        .then(function (res) {
+          me.agentPriceData=res.data.result.data
+        }).catch(function (err) {
+        console.log('请求失败:' + err)
+      })
     }
   }
 </script>

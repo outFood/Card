@@ -39,12 +39,8 @@
         realname:'',
         mobile:'',
         myAreas:'',
-        address:''
-      }
-    },
-    computed:{
-      wantEditAddress(){
-        return this.$store.state.wantEditAddress
+        address:'',
+        wantEditAddress:JSON.parse(this.$route.query.item)
       }
     },
     methods:{

@@ -40,12 +40,8 @@
         birthday: '',
         areas: '',
         show1: false,
-        district: District
-      }
-    },
-    computed:{
-      vipInfoData(){
-        return this.$store.state.vipInfoData
+        district: District,
+        vipInfoData:{}
       }
     },
     methods: {
@@ -116,13 +112,16 @@
       },
     },
     beforeCreate(){
-      this.$store.dispatch({
-        type:'resVipInfo',
-        params:{
+      var me=this,params={
           mid:localStorage.getItem('userid'),
           openid:localStorage.getItem('openid'),
           t:config.t
-        },
+      }
+      axios.get(config.baseUrl + "/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.info.get_main", {params:params})
+        .then(function (res) {
+          me.vipInfoData=res.data.result.data.member
+        }).catch(function (err) {
+        console.log('请求失败:' + err)
       })
     }
   }

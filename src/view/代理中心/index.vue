@@ -37,7 +37,7 @@
         <img :src="require('@/assets/Commission.png')" alt="">
         <p>可提现佣金</p>
         0元
-        <router-link to="#" class="withdrawals" @click.native="resAgentPrice">佣金提现</router-link>
+        <router-link to="/agentIndex/agentPrice" class="withdrawals">佣金提现</router-link>
       </div>
     </div>
     <div class="bot">
@@ -294,18 +294,6 @@
       },
     },
     methods:{
-      resAgentPrice(){
-        this.$store.dispatch({
-          type:'resAgentPrice',
-          params:{
-            t:config.t,
-            uniacid:config.uniacid,
-            i:config.i,
-            mid:localStorage.getItem('userid'),
-            openid:localStorage.getItem('openid'),
-          }
-        })
-      },
       resFenHong(curText){
         this.$router.push({
           path: '/agentIndex/agentDetail',

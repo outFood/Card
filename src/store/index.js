@@ -93,29 +93,19 @@ export default {
       agentPage: {},
       registAgentMsg: '',
       agentData: {},
-      agentPriceData: {},
       //个人中心
       wodeHeadData: {},
       wodeBodyData: {},
-      updateNickNameResult: {},
       loginStatus: {},
       registStatus: {},
-      vipInfoData: {},
       myAddressData: {},
-      wantEditAddress: [],
       curSelAddress: {},
       myOrder: [],
       orderDetail: {},
       orderStatus: 6,
       curOrderStausPage: 1,
-      myLikeData: {},
-      zuJiData: {},
-      getQuan: {},//领券列表
-      couponDetail: {},
       myCouponDetail:{},
       getCoupon: {},//领券结果
-      addOrOrder: {},
-      recordData: {},
       evaluatPage: {}
     }
   },
@@ -787,17 +777,6 @@ export default {
         console.log('请求失败：' + err)
       })
     },
-    resAgentPrice({commit, state}, data) {
-      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=abonus.withdraw.get_main', {params: data.params})
-        .then(function (res) {
-          commit({
-            type: 'saveAgentPriceData',
-            data: res
-          })
-        }).catch(function (err) {
-        console.log('请求失败:' + err)
-      })
-    },
     //个人中心
     resWode({commit, state}, data) {
       //请求wodeHeadData
@@ -854,31 +833,6 @@ export default {
         console.log('请求失败:' + err)
       })
     },
-    resVipInfo({commit, state}, data) {
-      axios.get(config.baseUrl + "/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.info.get_main", {params: data.params})
-        .then(function (res) {
-          commit({
-            type: 'saveVipInfoData',
-            data: res
-          })
-        }).catch(function (err) {
-        console.log('请求失败:' + err)
-      })
-    },
-    updateNickName({commit, state}, data) {
-      axios.post(config.baseUrl + "/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=merch.xcxl.alteravatar", data.params, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      }).then(function (res) {
-        commit({
-          type: 'saveUpdateNickNameResult',
-          data: res
-        })
-      }).catch(function (err) {
-        console.log('请求失败:' + err)
-      })
-    },
     resAddress({commit, state}, data) {
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.address.indexapp', {params: data.params})
         .then(function (res) {
@@ -905,12 +859,6 @@ export default {
           })
         }).catch(function (err) {
         // alert(err)
-      })
-    },
-    saveWantEditAddress({commit, state}, data) {
-      commit({
-        type: 'saveWantEditAddress',
-        params: data.params
       })
     },
     defaultAddress({commit, state}, data) {
@@ -1100,51 +1048,6 @@ export default {
         console.log('请求失败:' + err)
       })
     },
-    resMyLike({commit, state}, data) {
-      console.log(data.params)
-      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.favorite.get_list', {params: data.params})
-        .then(function (res) {
-          commit({
-            type: 'saveMyLikeData',
-            res: res
-          })
-        }).catch(function (err) {
-        console.log('请求失败')
-      })
-    },
-    resZuji({commit, state}, data) {
-      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.history.get_list', {params: data.params})
-        .then(function (res) {
-          commit({
-            type: 'saveZujiData',
-            res: res
-          })
-        }).catch(function (err) {
-        console.log('请求失败')
-      })
-    },
-    resGetQuan({commit, state}, data) {
-      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=sale.coupon.index.getlist', {params: data.params})
-        .then(function (res) {
-          commit({
-            type: 'saveGetQuan',
-            data: res
-          })
-        }).catch(function (err) {
-        console.log('请求失败')
-      })
-    },
-    resCouponDetail({commit, state}, data) {
-      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=sale.coupon.detail.get_main', {params: data.params})
-        .then(function (res) {
-          commit({
-            type: 'saveCouponDetail',
-            data: res,
-          })
-        }).catch(function (err) {
-        console.log('请求失败')
-      })
-    },
     myCouponDetail({commit, state}, data){
       axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=sale.coupon.my.get_detail', {params: data.params})
         .then(function (res) {
@@ -1156,28 +1059,6 @@ export default {
           }
         }).catch(function (err) {console.log(err)})
     },
-    resAddOrReduce({commit, state}, data) {
-      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.capital.get_contactsMoney', {params: data.params})
-        .then(function (res) {
-          commit({
-            type: 'saveAddOrReduce',
-            data: res
-          })
-        }).catch(function (err) {
-        console.log('请求失败：' + err)
-      })
-    },
-    resRecord({commit, state}, data) {
-      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.capital.get_main', {params: data.params})
-        .then(function (res) {
-          commit({
-            type: 'saveRecord',
-            data: res
-          })
-        }).catch(function (err) {
-        console.log('请求失败：' + err)
-      })
-    }
   },
   mutations: {
     changeTitle(state, msg) {
@@ -1436,12 +1317,6 @@ export default {
       }
       console.log(state.agentData)
     },
-    saveAgentPriceData(state, data) {
-      VueSet(state, 'agentPriceData', data.data.data)
-      if (state.agentPriceData != {}) {
-        router.push({path: '/agentIndex/agentPrice'})
-      }
-    },
     //个人中心
     saveWodeData(state, data) {
       VueSet(state, 'wodeHeadData', data.data.wodeHeadData.data.result.data.user)
@@ -1451,9 +1326,6 @@ export default {
         // router.push({path: '/vipIndex'})
       }
     },
-    saveUpdateNickNameResult(state, data) {
-      VueSet(state, 'updateNickNameResult', data.data.data)
-    },
     saveLoginInfo(state, data) {
       VueSet(state, 'loginStatus', data.res.data)
       console.log(state.loginStatus)
@@ -1462,17 +1334,8 @@ export default {
       VueSet(state, 'registStatus', data.data)
       console.log(state.registStatus)
     },
-    saveVipInfoData(state, data) {
-      VueSet(state, 'vipInfoData', data.data.data.result.data.member)
-    },
     saveAddressList(state, data) {
       VueSet(state, 'myAddressData', data.res.data.result.data.result.list)
-    },
-    saveWantEditAddress(state, data) {
-      VueSet(state, 'wantEditAddress', data.params)
-      if (state.wantEditAddress != {}) {
-        router.push({path: '/vipIndex/editAddress'})
-      }
     },
     saveSelAddress(state, data) {
       VueSet(state, 'curSelAddress', data.data.item)
@@ -1512,32 +1375,11 @@ export default {
         router.push({path: '/vipIndex/evaluate'})
       }
     },
-    saveMyLikeData(state, data) {
-      VueSet(state, 'myLikeData', data.res.data.result)
-    },
-    saveZujiData(state, data) {
-      VueSet(state, 'zuJiData', data.res.data.result.data)
-    },
-    saveGetQuan(state, data) {
-      VueSet(state, 'getQuan', data.data.data.result.data)
-    },
-    saveCouponDetail(state, data) {
-      VueSet(state, 'couponDetail', data.data.data.result.data.result)
-      if (state.couponDetail != {}) {
-        router.push({path: '/vipIndex/getQuanDetail'})
-      }
-    },
     myCouponDetail(state, data){
       VueSet(state,'myCouponDetail',data.data.data.result.data)
       if(state.myCouponDetail!={}){
         router.push({path: '/vipIndex/myQuanDetail'})
       }
     },
-    saveAddOrReduce(state, data) {
-      VueSet(state, 'addOrOrder', data.data.data.result)
-    },
-    saveRecord(state, data) {
-      VueSet(state, 'recordData', data.data.data.result)
-    }
   }
 }

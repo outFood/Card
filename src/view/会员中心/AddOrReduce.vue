@@ -61,20 +61,29 @@
 <script>
   import headers from '@/components/headers'
   import config from '../../myConfig'
+  import axios from 'axios'
   export default {
     components:{headers},
+    data(){
+      return{
+        addOrOrder:[]
+      }
+    },
     beforeCreate(){
-      this.$store.dispatch({
-        type:'resAddOrReduce',
-        params:{
-          page:1,
-          pagesize:10,
-          uniacid:config.uniacid,
-          t:config.t,
-          i:config.i,
-          mid:config.mid,
-          openid:localStorage.getItem('openid'),
-        }
+      var me=this,params={
+        page:1,
+        pagesize:10,
+        uniacid:config.uniacid,
+        t:config.t,
+        i:config.i,
+        mid:config.mid,
+        openid:localStorage.getItem('openid'),
+      }
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.capital.get_contactsMoney', {params:params})
+        .then(function (res) {
+          me.addOrOrder=res.data.result.data.list
+        }).catch(function (err) {
+        console.log('请求失败：' + err)
       })
     }
   }

@@ -36,27 +36,31 @@
 </style>
 <script>
   import config from '../../myConfig'
+  import axios from 'axios'
   import noOrder from '@/components/noOrder'
   import headers from '@/components/headers'
   export default {
     components:{headers,noOrder},
-    computed:{
-      recordData(){
-        return this.$store.state.recordData
+    data(){
+      return{
+        recordData:{}
       }
     },
     beforeCreate(){
-      this.$store.dispatch({
-        type:'resRecord',
-        params:{
-          uniacid:config.uniacid,
-          t:config.t,
-          i:config.i,
-          openid:localStorage.getItem('openid'),
-          mid:localStorage.getItem('userid'),
-          page:1,
-          pagesize:10
-        }
+      var me=this,params={
+        uniacid:config.uniacid,
+        t:config.t,
+        i:config.i,
+        openid:localStorage.getItem('openid'),
+        mid:localStorage.getItem('userid'),
+        page:1,
+        pagesize:10
+      }
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.capital.get_main', {params:params})
+        .then(function (res) {
+          me.recordData=res.data.result
+        }).catch(function (err) {
+        console.log('请求失败：' + err)
       })
     }
   }
