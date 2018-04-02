@@ -22,7 +22,7 @@
       由于微信支付限额,大额支付请线下转款到中国工商银行3602 1172 0910 0084 647(广州琶州支行) 单位:广州泛达九州网络科技有限公司
     </p>
     <div class="payMethods">
-      <div @click="weixinPay">
+      <!-- <div @click="weixinPay">
         <img :src="require('@/assets/wechat.png')" alt="">
         <div>
           <p>微信支付</p>
@@ -45,6 +45,30 @@
           <span>当前约: <i>￥{{selPay.member.credit2}}</i></span>
         </div>
         <img :src="require('@/assets/more.png')" class="more">
+      </div> -->
+      <div @click="goPay(0)">
+        <img :src="require('@/assets/wechat.png')" alt="">
+        <div>
+          <p>微信支付</p>
+          <span>微信安全支付</span>
+        </div>
+        <img :src="require('@/assets/more.png')" class="more">
+      </div>
+      <div @click="goPay(1)">
+        <img :src="require('@/assets/alipay.png')" alt="">
+        <div>
+          <p>支付宝支付</p>
+          <span>使用支付宝进行支付</span>
+        </div>
+        <img :src="require('@/assets/more.png')" class="more">
+      </div>
+      <div @click="goPay(2)">
+        <img :src="require('@/assets/balance.png')" alt="">
+        <div>
+          <p>余额支付</p>
+          <span>当前约: <i>￥{{selPay.member.credit2}}</i></span>
+        </div>
+        <img :src="require('@/assets/more.png')" class="more">
       </div>
     </div>
   </div>
@@ -53,6 +77,7 @@
   var wx = require('weixin-js-sdk');
   import router from '@/router'
   import config from '../../myConfig'
+  import axios from 'axios'
   export default {
     data(){
       return{
@@ -68,7 +93,7 @@
       }
     },
     mounted(){
-      // console.log(this.selPay)
+      console.log(this.selPay,this.payMessage,'信息')
     },
     created:function(){
       if(!this.selPay.order){
@@ -135,6 +160,65 @@
       },
       back:function () {
         this.$router.go(-1)
+      },
+      //支付
+      goPay(type){
+        //统一进行支付单的校验
+        let verifyData={
+          t:config.t,
+          openid:this.selPay.order.openid,
+          id:this.selPay.order.id
+        }
+        axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.pay.get_check', {params: verifyData}).then(data=>{
+            if(data.data.status==1){
+              //成功了根据三种类型进行对应请求
+              if(type==0||type==2){
+                let payType=''
+                if(type=0){
+                  payType='wechat';
+                }else{
+                  payType='credit';
+                }
+                let obj={
+                  t:config.t,
+                  openid:this.selPay.order.openid,
+                  id:this.selPay.order.id,
+                  deduct:this.selPay.order.deductcredit,
+                  ordersn:this.selPay.order.ordersn,
+                  type:payType,//代表支付方式
+                  peerpaymessage:'',
+                  peerpay:'',  
+                  ispost:1
+                }
+                console.log(obj,'请求')
+                //参数 t:公众号 openid  deduct:优惠金额  id:orderId 订单id peerpay:代付 ordersn:订单号 type:支付方式，只有余额支付和微信支付2钟
+                // peerpaymessage:说明 ispost:1
+                axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=order.pay.complete', {params: obj}).then(data=>{
+                  if(data.data.status==1){
+                    //更新支付成功订单的信息
+                    this.$store.dispatch({
+                      type:'paySuccessDetail',
+                      params:this.selPay
+                    })
+                    this.$router.push({
+                      path:'/sortIndex/paySuccess'
+                    })
+                  }
+                })
+              }
+
+            }else{
+              this.$dialog.toast({
+                mes:error,
+                timeout: 1500
+              });
+            }
+        }).catch(error=>{
+          this.$dialog.toast({
+            mes:error,
+            timeout: 1500
+          });
+        })
       }
     }
   }

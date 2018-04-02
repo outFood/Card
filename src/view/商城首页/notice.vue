@@ -27,26 +27,17 @@
     methods:{
       toSomewhere(item){
         if(item.type==4){
-          this.$store.dispatch({
-            type:'resNoticeList',
-            url:item.linkurl,
-            params:{
-              t:config.t,
-              i:config.i,
-              uniacid:config.uniacid,
-              page:1,pagesize:10
-            }
-          })
+          router.push({path: '/noticeList'})
         }else if(item.type==63){
-          router.push({path: '/shopIndex/article'})
-          this.$store.dispatch({
-            type:'resArticle',
-            url:item.linkurl,
-            params:{
-              t:config.t,
-              openid:localStorage.getItem('openid')
-            }
-          })
+          router.push({path: '/article'})
+          // this.$store.dispatch({
+          //   type:'resArticle',
+          //   url:item.linkurl,
+          //   params:{
+          //     t:config.t,
+          //     openid:localStorage.getItem('openid')
+          //   }
+          // })
         }
       }
     },

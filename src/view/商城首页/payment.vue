@@ -36,31 +36,16 @@
         var mid=localStorage.getItem('userid')
         if(openid!=null&&openid!='undefined'&&mid!=null&&mid!='undefined'){
           if(itemText=='tuijian'){
-            this.$store.dispatch({
-              type:'resTuiGuang',
-              params:{
-                uniacid:config.uniacid,
-                t:config.t,
-                openid:localStorage.getItem('openid'),
-                ispost:''
-              }
-            })
+            router.push({path: '/distributIndex/tuiguang'})
           }else if(itemText=='fukuan'){
-            this.$store.dispatch({
-              type:'resFuKuan',
-              params:{
-                uniacid:config.uniacid,
-                t:config.t,
-                openid:localStorage.getItem('openid'),
-                money:''
-              }
-            })
+            router.push({path: '/fukuan'})
           }else if(itemText=='shoukuan'){
             this.$store.dispatch({
               type:'resShouKuan',
               params:{
                 uniacid:config.uniacid,
                 t:config.t,
+                i:config.i,
                 openid:localStorage.getItem('openid'),
                 amount:''
               }
@@ -71,6 +56,8 @@
                   mes:this.shoukuanMsg,
                   timeout: 1000,
                 });
+              }else{
+                router.push({path: '/shoukuan'})
               }
             },500)
           }else{

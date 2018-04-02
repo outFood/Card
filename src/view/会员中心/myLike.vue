@@ -15,30 +15,29 @@
 </template>
 <script>
   import config from '../../myConfig'
+  import axios from 'axios'
   import headers from '@/components/headers'
   export default {
     components:{headers},
     data(){
       return{
-
-      }
-    },
-    computed:{
-      list(){
-        return this.$store.state.myLikeData.list
+        list:[]
       }
     },
     beforeCreate(){
-      this.$store.dispatch({
-        type:'resMyLike',
-        params:{
-          page:1,
-          mid:localStorage.getItem('userid'),
-          openid:localStorage.getItem('openid'),
-          uniacid:config.uniacid,
-          i:config.i,
-          t:config.t
-        }
+      var me=this,params={
+        page:1,
+        mid:localStorage.getItem('userid'),
+        openid:localStorage.getItem('openid'),
+        uniacid:config.uniacid,
+        i:config.i,
+        t:config.t
+      }
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=member.favorite.get_list', {params:params})
+        .then(function (res) {
+          me.list=res.data.result.list
+        }).catch(function (err) {
+        console.log('请求失败')
       })
     }
   }

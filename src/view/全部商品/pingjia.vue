@@ -122,14 +122,14 @@
     border-radius: 3px;
     margin:10px 0;
   }
-.yd-tab-panel{
+  .yd-tab-panel{
     background: #fafafa !important;
   }
   .yd-tab-panel .list-item{
-  background: #fff;
+    background: #fff;
     padding:10px;
     margin-bottom: 10px;
-}
+  }
   #pingjia .list{
 
   }

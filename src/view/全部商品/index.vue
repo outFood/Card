@@ -253,6 +253,7 @@
       }
     },
     beforeCreate(){
+
       this.$store.dispatch({
         type:'resSortData',
         params:{

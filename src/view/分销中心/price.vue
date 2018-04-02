@@ -56,18 +56,14 @@
 </template>
 <script>
   import config from '../../myConfig'
+  import axios from 'axios'
   import router from '@/router'
   import headers from '@/components/headers'
   export default {
     components:{headers},
     data(){
       return {
-
-      }
-    },
-    computed:{
-      priceData(){
-        return this.$store.state.priceData
+        priceData:{}
       }
     },
     methods:{
@@ -76,8 +72,18 @@
       }
     },
     beforeCreate(){
-      this.$store.dispatch({
-        type:'resPrice',
+      var me=this,myParams = {
+        mid: config.mid,
+        openid: localStorage.getItem('openid'),
+        t: config.t,
+        i: config.i,
+        uniacid: config.uniacid
+      }
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=commission.withdraw.get_main', {params: myParams})
+        .then(function (res) {
+          me.priceData=res.data.result.data.result
+        }).catch(function (res) {
+        // alert(err)
       })
     }
   }

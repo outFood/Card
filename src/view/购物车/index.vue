@@ -25,7 +25,7 @@
         </div>
         <span class="yd-spinner" style="height: 0.6rem; width: 2rem;">
           <a  @click="addOrReduceOrDel(['减',item.total,item.id,item.optionid,item.minbuy])"></a>
-          <input type="number" @change="inputChange(key)" pattern="[0-9]*" v-model="item.total" class="yd-spinner-input">
+          <input type="number" readonly @change="inputChange(key)" pattern="[0-9]*" v-model="item.total" class="yd-spinner-input">
           <a  @click="addOrReduceOrDel(['加',item.total,item.id,item.optionid])"></a>
          </span>
       </div>

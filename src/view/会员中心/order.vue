@@ -270,6 +270,12 @@
         this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.finishLoad');
       },
     },
+    beforeCreate(){
+      this.$store.dispatch({
+        type:'resMyOrder',
+        text:'全部'
+      })
+    }
   }
 </script>
 <style>

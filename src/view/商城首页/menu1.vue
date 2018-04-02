@@ -11,6 +11,7 @@
   </div>
 </template>
 <script>
+  import router from '@/router'
   export default {
     data(){
       return {
@@ -34,14 +35,39 @@
       },1000)
     },
     methods:{
-      clickMenu(text){
-        if(text=='分销中心'){
-          this.$store.dispatch({
-            type:'resFenxiao'
-          })
-        }else if(text=='代理中心'){
-          router.push({path:'/agentIndex'})
+      clickMenu(type){
+        var openid=localStorage.getItem('openid')
+        var mid=localStorage.getItem('userid')
+        if(openid!=null&&openid!='undefined'&&mid!=null&&mid!='undefined'){
+          if(type==29){
+            this.$store.dispatch({
+              type:'resFenxiao'
+            })
+          }else if(type==63){
+            this.$store.dispatch({
+              type:'resAgent'
+            })
+          }
+          else if(type==3){
+            this.$store.dispatch({
+              type:'resSortData',
+              params:{
+                i:config.i,
+                t:config.t,
+                uniacid:config.uniacid
+              }
+            })
+          }
+        }else{
+          this.$dialog.confirm({
+            title: '提示',
+            mes: '请先登录！',
+            opts: () => {
+              router.push({path: '/vipIndex/login'})
+            }
+          });
         }
+
       }
     },
   }

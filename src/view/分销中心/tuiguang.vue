@@ -32,28 +32,37 @@
 </template>
 <script>
   import config from '../../myConfig'
+  import axios from 'axios'
   import headers from '@/components/headers'
   export default {
     components:{headers},
-    computed:{
-      qrcodeText(){
-        return this.$store.state.qrcodeText
-      },
-      qrcodeImg(){
-        return this.$store.state.qrcodeImg
+    data(){
+      return {
+        qrcodeText:{},
+        qrcodeImg:{}
       }
     },
     beforeCreate(){
-      this.$store.dispatch({
-        type:'resTuiGuang',
-        params:{
-          uniacid:config.uniacid,
-          t:config.t,
-          i:config.i,
-          openid:localStorage.getItem('openid'),
-          mid:localStorage.getItem('userid'),
-          ispost:''
-        }
+      var me=this,params={
+        uniacid:config.uniacid,
+        t:config.t,
+        i:config.i,
+        openid:localStorage.getItem('openid'),
+        mid:localStorage.getItem('userid'),
+        ispost:''
+      }
+      axios.get(config.baseUrl + "/app/index.php?c=entry&m=ewei_shopv2&do=mobile&r=commission.qrcode.get_main", {params:params})
+        .then(function (restext) {
+          params.ispost = '1'
+          axios.get(config.baseUrl + "/app/index.php?c=entry&m=ewei_shopv2&do=mobile&r=commission.qrcode.get_main", {params:params})
+            .then(function (resimg) {
+              me.qrcodeText=restext.data.result.data
+              me.qrcodeImg=resimg.data.result.data
+            }).catch(function (err) {
+            console.log('请求失败：' + err)
+          })
+        }).catch(function (err) {
+        console.log('请求失败：' + err)
       })
      }
   }

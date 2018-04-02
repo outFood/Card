@@ -10,11 +10,11 @@
       <div class="grade">【创业达人 {{agentData.member.aagenttype==1?'省级':(agentData.member.aagenttype==2?'市级':(agentData.member.aagenttype==3?'区级':'乡镇'))}}】</div>
     </div>
     <div class="agentMid mid">
-      <div class="left" @click="resAgentLine">
+      <router-link to="/agentIndex/agentLine" class="left">
         <img :src="require('@/assets/people_white.png')" alt="" class="people_white">
         <p>我的下线</p>
         {{agentData.bonus.total}}人
-      </div>
+      </router-link>
       <div class="middle">
         <span v-if="agentData.set.paytype==2">本周</span> <span v-else>本月</span>预计分红
         <h5>{{agentData.bonus_wait?agentData.bonus_wait:0.00}}</h5>
@@ -37,7 +37,7 @@
         <img :src="require('@/assets/Commission.png')" alt="">
         <p>可提现佣金</p>
         0元
-        <router-link to="#" class="withdrawals" @click.native="resAgentPrice">佣金提现</router-link>
+        <router-link to="/agentIndex/agentPrice" class="withdrawals">佣金提现</router-link>
       </div>
     </div>
     <div class="bot">
@@ -294,50 +294,19 @@
       },
     },
     methods:{
-      resAgentPrice(){
-        this.$store.dispatch({
-          type:'resAgentPrice',
-          params:{
-            t:config.t,
-            uniacid:config.uniacid,
-            i:config.i,
-            mid:localStorage.getItem('userid'),
-            openid:localStorage.getItem('openid'),
-          }
-        })
-      },
-      resAgentLine(){
-        this.$store.dispatch({
-          type:'resAgentLine',
-          params:{
-            openid:localStorage.getItem('openid'),
-            mid:localStorage.getItem('userid'),
-            uniacid:config.uniacid,
-            t:config.t,
-            i:config.i
-          }
-        })
-      },
       resFenHong(curText){
-        console.log(status)
-        this.$store.dispatch({
-          type:'resFenHong',
-          params:{
-            uniacid:config.uniacid,
-            t:config.t,
-            i:config.i,
-            openid:localStorage.getItem('openid'),
-            mid:localStorage.getItem('userid'),
-            page:1,
-            pagesize:10,
+        this.$router.push({
+          path: '/agentIndex/agentDetail',
+          query: {
             status:curText=='累计分红'?'':(curText=='待结算分红'?2:1)
-          },
-          curText:curText
+          }
         })
       },
-      back:function () {
-        this.$router.go(-1)
-      }
+    },
+    beforeCreate(){
+      this.$store.dispatch({
+        type:'resAgent'
+      })
     }
   }
 </script>
@@ -388,6 +357,9 @@
     color:#fff;
     justify-content: space-between;
     font-size:0.45rem;
+  }
+  #agent .mid .left{
+    color:#fff
   }
   #agent .mid img{
     width:0.78125rem;

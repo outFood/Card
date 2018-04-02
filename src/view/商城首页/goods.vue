@@ -208,6 +208,12 @@
               openid:config.openid,
             }
           })
+          // this.$router.push({
+          //   path: '/sortIndex/detail',
+          //   query: {
+          //     id:id
+          //   }
+          // })
         }else{
           this.$dialog.confirm({
             title: '提示',

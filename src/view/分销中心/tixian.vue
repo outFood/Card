@@ -6,7 +6,7 @@
         <span>我的可提现佣金</span>
       </div>
       <div class="item">
-        <b style="font-size:20px;">￥{{okTiXian.data.commission_ok}}</b>
+        <b style="font-size:20px;">￥{{okTiXian.data.commission_ok?okTiXian.data.commission_o:0.00}}</b>
       </div>
       <div class="item">
         <span>名称</span>
@@ -100,6 +100,13 @@
          console.log(this.okTiXian)
       },
       beforeCreate(){
+        var me=this,params={
+          mid:config.mid,
+          openid:localStorage.getItem('openid'),
+          t:config.t,
+          i:config.i,
+          uniacid:config.uniacid
+        }
         this.$store.dispatch({
             type:'tixian',
             params:{

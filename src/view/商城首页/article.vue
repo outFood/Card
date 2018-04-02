@@ -1,8 +1,7 @@
 <template>
   <div id="article">
-    <headers title="文章"></headers>
+    <headers :title="article.shopshare.title"></headers>
     <section>
-      <h2>{{article.shopshare.title}}</h2>
       <p>
         <span>{{article.article.article_mp}}</span>
         发布时间:{{article.article.article_date}}</p>
@@ -13,22 +12,32 @@
 </template>
 <script>
   import headers from '@/components/headers'
+  import config from '../../myConfig'
+  import axios from 'axios'
   export default {
     components:{headers},
     data(){
       return{
-
-      }
-    },
-    computed:{
-      article(){
-        return this.$store.state.article
+        article:{}
       }
     },
     methods:{
       back:function () {
         this.$router.go(-1)
       }
+    },
+    beforeCreate(){
+      var me=this,params={
+        t:config.t,
+        openid:localStorage.getItem('openid')
+      }
+      axios.get(config.baseUrl +'/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=article.index.get_main&aid=8', {params:params})
+        .then(function (res) {
+          console.log(res)
+          me.article=res.data.result.data
+        }).catch(function (err) {
+        // alert(err)
+      })
     }
   }
 </script>

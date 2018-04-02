@@ -244,10 +244,12 @@
   import headers from '@/components/headers'
   export default {
     components:{headers},
+    data(){
+      return {
+        couponDetail:{}
+      }
+    },
     computed:{
-      couponDetail(){
-        return this.$store.state.couponDetail
-      },
       couponMessage(){
         return this.$store.state.couponMessage
       },
@@ -300,5 +302,19 @@
         this.$router.go(-1)
       }
     },
+    beforeCreate(){
+      var me=this,params={
+          id:this.$route.query.id,
+          t:config.t,
+          i:config.i,
+          uniacid:config.uniacid
+      }
+      axios.get(config.baseUrl + '/app/index.php?from=wxapp&c=entry&m=ewei_shopv2&do=mobile&r=sale.coupon.detail.get_main', {params:params})
+        .then(function (res) {
+          me.couponDetail=res.data.result.data.result
+        }).catch(function (err) {
+        console.log('请求失败')
+      })
+    }
   }
 </script>
