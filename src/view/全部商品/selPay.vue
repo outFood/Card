@@ -96,6 +96,7 @@
       console.log(this.selPay,this.payMessage,'信息')
     },
     created:function(){
+      console.log(this.selPay)
       if(!this.selPay.order){
           this.$dialog.toast({
             mes: '该笔订单存在异常,请联系客服',

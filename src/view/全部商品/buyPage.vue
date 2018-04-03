@@ -48,7 +48,7 @@
     </yd-cell-group>
     <div class="toPay">
       <div class="left">需付：<span>￥{{buyPageData.allprice||0}}</span></div>
-      <div class="right" @click="createOrder">立即支付</div>
+      <div class="right" @click="createOrder()">立即支付</div>
     </div>
   </div>
 </template>

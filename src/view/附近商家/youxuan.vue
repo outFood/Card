@@ -7,7 +7,7 @@
         <yd-icon name="star" size=".45rem" color="rgb(255, 104, 93)"></yd-icon>
         
     </router-link>
-    <div class="list">
+    <div class="list list-4 list-5">
       <router-link to="#">
         <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
         <div class="desc">
@@ -19,6 +19,20 @@
         <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
         <div class="desc">
            <h5>高级考拉巴拿马哈哈</h5>
+           <span><b>¥20.4</b><s>¥40</s></span>
+        </div>
+      </router-link>
+      <router-link to="#">
+        <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
+        <div class="desc">
+           <h5>高级考拉</h5>
+           <span><b>¥20.4</b><s>¥40</s></span>
+        </div>
+      </router-link>
+      <router-link to="#">
+        <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
+        <div class="desc">
+           <h5>高级考拉</h5>
            <span><b>¥20.4</b><s>¥40</s></span>
         </div>
       </router-link>
@@ -85,16 +99,54 @@ export default{
   align-items: center;
   justify-content: center;
 }
+
 #youxuan .list a{
   display: block;
-  width: 30%;
+  width: 31.3%;
   margin-bottom: 10px;
   margin: 0 1%;
 }
+
+#youxuan .list-4 a{
+  width: 48%;
+  margin: 0 1%;
+  margin-bottom: 10px;
+}
+
+#youxuan .list-5 a{
+  width: 31.3%; 
+  margin: 0 1%;
+  margin-bottom: 10px;
+}
+
+#youxuan .list-5 a:nth-child(4){
+  width: 48%;
+}
+
+#youxuan .list-5 a:nth-child(5){
+  width: 48%;
+}
+
 #youxuan .list img{
   display: block;
   width:100%;
   height: 100px;
+}
+
+#youxuan .list-4 img{
+  height: 130px;
+}
+
+#youxuan .list-5 img{
+  height: 100px;
+}
+
+#youxuan .list-5 a:nth-child(4) img{
+  height: 130px
+}
+
+#youxuan .list-5 a:nth-child(5) img{
+  height: 130px
 }
 
 #youxuan .list .desc{

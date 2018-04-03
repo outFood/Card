@@ -3,7 +3,7 @@
     <headers title="我的足迹"></headers>
     <div v-if="list.length==0" class="noData"><span></span> 没有数据 <span></span></div>
     <div v-else>
-      <div class="item" v-for="(item,key) in list" :key="key">
+      <div class="item" v-for="(item,key) in list" :key="key" @click="toGoods(item.goodsid)">
         <img :src="item.thumb">
         <div class="right">
           <h6>{{item.title}}</h6>
@@ -38,7 +38,35 @@
         }).catch(function (err) {
         console.log('请求失败')
       })
-    }
+    },
+
+    methods: {
+      toGoods(id){
+        var openid=localStorage.getItem('openid')
+        var mid=localStorage.getItem('userid')
+        if(openid!=null&&openid!='undefined'&&mid!=null&&mid!='undefined'){
+          this.$store.dispatch({
+            type:'resCommodityDetailData',
+            params:{
+              id:id,
+              t:config.t,
+              i:config.i,
+              uniacid:config.uniacid,
+              mid:config.mid,
+              openid:config.openid,
+            }
+          })
+        }else{
+          this.$dialog.confirm({
+            title: '提示',
+            mes: '请先登录！',
+            opts: () => {
+              router.push({path: '/vipIndex/login'})
+            }
+          });
+        }
+      },
+    },
   }
 </script>
 <style>
